@@ -1,0 +1,200 @@
+
+import React, { Component, PropTypes } from 'react';
+
+import { Grid } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { Input } from 'react-bootstrap';
+import { NavbarCollapsible } from '../components/BootstrapNavigation';
+import { Nav } from 'react-bootstrap';
+import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
+
+
+class HomePage extends Component {
+
+    render() {
+        return (
+            <div>
+                <NavbarCollapsible inverse={ false }
+                                   fixedTop={ true }
+                                   fluid={ true }
+                                   branding={ {    name: 'Behind the Curtain',    href: '#'} }
+                                   params={ this.props.params }>
+                    <Nav pullRight={ true } params={ this.props.params }>
+                        <CustomNavRouterLink className="nav-item"
+                                             name="Search"
+                                             params={ this.props.params }></CustomNavRouterLink>
+                        <CustomNavRouterLink className="nav-item"
+                                             name="Oregon"
+                                             params={ this.props.params }></CustomNavRouterLink>
+                        <CustomNavRouterLink className="nav-item"
+                                             name="Campaigns"
+                                             params={ this.props.params }></CustomNavRouterLink>
+                        <CustomNavRouterLink className="nav-item"
+                                             name="Candidates"
+                                             params={ this.props.params }></CustomNavRouterLink>
+                        <CustomNavRouterLink className="nav-item"
+                                             name="Donors"
+                                             params={ this.props.params }></CustomNavRouterLink>
+                        <CustomNavRouterLink className="nav-item"
+                                             name="About"
+                                             params={ this.props.params }></CustomNavRouterLink>
+                        <CustomNavRouterLink className="nav-item"
+                                             name="FAQ"
+                                             params={ this.props.params }></CustomNavRouterLink>
+                    </Nav>
+                    <Nav pullRight={ false } params={ this.props.params }></Nav>
+                </NavbarCollapsible>
+                <Grid fluid={ true }
+                      style={ {    marginTop: '60px',    fontWeight: '200px'} }
+                      params={ this.props.params }>
+                    <Row params={ this.props.params }>
+                        <Col xs={ 4 }
+                             md={ 4 }
+                             sm={ 4 }
+                             lg={ 4 }
+                             params={ this.props.params }>
+                        <Panel className="text-center"
+                               style={ {    fontWeight: 200} }
+                               params={ this.props.params }>
+                            <h2 style={ {    fontWeight: 200} } params={ this.props.params }><span style={ {    fontWeight: 200} } params={ this.props.params }>313,412,231</span></h2>
+                            <h4 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>Expenditures</span></h4>
+                        </Panel>
+                        </Col>
+                        <Col xs={ 4 }
+                             md={ 4 }
+                             sm={ 4 }
+                             lg={ 4 }
+                             params={ this.props.params }>
+                        <Panel className="text-center" params={ this.props.params }>
+                            <h2 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>307,489,692</span></h2>
+                            <h4 params={ this.props.params }><span style={ {    fontWeight: 200} } params={ this.props.params }>Contributions</span></h4>
+                        </Panel>
+                        </Col>
+                        <Col xs={ 4 }
+                             md={ 4 }
+                             sm={ 4 }
+                             lg={ 4 }
+                             params={ this.props.params }>
+                        <Panel className="text-center" params={ this.props.params }>
+                            <h2 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>$48</span></h2>
+                            <h4 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>Average cost per ballot</span></h4>
+                        </Panel>
+                        </Col>
+                    </Row>
+                    <Row params={ this.props.params }>
+                        <Col xs={ 12 }
+                             md={ 12 }
+                             sm={ 12 }
+                             lg={ 12 }
+                             params={ this.props.params }>
+                        <form params={ this.props.params }>
+                            <Input type="text"
+                                   placeholder="Enter value"
+                                   buttonAfter={ <Button bsStyle="default"
+                                                         type="submit"
+                                                         params={ this.props.params }>
+                                                     <span params={ this.props.params }>Search</span>
+                                                 </Button> }
+                                   params={ this.props.params }></Input>
+                        </form>
+                        </Col>
+                    </Row>
+                    <Col xs={ 12 }
+                         md={ 12 }
+                         sm={ 12 }
+                         lg={ 12 }
+                         params={ this.props.params }>
+                    <Panel header="How does the money flow?"
+                           className="text-center"
+                           style={ {    fontWeight: 200} }
+                           params={ this.props.params }>
+                        <p params={ this.props.params }>
+                            <span params={ this.props.params }>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
+                        </p>
+                        <Panel bsSize="md" params={ this.props.params }></Panel>
+                    </Panel>
+                    <Panel header="How does the money flow?"
+                           className="text-center"
+                           style={ {    fontWeight: 200} }
+                           params={ this.props.params }>
+                        <p params={ this.props.params }>
+                            <span params={ this.props.params }>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
+                        </p>
+                        <Panel bsSize="md" params={ this.props.params }></Panel>
+                    </Panel>
+                    <Panel header="How does the money flow?"
+                           className="text-center"
+                           style={ {    fontWeight: 200} }
+                           params={ this.props.params }>
+                        <p params={ this.props.params }>
+                            <span params={ this.props.params }>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
+                        </p>
+                        <Panel bsSize="md" params={ this.props.params }></Panel>
+                    </Panel>
+                    </Col>
+                    <div className="footer container-fluid" params={ this.props.params }>
+                        <div className="container-fluid" params={ this.props.params }>
+                            <Col xs={ 12 }
+                                 md={ 3 }
+                                 sm={ 3 }
+                                 lg={ 3 }
+                                 params={ this.props.params }>
+                            <h4 className="underlined text-center"
+                                style={ {    fontWeight: '200'} }
+                                params={ this.props.params }><span params={ this.props.params }>About</span></h4>
+                            <div className="text-center nav-item" params={ this.props.params }>
+                                <a href="#" params={ this.props.params }><span params={ this.props.params }>2016 Team</span></a>
+                            </div>
+                            </Col>
+                            <Col xs={ 12 }
+                                 md={ 3 }
+                                 sm={ 3 }
+                                 lg={ 3 }
+                                 params={ this.props.params }>
+                            <h4 className="underlined text-center"
+                                style={ {    fontWeight: 200} }
+                                params={ this.props.params }><span params={ this.props.params }>Take action</span></h4>
+                            <div className="text-center nav-item" params={ this.props.params }>
+                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
+                            </div>
+                            </Col>
+                            <Col xs={ 12 }
+                                 md={ 3 }
+                                 sm={ 3 }
+                                 lg={ 3 }
+                                 params={ this.props.params }>
+                            <h4 className="underlined text-center"
+                                style={ {    fontWeight: 200} }
+                                params={ this.props.params }><span params={ this.props.params }>Contact</span></h4>
+                            <div className="text-center nav-item" params={ this.props.params }>
+                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
+                            </div>
+                            <div className="text-center nav-item" params={ this.props.params }>
+                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Email</span></a>
+                            </div>
+                            </Col>
+                            <Col xs={ 12 }
+                                 md={ 3 }
+                                 sm={ 3 }
+                                 lg={ 3 }
+                                 params={ this.props.params }>
+                            <h4 className="underlined text-center"
+                                style={ {    fontWeight: 200} }
+                                params={ this.props.params }><span params={ this.props.params }>Explore</span></h4>
+                            <div className="text-center nav-item" params={ this.props.params }>
+                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Search campaigns</span></a>
+                            </div>
+                            </Col>
+                        </div>
+                    </div>
+                </Grid>
+            </div>
+            );
+    }
+}
+
+export default HomePage;
+
