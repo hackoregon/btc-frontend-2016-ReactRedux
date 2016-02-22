@@ -36,6 +36,7 @@ class SearchResultsForm extends Component {
         this.state = {
             value: '',
             suggestions: getMatches(''),
+            errorMessage: false,
             isLoading: false
         };
         this.onChange = this.onChange.bind(this);
@@ -46,8 +47,8 @@ class SearchResultsForm extends Component {
       this.setState({
         isLoading: true
       });
-
         fetchSuggestions(value).then((data)=>{
+
         let dataArr = [...data.candidate_names,...data.related]
         const suggestions = getMatches(value,dataArr);
 
@@ -99,8 +100,28 @@ class SearchResultsForm extends Component {
       className: 'form-control input-group',
       onChange: this.onChange
     };
-
+        let enterMessage = false;
+        let errorMessage = false;
         let fetchButton = null;
+
+        if (this.state.value.length > 0){
+          enterMessage = (
+            <p style={{color:'#888'}}>Press Enter/return to search</p>
+          );
+        }
+        if (status === 'error') {
+          errorMessage = (
+            <div colSpan="12">
+            <p>We did not find a match for [term(s)]. Please update your search and try again.</p>
+            <strong>Tips:</strong>
+            <ol>
+              <li>Check your spelling.</li>
+              <li>If you are not sure what to search, try browsing for a candidate, donor, measure, PAC name or corporation.</li>
+              <li>Let us know if you think there is an issue with our site.</li>
+            </ol>
+          </div>
+          );
+        }
         if (status === 'loading') {
             fetchButton = (<Button bsStyle="default"
                                     disabled={true}>
@@ -119,6 +140,7 @@ class SearchResultsForm extends Component {
                            </Button>
             );
         }
+
         const iconstyle = {
           position: 'absolute',
           top: '10px',
@@ -132,6 +154,7 @@ class SearchResultsForm extends Component {
                                  md={ 12 }
                                  sm={ 12 }
                                  lg={ 12 }>
+
                                  <Autosuggest ref={()=>this.setRef(this.state.value)}
                                    suggestions={suggestions}
                                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
@@ -139,12 +162,14 @@ class SearchResultsForm extends Component {
                                    renderSuggestion={renderSuggestion}
                                    inputProps={inputProps} />
                                  <i style={iconstyle} className={"fa fa-search"}></i>
+                                 {enterMessage}
+                               {errorMessage}
                           </Col>
-
                         </Row>
+
                     </Grid>
-                </form>
-            );
+
+                </form>);
     }
 }
 function mapStateToProps(state) {
