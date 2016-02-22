@@ -22,9 +22,10 @@ export default function() {
                 <IndexRoute component={ HomePage } />
                 <Route path="/" component={ HomePage } />
                 <Route path="/search" component={ SearchPage } >
-                  <Route path="/search?query:query&limit=:limit&pageSize=:pageSize" component={ResultsPage}/> 
+                  <Route path="?query:query&limit=:limit" component={ SearchPage }/>
                 </Route>
                 <Route path="/campaigns" component={ CampaignsPage } />
+                <Route path="/campaign/:filerId" component={ CampaignsPage } />
                 <Route path="/results" component={ ResultsPage } />
                 <Route path="/donors" component={ DonorsPage } />
                 <Route path="/candidates" component={ CandidatesPage } />
