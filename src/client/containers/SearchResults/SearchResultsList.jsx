@@ -22,18 +22,7 @@ class SearchResultsList extends Component {
                     );
             })
         } else if (list && list.length == 0) {
-            listItems = (<div colSpan="12">
-            <tr>
-            <p>We did not find a match for [term(s)]. Please update your search and try again.</p>
-            <strong>Tips:</strong>
-            <ol>
-              <li>Check your spelling.</li>
-              <li>If you are not sure what to search, try browsing for a candidate, donor, measure, PAC name or corporation.</li>
-              <li>Let us know if you think there is an issue with our site.</li>
-            </ol>
-            </tr>
-          </div>
-            );
+
         } else {
             listItems = (<div>
 
