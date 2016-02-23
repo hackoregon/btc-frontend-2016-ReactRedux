@@ -22,5 +22,9 @@ export default function fetchSuggestions(searchTerm) {
     .then((arr) => ({
         candidate_names: arr[0].data,
         related: arr[1].data
-    }))}
+    }))} else {
+      return new Promise((resolve,reject)=>{
+        resolve({searchTerm:searchTerm, status:'rejected'})
+      })
+    }
 }

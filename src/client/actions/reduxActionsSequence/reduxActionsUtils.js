@@ -23,6 +23,8 @@ export function wrapPromise(actionType, dispatch, promise){
         })
 }
 
+export function addInitializer(action){}
+
 export function parseAction(action){
     const { payload, type } = action;
     //console.log('Parsing action with type: ' + type);

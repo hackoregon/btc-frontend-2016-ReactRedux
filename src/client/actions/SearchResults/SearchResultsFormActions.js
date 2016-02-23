@@ -6,10 +6,12 @@ const FETCH_SEARCH_DATA = 'FETCH_SEARCH_DATA';
 export function fetchSearchData(inputText) {
   return (dispatch, getState) => wrapPromise(FETCH_SEARCH_DATA, dispatch, () => {
     return readData(inputText).then(response => {
-      let result = [];
+      let result = {
+        searchTerm : inputText,
+        list : []
+      };
       if (response && response.length > 0) {
-        debugger
-        result = response.map(item => {
+        result.list = response.map(item => {
           return {
             name: item.candidate_name,
             race: item.race,
@@ -39,14 +41,14 @@ export default function(state = {}, action = {
         list: [],
         fetching: {
           status: 'loading',
-
         }
       });
       return state;
     }
     if (stage === DONE) {
       state = Object.assign({}, state, {
-        list: payload,
+        searchTerm: payload.searchTerm,
+        list: payload.list,
         fetching: {
           status: 'done'
         }

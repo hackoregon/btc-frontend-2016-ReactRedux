@@ -1,7 +1,7 @@
 export default {
     searchData: {
         searchTerm: null,
-        list: [],
+        list: null,
         fetching: {
             status: null,
             statusText: null
