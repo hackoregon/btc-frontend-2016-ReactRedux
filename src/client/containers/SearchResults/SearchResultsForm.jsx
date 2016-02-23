@@ -36,17 +36,18 @@ class SearchResultsForm extends Component {
         this.state = {
             value: '',
             suggestions: getMatches(''),
-            errorMessage: false,
             isLoading: false
         };
         this.onChange = this.onChange.bind(this);
         this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this);
         this.setRef = this.setRef.bind(this);
     }
+
     loadSuggestions(value) {
       this.setState({
         isLoading: true
       });
+      
         fetchSuggestions(value).then((data)=>{
 
         let dataArr = [...data.candidate_names,...data.related]
@@ -93,13 +94,13 @@ class SearchResultsForm extends Component {
 
     render() {
       const {status, statusText} = this.props;
-      const { value, suggestions, isLoading } = this.state;
+      const { value, suggestions, isLoading, noResults } = this.state;
       const inputProps = {
       placeholder: 'Search for candidates, measures or PAC name',
       value,
       className: 'form-control input-group',
       onChange: this.onChange
-    };
+      };
         let enterMessage = false;
         let errorMessage = false;
         let fetchButton = null;
@@ -110,37 +111,13 @@ class SearchResultsForm extends Component {
           );
         }
         if (status === 'error') {
-          errorMessage = (
-            <div colSpan="12">
-            <p>We did not find a match for [term(s)]. Please update your search and try again.</p>
-            <strong>Tips:</strong>
-            <ol>
-              <li>Check your spelling.</li>
-              <li>If you are not sure what to search, try browsing for a candidate, donor, measure, PAC name or corporation.</li>
-              <li>Let us know if you think there is an issue with our site.</li>
-            </ol>
-          </div>
-          );
+
         }
         if (status === 'loading') {
-            fetchButton = (<Button bsStyle="default"
-                                    disabled={true}>
-                               <span>Searching</span>
-                           </Button>
-            );
-            setTimeout(()=>{
-              fetchButton = (<Button bsStyle="default">
-                                 <span>Search</span>
-                             </Button>)
-            },3000);
+            errorMessage = false;
         } else {
-            fetchButton = (<Button bsStyle="default" type = "submit">
 
-                               <span>Search</span>
-                           </Button>
-            );
         }
-
         const iconstyle = {
           position: 'absolute',
           top: '10px',
@@ -163,7 +140,6 @@ class SearchResultsForm extends Component {
                                    inputProps={inputProps} />
                                  <i style={iconstyle} className={"fa fa-search"}></i>
                                  {enterMessage}
-                               {errorMessage}
                           </Col>
                         </Row>
 

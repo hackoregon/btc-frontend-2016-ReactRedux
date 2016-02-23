@@ -6,7 +6,7 @@ const FETCH_SERVER_DATA = 'FETCH_SERVER_DATA';
 export const fetchServerData = createAction(FETCH_SERVER_DATA, () => {
     return readData()
         .then( response => {
-            return response.list;
+            return response.list
         });
 });
 
@@ -18,6 +18,7 @@ export default handleActions({
     [FETCH_SERVER_DATA]: {
         start(state, action){
             const serverData = Object.assign({}, state.serverData, {
+                searchTerm: payload.searchTerm,
                 fetching: {
                     status: 'loading',
                     errorText: '',
@@ -30,6 +31,7 @@ export default handleActions({
         },
         next(state, action){
             const serverData = Object.assign({}, state.serverData, {
+              searchTerm: payload.searchTerm,
                 fetching: {
                     status: 'done',
                     errorText: '',
@@ -43,6 +45,7 @@ export default handleActions({
         throw(state, action){
             console.log('Error is obtained');
             const serverData = Object.assign({}, state.serverData, {
+                searchTerm: payload.searchTerm,
                 fetching: {
                     status: 'done',
                     errorText: !!action.payload.message ? action.payload.message : 'Error: no message',
