@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import './assets/css/react-widgets.css';
 import './assets/css/bootstrap.css';
 import './assets/css/font-awesome.css';
+import './assets/css/components/autosuggest.css';
 import './assets/css/app.css';
 import './assets/js/bootstrap.js';
 
