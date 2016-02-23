@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "karma start",
+    "start": "node server.js & npm run build-client-dev", 
     "build-server": "gulp --gulpfile ./build-conf/gulpfile.js build-server",
     "build-server-dev": "gulp --gulpfile ./build-conf/gulpfile.js build-server-dev",
     "build-client": "webpack --config ./build-conf/webpack.config.js --progress --colors",
