@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
 
 class TextContainer extends Component {
@@ -7,6 +7,7 @@ class TextContainer extends Component {
       <div className="container">
       <h1></h1>
       <p className="text-left"></p>
+      </div>
     );
   }
 }
