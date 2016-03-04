@@ -10,7 +10,7 @@ import { Input } from 'react-bootstrap';
 import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
-
+import { DataBox } from '../components/Bootstrap'
 
 class HomePage extends Component {
 
@@ -56,12 +56,7 @@ class HomePage extends Component {
                              sm={ 4 }
                              lg={ 4 }
                              params={ this.props.params }>
-                        <Panel className="text-center"
-                               style={ {    fontWeight: 200} }
-                               params={ this.props.params }>
-                            <h2 style={ {    fontWeight: 200} } params={ this.props.params }><span style={ {    fontWeight: 200} } params={ this.props.params }>313,412,231</span></h2>
-                            <h4 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>Expenditures</span></h4>
-                        </Panel>
+                        <DataBox value="5" name="first" />
                         </Col>
                         <Col xs={ 4 }
                              md={ 4 }
@@ -197,4 +192,3 @@ class HomePage extends Component {
 }
 
 export default HomePage;
-
