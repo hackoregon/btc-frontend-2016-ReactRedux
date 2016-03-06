@@ -1,4 +1,5 @@
 node_modules
 .DS_STORE
 *.log
-public/resources
+public/resources/
+bundle.js
