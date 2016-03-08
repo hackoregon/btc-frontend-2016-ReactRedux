@@ -4,8 +4,6 @@ import {Panel, Col, Table} from 'react-bootstrap';
 import DonorRowItem from './DonorRowItem.jsx';
 import { fetchResultData } from '../../actions/index.js';
 
-// import HBar from './HBar.jsx';
-
 class ResultDonorsList extends Component {
 
   constructor(props, content) {

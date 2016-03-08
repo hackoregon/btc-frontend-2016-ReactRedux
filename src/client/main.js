@@ -4,7 +4,6 @@ import './assets/css/bootstrap.css';
 import './assets/css/font-awesome.css';
 import './assets/css/components/autosuggest.css';
 import './assets/css/app.css';
-import './assets/js/bootstrap.js';
 
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
