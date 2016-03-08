@@ -1,0 +1,149 @@
+// $primary-green: #499242;
+// $primary-blue: #68B9FE;
+// $background-blue: rgba(104, 185, 254, 0.4);
+$primary-white: #FFFFFF;
+$primary-grey: #4A4A4A;
+// $secondary-white: rgba(255, 255, 255, 0.9);
+$trim: #68B9FE 1px solid;
+
+@import 'compass/css3/font-face';
+
+@include font-face('OpenSansLight', '/src/client/assets/fonts/open-sans/OpenSans-Light.ttf');
+@include font-face('OpenSansBold', '/src/client/assets/fonts/open-sans/OpenSans-Bold.ttf');
+@include font-face('OpenSansRegular', '/src/client/assets/fonts/open-sans/OpenSans-Regular.ttf');
+@include font-face('MerriweatherLight', '/src/client/assets/fonts/merriweather/Merriweather-Light.otf');
+@include font-face('socicon', '/src/client/assets/fonts/socicons/socicon-webfont.ttf');
+
+// Primary Fonts
+// to do: create as mixins as entire classes
+// instead of just variables
+$headlineFont: "MerriweatherLight";
+$bodyFont: "OpenSansLight";
+$subheadFont: "OpenSansRegular";
+$compactFont: "OpenSansLight";
+$tinytypeFont: "OpenSansRegular";
+
+// Primary Colors
+$lightBlue: #64BCBB;
+$green: #49A14C;
+$darkBlue: #10716F;
+$darkGray: #828282;
+$lightGray: #D9D9D9;
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: 'OpenSansLight';
+}
+.content {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -12em;
+  padding-top: 70px;
+}
+
+h1 {
+  font-family: $headlineFont;
+  font-weight: 100;
+}
+h3 {
+  font-family: OpenSansLight;
+  font-weight: 100;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+#main-nav {
+    background-color: $primary-white;
+    font-size: 2em;
+
+    .selected {
+      font-family: OpenSansBold;
+
+      div {
+        border-bottom: 6px solid black;
+      }
+    }
+
+    .navbar-nav {
+        li {
+          div {
+            display: inline;
+            padding-bottom: 5%;
+            margin-right: 20px;
+            margin-top: 15px;
+
+            &:active, &:hover {
+                a {
+                  color: $darkGray;
+                }
+            }
+          }
+          a {
+              color: black;
+              text-decoration: none;
+              &:active, &:hover {
+                  text-decoration: none;
+              }
+            }
+        }
+    }
+}
+#main-nav.navbar {
+  border: none;
+  min-height: 75px;
+}
+
+.footer, .footer-spacer {
+  height: 12em;
+}
+
+.footer {
+
+  h1 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  h4 {
+    font-family: OpenSansBold;
+    padding-bottom: 4px;
+    margin-right: 15%;
+  }
+
+  a:link, a:visited, a:active {
+    color: #999999;
+  }
+}
+
+.underlined {
+    border-bottom: 1px solid black;
+}
+
+.jumbotron {
+    background-color: #FFF;
+    border-bottom: #EEE 1px solid;
+    text-align: center;
+    h1 {font-size: 45px;}
+}
+
+#question-buttons {
+    .btn.btn-lg {
+        border-radius: 0;
+        border: $green 1px solid;
+        color: $green;
+        &:hover, &:active, &:focus {
+            background: $green;
+            color: $primary-white;
+        }
+
+    }
+}
+
+.center-block {float: none !important}
+
+.socicon {
+  font-family: 'socicon' !important;
+}
