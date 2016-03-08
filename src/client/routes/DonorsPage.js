@@ -6,20 +6,19 @@ import { Table } from 'react-bootstrap';
 import { Carousel } from 'react-bootstrap';
 import { CarouselItem } from 'react-bootstrap';
 import { NavbarCollapsible } from '../components/BootstrapNavigation';
-import { Nav } from 'react-bootstrap';
+import { Nav, Panel } from 'react-bootstrap';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
-
 
 class DonorsPage extends Component {
 
     render() {
         return (
             <div>
-                <NavbarCollapsible inverse={ false }
+                <NavbarCollapsible
                                    fixedTop={ true }
                                    fluid={ true }
-                                   branding={ {    name: 'Behind the Curtain',    href: '#'} }
+                                   brandName={ 'Behind the Curtain' }
                                    params={ this.props.params }>
                     <Nav pullRight={ true } params={ this.props.params }>
                         <CustomNavRouterLink className="nav-item"
@@ -46,13 +45,14 @@ class DonorsPage extends Component {
                     </Nav>
                     <Nav pullRight={ false } params={ this.props.params }></Nav>
                 </NavbarCollapsible>
-                <Grid fluid={ true }
+                <Grid fluid={ false }
                       style={ {    marginTop: '60px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
-                </Grid>
-                <Carousel params={ this.props.params }>
+
+                <Carousel wrap={false} indicators={false} params={ this.props.params }>
                     <CarouselItem params={ this.props.params }>
+
                         <Table striped={ true }
                                bordered={ false }
                                condensed={ false }
@@ -95,15 +95,10 @@ class DonorsPage extends Component {
                                 </tr>
                             </tbody>
                         </Table>
-                        <div className="carousel-caption" params={ this.props.params }>
-                            <h3 params={ this.props.params }><span params={ this.props.params }>First slide label</span></h3>
-                            <p params={ this.props.params }>
-                                <span params={ this.props.params }>Nulla vitae elit libero, a pharetra augue mollis interdum.</span>
-                            </p>
-                        </div>
+
                     </CarouselItem>
                     <CarouselItem params={ this.props.params }>
-                        <div params={ this.props.params }>
+
                             <span params={ this.props.params }>Empty div</span>
                             <Table striped={ true }
                                    bordered={ false }
@@ -147,13 +142,7 @@ class DonorsPage extends Component {
                                     </tr>
                                 </tbody>
                             </Table>
-                        </div>
-                        <div className="carousel-caption" params={ this.props.params }>
-                            <h3 params={ this.props.params }><span params={ this.props.params }>Second slide label</span></h3>
-                            <p params={ this.props.params }>
-                                <span params={ this.props.params }>Nulla vitae elit libero, a pharetra augue mollis interdum.</span>
-                            </p>
-                        </div>
+
                     </CarouselItem>
                     <CarouselItem params={ this.props.params }>
                         <Table striped={ true }
@@ -198,14 +187,40 @@ class DonorsPage extends Component {
                                 </tr>
                             </tbody>
                         </Table>
-                        <div className="carousel-caption" params={ this.props.params }>
-                            <h3 params={ this.props.params }><span params={ this.props.params }>Second slide label</span></h3>
-                            <p params={ this.props.params }>
-                                <span params={ this.props.params }>Nulla vitae elit libero, a pharetra augue mollis interdum.</span>
-                            </p>
-                        </div>
                     </CarouselItem>
                 </Carousel>
+                <Panel>
+                  <Table fill striped={ false }
+                         bordered={ false }
+                         condensed={ false }
+                         hover={ true }
+                         params={ this.props.params }>
+                      <thead params={ this.props.params }>
+                          <tr params={ this.props.params }>
+                              <th params={ this.props.params }>
+                                  <span params={ this.props.params }>Text in th</span>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody params={ this.props.params }>
+                          <tr params={ this.props.params }>
+                              <td params={ this.props.params }>
+                                  <span params={ this.props.params }>Text in td</span>
+                              </td>
+                          </tr>
+                          <tr params={ this.props.params }>
+                              <td params={ this.props.params }>
+                                  <span params={ this.props.params }>Text in td</span>
+                              </td>
+                          </tr>
+                          <tr params={ this.props.params }>
+                              <td params={ this.props.params }>
+                                  <span params={ this.props.params }>Text in td</span>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </Table>
+                </Panel>
                 <Table striped={ false }
                        bordered={ true }
                        condensed={ true }
@@ -236,37 +251,9 @@ class DonorsPage extends Component {
                         </tr>
                     </tbody>
                 </Table>
-                <Table striped={ false }
-                       bordered={ true }
-                       condensed={ true }
-                       hover={ true }
-                       params={ this.props.params }>
-                    <thead params={ this.props.params }>
-                        <tr params={ this.props.params }>
-                            <th params={ this.props.params }>
-                                <span params={ this.props.params }>Text in th</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody params={ this.props.params }>
-                        <tr params={ this.props.params }>
-                            <td params={ this.props.params }>
-                                <span params={ this.props.params }>Text in td</span>
-                            </td>
-                        </tr>
-                        <tr params={ this.props.params }>
-                            <td params={ this.props.params }>
-                                <span params={ this.props.params }>Text in td</span>
-                            </td>
-                        </tr>
-                        <tr params={ this.props.params }>
-                            <td params={ this.props.params }>
-                                <span params={ this.props.params }>Text in td</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
+                </Grid>
             </div>
+
             );
     }
 }

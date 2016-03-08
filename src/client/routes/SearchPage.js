@@ -19,7 +19,7 @@ class SearchPage extends Component {
                 <NavbarCollapsible inverse={ false }
                                    fixedTop={ true }
                                    fluid={ true }
-                                   branding={ {    name: 'Behind the Curtain',    href: '#'} }
+                                   brandName='Behind the Curtain'
                                    params={ this.props.params }>
                     <Nav pullRight={ true } params={ this.props.params }>
                         <CustomNavRouterLink className="nav-item"
@@ -50,7 +50,6 @@ class SearchPage extends Component {
                       style={ {    marginTop: '60px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
-                    <SearchResultsAlert params={ this.props.params }></SearchResultsAlert>
                     <Col xs={ 12 }
                          md={ 12 }
                          sm={ 12 }
