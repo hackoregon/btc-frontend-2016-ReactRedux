@@ -16,7 +16,7 @@ class OregonPage extends Component {
                 <NavbarCollapsible inverse={ false }
                                    fixedTop={ true }
                                    fluid={ true }
-                                   branding={ {    name: 'Behind the Curtain',    href: '#'} }
+                                   branding={ {    name: 'Behind the Curtain' } }
                                    params={ this.props.params }>
                     <Nav pullRight={ true } params={ this.props.params }>
                         <CustomNavRouterLink className="nav-item"
