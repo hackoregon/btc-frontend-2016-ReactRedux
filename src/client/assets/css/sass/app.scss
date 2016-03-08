@@ -1,0 +1,615 @@
+$icon-font-path: "/src/client/assets/fonts";
+
+@import 'compass/css3';
+
+@import 'bootstrap.css';
+
+// Import our base styles
+@import '_base';
+
+// Import styles for other parts of the site.
+// Styles should be wrapped at the top level, e.g. the '_mainViz' partial is
+// wrapped with the id of the main div for that portion of the site #main-viz
+@import '_where';
+@import '_mainViz';
+
+.jumbotron.minified {
+  transition: padding-top 1s, padding-bottom 1s;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+input[type='text'].read-only {
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.force-submit {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+}
+
+/** Navigation Bar ========================================================= **/
+
+.navbar-fixed-top {
+  left: clear;
+}
+
+.tiny-logo {
+  width: 250px;
+}
+
+.container {
+  .navbar-header {
+  float: right;
+  margin-right: 0px;
+  }
+}
+
+.nav > li {
+  padding-top: 5px;
+}
+
+#main-nav .navbar-nav li div{
+  padding-bottom: 3%;
+}
+
+/** Home Page ============================================================== **/
+.home {
+  .header {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 0 15px 15px 15px;
+    border-bottom: 5px solid black;
+    width: 70%;
+  }
+
+  .sticker {
+    position: absolute;
+    right: 0px;
+    top: -55px;
+  }
+
+}
+
+/** slider css*/
+
+.areaFundsRaised {
+  fill: #46B4E4;
+  stroke: #077FD5;
+  clip-path: url(#clip);
+}
+
+.areaFundsSpent {
+  fill: rgba(255, 129, 63, 0.74);
+  stroke: #FC530A;
+  clip-path: url(#clip);
+}
+text.tip-text {
+  color: #666;
+  font-size: 13px;
+}
+
+text.slider-title {
+  font-size: 20px;
+}
+  .legend rect {
+  fill:white;
+  stroke:#ccc;
+  opacity:0.8;
+}
+
+g.tick{
+font-size:11px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.search {
+  margin-top: 40px;
+
+  .icon-candidate {
+    margin-left: 0px;
+  }
+}
+
+
+.results .icon-candidate {
+  margin-left: 0px;
+}
+
+/** About Page =========================================================== **/
+
+.about {
+  h2 {
+    margin-top: 40px;
+  }
+  p {
+    font-size: 18px;
+  }
+}
+
+/** FAQ Page =========================================================== **/
+
+.faq {
+  h2 {
+    margin-top: 40px;
+  }
+}
+
+/** Browse My Ballot Search and Results Pages ============================ **/
+.browse {
+
+  .btn {
+    font-family: sans-serif;
+    font-size: 22px;
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    margin-bottom: 55px;
+
+    .areaLabel {
+      position: relative;
+      top: 100px;
+    }
+  }
+
+  .current {
+    font-weight: bolder;
+    .areaLabel {
+        border-bottom: 3px solid black;
+    }
+  }
+  .local {
+    background-image: url('/src/client/assets/img/icons/navi_local_gray.svg');
+  }
+  .local.current {
+    background-image: url('/src/client/assets/img/icons/navi_local_selected.svg');
+  }
+  .zip {
+    background-image: url('/src/client/assets/img/icons/navi_zipcodes.svg');
+  }
+  .zip.current {
+    background-image: url('/src/client/assets/img/icons/navi_zipcodes_selected.svg');
+  }
+  .city {
+    background-image: url('/src/client/assets/img/icons/navi_city.svg');
+  }
+  .city.current {
+    background-image: url('/src/client/assets/img/icons/navi_city_selected.svg');
+  }
+  .county {
+    background-image: url('/src/client/assets/img/icons/navi_counties.svg');
+  }
+  .county.current {
+    background-image: url('/src/client/assets/img/icons/navi_counties_selected.svg');
+  }
+  .state {
+    background-image: url('/src/client/assets/img/icons/navi_state.svg');
+  }
+  .state.current {
+    background-image: url('/src/client/assets/img/icons/navi_state_selected.svg');
+  }
+  .national {
+    background-image: url('/src/client/assets/img/icons/navi_national.svg');
+  }
+  .national.current {
+    background-image: url('/src/client/assets/img/icons/navi_national_selected.svg');
+  }
+  .form-control {
+    font-size: 2.5em;
+    height: 60px;
+    margin: 10px;
+    border: 2px solid #777;
+    border-radius: 7px;
+  }
+  .attempted {
+    .ng-invalid {
+      border-color: red;
+    }
+  }
+  .themed {
+    color: #64bcba;
+    font-size: 30px;
+  }
+}
+
+.campaign-tile {
+  border: 1px solid #666666;
+  border-radius: 5px;
+  margin: 10px 10px 0 0;
+  padding: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.campaign-tile, .campaign-detail {
+  h2 {
+    font-family: OpenSansBold;
+    font-size: 30px;
+    a {
+      color: #666666;
+    }
+  }
+  .portrait {
+    float: left;
+    display: inline-block;
+    width: 170px;
+    height: 170px;
+  }
+  .total {
+    clear: both;
+    font-size: 2.5em;
+  }
+  .radial {
+    display: inline-block;
+  }
+  .percent {
+    font-size: 2em;
+  }
+  .icon {
+    width: 50px;
+    height: 50px;
+    margin-top: -50px;
+    position: relative;
+    top: 75px;
+    left: 25px;
+  }
+  .icon-grassroots {
+    background-image: url('/src/client/assets/img/icons/grassroots_funding_heart.svg');
+  }
+  .icon-district {
+    background-image: url('/src/client/assets/img/icons/indistrict_funding__gps.svg');
+  }
+  .icon-money {
+    background-image: url('/src/client/assets/img/icons/total_money_raised.svg');
+  }
+  .icon-grassroot {
+    background-image: url('/src/client/assets/img/icons/whos_giving_grassroots.svg');
+  }
+  .icon-individual {
+    background-image: url('/src/client/assets/img/icons/whos_giving_indv.svg');
+  }
+  .icon-pac {
+    background-image: url('/src/client/assets/img/icons/whos_giving_pac.svg');
+  }
+  .icon-party {
+    background-image: url('/src/client/assets/img/icons/whos_giving_party.svg');
+  }
+  .icon-corporate {
+    background-image: url('/src/client/assets/img/icons/whos_giving.svg');
+  }
+  .icon-union {
+    background-image: url('/src/client/assets/img/icons/whos_giving_union_funding.svg');
+  }
+  .party {
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+  }
+  .party-democrat {
+    background-image: url('/src/client/assets/img/icons/party2_dem_donkey.svg');
+  }
+  .party-republican {
+    background-image: url('/src/client/assets/img/icons/party_rep_elphant.svg');
+  }
+  .funding-icon {
+    display: inline-block;
+  }
+  .arrow {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+  }
+  .arrow-left {
+    right: 100%;
+  }
+  .arrow-right {
+    left: 100%;
+  }
+  .race {
+    height: 50px;
+  }
+}
+
+.funding-icons {
+  float: left;
+  width: 33%;
+}
+
+
+/*** Campaign Detail Page ============================================= ***/
+
+.grassroots-fact {
+  margin-top: 25px;
+}
+
+.total-raised {
+  color: green;
+}
+
+.total-spent {
+  color: red;
+}
+
+.campaign-detail {
+  .detail-header {
+    border-bottom: 5px solid black;
+  }
+  .total-lable {
+
+  }
+
+  h3 {
+    font-family: OpenSansBold;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    font-size: 22px;
+    color: gray;
+  }
+
+  .btn-toggle {
+    position: relative;
+    top: 2px;
+    padding: 0;
+    width: 51px;
+    height: 51px;
+    overflow: hidden;
+
+    &:hover {
+      img {
+        position: relative;
+        top: -49px;
+      }
+    }
+  }
+  .who-chart {
+    padding-top: 15px;
+
+    .source {
+      display: inline-block;
+      width:160px;
+      height: 280px;
+    }
+    .icon-container {
+      width:160px;
+      height:160px;
+    }
+    .btn {
+      .badge {
+        top: 1px;
+      }
+    }
+    .donorList {
+      font-size: 1em;
+      line-height: 1.25em;
+      height: auto;
+      margin-top: 5px;
+      -webkit-transition: max-height 1s;
+      transition: max-height 1s;
+
+      a {
+          text-decoration: none;
+          &:active, &:hover {
+              text-decoration: underline;
+          }
+        }
+
+      .payee {
+        text-overflow: ellipsis;
+      }
+    }
+    .extended.donor {
+      display: none;
+    }
+    .extended.donor.fullList {
+      display: block;
+    }
+
+    .wider {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .d3spend {
+    text {
+      font-family: OpenSansRegular;
+      font-size: 15px;
+      fill: black;
+    }
+    .slice {
+      text {
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.spent-row {
+  margin-bottom: 30px;
+}
+
+.candidate-name {
+  text-transform: capitalize;
+}
+
+  .legend {
+    display: inline-block;
+    width: 150px;
+
+    .category {
+      font-weight: 'bold';
+      margin: 2px 2px 0 0;
+    }
+  }
+
+.spending {
+  #d3tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #828282;
+    border-radius: 10px;
+    pointer-events: none;
+
+    p {
+      margin: 0;
+      font-family: OpenSansRegular;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
+
+$iconSize: 85px;
+
+.search, .results {
+
+  .icon {
+    display: inline-block;
+    width: $iconSize;
+    height: $iconSize;
+    margin: 15px;
+  }
+  .icon-candidate {
+    background-image: url('/src/client/assets/img/icons/search_campgains.svg');
+  }
+  .icon-initiative {
+    background-image: url('/src/client/assets/img/icons/search_campgains2.svg');
+  }
+  .icon-party {
+    background-image: url('/src/client/assets/img/icons/search_campgains4.svg');
+  }
+  .icon-arrow {
+    height: ($iconSize + 15px) / 2;
+    width: ($iconSize + 15px) / 2;
+    margin-top: ($iconSize / 3) + 5px;
+    margin-left: -20px;
+    background-image: url('/src/client/assets/img/icons/search_arrow.svg');
+  }
+}
+
+.results {
+  .icon-candidate {
+    margin-left: 16.666667%;
+  }
+}
+
+.search-box {
+  position: relative;
+
+  .form-control {
+    font-size: 1.5em;
+    height: $iconSize * 7 / 10;
+    margin-top: $iconSize / 3;
+    border: 2px solid #777;
+    border-radius: 7px;
+  }
+  input {
+    padding-left: ($iconSize / 2) + 8px;
+  }
+  .bg-search-icon {
+    width: ($iconSize / 2) - 5px;
+    height: ($iconSize / 2) - 5px;
+    position: absolute;
+    left: 25px;
+    top: 40px;
+  }
+}
+
+.browse, .search, .results {
+  h1 {
+    font-family: "MerriweatherLight";
+    font-size: 3.5em;
+    letter-spacing: 2px;
+  }
+}
+
+/* MONEY BY STATE =============================================== */
+.money-by-state {
+  margin-top: 20px;
+}
+
+/* FOOTER ======================================================= */
+
+.footer {
+  margin-top: 75px;
+
+  .social-container {
+    margin-left: -10px;
+  }
+}
+
+/* MEDIA QUERIES ================================================ */
+
+@media (max-width: 1199px) {
+  .footer {
+    margin-top: 15px;
+  }
+
+  .campaign-tile h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 991px) {
+  .results {
+    h1 {
+      font-size: 2.5em;
+    }
+  }
+
+  .search-box {
+    .form-control {
+      font-size: 1.25em;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    font-size: 20px;
+  }
+  .footer {
+    h4 {
+      margin-right: 0px;
+    }
+    .social-media-thumbnails {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 489px) {
+  .search-box {
+    .form-control {
+      font-size: 13px;
+    }
+  }
+}
+@media (max-width: 485px) {
+  .home {
+    .header {
+      margin-top: 0px;
+    }
+  }
+}
