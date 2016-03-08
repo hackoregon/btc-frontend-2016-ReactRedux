@@ -59,7 +59,6 @@ const FETCH_SUMMARY_DATA = 'FETCH_SUMMARY_DATA';
 export function fetchSummaryData(filerId){
   return (dispatch, getState) => wrapPromise(FETCH_SUMMARY_DATA, dispatch, () => {
     return readSummaryData(filerId).then(response => {
-      debugger
       let result = {};
       if (response && response.length > 0) {
 
@@ -224,31 +223,34 @@ export default function(state = {}, action = {
       debugger
       if (stage === START) {
         state = Object.assign({}, state, {
-          summaryData: {},
+          resultData: {summaryData: {},
           fetching: {
             status: 'loading',
           }
+        }
         });
         return state;
       }
       if (stage === DONE) {
         state = {
           ...payload,
-          summaryData: {payload},
+          resultData:{
+            summaryData: {payload},
           fetching: {
             status: 'done'
           }
+        }
         };
         debugger
         return state;
       }
       if (stage === ERROR) {
         state = Object.assign({}, state, {
-          summaryData: {},
+          resultData:{summaryData: {},
           fetching: {
             status: 'error',
             statusText: payload
-          }
+          }}
         });
         return state;
       }
@@ -259,30 +261,35 @@ export default function(state = {}, action = {
     debugger
     if (stage === START) {
       state = Object.assign({}, state, {
+        resultData:{
         donors: [],
         fetching: {
           status: 'loading',
         }
+      }
       });
       return state;
     }
     if (stage === DONE) {
       state = Object.assign({}, state, {
+        resultData: {
         donorData: {...payload},
         fetching: {
           status: 'done'
         }
+      }
       });
-      debugger
+      console.log('stage done:',state)
       return state;
     }
     if (stage === ERROR) {
       state = Object.assign({}, state, {
-        donors: [],
+        resultData:{
         fetching: {
           status: 'error',
           statusText: payload
         }
+      }
       });
       return state;
     }

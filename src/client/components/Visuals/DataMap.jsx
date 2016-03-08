@@ -32,7 +32,7 @@ export default class DataMap extends React.Component {
       data: this.redducedData(),
       geographyConfig: {
         borderWidth: 0.5,
-        highlightFillColor: '#FFF',
+        highlightFillColor: '#EFE',
         popupTemplate: function(geography, data) {
           if (data && data.value) {
             return '<div class="hoverinfo"><strong>' + geography.properties.name + ', ' + data.value + '</strong></div>';
@@ -64,8 +64,8 @@ export default class DataMap extends React.Component {
       if (this.currentScreenWidth() > 600 && mapContainerWidth !== '600px') {
         d3.select('svg').remove();
         mapContainer.style({
-          width: '90%',
-          height: '30%'
+          width: '80%',
+          height: '40%'
         });
         this.datamap = this.renderMap();
       }
@@ -87,7 +87,7 @@ export default class DataMap extends React.Component {
   }
   render() {
     return (
-      <div id="datamap-container"></div>
+      <div style={{position:'relative'}}id="datamap-container"></div>
     );
   }
 }

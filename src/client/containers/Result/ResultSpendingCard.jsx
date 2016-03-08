@@ -5,7 +5,7 @@ import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 
-class ResultWhen extends Component {
+class ResultSpendingCard extends Component {
 
     constructor(props, content) {
         super(props, content);
@@ -25,8 +25,8 @@ class ResultWhen extends Component {
       const {donations} = this.props;
         return (<div>
                 <StoryCard
-                  question={"When are they raising and spending?"}
-                  description={"This graph gives an idea of the timing of campaign finance activity. The slider below allows you to focus on a particular election cycle."}>
+                  question={"What are they spending money on?"}
+                  description={"Did you know campaigns self select these categories?"}>
 
                 </StoryCard>
                 </div>
@@ -43,4 +43,4 @@ function mapStateToProps(state) {
   return {individual,pac,business,unknown,party};
 
 }
-export default connect(mapStateToProps)(ResultWhen);
+export default connect(mapStateToProps)(ResultSpendingCard);

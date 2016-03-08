@@ -1,23 +1,21 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+import {Col} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
-const StoryCard = (props) => {
+const StoryCard = ({question,description,children}) => {
+
   return (
-      <Col {...this.props}
+      <Col
           minWidth={500}
            className="text-center"
            style={ {    "fontWeight": 200} }>
-          <h3>{this.props.question}</h3>
+          <h3>{question}</h3>
         <p>
-            <span>{this.props.description}</span>
+            <span>{description}</span>
         </p>
-        {this.props.children}
+        {children}
   </Col>
   )
 }
-
-StoryCard.propTypes = {
-        question: PropTypes.string,
-        description: PropTypes.string
-};
 
 export default StoryCard;

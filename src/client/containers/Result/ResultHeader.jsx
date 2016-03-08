@@ -15,6 +15,7 @@ class ResultHeader extends Component {
     }
     componentDidMount() {
         const {dispatch} = this.props;
+        debugger
     }
 
     render() {
@@ -34,7 +35,13 @@ class ResultHeader extends Component {
     }
 }
 function mapStateToProps(state) {
-    const {summaryData: {candidate_name, race}} = state;
+    const {
+      resultData: {
+        summaryData: {
+          candidate_name, race
+        }
+        }
+      } = state;
     return {
         candidate_name,
         race
