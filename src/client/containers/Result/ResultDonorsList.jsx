@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Panel, Col, Table} from 'react-bootstrap';
 import DonorRowItem from './DonorRowItem.jsx';
-import { fetchResultData } from '../../actions/index.js';
+
 
 class ResultDonorsList extends Component {
 
@@ -14,9 +14,8 @@ class ResultDonorsList extends Component {
     debugger
     const {dispatch} = this.props;
   }
-  componentWillMount(x,e,s) {
-    let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
-    debugger
+  componentWillMount() {
+
   }
   componentWillUpdate(nextProps, nextState) {
     const {dispatch} = this.props;
@@ -68,9 +67,10 @@ class ResultDonorsList extends Component {
 }
 
 function mapStateToProps(state) {
-  const {
+  const {resultData:{
     donorData: {
       individual, pac, business, party, unknown
+      }
     }
   } = state;
   return {individual,pac,business,unknown,party};

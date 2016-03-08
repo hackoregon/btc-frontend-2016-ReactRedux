@@ -8,6 +8,7 @@ String.prototype.capitalize = function(lower) {
 }
 
 export function readData(searchTerm) {
+  debugger
   let searchFor = searchTerm.capitalize();
   return fetch(`http://54.213.83.132/hackoregon/http/competitors_from_name/${searchFor}/`, {
       method: 'get',
@@ -34,6 +35,7 @@ export function readData(searchTerm) {
 
 }
 export function readSummaryData(filerId) {
+  debugger
   return fetch(`http://54.213.83.132/hackoregon/http/committee_data_by_id/${filerId}/`, {
       method: 'get',
       headers: {

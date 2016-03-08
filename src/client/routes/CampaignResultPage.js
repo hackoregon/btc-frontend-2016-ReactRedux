@@ -9,18 +9,20 @@ import {NavbarCollapsible} from '../components/BootstrapNavigation';
 import {Nav} from 'react-bootstrap';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 import ResultHeader from '../containers/Result/ResultHeader.jsx';
-import ResultDonorsList from '../containers/Result/ResultDonorsList.jsx';
+import ResultDonorsCard from '../containers/Result/ResultDonorsCard.jsx';
 import ResultLocationStoryCard from '../containers/Result/ResultLocationStoryCard.jsx';
+import ResultWhen from '../containers/Result/ResultWhen.jsx';
+import ResultSpendingCard from '../containers/Result/ResultSpendingCard.jsx';
+import { fetchResultData } from '../actions/index.js';
 
 class CampaignResultPage extends Component {
-
+  componentWillMount() {
+    let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
+  }
   render() {
     return (
       <div>
-        <NavbarCollapsible inverse={false} fixedTop={true} fluid={true} branding={{
-          name: 'Behind the Curtain',
-          href: '#'
-        }} params={this.props.params}>
+        <NavbarCollapsible inverse={false} fixedTop={true} fluid={true} brand='Behind the Curtain' params={this.props.params}>
           <Nav pullRight={true} params={this.props.params}>
             <CustomNavRouterLink className="nav-item" name="Search" params={this.props.params}></CustomNavRouterLink>
             <CustomNavRouterLink className="nav-item" name="Oregon" params={this.props.params}></CustomNavRouterLink>
@@ -40,118 +42,12 @@ class CampaignResultPage extends Component {
           <ResultHeader style={{
             textAlign: 'center'
           }} params={this.props.params}></ResultHeader>
-          <ResultDonorsList params={this.props.params}></ResultDonorsList>
-          <Row style={{
-            textAlign: 'center',
-            overflow: 'hidden'
-          }} params={this.props.params}>
-            <Col xs={12} sm={6} style={{
-              display: 'inline-block',
-              float: 'none',
-              textAlign: 'left',
-              marginRight: '-4px'
-            }} params={this.props.params}>
-              <Table striped={false} bordered={true} condensed={true} hover={true} className="col-sm-6 col-xs-12" params={this.props.params}>
-                <thead className="btn btn-default col-xs-12" params={this.props.params}>
-                  <tr params={this.props.params}>
-                    <th params={this.props.params}>
-                      <span params={this.props.params}>Text in th</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody params={this.props.params}>
-                  <tr params={this.props.params}>
-                    <td params={this.props.params}>
-                      <Col sm={7} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={2} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={3} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                    </td>
-                  </tr>
-                  <tr params={this.props.params}>
-                    <td params={this.props.params}>
-                      <Col sm={7} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={2} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={3} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Col>
-            <Col xs={12} sm={6} style={{
-              display: 'inline-block',
-              float: 'none',
-              textAlign: 'left',
-              marginRight: '-4px'
-            }} params={this.props.params}>
-              <Table striped={false} bordered={true} condensed={true} hover={true} className="col-sm-6 col-xs-12" params={this.props.params}>
-                <thead className="btn btn-default col-xs-12" params={this.props.params}>
-                  <tr params={this.props.params}>
-                    <th params={this.props.params}>
-                      <span params={this.props.params}>Text in th</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody params={this.props.params}>
-                  <tr params={this.props.params}>
-                    <td params={this.props.params}>
-                      <Col sm={7} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={2} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={3} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                    </td>
-                  </tr>
-                  <tr params={this.props.params}>
-                    <td params={this.props.params}>
-                      <Col sm={7} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={2} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                      <Col sm={3} params={this.props.params}>
-                        <span params={this.props.params}>Empty Panel</span>
-                      </Col>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Col>
-          </Row>
+
           <Col xs={12} md={12} sm={12} lg={12} params={this.props.params}>
+            <ResultDonorsCard params={this.props.params}></ResultDonorsCard>
+            <ResultSpendingCard param={this.props.params}></ResultSpendingCard>
+            <ResultWhen param={this.props.params}></ResultWhen>
             <ResultLocationStoryCard params={this.props.params}></ResultLocationStoryCard>
-            <Panel header="How does the money flow?" className="text-center" style={{
-              fontWeight: 200
-            }} params={this.props.params}>
-              <p params={this.props.params}>
-                <span params={this.props.params}>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
-              </p>
-              <Panel bsSize="md" params={this.props.params}></Panel>
-            </Panel>
-            <Panel header="How does the money flow?" className="text-center" style={{
-              fontWeight: 200
-            }} params={this.props.params}>
-              <p params={this.props.params}>
-                <span params={this.props.params}>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
-              </p>
-              <Panel bsSize="md" params={this.props.params}></Panel>
-            </Panel>
           </Col>
           <div className="footer container-fluid" params={this.props.params}>
             <div className="container-fluid" params={this.props.params}>

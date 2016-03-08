@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
+import StoryCard from '../../components/StoryCards/StoryCard.jsx';
+
 class ResultLocationStoryCard extends Component {
 
     constructor(props, content) {
@@ -20,18 +22,24 @@ class ResultLocationStoryCard extends Component {
     }
 
     render() {
-        return (
-                <Col {...this.props}
-                      minWidth={500}
-                       className="text-center"
-                       style={ {    "fontWeight": 200} }>
-                      <h3>Where does the money come from?</h3>
-                    <p>
-                        <span>Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin.</span>
-                    </p>
-                    <DataMap regionData={statesData}/>
-              </Col>
+      const {donations} = this.props;
+      debugger
+        return (<div>
+                <StoryCard
+                  style={{minHeight:'400px',minWidth:'600px'}}
+                  question={"Where does the money come from?"}
+                  description={"Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin."}>
+                  <DataMap {...this.props} regionData={statesData}/>
+                </StoryCard>
+                </div>
         );
     }
 }
-export default connect()(ResultLocationStoryCard);
+function mapStateToProps(state) {
+    const {resultData:{locationData: donations}} = state;
+    return {
+        donations
+    };
+}
+
+export default connect(mapStateToProps)(ResultLocationStoryCard);
