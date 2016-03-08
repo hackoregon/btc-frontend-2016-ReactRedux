@@ -1,0 +1,877 @@
+@import url(bootstrap.css);
+@font-face {
+  font-family: "OpenSansLight";
+  src: "/src/client/assets/fonts/open-sans/OpenSans-Light.ttf";
+}
+@font-face {
+  font-family: "OpenSansBold";
+  src: "/src/client/assets/fonts/open-sans/OpenSans-Bold.ttf";
+}
+@font-face {
+  font-family: "OpenSansRegular";
+  src: "/src/client/assets/fonts/open-sans/OpenSans-Regular.ttf";
+}
+@font-face {
+  font-family: "MerriweatherLight";
+  src: "/src/client/assets/fonts/merriweather/Merriweather-Light.otf";
+}
+@font-face {
+  font-family: "socicon";
+  src: "/src/client/assets/fonts/socicons/socicon-webfont.ttf";
+}
+/* line 33, ../sass/_base.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 36, ../sass/_base.scss */
+body {
+  margin: 0;
+  font-family: 'OpenSansLight';
+}
+
+/* line 40, ../sass/_base.scss */
+.content {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -12em;
+  padding-top: 70px;
+}
+
+/* line 48, ../sass/_base.scss */
+h1 {
+  font-family: "MerriweatherLight";
+  font-weight: 100;
+}
+
+/* line 52, ../sass/_base.scss */
+h3 {
+  font-family: OpenSansLight;
+  font-weight: 100;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+/* line 59, ../sass/_base.scss */
+#main-nav {
+  background-color: #FFFFFF;
+  font-size: 2em;
+}
+/* line 63, ../sass/_base.scss */
+#main-nav .selected {
+  font-family: OpenSansBold;
+}
+/* line 66, ../sass/_base.scss */
+#main-nav .selected div {
+  border-bottom: 6px solid black;
+}
+/* line 73, ../sass/_base.scss */
+#main-nav .navbar-nav li div {
+  display: inline;
+  padding-bottom: 5%;
+  margin-right: 20px;
+  margin-top: 15px;
+}
+/* line 80, ../sass/_base.scss */
+#main-nav .navbar-nav li div:active a, #main-nav .navbar-nav li div:hover a {
+  color: #828282;
+}
+/* line 85, ../sass/_base.scss */
+#main-nav .navbar-nav li a {
+  color: black;
+  text-decoration: none;
+}
+/* line 88, ../sass/_base.scss */
+#main-nav .navbar-nav li a:active, #main-nav .navbar-nav li a:hover {
+  text-decoration: none;
+}
+
+/* line 95, ../sass/_base.scss */
+#main-nav.navbar {
+  border: none;
+  min-height: 75px;
+}
+
+/* line 100, ../sass/_base.scss */
+.footer, .footer-spacer {
+  height: 12em;
+}
+
+/* line 106, ../sass/_base.scss */
+.footer h1 {
+  margin-top: 0;
+  font-size: 24px;
+}
+/* line 110, ../sass/_base.scss */
+.footer h4 {
+  font-family: OpenSansBold;
+  padding-bottom: 4px;
+  margin-right: 15%;
+}
+/* line 116, ../sass/_base.scss */
+.footer a:link, .footer a:visited, .footer a:active {
+  color: #999999;
+}
+
+/* line 121, ../sass/_base.scss */
+.underlined {
+  border-bottom: 1px solid black;
+}
+
+/* line 125, ../sass/_base.scss */
+.jumbotron {
+  background-color: #FFF;
+  border-bottom: #EEE 1px solid;
+  text-align: center;
+}
+/* line 129, ../sass/_base.scss */
+.jumbotron h1 {
+  font-size: 45px;
+}
+
+/* line 133, ../sass/_base.scss */
+#question-buttons .btn.btn-lg {
+  border-radius: 0;
+  border: #49A14C 1px solid;
+  color: #49A14C;
+}
+/* line 137, ../sass/_base.scss */
+#question-buttons .btn.btn-lg:hover, #question-buttons .btn.btn-lg:active, #question-buttons .btn.btn-lg:focus {
+  background: #49A14C;
+  color: #FFFFFF;
+}
+
+/* line 145, ../sass/_base.scss */
+.center-block {
+  float: none !important;
+}
+
+/* line 147, ../sass/_base.scss */
+.socicon {
+  font-family: 'socicon' !important;
+}
+
+/* line 2, ../sass/_where.scss */
+#where svg {
+  -webkit-transform: rotate(-15deg) translateZ(0);
+  zoom: 4;
+  position: absolute;
+  left: 50%;
+  top: -20px;
+  margin-left: -150px;
+  -webkit-perspective: 1000;
+  -webkit-transform-style: preserve-3d;
+}
+/* line 13, ../sass/_where.scss */
+#where .counties {
+  fill: none;
+}
+/* line 17, ../sass/_where.scss */
+#where .states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+/* line 23, ../sass/_where.scss */
+#where path {
+  fill: #26B;
+}
+/* line 27, ../sass/_where.scss */
+#where .q0-9 {
+  fill: #f7fbff;
+}
+/* line 28, ../sass/_where.scss */
+#where .q1-9 {
+  fill: #deebf7;
+}
+/* line 29, ../sass/_where.scss */
+#where .q2-9 {
+  fill: #c6dbef;
+}
+/* line 30, ../sass/_where.scss */
+#where .q3-9 {
+  fill: #9ecae1;
+}
+/* line 31, ../sass/_where.scss */
+#where .q4-9 {
+  fill: #6baed6;
+}
+/* line 32, ../sass/_where.scss */
+#where .q5-9 {
+  fill: #4292c6;
+}
+/* line 33, ../sass/_where.scss */
+#where .q6-9 {
+  fill: #2171b5;
+}
+/* line 34, ../sass/_where.scss */
+#where .q7-9 {
+  fill: #08519c;
+}
+/* line 35, ../sass/_where.scss */
+#where .q8-9 {
+  fill: #08306b;
+}
+
+/* line 2, ../sass/_mainViz.scss */
+#main-viz .bar rect {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
+/* line 7, ../sass/_mainViz.scss */
+#main-viz .bar text {
+  fill: #fff;
+}
+/* line 11, ../sass/_mainViz.scss */
+#main-viz .axis path, #main-viz .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/* line 16, ../sass/app.scss */
+.jumbotron.minified {
+  transition: padding-top 1s, padding-bottom 1s;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* line 22, ../sass/app.scss */
+input[type='text'].read-only {
+  border-color: transparent;
+}
+
+/* line 26, ../sass/app.scss */
+.force-submit {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+}
+
+/** Navigation Bar ========================================================= **/
+/* line 35, ../sass/app.scss */
+.navbar-fixed-top {
+  left: clear;
+}
+
+/* line 39, ../sass/app.scss */
+.tiny-logo {
+  width: 250px;
+}
+
+/* line 44, ../sass/app.scss */
+.container .navbar-header {
+  float: right;
+  margin-right: 0px;
+}
+
+/* line 50, ../sass/app.scss */
+.nav > li {
+  padding-top: 5px;
+}
+
+/* line 54, ../sass/app.scss */
+#main-nav .navbar-nav li div {
+  padding-bottom: 3%;
+}
+
+/** Home Page ============================================================== **/
+/* line 60, ../sass/app.scss */
+.home .header {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  padding: 0 15px 15px 15px;
+  border-bottom: 5px solid black;
+  width: 70%;
+}
+/* line 70, ../sass/app.scss */
+.home .sticker {
+  position: absolute;
+  right: 0px;
+  top: -55px;
+}
+
+/** slider css*/
+/* line 80, ../sass/app.scss */
+.areaFundsRaised {
+  fill: #46B4E4;
+  stroke: #077FD5;
+  clip-path: url(#clip);
+}
+
+/* line 86, ../sass/app.scss */
+.areaFundsSpent {
+  fill: rgba(255, 129, 63, 0.74);
+  stroke: #FC530A;
+  clip-path: url(#clip);
+}
+
+/* line 91, ../sass/app.scss */
+text.tip-text {
+  color: #666;
+  font-size: 13px;
+}
+
+/* line 96, ../sass/app.scss */
+text.slider-title {
+  font-size: 20px;
+}
+
+/* line 99, ../sass/app.scss */
+.legend rect {
+  fill: white;
+  stroke: #ccc;
+  opacity: 0.8;
+}
+
+/* line 105, ../sass/app.scss */
+g.tick {
+  font-size: 11px;
+}
+
+/* line 109, ../sass/app.scss */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/* line 116, ../sass/app.scss */
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+/* line 122, ../sass/app.scss */
+.search {
+  margin-top: 40px;
+}
+/* line 125, ../sass/app.scss */
+.search .icon-candidate {
+  margin-left: 0px;
+}
+
+/* line 131, ../sass/app.scss */
+.results .icon-candidate {
+  margin-left: 0px;
+}
+
+/** About Page =========================================================== **/
+/* line 138, ../sass/app.scss */
+.about h2 {
+  margin-top: 40px;
+}
+/* line 141, ../sass/app.scss */
+.about p {
+  font-size: 18px;
+}
+
+/** FAQ Page =========================================================== **/
+/* line 149, ../sass/app.scss */
+.faq h2 {
+  margin-top: 40px;
+}
+
+/** Browse My Ballot Search and Results Pages ============================ **/
+/* line 157, ../sass/app.scss */
+.browse .btn {
+  font-family: sans-serif;
+  font-size: 22px;
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  margin-bottom: 55px;
+}
+/* line 165, ../sass/app.scss */
+.browse .btn .areaLabel {
+  position: relative;
+  top: 100px;
+}
+/* line 171, ../sass/app.scss */
+.browse .current {
+  font-weight: bolder;
+}
+/* line 173, ../sass/app.scss */
+.browse .current .areaLabel {
+  border-bottom: 3px solid black;
+}
+/* line 177, ../sass/app.scss */
+.browse .local {
+  background-image: url("/src/client/assets/img/icons/navi_local_gray.svg");
+}
+/* line 180, ../sass/app.scss */
+.browse .local.current {
+  background-image: url("/src/client/assets/img/icons/navi_local_selected.svg");
+}
+/* line 183, ../sass/app.scss */
+.browse .zip {
+  background-image: url("/src/client/assets/img/icons/navi_zipcodes.svg");
+}
+/* line 186, ../sass/app.scss */
+.browse .zip.current {
+  background-image: url("/src/client/assets/img/icons/navi_zipcodes_selected.svg");
+}
+/* line 189, ../sass/app.scss */
+.browse .city {
+  background-image: url("/src/client/assets/img/icons/navi_city.svg");
+}
+/* line 192, ../sass/app.scss */
+.browse .city.current {
+  background-image: url("/src/client/assets/img/icons/navi_city_selected.svg");
+}
+/* line 195, ../sass/app.scss */
+.browse .county {
+  background-image: url("/src/client/assets/img/icons/navi_counties.svg");
+}
+/* line 198, ../sass/app.scss */
+.browse .county.current {
+  background-image: url("/src/client/assets/img/icons/navi_counties_selected.svg");
+}
+/* line 201, ../sass/app.scss */
+.browse .state {
+  background-image: url("/src/client/assets/img/icons/navi_state.svg");
+}
+/* line 204, ../sass/app.scss */
+.browse .state.current {
+  background-image: url("/src/client/assets/img/icons/navi_state_selected.svg");
+}
+/* line 207, ../sass/app.scss */
+.browse .national {
+  background-image: url("/src/client/assets/img/icons/navi_national.svg");
+}
+/* line 210, ../sass/app.scss */
+.browse .national.current {
+  background-image: url("/src/client/assets/img/icons/navi_national_selected.svg");
+}
+/* line 213, ../sass/app.scss */
+.browse .form-control {
+  font-size: 2.5em;
+  height: 60px;
+  margin: 10px;
+  border: 2px solid #777;
+  border-radius: 7px;
+}
+/* line 221, ../sass/app.scss */
+.browse .attempted .ng-invalid {
+  border-color: red;
+}
+/* line 225, ../sass/app.scss */
+.browse .themed {
+  color: #64bcba;
+  font-size: 30px;
+}
+
+/* line 231, ../sass/app.scss */
+.campaign-tile {
+  border: 1px solid #666666;
+  border-radius: 5px;
+  margin: 10px 10px 0 0;
+  padding: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* line 240, ../sass/app.scss */
+.campaign-tile h2, .campaign-detail h2 {
+  font-family: OpenSansBold;
+  font-size: 30px;
+}
+/* line 243, ../sass/app.scss */
+.campaign-tile h2 a, .campaign-detail h2 a {
+  color: #666666;
+}
+/* line 247, ../sass/app.scss */
+.campaign-tile .portrait, .campaign-detail .portrait {
+  float: left;
+  display: inline-block;
+  width: 170px;
+  height: 170px;
+}
+/* line 253, ../sass/app.scss */
+.campaign-tile .total, .campaign-detail .total {
+  clear: both;
+  font-size: 2.5em;
+}
+/* line 257, ../sass/app.scss */
+.campaign-tile .radial, .campaign-detail .radial {
+  display: inline-block;
+}
+/* line 260, ../sass/app.scss */
+.campaign-tile .percent, .campaign-detail .percent {
+  font-size: 2em;
+}
+/* line 263, ../sass/app.scss */
+.campaign-tile .icon, .campaign-detail .icon {
+  width: 50px;
+  height: 50px;
+  margin-top: -50px;
+  position: relative;
+  top: 75px;
+  left: 25px;
+}
+/* line 271, ../sass/app.scss */
+.campaign-tile .icon-grassroots, .campaign-detail .icon-grassroots {
+  background-image: url("/src/client/assets/img/icons/grassroots_funding_heart.svg");
+}
+/* line 274, ../sass/app.scss */
+.campaign-tile .icon-district, .campaign-detail .icon-district {
+  background-image: url("/src/client/assets/img/icons/indistrict_funding__gps.svg");
+}
+/* line 277, ../sass/app.scss */
+.campaign-tile .icon-money, .campaign-detail .icon-money {
+  background-image: url("/src/client/assets/img/icons/total_money_raised.svg");
+}
+/* line 280, ../sass/app.scss */
+.campaign-tile .icon-grassroot, .campaign-detail .icon-grassroot {
+  background-image: url("/src/client/assets/img/icons/whos_giving_grassroots.svg");
+}
+/* line 283, ../sass/app.scss */
+.campaign-tile .icon-individual, .campaign-detail .icon-individual {
+  background-image: url("/src/client/assets/img/icons/whos_giving_indv.svg");
+}
+/* line 286, ../sass/app.scss */
+.campaign-tile .icon-pac, .campaign-detail .icon-pac {
+  background-image: url("/src/client/assets/img/icons/whos_giving_pac.svg");
+}
+/* line 289, ../sass/app.scss */
+.campaign-tile .icon-party, .campaign-detail .icon-party {
+  background-image: url("/src/client/assets/img/icons/whos_giving_party.svg");
+}
+/* line 292, ../sass/app.scss */
+.campaign-tile .icon-corporate, .campaign-detail .icon-corporate {
+  background-image: url("/src/client/assets/img/icons/whos_giving.svg");
+}
+/* line 295, ../sass/app.scss */
+.campaign-tile .icon-union, .campaign-detail .icon-union {
+  background-image: url("/src/client/assets/img/icons/whos_giving_union_funding.svg");
+}
+/* line 298, ../sass/app.scss */
+.campaign-tile .party, .campaign-detail .party {
+  width: 75px;
+  height: 75px;
+  display: inline-block;
+}
+/* line 303, ../sass/app.scss */
+.campaign-tile .party-democrat, .campaign-detail .party-democrat {
+  background-image: url("/src/client/assets/img/icons/party2_dem_donkey.svg");
+}
+/* line 306, ../sass/app.scss */
+.campaign-tile .party-republican, .campaign-detail .party-republican {
+  background-image: url("/src/client/assets/img/icons/party_rep_elphant.svg");
+}
+/* line 309, ../sass/app.scss */
+.campaign-tile .funding-icon, .campaign-detail .funding-icon {
+  display: inline-block;
+}
+/* line 312, ../sass/app.scss */
+.campaign-tile .arrow, .campaign-detail .arrow {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+}
+/* line 317, ../sass/app.scss */
+.campaign-tile .arrow-left, .campaign-detail .arrow-left {
+  right: 100%;
+}
+/* line 320, ../sass/app.scss */
+.campaign-tile .arrow-right, .campaign-detail .arrow-right {
+  left: 100%;
+}
+/* line 323, ../sass/app.scss */
+.campaign-tile .race, .campaign-detail .race {
+  height: 50px;
+}
+
+/* line 328, ../sass/app.scss */
+.funding-icons {
+  float: left;
+  width: 33%;
+}
+
+/*** Campaign Detail Page ============================================= ***/
+/* line 336, ../sass/app.scss */
+.grassroots-fact {
+  margin-top: 25px;
+}
+
+/* line 340, ../sass/app.scss */
+.total-raised {
+  color: green;
+}
+
+/* line 344, ../sass/app.scss */
+.total-spent {
+  color: red;
+}
+
+/* line 349, ../sass/app.scss */
+.campaign-detail .detail-header {
+  border-bottom: 5px solid black;
+}
+/* line 356, ../sass/app.scss */
+.campaign-detail h3 {
+  font-family: OpenSansBold;
+  letter-spacing: 0.5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+/* line 363, ../sass/app.scss */
+.campaign-detail h4 {
+  font-size: 22px;
+  color: gray;
+}
+/* line 368, ../sass/app.scss */
+.campaign-detail .btn-toggle {
+  position: relative;
+  top: 2px;
+  padding: 0;
+  width: 51px;
+  height: 51px;
+  overflow: hidden;
+}
+/* line 377, ../sass/app.scss */
+.campaign-detail .btn-toggle:hover img {
+  position: relative;
+  top: -49px;
+}
+/* line 383, ../sass/app.scss */
+.campaign-detail .who-chart {
+  padding-top: 15px;
+}
+/* line 386, ../sass/app.scss */
+.campaign-detail .who-chart .source {
+  display: inline-block;
+  width: 160px;
+  height: 280px;
+}
+/* line 391, ../sass/app.scss */
+.campaign-detail .who-chart .icon-container {
+  width: 160px;
+  height: 160px;
+}
+/* line 396, ../sass/app.scss */
+.campaign-detail .who-chart .btn .badge {
+  top: 1px;
+}
+/* line 400, ../sass/app.scss */
+.campaign-detail .who-chart .donorList {
+  font-size: 1em;
+  line-height: 1.25em;
+  height: auto;
+  margin-top: 5px;
+  -webkit-transition: max-height 1s;
+  transition: max-height 1s;
+}
+/* line 408, ../sass/app.scss */
+.campaign-detail .who-chart .donorList a {
+  text-decoration: none;
+}
+/* line 410, ../sass/app.scss */
+.campaign-detail .who-chart .donorList a:active, .campaign-detail .who-chart .donorList a:hover {
+  text-decoration: underline;
+}
+/* line 415, ../sass/app.scss */
+.campaign-detail .who-chart .donorList .payee {
+  text-overflow: ellipsis;
+}
+/* line 419, ../sass/app.scss */
+.campaign-detail .who-chart .extended.donor {
+  display: none;
+}
+/* line 422, ../sass/app.scss */
+.campaign-detail .who-chart .extended.donor.fullList {
+  display: block;
+}
+/* line 426, ../sass/app.scss */
+.campaign-detail .who-chart .wider {
+  padding-left: 0;
+  padding-right: 0;
+}
+/* line 432, ../sass/app.scss */
+.campaign-detail .d3spend text {
+  font-family: OpenSansRegular;
+  font-size: 15px;
+  fill: black;
+}
+/* line 438, ../sass/app.scss */
+.campaign-detail .d3spend .slice text {
+  pointer-events: none;
+}
+
+/* line 445, ../sass/app.scss */
+.spent-row {
+  margin-bottom: 30px;
+}
+
+/* line 449, ../sass/app.scss */
+.candidate-name {
+  text-transform: capitalize;
+}
+
+/* line 453, ../sass/app.scss */
+.legend {
+  display: inline-block;
+  width: 150px;
+}
+/* line 457, ../sass/app.scss */
+.legend .category {
+  font-weight: 'bold';
+  margin: 2px 2px 0 0;
+}
+
+/* line 464, ../sass/app.scss */
+.spending #d3tooltip {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid #828282;
+  border-radius: 10px;
+  pointer-events: none;
+}
+/* line 474, ../sass/app.scss */
+.spending #d3tooltip p {
+  margin: 0;
+  font-family: OpenSansRegular;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+/* line 487, ../sass/app.scss */
+.search .icon, .results .icon {
+  display: inline-block;
+  width: 85px;
+  height: 85px;
+  margin: 15px;
+}
+/* line 493, ../sass/app.scss */
+.search .icon-candidate, .results .icon-candidate {
+  background-image: url("/src/client/assets/img/icons/search_campgains.svg");
+}
+/* line 496, ../sass/app.scss */
+.search .icon-initiative, .results .icon-initiative {
+  background-image: url("/src/client/assets/img/icons/search_campgains2.svg");
+}
+/* line 499, ../sass/app.scss */
+.search .icon-party, .results .icon-party {
+  background-image: url("/src/client/assets/img/icons/search_campgains4.svg");
+}
+/* line 502, ../sass/app.scss */
+.search .icon-arrow, .results .icon-arrow {
+  height: 50px;
+  width: 50px;
+  margin-top: 33.33333px;
+  margin-left: -20px;
+  background-image: url("/src/client/assets/img/icons/search_arrow.svg");
+}
+
+/* line 512, ../sass/app.scss */
+.results .icon-candidate {
+  margin-left: 16.666667%;
+}
+
+/* line 517, ../sass/app.scss */
+.search-box {
+  position: relative;
+}
+/* line 520, ../sass/app.scss */
+.search-box .form-control {
+  font-size: 1.5em;
+  height: 59.5px;
+  margin-top: 28.33333px;
+  border: 2px solid #777;
+  border-radius: 7px;
+}
+/* line 527, ../sass/app.scss */
+.search-box input {
+  padding-left: 50.5px;
+}
+/* line 530, ../sass/app.scss */
+.search-box .bg-search-icon {
+  width: 37.5px;
+  height: 37.5px;
+  position: absolute;
+  left: 25px;
+  top: 40px;
+}
+
+/* line 540, ../sass/app.scss */
+.browse h1, .search h1, .results h1 {
+  font-family: "MerriweatherLight";
+  font-size: 3.5em;
+  letter-spacing: 2px;
+}
+
+/* MONEY BY STATE =============================================== */
+/* line 548, ../sass/app.scss */
+.money-by-state {
+  margin-top: 20px;
+}
+
+/* FOOTER ======================================================= */
+/* line 554, ../sass/app.scss */
+.footer {
+  margin-top: 75px;
+}
+/* line 557, ../sass/app.scss */
+.footer .social-container {
+  margin-left: -10px;
+}
+
+/* MEDIA QUERIES ================================================ */
+@media (max-width: 1199px) {
+  /* line 565, ../sass/app.scss */
+  .footer {
+    margin-top: 15px;
+  }
+
+  /* line 569, ../sass/app.scss */
+  .campaign-tile h2 {
+    font-size: 24px;
+  }
+}
+@media (max-width: 991px) {
+  /* line 576, ../sass/app.scss */
+  .results h1 {
+    font-size: 2.5em;
+  }
+
+  /* line 582, ../sass/app.scss */
+  .search-box .form-control {
+    font-size: 1.25em;
+  }
+}
+@media (max-width: 767px) {
+  /* line 589, ../sass/app.scss */
+  .navbar-nav {
+    font-size: 20px;
+  }
+
+  /* line 593, ../sass/app.scss */
+  .footer h4 {
+    margin-right: 0px;
+  }
+  /* line 596, ../sass/app.scss */
+  .footer .social-media-thumbnails {
+    text-align: center;
+  }
+}
+@media (max-width: 489px) {
+  /* line 604, ../sass/app.scss */
+  .search-box .form-control {
+    font-size: 13px;
+  }
+}
+@media (max-width: 485px) {
+  /* line 611, ../sass/app.scss */
+  .home .header {
+    margin-top: 0px;
+  }
+}
