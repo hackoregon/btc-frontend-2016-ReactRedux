@@ -1,6 +1,7 @@
 import { START, DONE, ERROR, parseAction, wrapPromise} from '../reduxActionsSequence/reduxActionsUtils.js';
 import { readData } from '../../api/serverApi.js';
 
+
 const FETCH_SEARCH_DATA = 'FETCH_SEARCH_DATA';
 
 export function fetchSearchData(inputText) {
@@ -53,6 +54,7 @@ export default function(state = {}, action = {
           status: 'done'
         }
       });
+      debugger
       return state;
     }
     if (stage === ERROR) {

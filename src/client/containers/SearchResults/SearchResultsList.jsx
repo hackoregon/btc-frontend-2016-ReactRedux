@@ -15,7 +15,7 @@ class SearchResultsList extends Component {
     }
 
     componentDidMount() {
-      debugger
+
     }
 
     render() {
@@ -26,7 +26,6 @@ class SearchResultsList extends Component {
         if (list && list.length == 0) {
           errorMessage = (
             <div colSpan="12">
-            
           </div>
           );
         }

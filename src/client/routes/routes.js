@@ -12,7 +12,7 @@ import CandidatesPage from './CandidatesPage.js';
 import OregonPage from './OregonPage.js';
 import FaqPage from './FaqPage.js';
 import AboutPage from './AboutPage.js';
-
+import CampaignResultPage from './CampaignResultPage.js';
 
 export default function() {
     const history = createHistory();
@@ -21,17 +21,15 @@ export default function() {
             <Route path="/" component="div">
                 <IndexRoute component={ HomePage } />
                 <Route path="/" component={ HomePage } />
-                <Route path="/search" component={ SearchPage } >
-                  <Route path="?query:query&limit=:limit" component={ SearchPage }/>
-                </Route>
+                <Route path="/search" component={ SearchPage } />
                 <Route path="/campaigns" component={ CampaignsPage } />
-                <Route path="/campaign/:filerId" component={ CampaignsPage } />
-                <Route path="/results" component={ ResultsPage } />
+                <Route path="/results/:searchTerm" component={ ResultsPage } />
                 <Route path="/donors" component={ DonorsPage } />
                 <Route path="/candidates" component={ CandidatesPage } />
                 <Route path="/oregon" component={ OregonPage } />
                 <Route path="/faq" component={ FaqPage } />
                 <Route path="/about" component={ AboutPage } />
+                <Route path="/campaign/:filer_id" component={ CampaignResultPage } />
             </Route>
         </Router>
         );

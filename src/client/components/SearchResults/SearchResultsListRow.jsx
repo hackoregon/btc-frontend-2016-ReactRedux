@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import {Link} from 'react-router';
 
 class SearchResultsListRow extends Component {
 
@@ -10,7 +11,9 @@ class SearchResultsListRow extends Component {
         const {item} = this.props;
         return (<div colSpan="12" {...this.props}>
                     <h4>
-                      <a href={`campaign/${item.filerId}`}>{ item.name }</a>
+                      <Link to= {`/campaign/${item.filerId}`} >
+                      {item.name}
+                      </Link>
                     </h4>
                     <div>
                       <p><span>{item.race}</span></p>

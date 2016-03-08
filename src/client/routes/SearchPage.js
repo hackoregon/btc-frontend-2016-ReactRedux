@@ -7,6 +7,7 @@ import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';
 import SearchResultsList from '../containers/SearchResults/SearchResultsList.jsx';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
+import SearchResultsAlert from '../components/SearchResults/SearchResultsAlert.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 
 
@@ -49,6 +50,7 @@ class SearchPage extends Component {
                       style={ {    marginTop: '60px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
+                    <SearchResultsAlert params={ this.props.params }></SearchResultsAlert>
                     <Col xs={ 12 }
                          md={ 12 }
                          sm={ 12 }
