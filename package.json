@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "karma start",
-    "start": "node server.js & npm run build-client-dev", 
+    "start": "node server.js & npm run build-client-dev",
     "build-server": "gulp --gulpfile ./build-conf/gulpfile.js build-server",
     "build-server-dev": "gulp --gulpfile ./build-conf/gulpfile.js build-server-dev",
     "build-client": "webpack --config ./build-conf/webpack.config.js --progress --colors",
@@ -14,6 +14,7 @@
   "dependencies": {
     "axios": "^0.9.1",
     "body-parser": "1.14.1",
+    "d3-plugins-sankey": "^1.2.1",
     "esformatter": "0.8.1",
     "esformatter-jsx": "4.0.6",
     "express": "4.13.3",
@@ -21,8 +22,6 @@
     "fs-extra": "0.24.0",
     "history": "1.12.5",
     "isomorphic-fetch": "2.1.1",
-    "d3-plugins-sankey": "^1.2.1",
-    "lodash": "4.2.1",
     "moment": "2.10.6",
     "react": "0.14.7",
     "react-autosuggest": "^3.5.0",
@@ -35,7 +34,9 @@
     "reduce-reducers": "0.1.1",
     "redux": "3.3.0",
     "redux-thunk": "1.0.3",
-    "request": "2.65.0"
+    "request": "2.65.0",
+    "victory": "^0.4.1",
+    "object-assign": "latest"
   },
   "author": "David Daniel <davidedaniel@gmail.com> (http://davidedaniel.github.io)",
   "license": "ISC",
@@ -80,12 +81,17 @@
     "karma-webpack": "^1.7.0",
     "less": "2.5.3",
     "less-loader": "2.2.1",
+    "lodash": "^4.2.1",
     "mocha": "^2.2.5",
+    "normalize.css": "^3.0.3",
     "phantomjs-prebuilt": "^2.1.4",
+    "react-addons-css-transition-group": "^0.14.7",
     "react-addons-test-utils": "^0.14.7",
+    "react-toolbox": "^0.14.2",
     "style-loader": "0.12.4",
     "topojson": "^1.6.20",
     "url-loader": "0.5.6",
-    "webpack": "1.12.2"
+    "webpack": "1.12.2",
+    "object-assign": "latest"
   }
 }

@@ -6,7 +6,7 @@ import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
-import TextContainer from '../components/Bootstrap/TextContainer.js'
+
 
 class AboutPage extends Component {
 
@@ -48,11 +48,10 @@ class AboutPage extends Component {
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
                 </Grid>
-                <TextContainer>
-                </TextContainer>
             </div>
             );
     }
 }
 
 export default AboutPage;
+

@@ -3,19 +3,20 @@ import topojson from 'topojson';
 import Datamap from 'datamaps/dist/datamaps.usa.min'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import statesDefaults from '../data/states-defaults';
+import statesDefaults from '../../data/states-defaults';
 import objectAssign from 'object-assign';
 
 export default class DataMap extends React.Component {
   constructor(props){
     super(props);
     this.datamap = null;
+    this.currentScreenWidth = this.currentScreenWidth.bind(this);
   }
   linearPalleteScale(value){
     const dataValues = this.props.regionData.map(function(data) { return data.value });
     const minVal = Math.min(...dataValues);
     const maxVal = Math.max(...dataValues);
-    return d3.scale.linear().domain([minVal, maxVal]).range(["#EFEFFF","#02386F"])(value);
+    return d3.scale.linear().domain([minVal, maxVal]).range(["#A3D3D2","#10716F"])(value);
   }
   redducedData(){
     const newData = this.props.regionData.reduce((object, data) => {
@@ -31,7 +32,7 @@ export default class DataMap extends React.Component {
       data: this.redducedData(),
       geographyConfig: {
         borderWidth: 0.5,
-        highlightFillColor: '#FFCC80',
+        highlightFillColor: '#FFF',
         popupTemplate: function(geography, data) {
           if (data && data.value) {
             return '<div class="hoverinfo"><strong>' + geography.properties.name + ', ' + data.value + '</strong></div>';
@@ -53,6 +54,7 @@ export default class DataMap extends React.Component {
     const containerWidth = (initialScreenWidth < 600) ?
       { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.5625) + 'px' } :
       { width: '600px', height: '350px' }
+      // { width: '600px', height: '350px' }
 
     mapContainer.style(containerWidth);
     this.datamap = this.renderMap();
