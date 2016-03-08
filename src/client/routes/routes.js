@@ -23,7 +23,7 @@ export default function() {
                 <Route path="/" component={ HomePage } />
                 <Route path="/search" component={ SearchPage } />
                 <Route path="/campaigns" component={ CampaignsPage } />
-                <Route path="/results" component={ ResultsPage } />
+                <Route path="/results/:searchTerm" component={ ResultsPage } />
                 <Route path="/donors" component={ DonorsPage } />
                 <Route path="/candidates" component={ CandidatesPage } />
                 <Route path="/oregon" component={ OregonPage } />

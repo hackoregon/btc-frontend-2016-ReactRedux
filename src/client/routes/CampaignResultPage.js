@@ -10,37 +10,16 @@ import {Nav} from 'react-bootstrap';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 import ResultHeader from '../containers/Result/ResultHeader.jsx';
 import ResultDonorsList from '../containers/Result/ResultDonorsList.jsx';
-import { fetchResultData } from '../actions/index.js';
+import ResultLocationStoryCard from '../containers/Result/ResultLocationStoryCard.jsx';
 
 class CampaignResultPage extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      filer_id: ''
-    }
-    this.fetchResult = this.fetchResult.bind(this);
-  }
 
-  fetchResult(filerId){
-    debugger
-    const {dispatch} = this.props;
-    fetchResultData(this.props.params.filer_id);
-  }
-  componentWillReceiveProps(nextProps) {
-    debugger
-    const {dispatch} = this.props;
-  }
-  componentWillMount() {
-    debugger
-    this.fetchResult(this.props.params.filer_id);
-  }
   render() {
     return (
-      <div {...this.props}>
-
+      <div>
         <NavbarCollapsible inverse={false} fixedTop={true} fluid={true} branding={{
           name: 'Behind the Curtain',
-          href: '/'
+          href: '#'
         }} params={this.props.params}>
           <Nav pullRight={true} params={this.props.params}>
             <CustomNavRouterLink className="nav-item" name="Search" params={this.props.params}></CustomNavRouterLink>
@@ -156,14 +135,7 @@ class CampaignResultPage extends Component {
             </Col>
           </Row>
           <Col xs={12} md={12} sm={12} lg={12} params={this.props.params}>
-            <Panel header="How does the money flow?" className="text-center" style={{
-              fontWeight: 200
-            }} params={this.props.params}>
-              <p params={this.props.params}>
-                <span params={this.props.params}>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
-              </p>
-              <Panel bsSize="md" params={this.props.params}></Panel>
-            </Panel>
+            <ResultLocationStoryCard params={this.props.params}></ResultLocationStoryCard>
             <Panel header="How does the money flow?" className="text-center" style={{
               fontWeight: 200
             }} params={this.props.params}>
@@ -244,13 +216,5 @@ class CampaignResultPage extends Component {
     );
   }
 }
-function mapStateToProps(state) {
-    const {summaryData,donorData,locationData,whenData} = state;
-    return {
-        summaryData,
-        donorData,
-        locationData,
-        whenData
-    };
-}
+
 export default CampaignResultPage;

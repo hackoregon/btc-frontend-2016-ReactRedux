@@ -12,21 +12,10 @@ import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx
 
 
 class SearchPage extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      searchTerm: ''
-    }
-  }
-  componentWillMount() {
-  }
-  componentWillReceiveProps(nextProps) {
-    debugger
-  }
 
     render() {
         return (
-            <div {...this.props}>
+            <div>
                 <NavbarCollapsible inverse={ false }
                                    fixedTop={ true }
                                    fluid={ true }
@@ -61,6 +50,7 @@ class SearchPage extends Component {
                       style={ {    marginTop: '60px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
+                    <SearchResultsAlert params={ this.props.params }></SearchResultsAlert>
                     <Col xs={ 12 }
                          md={ 12 }
                          sm={ 12 }
