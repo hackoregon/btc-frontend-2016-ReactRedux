@@ -1,10 +1,10 @@
 import 'babel-polyfill';
-import './assets/css/react-widgets.css';
-import './assets/css/bootstrap.css';
-import './assets/css/font-awesome.css';
+import './assets/css/stylesheets/react-widgets.css';
+import './assets/css/stylesheets/bootstrap.css';
+import './assets/css/stylesheets/font-awesome.css';
 import './assets/css/components/autosuggest.css';
-import './assets/css/app.css';
-import './assets/js/bootstrap.js';
+import './assets/css/stylesheets/app.css';
+import './assets/css/stylesheets/bootstrapOverride.css';
 
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';

@@ -47,7 +47,7 @@ class SearchResultsForm extends Component {
       this.setState({
         isLoading: true
       });
-      
+
         fetchSuggestions(value).then((data)=>{
 
         let dataArr = [...data.candidate_names,...data.related]
@@ -89,6 +89,7 @@ class SearchResultsForm extends Component {
         e.stopPropagation();
         const {dispatch} = this.props;
         const searchTerm = this.searchTermRef;
+        debugger
         dispatch(fetchSearchData(searchTerm));
     }
 

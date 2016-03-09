@@ -1,3 +1,3 @@
-import { readData } from './serverApi.js';
+import { readData, readResultData, readSummaryData } from './serverApi.js';
 
-export {readData}
+export default {readData, readResultData, readSummaryData}

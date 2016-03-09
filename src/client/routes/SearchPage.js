@@ -7,6 +7,7 @@ import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';
 import SearchResultsList from '../containers/SearchResults/SearchResultsList.jsx';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
+import SearchResultsAlert from '../components/SearchResults/SearchResultsAlert.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 
 
@@ -18,7 +19,7 @@ class SearchPage extends Component {
                 <NavbarCollapsible inverse={ false }
                                    fixedTop={ true }
                                    fluid={ true }
-                                   branding={ {    name: 'Behind the Curtain',    href: '#'} }
+                                   brandName='Behind the Curtain'
                                    params={ this.props.params }>
                     <Nav pullRight={ true } params={ this.props.params }>
                         <CustomNavRouterLink className="nav-item"

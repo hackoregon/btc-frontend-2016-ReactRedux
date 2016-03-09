@@ -20,7 +20,7 @@ class HomePage extends Component {
                 <NavbarCollapsible inverse={ false }
                                    fixedTop={ true }
                                    fluid={ true }
-                                   branding={ {    name: 'Behind the Curtain',    href: '#'} }
+                                   brandName='Behind the Curtain'
                                    params={ this.props.params }>
                     <Nav pullRight={ true } params={ this.props.params }>
                         <CustomNavRouterLink className="nav-item"
@@ -96,7 +96,7 @@ class HomePage extends Component {
                                    buttonAfter={ <Button bsStyle="default"
                                                          type="submit"
                                                          params={ this.props.params }>
-                                                     <span params={ this.props.params }>Search</span>
+                                                     <i className="fa fa-search" params={ this.props.params }></i>
                                                  </Button> }
                                    params={ this.props.params }></Input>
                         </form>

@@ -1,7 +1,7 @@
 import path from 'path';
 import { getCurrentWorkingDirPath, readJson, writeJson } from './fileUtils.js';
 
-const dataFilePath = 'data/sample-data.json';
+const dataFilePath = 'data/states-defaults.json';
 
 export function readDataFile(){
     return readJson(path.join(getCurrentWorkingDirPath(), dataFilePath));

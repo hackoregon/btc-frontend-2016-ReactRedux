@@ -1,0 +1,21 @@
+.carousel-control.left {
+  background-image: none;
+  filter: none;
+  background-repeat: none;
+}
+
+.carousel-control.right {
+    background-image: none;
+    filter: none;
+    background-repeat: none;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 75%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
+    color: lightseagreen;
+}

@@ -2,9 +2,10 @@
 import React, { Component, PropTypes } from 'react';
 
 import { Grid } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { PanelGroup } from '../components/Bootstrap';
 import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';
-import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 
 
@@ -16,7 +17,7 @@ class FaqPage extends Component {
                 <NavbarCollapsible inverse={ false }
                                    fixedTop={ true }
                                    fluid={ true }
-                                   branding={ {    name: 'Behind the Curtain',    href: '#'} }
+                                   brandName='Behind the Curtain'
                                    params={ this.props.params }>
                     <Nav pullRight={ true } params={ this.props.params }>
                         <CustomNavRouterLink className="nav-item"
@@ -46,7 +47,24 @@ class FaqPage extends Component {
                 <Grid fluid={ true }
                       style={ {    marginTop: '60px',    fontWeight: '200px'} }
                       params={ this.props.params }>
-                    <SearchResultsForm params={ this.props.params }></SearchResultsForm>
+                    <PanelGroup accordion={ true }
+                                defaultActiveKey={ 1 }
+                                params={ this.props.params }>
+                        <Panel header="Panel 1"
+                               eventKey={ 1 }
+                               params={ this.props.params }>
+                            <p params={ this.props.params }>
+                                <span params={ this.props.params }>Basic panel</span>
+                            </p>
+                        </Panel>
+                        <Panel header="Panel 2"
+                               eventKey={ 2 }
+                               params={ this.props.params }>
+                            <p params={ this.props.params }>
+                                <span params={ this.props.params }>Basic panel</span>
+                            </p>
+                        </Panel>
+                    </PanelGroup>
                 </Grid>
             </div>
             );
