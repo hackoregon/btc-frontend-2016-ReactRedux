@@ -11,16 +11,19 @@ import d3 from 'd3';
 import PhotoGrid from '../components/Bootstrap/Portrait.js';
 
 
+
 function getPhotos() {
+    /*
     var pData = ["other"]
     d3.tsv("./portraits.tsv",
         function(data){
             pData = data;
         }
     )
-    pData = [
-        {file:"catnikolovski.jpeg", name:"Catherine Nikolovski", role:"Producer"},
-        {file:"hobsonlane.jpeg", name:"Hobson Lane", role:"Lead Data Scientist"}
+    */
+    var pData = [
+        {file:"./img/catnikolovski.jpeg", name:"Catherine Nikolovski", role:"Producer"},
+        {file:"./img/hobsonlane.jpeg", name:"Hobson Lane", role:"Lead Data Scientist"}
     ];
     console.log(pData);
     return pData;
