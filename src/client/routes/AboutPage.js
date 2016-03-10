@@ -8,24 +8,16 @@ import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 
 import d3 from 'd3';
-import PhotoGrid from '../components/Bootstrap/Portrait.js';
+import PortraitGrid from '../components/Bootstrap/PortraitGrid.js';
 
 
 
 function getPhotos() {
-    /*
-    var pData = ["other"]
-    d3.tsv("./portraits.tsv",
-        function(data){
-            pData = data;
-        }
-    )
-    */
+    
     var pData = [
         {file:"./img/catnikolovski.jpeg", name:"Catherine Nikolovski", role:"Producer"},
         {file:"./img/hobsonlane.jpeg", name:"Hobson Lane", role:"Lead Data Scientist"}
     ];
-    console.log(pData);
     return pData;
     
 }
@@ -70,8 +62,8 @@ class AboutPage extends Component {
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
                 </Grid>
-                <PhotoGrid photos={getPhotos()}>
-                </PhotoGrid>
+                <PortraitGrid photos={getPhotos()}>
+                </PortraitGrid>
             </div>
             );
     }
