@@ -40,6 +40,7 @@ class SearchResultsForm extends Component {
         };
         this.onChange = this.onChange.bind(this);
         this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this);
+        this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
         this.setRef = this.setRef.bind(this);
     }
 
@@ -136,6 +137,7 @@ class SearchResultsForm extends Component {
                                  <Autosuggest ref={()=>this.setRef(this.state.value)}
                                    suggestions={suggestions}
                                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
+                                   onSuggestionSelected={this.oonSuggestionSelected}
                                    getSuggestionValue={getSuggestionValue}
                                    renderSuggestion={renderSuggestion}
                                    inputProps={inputProps} />
