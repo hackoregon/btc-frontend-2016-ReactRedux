@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
-import { createHistory } from 'history';
 import HomePage from './HomePage.js';
 import SearchPage from './SearchPage.js';
 import CampaignsPage from './CampaignsPage.js';
@@ -14,10 +13,9 @@ import FaqPage from './FaqPage.js';
 import AboutPage from './AboutPage.js';
 import CampaignResultPage from './CampaignResultPage.js';
 
-export default function() {
-    const history = createHistory();
+export default function(history) {
     return (
-        <Router history={ history }>
+        <Router history={history}>
             <Route path="/" component="div">
                 <IndexRoute component={ HomePage } />
                 <Route path="/" component={ HomePage } />

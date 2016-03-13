@@ -17,13 +17,21 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import getRoutes from './routes/routes.js';
 import storeManager from './store/storeManager.js';
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+import DevTools from './containers/DevTools.jsx';
 
-const routes = getRoutes();
+
 const store = storeManager();
+const history = syncHistoryWithStore(browserHistory, store)
+const routes = getRoutes(history);
 
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={store} >
+        <div>
         {routes}
+        <DevTools />
+        </div>
     </Provider>,
     document.getElementById('content')
 );

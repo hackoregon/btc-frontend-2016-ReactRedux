@@ -61,7 +61,7 @@ export function fetchSummaryData(filerId){
     return readSummaryData(filerId).then(response => {
       let result = {};
       if (response && response.length > 0) {
-
+        result = response[0];
       }
       return result;
     });
@@ -73,6 +73,7 @@ export function fetchResultData(filerId) {
     return readResultData(filerId).then(response => {
       debugger
       let result = {
+        donorData:{
         individual: {
           donors: []
         },
@@ -88,12 +89,12 @@ export function fetchResultData(filerId) {
         // grassroots: { donors: [] },
         // party: {
         //   donors: []
-        // }
+        }
       };
       if (response && response.length > 0) {
-        result.individual.donors = _.chain(response).filter({"book_type":"Individual"||"Candidate's Immediate Family"}).orderBy('amount','desc').value();
-        result.business.donors = _.chain(response).filter({"book_type":"Business Entity"}).orderBy('amount','desc').value();
-        result.pac.donors = _.chain(response).filter({"book_type":"Political Committee"}).orderBy('amount','desc').value();
+        result.donorData.individual.donors = _.chain(response).filter({"book_type":"Individual"||"Candidate's Immediate Family"}).orderBy('amount','desc').value();
+        result.donorData.business.donors = _.chain(response).filter({"book_type":"Business Entity"}).orderBy('amount','desc').value();
+        result.donorData.pac.donors = _.chain(response).filter({"book_type":"Political Committee"}).orderBy('amount','desc').value();
         // result.individual.donors = response.map(item => {
         //
         // });
@@ -233,13 +234,12 @@ export default function(state = {}, action = {
       }
       if (stage === DONE) {
         state = {
-          ...payload,
           resultData:{
-            summaryData: {payload},
+            summaryData: {...payload}
+          },
           fetching: {
             status: 'done'
-          }
-        }
+            }
         };
         debugger
         return state;
@@ -258,7 +258,6 @@ export default function(state = {}, action = {
 
   }
   if (type === FETCH_RESULT_DATA) {
-    debugger
     if (stage === START) {
       state = Object.assign({}, state, {
         resultData:{
@@ -271,14 +270,13 @@ export default function(state = {}, action = {
       return state;
     }
     if (stage === DONE) {
-      state = Object.assign({}, state, {
-        resultData: {
-        donorData: {...payload},
+      state = {...payload,
+        resultData: {...payload},
         fetching: {
           status: 'done'
         }
-      }
-      });
+      };
+      debugger
       console.log('stage done:',state)
       return state;
     }

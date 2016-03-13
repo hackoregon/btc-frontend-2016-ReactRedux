@@ -19,7 +19,7 @@ class SearchResultsList extends Component {
     }
 
     render() {
-        const {list, fetching, searchTerm} = this.props;
+        const {list, searchTerm} = this.props;
         let listItems;
         console.log(this.props);
         let errorMessage = null;
@@ -57,9 +57,9 @@ class SearchResultsList extends Component {
     }
 }
 function mapStateToProps(state) {
-    const {searchData: {list, fetching, searchTerm}} = state;
+    const {searchData:{searchTerm, list}} = state;
     return {
-        list , fetching, searchTerm
+        list, searchTerm
     };
 }
 
