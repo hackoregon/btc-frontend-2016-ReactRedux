@@ -33,7 +33,7 @@ module.exports = {
       exclude: /node_modules/,
       loader: ExtractTextPlugin.extract("style-loader", "css-loader")
     }, {
-      test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)([\?]?.*)$/,
+      test: /\.(eot|woff|woff2|ttf|svg|png|jpg|jpeg|gif)([\?]?.*)$/,
       exclude: /node_modules/,
       loader: 'url-loader'
     }]
