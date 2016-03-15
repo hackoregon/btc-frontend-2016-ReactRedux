@@ -109,6 +109,33 @@ export function loadTransactions(filerId, requiredFields = []) {
   }
 }
 
+export const DONOR_REQUEST = 'DONOR_REQUEST'
+export const DONOR_SUCCESS = 'DONOR_SUCCESS'
+export const DONOR_FAILURE = 'DONOR_FAILURE'
+
+function fetchDonors(filerId) {
+  debugger
+  return {
+    [CALL_API]: {
+      types: [ DONOR_REQUEST, DONOR_SUCCESS, DONOR_FAILURE ],
+      endpoint: `current_candidate_transactions/${filerId}/`,
+      schema: Schemas.DONOR_ARRAY
+    }
+  }
+}
+
+
+export function loadDonors(filerId, requiredFields=[]){
+  debugger
+  return (dispatch, getState) => {
+    const donor = getState().entities.donors[filerId]
+    if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
+      return null
+    }
+
+    return dispatch(fetchDonors(filerId))
+  }
+}
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 
 // Resets the currently visible error message.

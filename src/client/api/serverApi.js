@@ -61,81 +61,30 @@ function callApi(endpoint, schema) {
         return Promise.reject(json)
       }
 
-        debugger
-
       const camelizedJson = camelizeKeys(json);
-
+      debugger
       return normalize(camelizedJson, schema)
       })
-}
-
-function fetchingSearch(state = {}, action = {
-  type: 'UNKNOWN'
-}) {
-  const {
-    type,
-    stage,
-    payload
-  } = parseAction(action);
-  if (type === FETCH_SEARCH_DATA) {
-    // if (type === FETCH_SEARCH_DATA) {
-    if (stage === START) {
-      state = Object.assign({}, state, {
-        list: [],
-        fetching: {
-          status: 'loading',
-        }
-      });
-      return state;
-    }
-    if (stage === DONE) {
-      state = Object.assign({}, state, {
-        searchTerm: payload.searchTerm,
-        list: payload.list,
-        fetching: {
-          status: 'done'
-        }
-      });
-      return state;
-    }
-    if (stage === ERROR) {
-      state = Object.assign({}, state, {
-        list: [],
-        fetching: {
-          status: 'error',
-          statusText: payload
-        }
-      });
-      return state;
-    }
-  }
-
-  return state;
-}
-
-String.prototype.capitalize = function(lower) {
-  return (lower ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) {
-    return a.toUpperCase();
-  });
 }
 
 const campaign = new Schema('campaigns', {
   idAttribute: 'filerId'
 });
 const donor = new Schema('donors', {
-  idAttribute: 'filerId'
+  idAttribute: 'contributorPayee'
 });
 const transaction = new Schema('transactions', {
   idAttribute: 'tranId'
 });
 
-const donation = unionOf({
-  campaigns: campaign,
-  donors: donor,
-  transactions: transaction
-}, {
-  schemaAttribute: 'tranId'
-});
+// const donation = unionOf({
+//   campaigns: campaign,
+//   donors: donor,
+//   transactions: transaction
+// }, {
+//   schemaAttribute: 'tranId'
+// });
+
 const list = {
   campaigns: campaign
 };
@@ -161,9 +110,14 @@ search.define({
 });
 
 donor.define({
-  owner: donation,
-  donations: arrayOf(donation),
-  relationships: valuesOf(donation)
+  owner: donor,
+  donations: unionOf({
+    campaigns: arrayOf(campaign),
+    transactions: transaction
+  }, {
+    schemaAttribute: 'tranId'
+  }),
+  relationships: valuesOf(campaign)
 });
 
 // donor.define({

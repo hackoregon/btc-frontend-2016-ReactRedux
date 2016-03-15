@@ -4,7 +4,7 @@ import merge from 'lodash/merge'
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux';
 
-function entities(state = { campaigns: {}, transactions: {}, searchData:{}}, action){
+function entities(state = { campaigns: {}, transactions: {}, donors:{}, searchData:{}}, action){
   if (action.type === 'SEARCH_SUCCESS'){
     let result = action.response.result
     state = {

@@ -10,9 +10,6 @@ export const fetchServerData = createAction(FETCH_SERVER_DATA, () => {
         });
 });
 
-/**
- * State substructure: { application }
- */
 export default handleActions({
 
     [FETCH_SERVER_DATA]: {

@@ -1,17 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Col } from 'react-bootstrap';
+import { Col, Row, Grid, Carousel, CarouselItem } from 'react-bootstrap';
 import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
+import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
-import {loadTransactions} from '../../actions'
+import {loadDonors} from '../../actions'
+import _ from 'lodash';
 // import { fetchResultData } from '../../actions/index.js';
 
 function loadData(props) {
   const { filer_id } = props.params;
   debugger
-  props.loadTransactions(filer_id);
+  props.loadDonors(filer_id);
 }
 
 class ResultDonorsCard extends Component {
@@ -38,13 +40,25 @@ class ResultDonorsCard extends Component {
     }
 
     render() {
-      const {transactions} = this.props;
-      console.log('rendering donor card:', individual);
+      const {donors} = this.props;
+      let donorArray = _.values(donors);
+      let individualDonors = _.chain(donorArray).filter({"bookType":"Individual"||"Candidate's Immediate Family"}).orderBy('amount','desc').value();
+      let businessDonors = _.chain(donorArray).filter({"bookType":"Business Entity"}).orderBy('amount','desc').value();
+      let pacDonors = _.chain(donorArray).filter({"bookType":"Political Committee"}).orderBy('amount','desc').value();
+      debugger
         return (<div>
                 <StoryCard
                   question={"Who is giving?"}
                   description={"This visualization is calculated by total dollars, not total people."}>
-                  <ResultDonorsList donations={individual}></ResultDonorsList>
+                  <ListsCarousel>
+                    <CarouselItem >
+                    <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
+                    <ResultDonorsList donorType={"Top Business Donors"} donors={businessDonors}></ResultDonorsList>
+                    </CarouselItem>
+                    <CarouselItem>
+                    <ResultDonorsList donorType={"Top PAC Donors"} donors={pacDonors}></ResultDonorsList>
+                    </CarouselItem>
+                  </ListsCarousel>
                 </StoryCard>
                 </div>
         );
@@ -52,17 +66,17 @@ class ResultDonorsCard extends Component {
 }
 
 ResultDonorsCard.propTypes = {
-  transactions: PropTypes.object
+  donors: PropTypes.object
 }
 
 function mapStateToProps(state) {
   const {entities:{
-    transactions
+    donors
     }
   } = state;
-  return {transactions};
+  return {donors};
 
 }
 export default connect(mapStateToProps,{
-  loadTransactions
+  loadDonors
 })(ResultDonorsCard);
