@@ -19,7 +19,8 @@ class SearchResultsList extends Component {
     }
 
     render() {
-        const {list, searchTerm} = this.props;
+        const {list} = this.props;
+        debugger
         let listItems;
         console.log(this.props);
         let errorMessage = null;
@@ -44,7 +45,7 @@ class SearchResultsList extends Component {
         } else if (list && list.length == 0) {
           return (<div colSpan="12" {...this.props}>
                       <SearchResultsHeader />
-                    <SearchResultsAlert searchTerm={this.searchTerm} />
+                    <SearchResultsAlert />
                   </div>
               );
         } else {
@@ -57,9 +58,9 @@ class SearchResultsList extends Component {
     }
 }
 function mapStateToProps(state) {
-    const {searchData:{searchTerm, list}} = state;
+    const {entities:{searchData:{list}}} = state;
     return {
-        list, searchTerm
+      list
     };
 }
 

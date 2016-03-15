@@ -5,7 +5,14 @@ import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
-import { fetchResultData } from '../../actions/index.js';
+import {loadTransactions} from '../../actions'
+// import { fetchResultData } from '../../actions/index.js';
+
+function loadData(props) {
+  const { filer_id } = props.params;
+  debugger
+  props.loadTransactions(filer_id);
+}
 
 class ResultDonorsCard extends Component {
 
@@ -13,21 +20,25 @@ class ResultDonorsCard extends Component {
         super(props, content);
     }
     componentWillReceiveProps(nextProps) {
-
+      debugger
         const {dispatch} = this.props;
     }
     componentWillUpdate(nextProps, nextState) {
       console.log('update:',nextProps,nextState)
         const {dispatch} = this.props;
     }
+    componentWillMount() {
+      debugger
+      loadData(this.props);
+    }
     componentDidMount() {
         let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
         const {dispatch} = this.props;
-        dispatch(fetchResultData(filerId));
+        // dispatch(fetchResultData(filerId));
     }
 
     render() {
-      const {individual} = this.props;
+      const {transactions} = this.props;
       console.log('rendering donor card:', individual);
         return (<div>
                 <StoryCard
@@ -39,14 +50,19 @@ class ResultDonorsCard extends Component {
         );
     }
 }
+
+ResultDonorsCard.propTypes = {
+  transactions: PropTypes.object
+}
+
 function mapStateToProps(state) {
-  const {resultData:{
-    donorData: {
-      individual, pac, business, party, unknown
-      }
+  const {entities:{
+    transactions
     }
   } = state;
-  return {individual,pac,business,unknown,party};
+  return {transactions};
 
 }
-export default connect(mapStateToProps)(ResultDonorsCard);
+export default connect(mapStateToProps,{
+  loadTransactions
+})(ResultDonorsCard);

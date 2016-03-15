@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Button, Input } from 'react-bootstrap';
-// import { loadSearchData } from '../../actions/index.js';
-import { fetchSearchData } from '../../actions/SearchResults/SearchResultsFormActions';
+import { loadSearchData } from '../../actions/index.js';
+// import { fetchSearchData } from '../../actions/SearchResults/SearchResultsFormActions';
 import Autosuggest from 'react-autosuggest';
 import fetchSuggestions from '../../utils/fetchSuggestions.js';
 
@@ -76,7 +76,7 @@ class SearchResultsForm extends Component {
     onSuggestionSelected(e, { suggestionValue }) {
       debugger
       const {dispatch} = this.props;
-      dispatch(fetchSearchData(suggestionValue));
+      dispatch(loadSearchData(suggestionValue));
     }
 
     onSuggestionsUpdateRequested({ value }) {
@@ -94,7 +94,7 @@ class SearchResultsForm extends Component {
         const {dispatch} = this.props;
         const searchTerm = this.searchTermRef;
         if(!searchTerm.trim()){return}
-        dispatch(fetchSearchData(searchTerm));
+        dispatch(loadSearchData(searchTerm));
     }
 
     render() {

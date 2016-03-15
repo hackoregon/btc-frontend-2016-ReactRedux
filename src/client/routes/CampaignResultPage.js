@@ -23,7 +23,7 @@ class CampaignResultPage extends Component {
   }
   render() {
     return (
-      <ResultPage params={this.props.params}>
+      <ResultPage params={this.props.params} filerId={this.props.params.filer_id}>
 
       </ResultPage>
     )

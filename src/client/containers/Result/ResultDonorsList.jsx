@@ -66,15 +66,16 @@ class ResultDonorsList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const {resultData:{
-    donorData: {
-      individual, pac, business, party, unknown
-      }
-    }
-  } = state;
-  return {individual,pac,business,unknown,party};
+// function mapStateToProps(state) {
+//   const {resultData:{
+//     donorData: {
+//       individual, pac, business, party, unknown
+//       }
+//     }
+//   } = state;
+//   return {individual,pac,business,unknown,party};
+//
+// }
 
-}
-
-export default connect(mapStateToProps)(ResultDonorsList);
+export default ResultDonorsList;
+// export default connect(mapStateToProps)(ResultDonorsList);

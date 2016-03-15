@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {loadCampaign} from '../../actions'
 import ResultHeader from './ResultHeader.jsx'
+import ResultDonorsCard from './ResultDonorsCard.jsx'
 
 function loadData(props) {
   const { filer_id } = props;
@@ -14,10 +15,14 @@ class ResultPage extends Component {
     this.renderCampaign = this.renderCampaign.bind(this)
   }
   componentWillMount() {
-    debugger
+
     loadData(this.props);
   }
+  componentDidMount() {
+
+  }
   componentWillReceiveProps(nextProps) {
+    // debugger
     if(nextProps.filer_id !== this.props.filer_id){
       loadData(nextProps)
     }
@@ -33,27 +38,32 @@ class ResultPage extends Component {
       return <h1><i>Loading... </i></h1>
     }
     return (
-      <div>
+      <div {...this.props}>
         <ResultHeader
-          candidate={campaign.candidate_name}
+          candidate={campaign.candidateName}
           key={campaign.filerId}
           race = { campaign.race } />
-
+        <ResultDonorsCard params={this.props.params}/>
       </div>
     )
   }
 }
 
+ResultPage.propTypes = {
+  campaign: PropTypes.object,
+  // searchTerm: PropTypes.string.isRequired,
+  filerId: PropTypes.string.isRequired
+}
+
 function mapStateToProps(state, ownProps) {
-  debugger
   const { filer_id } = ownProps.params
   const {
-    entities: { campaign },
-    searchData: { searchTerm }
+    entities: { campaigns }
   } = state;
-
+  const campaign = campaigns[filer_id]
+  debugger
   return {
-    filer_id, searchTerm, campaign
+    filer_id, campaign
   }
 }
 

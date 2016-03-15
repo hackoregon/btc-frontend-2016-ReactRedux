@@ -10,19 +10,49 @@ import {
   camelizeKeys
 } from 'humps'
 import 'isomorphic-fetch';
+import {
+  START,
+  DONE,
+  ERROR,
+  parseAction,
+  wrapPromise
+} from '../actions/reduxActionsSequence/reduxActionsUtils.js';
 
 const API_ROOT = 'http://54.213.83.132/hackoregon/http/';
+const FETCH_SEARCH_DATA = 'FETCH_SEARCH_DATA';
+
+export function fetchSearchData(inputText) {
+  return (dispatch, getState) => wrapPromise(FETCH_SEARCH_DATA, dispatch, () => {
+    return readData(inputText).then(response => {
+      let result = {
+        searchTerm: inputText,
+        list: []
+      };
+      if (response && response.length > 0) {
+        result.list = response.map(item => {
+          return {
+            name: item.candidate_name,
+            race: item.race,
+            lastUpdated: item.db_update_status,
+            filerId: item.filer_id,
+            total: item.total,
+            spent: item.total_spent
+          }
+        });
+      }
+      return result;
+    });
+  });
+}
 
 function callApi(endpoint, schema) {
-  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
-  debugger
+  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
   return fetch(fullUrl)
-    .then((response) =>{
-      debugger
-      response.json().then(json => ({
-        json,
-        response
+    .then((response) => {
+      return response.json().then(json => ({
+        json, response
       }))
+      return {json,response}
     }).then(({
       json,
       response
@@ -31,12 +61,56 @@ function callApi(endpoint, schema) {
         return Promise.reject(json)
       }
 
+        debugger
+
       const camelizedJson = camelizeKeys(json);
 
-      return Object.assign({},
-        normalize(camelizedJson, schema)
-      )
-    })
+      return normalize(camelizedJson, schema)
+      })
+}
+
+function fetchingSearch(state = {}, action = {
+  type: 'UNKNOWN'
+}) {
+  const {
+    type,
+    stage,
+    payload
+  } = parseAction(action);
+  if (type === FETCH_SEARCH_DATA) {
+    // if (type === FETCH_SEARCH_DATA) {
+    if (stage === START) {
+      state = Object.assign({}, state, {
+        list: [],
+        fetching: {
+          status: 'loading',
+        }
+      });
+      return state;
+    }
+    if (stage === DONE) {
+      state = Object.assign({}, state, {
+        searchTerm: payload.searchTerm,
+        list: payload.list,
+        fetching: {
+          status: 'done'
+        }
+      });
+      return state;
+    }
+    if (stage === ERROR) {
+      state = Object.assign({}, state, {
+        list: [],
+        fetching: {
+          status: 'error',
+          statusText: payload
+        }
+      });
+      return state;
+    }
+  }
+
+  return state;
 }
 
 String.prototype.capitalize = function(lower) {
@@ -54,6 +128,7 @@ const donor = new Schema('donors', {
 const transaction = new Schema('transactions', {
   idAttribute: 'tranId'
 });
+
 const donation = unionOf({
   campaigns: campaign,
   donors: donor,
@@ -61,6 +136,13 @@ const donation = unionOf({
 }, {
   schemaAttribute: 'tranId'
 });
+const list = {
+  campaigns: campaign
+};
+
+campaign.define({
+  listByName: valuesOf(campaign,{ schemaAttribute: 'candidateName'})
+})
 
 const search = new Schema('searches');
 
@@ -97,15 +179,40 @@ export const Schemas = {
   TRANSACTION_ARRAY: arrayOf(transaction),
   DONOR: donor,
   DONOR_ARRAY: arrayOf(donor),
-  SEARCH: search,
-  SEARCH_ARRAY: arrayOf(search)
+  LIST: list
 }
 
 export const CALL_API = Symbol('Call API');
-
+export const FETCH_SEARCH = Symbol('Fetch Search Results');
 export default store => next => action => {
+  debugger
+  // const fetchSearch = action[FETCH_SEARCH];
+  // if (fetchSearch) {
+  // if (typeof fetchSearch === 'undefined') {
+  // return next(action)
+  // }
+  // let {
+  //   endpoint
+  // } = fetchSearch
+  // const {
+  //   schema,
+  //   type,
+  //   types,
+  //   payload
+  // } = parseAction(action)
+  // // function actionWith(data) {
+  // //   const finalAction = Object.assign({}, action, data)
+  // //   delete finalAction[CALL_API]
+  // //   return finalAction
+  // // }
+  //
+  // const [requestType, successType, failureType] = types
+  // // next(actionWith({
+  // //   type: requestType
+  // // }))
 
   const callAPI = action[CALL_API]
+
   if (typeof callAPI === 'undefined') {
     return next(action)
   }
@@ -156,6 +263,7 @@ export default store => next => action => {
     }))
   )
 }
+
 // export const FETCH_SEARCH_DATA = 'FETCH_SEARCH_DATA';
 
 // export function fetchSearchData(inputText) {

@@ -1,13 +1,13 @@
 // export { fetchSearchData } from './SearchResults/SearchResultsFormActions.js';
 // export { fetchResultData,fetchSummaryData } from './Result/ResultActions.js';
-import {FETCH_SEARCH_DATA, CALL_API, Schemas} from '../api/serverApi';
+import { FETCH_SEARCH_DATA, FETCH_SEARCH, CALL_API, Schemas } from '../api/serverApi.js';
 import { parseAction, wrapPromise} from './reduxActionsSequence/reduxActionsUtils.js';
-import fetchSearchData from './SearchResults/SearchResultsFormActions.js';
+// import fetchSearchData from './SearchResults/SearchResultsFormActions.js';
 
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'SEARCH_FAILURE';
-function fetchSearchData2(searchTerm) {
+function fetchSearchData(searchTerm) {
   String.prototype.capitalize = function(lower) {
     return (lower ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) {
       return a.toUpperCase();
@@ -18,13 +18,12 @@ function fetchSearchData2(searchTerm) {
     [CALL_API]: {
       types: [SEARCH_REQUEST,SEARCH_SUCCESS,SEARCH_FAILURE],
       endpoint: `competitors_from_name/${searchFor}/`,
-      schema: Schemas.CAMPAIGN
+      schema: Schemas.LIST
     }
   }
 }
 
 export function loadSearchData(searchTerm, requiredFields=[]){
-  debugger
   // return (dispatch, getState) => wrapPromise(SEARCH_REQUEST, dispatch, () => {
   //   return readData(searchTerm).then(response => {
   //     debugger
@@ -48,12 +47,11 @@ export function loadSearchData(searchTerm, requiredFields=[]){
   //   });
   // });
   return (dispatch,getState) =>{
-
     // const search = getState().entities.campaigns[searchTerm]
     // if (search && requiredFields.every(key => search.hasOwnProperty(key))) {
     //   return null
     // }
-    return dispatch(fetchSearchData2(searchTerm))
+    return dispatch(fetchSearchData(searchTerm))
   }
 }
 
@@ -68,15 +66,16 @@ function fetchCampaign(filerId){
     [CALL_API]: {
       types: [CAMPAIGN_REQUEST,CAMPAIGN_SUCCESS,CAMPAIGN_FAILURE],
       endpoint: `committee_data_by_id/${filerId}/`,
-      schema: Schemas.CAMPAIGN
+      schema: Schemas.CAMPAIGN_ARRAY
     }
   }
 }
 
 export function loadCampaign(filerId, requiredFields=[]) {
   return (dispatch, getState) => {
-    const campaign = getState().entities.campaigns['filer_id']
+    const campaign = getState().entities.campaigns[filerId]
     if (campaign && requiredFields.every(key => campaign.hasOwnProperty(key))) {
+      debugger
       return null
     }
     return dispatch(fetchCampaign(filerId))
@@ -88,6 +87,7 @@ export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS'
 export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE'
 
 function fetchTransactions(filerId) {
+  debugger
   return {
     [CALL_API]: {
       types: [ TRANSACTIONS_REQUEST, TRANSACTIONS_SUCCESS, TRANSACTIONS_FAILURE ],
@@ -98,8 +98,9 @@ function fetchTransactions(filerId) {
 }
 
 export function loadTransactions(filerId, requiredFields = []) {
+  debugger
   return (dispatch, getState) => {
-    const transaction = getState().entities.transaction[filerId]
+    const transaction = getState().entities.transactions[filerId]
     if (transaction && requiredFields.every(key => transaction.hasOwnProperty(key))) {
       return null
     }
