@@ -13,6 +13,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin("styles.css"),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],

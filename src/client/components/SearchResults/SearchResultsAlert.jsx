@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { AlertDismissable } from '../Bootstrap';
-
+// @connect here to fetching to remove the inbetween message
 class SearchResultsAlert extends Component {
 
     constructor(props, content) {
@@ -11,7 +11,6 @@ class SearchResultsAlert extends Component {
     }
 
     componentDidMount() {
-      debugger;
     }
 
     render() {

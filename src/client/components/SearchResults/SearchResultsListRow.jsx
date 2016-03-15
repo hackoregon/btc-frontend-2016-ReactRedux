@@ -12,13 +12,13 @@ class SearchResultsListRow extends Component {
         return (<div colSpan="12" {...this.props}>
                     <h4>
                       <Link to= {`/campaign/${item.filerId}`} >
-                      {item.name}
+                      {item.candidateName}
                       </Link>
                     </h4>
                     <div>
                       <p><span>{item.race}</span></p>
                       <span>Raised: ${item.total}</span>
-                      <span>Spent: ${item.spent}</span>
+                      <span>Spent: ${item.totalSpent}</span>
                     </div>
                 </div>
             );
@@ -31,9 +31,9 @@ SearchResultsListRow.defaultProps = {
 };
 SearchResultsListRow.propTypes = {
     item: PropTypes.shape({
-        name: PropTypes.string,
+        candidateName: PropTypes.string,
         total: PropTypes.Number,
-        spent: PropTypes.Number,
+        totalSpent: PropTypes.Number,
         race: PropTypes.string,
         filerId: PropTypes.Number
     })

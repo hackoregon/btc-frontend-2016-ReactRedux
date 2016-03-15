@@ -3,7 +3,7 @@ import {Col} from 'react-bootstrap';
 // import {VictoryBar} from 'victory';
 import _ from 'lodash';
 import d3 from 'd3';
-const DonorRowItem = ({donors, payee, amount}) => {
+const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
   const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
   function donorPercent(amount) {
     if (amount > 0) {
@@ -18,17 +18,17 @@ const DonorRowItem = ({donors, payee, amount}) => {
     } else
       return {size: '0%', color: '#FFF'};
   }
-  
+
   return (
     <tr>
       <td>
-        <Col sm={7}>
+        <Col sm={7} xs={10}>
           <span>{payee}</span>
         </Col>
-        <Col sm={2}>
-          <span>{amount}</span>
+        <Col sm={2} xs={2}>
+          <span>{formattedAmount}</span>
         </Col>
-        <Col sm={3}>
+        <Col sm={3} xs={12}>
           <div style={{
             height: "15px",
             borderRadius: "3px",

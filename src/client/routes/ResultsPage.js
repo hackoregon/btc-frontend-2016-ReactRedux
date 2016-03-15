@@ -9,9 +9,7 @@ import SearchResultsList from '../containers/SearchResults/SearchResultsList.jsx
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 
-
 class ResultsPage extends Component {
-
     render() {
         return (
             <div>

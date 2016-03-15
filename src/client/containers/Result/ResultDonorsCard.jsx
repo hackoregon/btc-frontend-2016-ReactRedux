@@ -1,11 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Col } from 'react-bootstrap';
+import { Col, Row, Grid, Carousel, CarouselItem } from 'react-bootstrap';
 import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
+import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
-import { fetchResultData } from '../../actions/index.js';
+import {loadDonors} from '../../actions'
+import _ from 'lodash';
+// import { fetchResultData } from '../../actions/index.js';
+
+function loadData(props) {
+  const { filer_id } = props.params;
+  debugger
+  props.loadDonors(filer_id);
+}
 
 class ResultDonorsCard extends Component {
 
@@ -13,40 +22,61 @@ class ResultDonorsCard extends Component {
         super(props, content);
     }
     componentWillReceiveProps(nextProps) {
-
+      debugger
         const {dispatch} = this.props;
     }
     componentWillUpdate(nextProps, nextState) {
       console.log('update:',nextProps,nextState)
         const {dispatch} = this.props;
     }
+    componentWillMount() {
+      debugger
+      loadData(this.props);
+    }
     componentDidMount() {
         let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
         const {dispatch} = this.props;
-        dispatch(fetchResultData(filerId));
+        // dispatch(fetchResultData(filerId));
     }
 
     render() {
-      const {individual} = this.props;
-      console.log('rendering donor card:', individual);
+      const {donors} = this.props;
+      let donorArray = _.values(donors);
+      let individualDonors = _.chain(donorArray).filter({"bookType":"Individual"||"Candidate's Immediate Family"}).orderBy('amount','desc').value();
+      let businessDonors = _.chain(donorArray).filter({"bookType":"Business Entity"}).orderBy('amount','desc').value();
+      let pacDonors = _.chain(donorArray).filter({"bookType":"Political Committee"}).orderBy('amount','desc').value();
+      debugger
         return (<div>
                 <StoryCard
                   question={"Who is giving?"}
                   description={"This visualization is calculated by total dollars, not total people."}>
-                  <ResultDonorsList donations={individual}></ResultDonorsList>
+                  <ListsCarousel>
+                    <CarouselItem >
+                    <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
+                    <ResultDonorsList donorType={"Top Business Donors"} donors={businessDonors}></ResultDonorsList>
+                    </CarouselItem>
+                    <CarouselItem>
+                    <ResultDonorsList donorType={"Top PAC Donors"} donors={pacDonors}></ResultDonorsList>
+                    </CarouselItem>
+                  </ListsCarousel>
                 </StoryCard>
                 </div>
         );
     }
 }
+
+ResultDonorsCard.propTypes = {
+  donors: PropTypes.object
+}
+
 function mapStateToProps(state) {
-  const {resultData:{
-    donorData: {
-      individual, pac, business, party, unknown
-      }
+  const {entities:{
+    donors
     }
   } = state;
-  return {individual,pac,business,unknown,party};
+  return {donors};
 
 }
-export default connect(mapStateToProps)(ResultDonorsCard);
+export default connect(mapStateToProps,{
+  loadDonors
+})(ResultDonorsCard);
