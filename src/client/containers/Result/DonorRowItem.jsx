@@ -1,8 +1,8 @@
 import React from 'react';
 import {Col} from 'react-bootstrap';
-// import {VictoryBar} from 'victory';
 import _ from 'lodash';
 import d3 from 'd3';
+
 const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
   const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
   function donorPercent(amount) {

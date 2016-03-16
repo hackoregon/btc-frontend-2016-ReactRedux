@@ -7,10 +7,6 @@ import './assets/css/stylesheets/app.css';
 import './assets/css/stylesheets/bootstrapOverride.css';
 
 import Moment from 'moment';
-import momentLocalizer from 'react-widgets/lib/localizers/moment';
-momentLocalizer(Moment);
-import numberLocalizer from 'react-widgets/lib/localizers/simple-number';
-numberLocalizer();
 
 import React from 'react';
 import ReactDOM from 'react-dom';
