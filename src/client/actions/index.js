@@ -82,6 +82,31 @@ export function loadCampaign(filerId, requiredFields=[]) {
   }
 }
 
+export const LOCATION_REQUEST = 'LOCATION_REQUEST';
+export const LOCATION_SUCCESS = 'LOCATION_SUCCESS';
+export const LOCATION_FAILURE = 'LOCATION_FAILURE';
+
+function fetchLocationData(filerId){
+  return {
+    [CALL_API]: {
+      types: [LOCATION_REQUEST,LOCATION_SUCCESS,LOCATION_FAILURE],
+      endpoint: `candidate_in_by_state_by_id/${filerId}/`,
+      schema: Schemas.LOCATION_ARRAY
+    }
+  }
+}
+
+export function loadLocationData(filerId, requiredFields=[]) {
+  return (dispatch, getState) => {
+    const location = getState().entities.locations[filerId]
+    if (location && requiredFields.every(key => location.hasOwnProperty(key))) {
+      debugger
+      return null
+    }
+    return dispatch(fetchLocationData(filerId))
+  }
+}
+
 export const TRANSACTIONS_REQUEST = 'TRANSACTIONS_REQUEST'
 export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS'
 export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE'

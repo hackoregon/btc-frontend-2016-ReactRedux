@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {loadCampaign} from '../../actions'
 import ResultHeader from './ResultHeader.jsx'
 import ResultDonorsCard from './ResultDonorsCard.jsx'
+import ResultSummaryCard from './ResultSummaryCard.jsx'
 
 function loadData(props) {
   const { filer_id } = props;
@@ -37,12 +38,14 @@ class ResultPage extends Component {
     if (!campaign) {
       return <h1><i>Loading... </i></h1>
     }
+    debugger
     return (
       <div {...this.props}>
         <ResultHeader
           candidate={campaign.candidateName}
           key={campaign.filerId}
           race = { campaign.race } />
+        <ResultSummaryCard total={campaign.total} totalSpent={campaign.totalSpent} grassroots={campaign.grassroots} instate={campaign.instate} />
         <ResultDonorsCard params={this.props.params}/>
       </div>
     )

@@ -9,13 +9,6 @@ class ResultHeader extends Component {
         super(props, content);
     }
 
-    componentDidMount() {
-      // debugger
-      // let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
-      //   const {dispatch} = this.props;
-      //   dispatch(fetchSummaryData(filerId));
-    }
-
     render() {
         const {candidate, race} = this.props;
         return (<Row {...this.props}
@@ -47,7 +40,7 @@ class ResultHeader extends Component {
 
 ResultHeader.propTypes = {
   candidate: PropTypes.string.isRequired,
-  race: PropTypes.string.isRequired
+  race: PropTypes.string.isRequired,
 }
 export default ResultHeader;
 // export default connect(mapStateToProps)(ResultHeader);

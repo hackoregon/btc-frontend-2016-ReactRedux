@@ -75,6 +75,7 @@ class SearchResultsForm extends Component {
 
     onSuggestionSelected(e, { suggestionValue }) {
       debugger
+      this.setState({searchTerm: suggestionValue})
       const {dispatch} = this.props;
       dispatch(loadSearchData(suggestionValue));
     }
@@ -92,19 +93,21 @@ class SearchResultsForm extends Component {
         e.stopPropagation();
 
         const {dispatch} = this.props;
-        const searchTerm = this.searchTermRef;
-        if(!searchTerm.trim()){return}
-        dispatch(loadSearchData(searchTerm));
+        // const searchTerm = this.searchTermRef;
+        if(!this.searchTermRef.trim()){return}
+        dispatch(loadSearchData(this.searchTermRef));
     }
 
     render() {
-      const { value, suggestions, isLoading, noResults } = this.state;
+      const { value, suggestions, isLoading, noResults} = this.state;
+
       const inputProps = {
       placeholder: 'Search for candidates, measures or PAC name',
       value,
       className: 'form-control input-group',
       onChange: this.onChange
       };
+
       const iconstyle = {
         position: 'absolute',
         top: '10px',
@@ -147,12 +150,14 @@ class SearchResultsForm extends Component {
                 </form>);
     }
 }
-// function mapStateToProps(state) {
-//     const {entities:{searches: {searchTerm}}} = state;
-//     return {
-//         searchTerm
-//     };
-// }
+function mapStateToProps(state) {
+    const {entities:{searchData}} = state;
+    debugger
+    // const searchTerm = this.value;
+    return {
+        searchData
+    };
+}
 
 // export default SearchResultsForm;
-export default connect()(SearchResultsForm);
+export default connect(mapStateToProps)(SearchResultsForm);
