@@ -51,11 +51,11 @@ class HomePage extends Component {
                 <Grid fluid={ true }
                       style={ {    marginTop: '60px',    fontWeight: '200px'} }
                       params={ this.props.params }>
-                      <Grid><DataBoxGroup boxes={[
+                      <DataBoxGroup boxes={[
                         {name:"Expenditures", value:"$313,412,231"},
                         {name:"Contributions", value:"$307,489,692"},
                         {name:"Average Cost per Ballot", value:"$48"}
-                      ]} /></Grid>
+                      ]} />
 
                     <Row params={ this.props.params }>
                         <Col xs={ 12 }

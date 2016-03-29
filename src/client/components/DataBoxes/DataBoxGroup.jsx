@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 import DataBox from './DataBox.jsx'
 import numeral from 'numeral';
 class DataBoxGroup extends Component {
@@ -14,18 +15,23 @@ class DataBoxGroup extends Component {
       if (numeral().unformat(box.value) > 0) {
         return (
           <Col xs={ 12 }
-               sm={ 12 / count }
-               md={ 12 / count }
-               lg={ 12 / count }>
-            <DataBox key={ box.name } name={ box.name } value={ box.value } />
+               sm={ 12 }
+               md={ Math.max(Math.floor(12 / count), 1) }
+               lg={ Math.max(Math.floor(12 / count), 1) }
+               key={ box.name }>
+            <DataBox name={ box.name } value={ box.value } />
           </Col>
         );
       }
     });
     return (
-      <Row className="databox-group">
-        { boxes }
-      </Row>
+      <Grid fluid={ true }
+            style={ {width: '90%', margin: 'auto'} }
+            className="databox-group">
+            <Row>
+              { boxes }
+            </Row>
+      </Grid>
     );
   }
 }
