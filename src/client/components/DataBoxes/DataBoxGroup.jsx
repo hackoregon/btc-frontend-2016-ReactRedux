@@ -13,9 +13,9 @@ class DataBoxGroup extends Component {
 
       if (numeral().unformat(box.value) > 0) {
         return (
-          <Col xs={ 12 / count }
-               md={ 12 / count }
+          <Col xs={ 12 }
                sm={ 12 / count }
+               md={ 12 / count }
                lg={ 12 / count }>
             <DataBox key={ box.name } name={ box.name } value={ box.value } />
           </Col>
