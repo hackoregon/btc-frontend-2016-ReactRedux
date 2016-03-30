@@ -10,6 +10,7 @@ import { Input } from 'react-bootstrap';
 import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
+import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
 
 
 class HomePage extends Component {
@@ -50,40 +51,12 @@ class HomePage extends Component {
                 <Grid fluid={ true }
                       style={ {    marginTop: '60px',    fontWeight: '200px'} }
                       params={ this.props.params }>
-                    <Row params={ this.props.params }>
-                        <Col xs={ 4 }
-                             md={ 4 }
-                             sm={ 4 }
-                             lg={ 4 }
-                             params={ this.props.params }>
-                        <Panel className="text-center"
-                               style={ {    fontWeight: 200} }
-                               params={ this.props.params }>
-                            <h2 style={ {    fontWeight: 200} } params={ this.props.params }><span style={ {    fontWeight: 200} } params={ this.props.params }>313,412,231</span></h2>
-                            <h4 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>Expenditures</span></h4>
-                        </Panel>
-                        </Col>
-                        <Col xs={ 4 }
-                             md={ 4 }
-                             sm={ 4 }
-                             lg={ 4 }
-                             params={ this.props.params }>
-                        <Panel className="text-center" params={ this.props.params }>
-                            <h2 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>307,489,692</span></h2>
-                            <h4 params={ this.props.params }><span style={ {    fontWeight: 200} } params={ this.props.params }>Contributions</span></h4>
-                        </Panel>
-                        </Col>
-                        <Col xs={ 4 }
-                             md={ 4 }
-                             sm={ 4 }
-                             lg={ 4 }
-                             params={ this.props.params }>
-                        <Panel className="text-center" params={ this.props.params }>
-                            <h2 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>$48</span></h2>
-                            <h4 style={ {    fontWeight: 200} } params={ this.props.params }><span params={ this.props.params }>Average cost per ballot</span></h4>
-                        </Panel>
-                        </Col>
-                    </Row>
+                      <DataBoxGroup boxes={[
+                        {name:"Expenditures", value:"$313,412,231"},
+                        {name:"Contributions", value:"$307,489,692"},
+                        {name:"Average Cost per Ballot", value:"$48"}
+                      ]} />
+
                     <Row params={ this.props.params }>
                         <Col xs={ 12 }
                              md={ 12 }
@@ -197,4 +170,3 @@ class HomePage extends Component {
 }
 
 export default HomePage;
-

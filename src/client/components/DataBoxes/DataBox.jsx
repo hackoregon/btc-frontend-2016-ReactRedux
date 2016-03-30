@@ -6,9 +6,13 @@ class DataBox extends Component {
     super(props);
   }
   render() {
+    const boxStyle = {
+      textAlign : 'center'
+    };
     return (
-      <Panel footer={ this.props.name }>
-        { this.props.value }
+      <Panel style={boxStyle}>
+        <h2> { this.props.value } </h2>
+        <h4> { this.props.name } </h4>
       </Panel>
     );
   }
