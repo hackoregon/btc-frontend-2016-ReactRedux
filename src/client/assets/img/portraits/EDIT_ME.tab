@@ -1,0 +1,15 @@
+#If you want to add photos, put the photo into the appropriate directory (currently)
+#assets/img/portraits and add the associated information to this file.
+#Format is TAB SEPARATED filename, person's name, and role.  
+#Portraits will be displayed in same way they are ordered below.
+
+catnikolovski.jpeg	Cat Nikolovski	Producer
+hobsonlane.jpeg	Hobson Lane	Lead Data Scientist
+kenwhaler.jpeg	Ken Whaler	Front End Team
+danielmiller.jpeg	Daniel Miller	Back End Team Lead
+jamesofsink.jpeg	James Ofsink	Facilitator
+thundershiviah.jpeg	Thunder Shiviah	Data Scientist
+allengrimm.jpeg	Allen Grimm	Data Scientist
+colehoward.jpeg	Cole Howard	Data Scientist
+davidgarber.jpeg	David Garber	Front End Team
+lewisnotestine.jpeg	Lewis Notestine	Front End Team

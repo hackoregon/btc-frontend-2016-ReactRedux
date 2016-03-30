@@ -7,20 +7,10 @@ import { Nav } from 'react-bootstrap';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 
-import d3 from 'd3';
-import PortraitGrid from '../components/Bootstrap/PortraitGrid.js';
+import AboutPortraits from '../containers/AboutPortraits.jsx';
 
 
 
-function getPhotos() {
-    
-    var pData = [
-        {file:"./img/catnikolovski.jpeg", name:"Catherine Nikolovski", role:"Producer"},
-        {file:"./img/hobsonlane.jpeg", name:"Hobson Lane", role:"Lead Data Scientist"}
-    ];
-    return pData;
-    
-}
 
 class AboutPage extends Component {
     
@@ -62,8 +52,8 @@ class AboutPage extends Component {
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
                 </Grid>
-                <PortraitGrid photos={getPhotos()}>
-                </PortraitGrid>
+                <AboutPortraits />
+                
             </div>
             );
     }
