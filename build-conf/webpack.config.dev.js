@@ -17,6 +17,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  resolve: {
+      alias: {
+          portraitPath: path.resolve(__dirname,'../src/client/assets/img/portraits')
+      }
+  },
   module: {
     include: path.join(__dirname, '../src/client'),
     loaders: [{
@@ -36,6 +41,10 @@ module.exports = {
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg|jpeg|gif)([\?]?.*)$/,
       exclude: /node_modules/,
       loader: 'url-loader'
+    }, {
+      test: /\.tab$/,
+      exclude: /node_modules/,
+      loader: 'raw-loader'
     }]
 
   },
