@@ -10,17 +10,21 @@ class AboutPortraits extends Component {
 
   loadData() {
       
-      const dataFile = require('portraitPath/EDIT_ME.tab').split('\n');
+      const dataFile = require('portraitPath/PHOTO_DATA.tab').split('\n');
       const filteredData = dataFile.filter(function(line,index){
         if (line.match('^\#') != null) {
           return false;
         }
-        else if (line.match('^\s*$') != null) {
+        if (line.match('^\s*$') != null) {
           return false;
         }
-        else {
-          return true
+        if (line.split('\t').length != 3) {
+          console.log("Skipping \"" + line + "\" .  Tab separated column count not equal to 3")
+          return false;
         }
+        
+        return true
+        
       });
       
       const mappedData = filteredData.map(function(line,index){
