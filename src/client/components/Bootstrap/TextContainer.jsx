@@ -4,9 +4,8 @@ import * as ReactBootstrap from 'react-bootstrap';
 class TextContainer extends Component {
   render(){
     return (
-      <div className="container">
-      <h1></h1>
-      <p className="text-left"></p>
+      <div className={this.props.divClasses}>
+        {this.props.children}
       </div>
     );
   }
