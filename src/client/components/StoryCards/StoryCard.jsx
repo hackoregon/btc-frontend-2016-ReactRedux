@@ -1,20 +1,22 @@
 import React, { PropTypes } from 'react';
-import {Col} from 'react-bootstrap';
-import {connect} from 'react-redux';
+
+const styles = {
+  base : {
+    minWidth: '500px',
+    textAlign: 'center',
+    fontWeight: '200'
+  }
+}
 
 const StoryCard = ({question,description,children}) => {
-
   return (
-      <Col
-          minWidth={500}
-           className="text-center"
-           style={ {    "fontWeight": 200} }>
+      <div style = {styles.base}>
           <h3>{question}</h3>
         <p>
             <span>{description}</span>
         </p>
         {children}
-  </Col>
+  </div>
   )
 }
 

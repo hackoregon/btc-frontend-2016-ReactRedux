@@ -6,7 +6,8 @@ import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
-import {loadDonors} from '../../actions'
+import {loadDonors, loadIndivs} from '../../actions'
+// import {loadIndivs} from '../../actions'
 import _ from 'lodash';
 // import { fetchResultData } from '../../actions/index.js';
 
@@ -15,6 +16,11 @@ function loadData(props) {
   debugger
   props.loadDonors(filer_id);
 }
+function loadIndividuals(props){
+  const { filer_id } = props.params;
+  debugger
+  props.loadIndivs(filer_id);
+}
 
 class ResultDonorsCard extends Component {
 
@@ -22,21 +28,23 @@ class ResultDonorsCard extends Component {
         super(props, content);
     }
     componentWillReceiveProps(nextProps) {
-      debugger
+      // debugger
         const {dispatch} = this.props;
     }
     componentWillUpdate(nextProps, nextState) {
-      console.log('update:',nextProps,nextState)
+      // console.log('update:',nextProps,nextState)
         const {dispatch} = this.props;
     }
     componentWillMount() {
-      debugger
+      // debugger
       loadData(this.props);
     }
     componentDidMount() {
-        let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
-        const {dispatch} = this.props;
+        let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '931'
+        // const {dispatch} = this.props;
         // dispatch(fetchResultData(filerId));
+        loadIndividuals(this.props)
+        // dispatch(fetchIndivDonors('5'))
     }
 
     render() {
@@ -45,7 +53,12 @@ class ResultDonorsCard extends Component {
       let individualDonors = _.chain(donorArray).filter({"bookType":"Individual"||"Candidate's Immediate Family"}).orderBy('amount','desc').value();
       let businessDonors = _.chain(donorArray).filter({"bookType":"Business Entity"}).orderBy('amount','desc').value();
       let pacDonors = _.chain(donorArray).filter({"bookType":"Political Committee"}).orderBy('amount','desc').value();
-      debugger
+
+      let indivsTotal = individualDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
+      let businessTotal = businessDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
+      let pacTotal = pacDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
+
+      console.log('ind ',indivsTotal, 'bus ',businessTotal, 'pac ',pacTotal);
         return (<div>
                 <StoryCard
                   question={"Who is giving?"}
@@ -71,12 +84,12 @@ ResultDonorsCard.propTypes = {
 
 function mapStateToProps(state) {
   const {entities:{
-    donors
+    donors, contributions
     }
   } = state;
-  return {donors};
+  return {donors,contributions};
 
 }
 export default connect(mapStateToProps,{
-  loadDonors
+  loadDonors, loadIndivs
 })(ResultDonorsCard);

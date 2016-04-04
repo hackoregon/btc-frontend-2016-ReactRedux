@@ -31,7 +31,7 @@ module.exports = {
       query: {
         cacheDirectory: true,
         presets: ['react', 'es2015', 'stage-2'],
-        plugins: ['transform-runtime', 'add-module-exports']
+        plugins: ['transform-decorators-legacy','transform-runtime', 'add-module-exports']
       }
     }, {
       test: /\.css$/,

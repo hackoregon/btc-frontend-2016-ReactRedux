@@ -11,7 +11,6 @@ class ResultDonorsList extends Component {
     console.log(props, content)
   }
   componentWillReceiveProps(nextProps) {
-    debugger
     const {dispatch} = this.props;
   }
   componentWillMount() {
