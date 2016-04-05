@@ -88,7 +88,7 @@ const transaction = new Schema('transactions', {
 const list = {
   campaigns: campaign
 };
-
+const contribution = new Schema('contributions')
 campaign.define({
   listByName: valuesOf(campaign,{ schemaAttribute: 'candidateName'})
 })
@@ -109,14 +109,15 @@ search.define({
   list: arrayOf(campaign)
 });
 
+contribution.define({
+  owner: campaign,
+  listByType: valuesOf(transaction,{ schemaAttribute: 'bookType'})
+});
+
+
 donor.define({
-  owner: donor,
-  donations: unionOf({
-    campaigns: arrayOf(campaign),
-    transactions: transaction
-  }, {
-    schemaAttribute: 'tranId'
-  }),
+  owner: transaction,
+  listByName: valuesOf(transaction,{ schemaAttribute: 'contributorPayee'}),
   relationships: valuesOf(campaign)
 });
 
@@ -133,7 +134,9 @@ export const Schemas = {
   TRANSACTION_ARRAY: arrayOf(transaction),
   DONOR: donor,
   DONOR_ARRAY: arrayOf(donor),
-  LIST: list
+  LIST: list,
+  CONTRIBUTION: contribution,
+  CONTRIBUTION_ARRAY: arrayOf(contribution)
 }
 
 export const CALL_API = Symbol('Call API');

@@ -1,12 +1,21 @@
 // export { fetchSearchData } from './SearchResults/SearchResultsFormActions.js';
 // export { fetchResultData,fetchSummaryData } from './Result/ResultActions.js';
-import { FETCH_SEARCH_DATA, FETCH_SEARCH, CALL_API, Schemas } from '../api/serverApi.js';
-import { parseAction, wrapPromise} from './reduxActionsSequence/reduxActionsUtils.js';
+import {
+  FETCH_SEARCH_DATA,
+  FETCH_SEARCH,
+  CALL_API,
+  Schemas
+} from '../api/serverApi.js';
+import {
+  parseAction,
+  wrapPromise
+} from './reduxActionsSequence/reduxActionsUtils.js';
 // import fetchSearchData from './SearchResults/SearchResultsFormActions.js';
 
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'SEARCH_FAILURE';
+
 function fetchSearchData(searchTerm) {
   String.prototype.capitalize = function(lower) {
     return (lower ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) {
@@ -14,16 +23,16 @@ function fetchSearchData(searchTerm) {
     });
   }
   let searchFor = searchTerm.capitalize();
-  return{
+  return {
     [CALL_API]: {
-      types: [SEARCH_REQUEST,SEARCH_SUCCESS,SEARCH_FAILURE],
+      types: [SEARCH_REQUEST, SEARCH_SUCCESS, SEARCH_FAILURE],
       endpoint: `competitors_from_name/${searchFor}/`,
       schema: Schemas.LIST
     }
   }
 }
 
-export function loadSearchData(searchTerm, requiredFields=[]){
+export function loadSearchData(searchTerm, requiredFields = []) {
   // return (dispatch, getState) => wrapPromise(SEARCH_REQUEST, dispatch, () => {
   //   return readData(searchTerm).then(response => {
   //     debugger
@@ -46,7 +55,7 @@ export function loadSearchData(searchTerm, requiredFields=[]){
   //     return result;
   //   });
   // });
-  return (dispatch,getState) =>{
+  return (dispatch, getState) => {
     // const search = getState().entities.campaigns[searchTerm]
     // if (search && requiredFields.every(key => search.hasOwnProperty(key))) {
     //   return null
@@ -61,17 +70,17 @@ export const CAMPAIGN_REQUEST = 'CAMPAIGN_REQUEST';
 export const CAMPAIGN_SUCCESS = 'CAMPAIGN_SUCCESS';
 export const CAMPAIGN_FAILURE = 'CAMPAIGN_FAILURE';
 
-function fetchCampaign(filerId){
+function fetchCampaign(filerId) {
   return {
     [CALL_API]: {
-      types: [CAMPAIGN_REQUEST,CAMPAIGN_SUCCESS,CAMPAIGN_FAILURE],
+      types: [CAMPAIGN_REQUEST, CAMPAIGN_SUCCESS, CAMPAIGN_FAILURE],
       endpoint: `committee_data_by_id/${filerId}/`,
       schema: Schemas.CAMPAIGN_ARRAY
     }
   }
 }
 
-export function loadCampaign(filerId, requiredFields=[]) {
+export function loadCampaign(filerId, requiredFields = []) {
   return (dispatch, getState) => {
     const campaign = getState().entities.campaigns[filerId]
     if (campaign && requiredFields.every(key => campaign.hasOwnProperty(key))) {
@@ -86,17 +95,17 @@ export const LOCATION_REQUEST = 'LOCATION_REQUEST';
 export const LOCATION_SUCCESS = 'LOCATION_SUCCESS';
 export const LOCATION_FAILURE = 'LOCATION_FAILURE';
 
-function fetchLocationData(filerId){
+function fetchLocationData(filerId) {
   return {
     [CALL_API]: {
-      types: [LOCATION_REQUEST,LOCATION_SUCCESS,LOCATION_FAILURE],
+      types: [LOCATION_REQUEST, LOCATION_SUCCESS, LOCATION_FAILURE],
       endpoint: `candidate_in_by_state_by_id/${filerId}/`,
       schema: Schemas.LOCATION_ARRAY
     }
   }
 }
 
-export function loadLocationData(filerId, requiredFields=[]) {
+export function loadLocationData(filerId, requiredFields = []) {
   return (dispatch, getState) => {
     const location = getState().entities.locations[filerId]
     if (location && requiredFields.every(key => location.hasOwnProperty(key))) {
@@ -115,7 +124,7 @@ function fetchTransactions(filerId) {
   debugger
   return {
     [CALL_API]: {
-      types: [ TRANSACTIONS_REQUEST, TRANSACTIONS_SUCCESS, TRANSACTIONS_FAILURE ],
+      types: [TRANSACTIONS_REQUEST, TRANSACTIONS_SUCCESS, TRANSACTIONS_FAILURE],
       endpoint: `current_candidate_transactions/${filerId}/`,
       schema: Schemas.TRANSACTION_ARRAY
     }
@@ -139,19 +148,18 @@ export const DONOR_SUCCESS = 'DONOR_SUCCESS'
 export const DONOR_FAILURE = 'DONOR_FAILURE'
 
 function fetchDonors(filerId) {
-  debugger
+
   return {
     [CALL_API]: {
-      types: [ DONOR_REQUEST, DONOR_SUCCESS, DONOR_FAILURE ],
+      types: [DONOR_REQUEST, DONOR_SUCCESS, DONOR_FAILURE],
       endpoint: `current_candidate_transactions/${filerId}/`,
       schema: Schemas.DONOR_ARRAY
     }
   }
 }
 
+export function loadDonors(filerId, requiredFields = []) {
 
-export function loadDonors(filerId, requiredFields=[]){
-  debugger
   return (dispatch, getState) => {
     const donor = getState().entities.donors[filerId]
     if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
@@ -161,6 +169,61 @@ export function loadDonors(filerId, requiredFields=[]){
     return dispatch(fetchDonors(filerId))
   }
 }
+
+export const INDIV_REQUEST = 'INDIV_REQUEST'
+export const INDIV_SUCCESS = 'INDIV_SUCCESS'
+export const INDIV_FAILURE = 'INDIV_FAILURE'
+
+function fetchIndivs(filerId) {
+  debugger
+  return {
+    [CALL_API]: {
+      types: [ INDIV_REQUEST, INDIV_SUCCESS, INDIV_FAILURE ],
+      endpoint: `current_candidate_transactions_individual_in/${filerId}/`,
+      schema: Schemas.CONTRIBUTION_ARRAY
+    }
+  }
+}
+
+export function loadIndivs(filerId, requiredFields = []) {
+  debugger
+  return (dispatch, getState) => {
+    // const donor = getState().entities.donors[filerId]
+    // if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
+    //   return null
+    // }
+
+    return dispatch(fetchIndivs(filerId))
+  }
+}
+
+export const PAC_REQUEST = 'PAC_REQUEST'
+export const PAC_SUCCESS = 'PAC_SUCCESS'
+export const PAC_FAILURE = 'PAC_FAILURE'
+
+function fetchPACinfo(filerId) {
+  // debugger
+  return {
+    [CALL_API]: {
+      types: [ PAC_REQUEST, PAC_SUCCESS, PAC_FAILURE ],
+      endpoint: `current_candidate_transactions_pac_in/${filerId}/`,
+      schema: Schemas.CONTRIBUTION_ARRAY
+    }
+  }
+}
+
+export function loadPACinfo(filerId, requiredFields = []) {
+  // debugger
+  // return (dispatch, getState) => {
+  //   const donor = getState().entities.donors[filerId]
+  //   if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
+  //     return null
+  //   }
+  //
+  //   return dispatch(fetchPACinfo(filerId))
+  // }
+}
+
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 
 // Resets the currently visible error message.
@@ -169,5 +232,3 @@ export function resetErrorMessage() {
     type: RESET_ERROR_MESSAGE
   }
 }
-
-
