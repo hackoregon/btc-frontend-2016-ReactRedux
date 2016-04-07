@@ -6,11 +6,16 @@ import { combineReducers } from 'redux';
 function entities(state = { campaigns: {}, transactions: {}, contributions:{}, donors:{}, searchData:{}}, action){
   if (action.type === 'SEARCH_SUCCESS'){
     let result = action.response.result
-    state = {
-      searchData: {
+    state = { 
+      campaigns: {}, 
+      transactions: {}, 
+      contributions:{}, 
+      donors:{}, 
+      searchData:{
         list: []
       }
     }
+
     for (var key in result) {
       if (result.hasOwnProperty(key)) {
         state.searchData.list.push(result[key])
