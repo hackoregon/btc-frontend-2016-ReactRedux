@@ -17,7 +17,8 @@ import TextContainer from '../components/Bootstrap/TextContainer.jsx';
 class AboutPage extends Component {
     
     buildSpecialThanks() {
-        const names = ["Michael Pelletier",
+        const names = [
+            "Michael Pelletier",
             "Huston Hedinger",
             "Abby Stevens",
             "John Richter",
@@ -30,9 +31,32 @@ class AboutPage extends Component {
             "Marcus Estes",
             "John Cohoon",
             "John Streater",
-            "Colby Aley"];
+            "Colby Aley"
+        ];
         
 
+
+        var returnThis = [];
+        for (var i=0; i < names.length; i++) {
+            const name1 = names[i] ? names[i++] : "";
+            const name2 = names[i] ? names[i] : "";
+            returnThis.push(
+                <Row key={i} className="show-grid">
+                    <Col xs={3} xsOffset={3} className="text-center">{name1}</Col>
+                    <Col xs={3} className="text-center">{name2}</Col>
+                </Row>
+            )
+        
+
+        }
+        console.log('about returnthis=\n',returnThis)
+        return (
+            <Grid>
+                {returnThis}
+            </Grid>
+        )
+
+        /*
         const mapped = names.map(function(name,index) {
             
             if (index%2==1) {
@@ -48,10 +72,12 @@ class AboutPage extends Component {
             }
             
         });
-
+        
         console.log("MAPPED!");
         console.log(mapped);
-        return mapped;
+        */
+
+        //return mapped;
     }
 
     render() {
@@ -124,10 +150,13 @@ class AboutPage extends Component {
                     </TextContainer>
                 
                     <AboutPortraits />
-
+                    
+                    <br/><br/>
+                    
                     <TextContainer>
                         <h2 className="text-center grayfont">Team Members Not Pictured</h2>
                     </TextContainer>
+
                     <TextContainer divClasses="text-center">
                         <h4>Ryan Miller — Front End Team</h4>
                         <h4>Sam Higgins — Data Scientist</h4>
@@ -137,6 +166,9 @@ class AboutPage extends Component {
                         <h4>Monty Rhode — Front End Team</h4>
                         <h4>Barrett Paul — Product Design</h4>
                     </TextContainer>
+                    
+                    <br/><br/>
+                    
                     <TextContainer>
                         <h2 className="text-center grayfont">Special Thanks to our past Behind the Curtain Team Members!</h2>
                     </TextContainer>
