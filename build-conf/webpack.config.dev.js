@@ -18,9 +18,9 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-      alias: {
-          portraitPath: path.resolve(__dirname,'../src/client/assets/img/portraits')
-      }
+    alias: {
+      portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits')
+    }
   },
   module: {
     include: path.join(__dirname, '../src/client'),
@@ -31,7 +31,7 @@ module.exports = {
       query: {
         cacheDirectory: true,
         presets: ['react', 'es2015', 'stage-2'],
-        plugins: ['transform-decorators-legacy','transform-runtime', 'add-module-exports']
+        plugins: ['transform-decorators-legacy', 'transform-runtime', 'add-module-exports']
       }
     }, {
       test: /\.css$/,

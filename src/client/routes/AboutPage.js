@@ -1,21 +1,14 @@
-
 import React, { Component, PropTypes } from 'react';
-
 import { Grid,Col,Row } from 'react-bootstrap';
 import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
-
 import AboutPortraits from '../containers/AboutPortraits.jsx';
 import TextContainer from '../components/Bootstrap/TextContainer.jsx';
 
-
-
-
-
 class AboutPage extends Component {
-    
+
     buildSpecialThanks() {
         const names = [
             "Michael Pelletier",
@@ -33,8 +26,6 @@ class AboutPage extends Component {
             "John Streater",
             "Colby Aley"
         ];
-        
-
 
         var returnThis = [];
         for (var i=0; i < names.length; i++) {
@@ -46,7 +37,6 @@ class AboutPage extends Component {
                     <Col xs={3} className="text-center">{name2}</Col>
                 </Row>
             )
-        
 
         }
         console.log('about returnthis=\n',returnThis)
@@ -58,21 +48,21 @@ class AboutPage extends Component {
 
         /*
         const mapped = names.map(function(name,index) {
-            
+
             if (index%2==1) {
                 return (
-                    
+
                     <Col xs={6} xsOffset={3}>{name}</Col>
-                    
+
                 );
             } else {
                 return (
                     <Col xs={6}>{name}</Col>
                 );
             }
-            
+
         });
-        
+
         console.log("MAPPED!");
         console.log(mapped);
         */
@@ -148,11 +138,11 @@ class AboutPage extends Component {
                     <TextContainer>
                         <h1 className="text-center grayfont">The Team</h1>
                     </TextContainer>
-                
+
                     <AboutPortraits />
-                    
+
                     <br/><br/>
-                    
+
                     <TextContainer>
                         <h2 className="text-center grayfont">Team Members Not Pictured</h2>
                     </TextContainer>
@@ -166,17 +156,17 @@ class AboutPage extends Component {
                         <h4>Monty Rhode — Front End Team</h4>
                         <h4>Barrett Paul — Product Design</h4>
                     </TextContainer>
-                    
+
                     <br/><br/>
-                    
+
                     <TextContainer>
                         <h2 className="text-center grayfont">Special Thanks to our past Behind the Curtain Team Members!</h2>
                     </TextContainer>
                     {this.buildSpecialThanks()}
-                    
+
                 </div>
 
-                
+
             </div>
             );
     }

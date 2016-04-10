@@ -15,7 +15,7 @@ function getCandidate(searchTerm) {
   return axios.get(`http://54.213.83.132/hackoregon/http/candidate_search/${searchTerm}/`);
 }
 
-// using 2 end points to give more search suggestions
+// using 2 end points for now to give more search suggestions
 export default function fetchSuggestions(searchTerm) {
   if(searchTerm && searchTerm.length > 0){
   return axios.all([getCompetitorFromName(searchTerm), getCandidate(searchTerm)])

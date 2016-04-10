@@ -6,20 +6,15 @@ import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
-import {loadDonors, loadIndivs} from '../../actions'
-// import {loadIndivs} from '../../actions'
+import {loadPACinfo,loadBizInfo, loadIndivs} from '../../actions'
 import _ from 'lodash';
-// import { fetchResultData } from '../../actions/index.js';
+
 
 function loadData(props) {
   const { filer_id } = props.params;
-  debugger
-  props.loadDonors(filer_id);
-}
-function loadIndividuals(props){
-  const { filer_id } = props.params;
-  debugger
   props.loadIndivs(filer_id);
+  props.loadBizInfo(filer_id);
+  props.loadPACinfo(filer_id);
 }
 
 class ResultDonorsCard extends Component {
@@ -40,23 +35,20 @@ class ResultDonorsCard extends Component {
       loadData(this.props);
     }
     componentDidMount() {
-        let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '931'
-        // const {dispatch} = this.props;
-        // dispatch(fetchResultData(filerId));
-        loadIndividuals(this.props)
-        // dispatch(fetchIndivDonors('5'))
+        let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '931';
+        loadData(this.props);
     }
 
     render() {
-      const {donors} = this.props;
-      let donorArray = _.values(donors);
-      let individualDonors = _.chain(donorArray).filter({"bookType":"Individual"||"Candidate's Immediate Family"}).orderBy('amount','desc').value();
-      let businessDonors = _.chain(donorArray).filter({"bookType":"Business Entity"}).orderBy('amount','desc').value();
-      let pacDonors = _.chain(donorArray).filter({"bookType":"Political Committee"}).orderBy('amount','desc').value();
+      const {pacContributions,businessContributions, indivContributions} = this.props;
+      // let donorArray = _.values(contributions);
+      let individualDonors = _.values(indivContributions);
+      let businessDonors = _.values(businessContributions);
+      let pacDonors = _.values(pacContributions);
 
-      let indivsTotal = individualDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
-      let businessTotal = businessDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
-      let pacTotal = pacDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
+      let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
 
       console.log('ind ',indivsTotal, 'bus ',businessTotal, 'pac ',pacTotal);
         return (<div>
@@ -79,17 +71,17 @@ class ResultDonorsCard extends Component {
 }
 
 ResultDonorsCard.propTypes = {
-  donors: PropTypes.object
+  contributions: PropTypes.object
 }
 
 function mapStateToProps(state) {
   const {entities:{
-    donors, contributions
+    donors, indivContributions, businessContributions, pacContributions,transactions
     }
   } = state;
-  return {donors,contributions};
+  return {donors,transactions,indivContributions,pacContributions, businessContributions};
 
 }
 export default connect(mapStateToProps,{
-  loadDonors, loadIndivs
+  loadPACinfo, loadBizInfo, loadIndivs
 })(ResultDonorsCard);

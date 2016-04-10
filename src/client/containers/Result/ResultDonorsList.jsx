@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Panel, Col, Table} from 'react-bootstrap';
-import DonorRowItem from './DonorRowItem.jsx';
+import DonorRowItem from '../../components/Visuals/DonorRowItem.jsx';
 import numeral from 'numeral';
 
 class ResultDonorsList extends Component {
@@ -13,9 +13,11 @@ class ResultDonorsList extends Component {
   componentWillReceiveProps(nextProps) {
     const {dispatch} = this.props;
   }
+
   componentWillMount() {
 
   }
+
   componentWillUpdate(nextProps, nextState) {
     const {dispatch} = this.props;
   }
@@ -26,27 +28,12 @@ class ResultDonorsList extends Component {
   render() {
     const {donors} = this.props;
     let donorRows = donors.map((item, index) => {
-      let amount = numeral(item.amount).format('0,0');
+      let amount = numeral(item.grandTotal).format('0,0');
       return (
-          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.amount}/>
+          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.grandTotal}/>
       )
     });
-    // let businessRows = business.donors.map((item, index) => {
-    //   return (
-    //       <DonorRowItem key={index} donors={business.donors} payee={item.contributor_payee} amount={item.amount}/>
-    //   )
-    // });
-    // let pacRows = pac.donors.map((item, index) => {
-    //   return (
-    //       <DonorRowItem key={index} donors={pac.donors} payee={item.contributor_payee} amount={item.amount}/>
-    //   )
-    // });
-    // let unknownRows = unknown.donors.map((item, index) => {
-    //   return (
-    //       <DonorRowItem key={index} donors={unknown.donors} payee={item.contributor_payee} amount={item.amount}/>
-    //   )
-    // });
-    debugger
+
     return (
       <Col  xs={12} md={6} sm={6} style={{
         "marginRight": "-4px"
@@ -70,16 +57,4 @@ class ResultDonorsList extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   const {resultData:{
-//     donorData: {
-//       individual, pac, business, party, unknown
-//       }
-//     }
-//   } = state;
-//   return {individual,pac,business,unknown,party};
-//
-// }
-
 export default ResultDonorsList;
-// export default connect(mapStateToProps)(ResultDonorsList);
