@@ -3,7 +3,7 @@ import numeral from 'numeral';
 import DataBoxGroup from '../../components/DataBoxes/DataBoxGroup.jsx';
 
 const ResultSummaryCard = ({total, totalSpent, grassroots, instate}) => {
-  debugger
+
   total = numeral(total).format('($ 0.00 a)')
   totalSpent = numeral(totalSpent).format('($ 0.00 a)')
   grassroots = numeral(grassroots).format('0.0%')

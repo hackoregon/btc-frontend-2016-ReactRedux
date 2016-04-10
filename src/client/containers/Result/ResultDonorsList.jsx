@@ -13,9 +13,11 @@ class ResultDonorsList extends Component {
   componentWillReceiveProps(nextProps) {
     const {dispatch} = this.props;
   }
+
   componentWillMount() {
 
   }
+
   componentWillUpdate(nextProps, nextState) {
     const {dispatch} = this.props;
   }
@@ -26,9 +28,9 @@ class ResultDonorsList extends Component {
   render() {
     const {donors} = this.props;
     let donorRows = donors.map((item, index) => {
-      let amount = numeral(item.amount).format('0,0');
+      let amount = numeral(item.grandTotal).format('0,0');
       return (
-          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.amount}/>
+          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.grandTotal}/>
       )
     });
     // let businessRows = business.donors.map((item, index) => {
@@ -46,7 +48,7 @@ class ResultDonorsList extends Component {
     //       <DonorRowItem key={index} donors={unknown.donors} payee={item.contributor_payee} amount={item.amount}/>
     //   )
     // });
-    debugger
+
     return (
       <Col  xs={12} md={6} sm={6} style={{
         "marginRight": "-4px"
@@ -71,14 +73,11 @@ class ResultDonorsList extends Component {
 }
 
 // function mapStateToProps(state) {
-//   const {resultData:{
-//     donorData: {
-//       individual, pac, business, party, unknown
-//       }
+//   const {entities:{
+//     contributions
 //     }
 //   } = state;
-//   return {individual,pac,business,unknown,party};
-//
+//   return {contributions};
 // }
 
 export default ResultDonorsList;

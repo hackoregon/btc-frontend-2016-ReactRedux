@@ -1,17 +1,27 @@
 import * as ActionTypes from '../actions/index'
 import merge from 'lodash/merge'
-import { routerReducer as routing } from 'react-router-redux'
-import { combineReducers } from 'redux';
+import {
+  routerReducer as routing
+} from 'react-router-redux'
+import {
+  combineReducers
+} from 'redux';
 
-function entities(state = { campaigns: {}, transactions: {}, contributions:{}, donors:{}, searchData:{}}, action){
-  if (action.type === 'SEARCH_SUCCESS'){
+function entities(state = {
+  campaigns: {},
+  transactions: {},
+  contributions: {},
+  donors: {},
+  searchData: {}
+}, action) {
+  if (action.type === 'SEARCH_SUCCESS') {
     let result = action.response.result
-    state = { 
-      campaigns: {}, 
-      transactions: {}, 
-      contributions:{}, 
-      donors:{}, 
-      searchData:{
+    state = {
+      campaigns: {},
+      transactions: {},
+      contributions: {},
+      donors: {},
+      searchData: {
         list: []
       }
     }
@@ -19,8 +29,8 @@ function entities(state = { campaigns: {}, transactions: {}, contributions:{}, d
     for (var key in result) {
       if (result.hasOwnProperty(key)) {
         state.searchData.list.push(result[key])
-        }
       }
+    }
     return state
   }
 
@@ -31,28 +41,22 @@ function entities(state = { campaigns: {}, transactions: {}, contributions:{}, d
   return state
 }
 
-function searchData(state = {}, action = {
-  type: 'SEARCH_SUCCESS'
-}) {
+function errorMessage(state = {}, action) {
 
-  return state;
-}
-console.log(ActionTypes)
-function errorMessage(state = {}, action){
-
-  const { type, error } = action
+  const {
+    type,
+    error
+  } = action
   if (type === ActionTypes.RESET_ERROR_MESSAGE) {
-
     return state = null
   } else if (type === ActionTypes.SEARCH_FAILURE) {
-      debugger
-      return state = {
-        error: 'trigger'
-      }
+    debugger
+    return state = {
+      error: 'trigger'
+    }
   } else if (error) {
     return action.error
   }
-
   return state
 }
 

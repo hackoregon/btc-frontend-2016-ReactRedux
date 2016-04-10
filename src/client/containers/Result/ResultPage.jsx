@@ -4,6 +4,9 @@ import {loadCampaign} from '../../actions'
 import ResultHeader from './ResultHeader.jsx'
 import ResultDonorsCard from './ResultDonorsCard.jsx'
 import ResultSummaryCard from './ResultSummaryCard.jsx'
+import ResultLocationStoryCard from './ResultLocationStoryCard.jsx'
+import ResultSpendingCard from './ResultSpendingCard.jsx'
+import ResultWhen from './ResultWhen.jsx'
 
 function loadData(props) {
   const { filer_id } = props;
@@ -23,7 +26,6 @@ class ResultPage extends Component {
 
   }
   componentWillReceiveProps(nextProps) {
-    // debugger
     if(nextProps.filer_id !== this.props.filer_id){
       loadData(nextProps)
     }
@@ -36,9 +38,9 @@ class ResultPage extends Component {
   render(){
     const { campaign } = this.props
     if (!campaign) {
+      // needs loading icon here
       return <h1><i>Loading... </i></h1>
     }
-    debugger
     return (
       <div {...this.props}>
         <ResultHeader
@@ -64,7 +66,6 @@ function mapStateToProps(state, ownProps) {
     entities: { campaigns }
   } = state;
   const campaign = campaigns[filer_id]
-  debugger
   return {
     filer_id, campaign
   }

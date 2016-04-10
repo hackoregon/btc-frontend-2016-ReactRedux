@@ -1,16 +1,13 @@
 {
   "name": "btc-react",
   "version": "0.1.0",
-  "description": "React front-end for BTC",
+  "description": "React Redux front-end for BTC",
   "main": "main.js",
   "scripts": {
     "test": "karma start",
     "clean": "rimraf ./public/resources",
     "start": "npm run clean & node devServer.js",
-    "build-server": "gulp --gulpfile ./build-conf/gulpfile.js build-server",
-    "build-server-dev": "gulp --gulpfile ./build-conf/gulpfile.js build-server-dev",
-    "build-client": "webpack --config ./build-conf/webpack.config.js --progress --colors",
-    "build-client-dev": "webpack --config ./build-conf/webpack-dev.config.js --progress --colors --watch"
+    "build-client": "webpack --config ./build-conf/webpack.config.js --progress --colors"
   },
   "dependencies": {
     "axios": "^0.9.1",
@@ -44,11 +41,14 @@
     "redux-thunk": "^1.0.3",
     "victory": "^0.4.1"
   },
-  "author": "David Daniel <davidedaniel@gmail.com> (http://davidedaniel.github.io)",
-  "license": "ISC",
+  "author": {
+    "name" : "Hack Oregon - Behind the Curtain 2016 Team",
+    "url": "http://www.hackoregon.org/"
+  },
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/hackoregon/btc-frontend-2016-ReactRedux.git"
   },
   "devDependencies": {
     "babel-core": "6.4.5",

@@ -8,7 +8,7 @@ const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
   function donorPercent(amount) {
     if (amount > 0) {
       let donorMax = d3.max(donors, function(donor) {
-        return donor.amount;
+        return donor.grandTotal;
       });
       let donorSize = d3.scale.linear().domain([0, donorMax]).range([0, 1]);
       return {

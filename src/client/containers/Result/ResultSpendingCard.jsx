@@ -11,14 +11,13 @@ class ResultSpendingCard extends Component {
         super(props, content);
     }
     componentWillReceiveProps(nextProps) {
-        const {dispatch} = this.props;
+        // const {dispatch} = this.props;
     }
     componentWillUpdate(nextProps, nextState) {
-        const {dispatch} = this.props;
+        // const {dispatch} = this.props;
     }
     componentDidMount() {
-      debugger
-        const {dispatch} = this.props;
+        // const {dispatch} = this.props;
     }
 
     render() {
@@ -33,14 +32,15 @@ class ResultSpendingCard extends Component {
         );
     }
 }
-function mapStateToProps(state) {
-  const {resultData:{
-    donorData: {
-      individual, pac, business, party, unknown
-      }
-    }
-  } = state;
-  return {individual,pac,business,unknown,party};
-
-}
-export default connect(mapStateToProps)(ResultSpendingCard);
+// function mapStateToProps(state) {
+//   const {resultData:{
+//     donorData: {
+//       individual, pac, business, party, unknown
+//       }
+//     }
+//   } = state;
+//   return {individual,pac,business,unknown,party};
+//
+// }
+export default ResultSpendingCard;
+// export default connect(mapStateToProps)(ResultSpendingCard);

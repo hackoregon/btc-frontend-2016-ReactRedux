@@ -6,19 +6,19 @@ import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
-import {loadDonors, loadIndivs} from '../../actions'
+import {loadTransactions, loadIndivs} from '../../actions'
 // import {loadIndivs} from '../../actions'
 import _ from 'lodash';
 // import { fetchResultData } from '../../actions/index.js';
 
 function loadData(props) {
   const { filer_id } = props.params;
-  debugger
-  props.loadDonors(filer_id);
+  // debugger
+  props.loadTransactions(filer_id);
 }
 function loadIndividuals(props){
   const { filer_id } = props.params;
-  debugger
+  // debugger
   props.loadIndivs(filer_id);
 }
 
@@ -48,13 +48,13 @@ class ResultDonorsCard extends Component {
     }
 
     render() {
-      const {donors} = this.props;
-      let donorArray = _.values(donors);
-      let individualDonors = _.chain(donorArray).filter({"bookType":"Individual"||"Candidate's Immediate Family"}).orderBy('amount','desc').value();
+      const {contributions, indivContributions} = this.props;
+      let donorArray = _.values(contributions);
+      let individualDonors = _.values(indivContributions);
       let businessDonors = _.chain(donorArray).filter({"bookType":"Business Entity"}).orderBy('amount','desc').value();
       let pacDonors = _.chain(donorArray).filter({"bookType":"Political Committee"}).orderBy('amount','desc').value();
 
-      let indivsTotal = individualDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
+      let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       let businessTotal = businessDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
       let pacTotal = pacDonors.map(d => d.amount).reduce((a,b)=> {return a+b},0)
 
@@ -79,17 +79,17 @@ class ResultDonorsCard extends Component {
 }
 
 ResultDonorsCard.propTypes = {
-  donors: PropTypes.object
+  contributions: PropTypes.object
 }
 
 function mapStateToProps(state) {
   const {entities:{
-    donors, contributions
+    donors, indivContributions, transactions
     }
   } = state;
-  return {donors,contributions};
+  return {donors,transactions,indivContributions};
 
 }
 export default connect(mapStateToProps,{
-  loadDonors, loadIndivs
+  loadTransactions, loadIndivs
 })(ResultDonorsCard);
