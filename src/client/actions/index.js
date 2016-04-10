@@ -2,20 +2,14 @@ import {
   CALL_API,
   Schemas
 } from '../api/serverApi.js';
-
+// import { loadBizInfo, BIZ_REQUEST,BIZ_SUCCESS,BIZ_FAILURE} from './bizContributions'
+import {capitalize} from '../utils'
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'SEARCH_FAILURE';
 
 function fetchSearchData(searchTerm) {
-  String.prototype.capitalize = function(lower) {
-    return (lower ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) {
-      return a.toUpperCase();
-    });
-  }
-
   let searchFor = searchTerm.capitalize();
-
   return {
     [CALL_API]: {
       types: [SEARCH_REQUEST, SEARCH_SUCCESS, SEARCH_FAILURE],
@@ -168,7 +162,7 @@ function fetchPACinfo(filerId) {
     [CALL_API]: {
       types: [PAC_REQUEST, PAC_SUCCESS, PAC_FAILURE],
       endpoint: `current_candidate_transactions_pac_in/${filerId}/`,
-      schema: Schemas.CONTRIBUTION_ARRAY
+      schema: Schemas.PAC_CONTRIBUTION_ARRAY
     }
   }
 }
@@ -184,6 +178,30 @@ export function loadPACinfo(filerId, requiredFields = []) {
   }
 }
 
+export const BIZ_REQUEST = 'BIZ_REQUEST'
+export const BIZ_SUCCESS = 'BIZ_SUCCESS'
+export const BIZ_FAILURE = 'BIZ_FAILURE'
+
+function fetchBizInfo(filerId) {
+  return {
+    [CALL_API]: {
+      types: [BIZ_REQUEST, BIZ_SUCCESS, BIZ_FAILURE],
+      endpoint: `current_candidate_transactions_pac_in/${filerId}/`,
+      schema: Schemas.BIZ_CONTRIBUTION_ARRAY
+    }
+  }
+}
+
+export function loadBizInfo(filerId, requiredFields = []) {
+  return (dispatch, getState) => {
+    //   const donor = getState().entities.donors[filerId]
+    //   if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
+    //     return null
+    //   }
+
+    return dispatch(fetchBizInfo(filerId))
+  }
+}
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 
 // Resets the currently visible error message.

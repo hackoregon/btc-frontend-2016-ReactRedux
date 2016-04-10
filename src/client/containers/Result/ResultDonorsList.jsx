@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Panel, Col, Table} from 'react-bootstrap';
-import DonorRowItem from './DonorRowItem.jsx';
+import DonorRowItem from '../../components/Visuals/DonorRowItem.jsx';
 import numeral from 'numeral';
 
 class ResultDonorsList extends Component {
@@ -33,21 +33,6 @@ class ResultDonorsList extends Component {
           <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.grandTotal}/>
       )
     });
-    // let businessRows = business.donors.map((item, index) => {
-    //   return (
-    //       <DonorRowItem key={index} donors={business.donors} payee={item.contributor_payee} amount={item.amount}/>
-    //   )
-    // });
-    // let pacRows = pac.donors.map((item, index) => {
-    //   return (
-    //       <DonorRowItem key={index} donors={pac.donors} payee={item.contributor_payee} amount={item.amount}/>
-    //   )
-    // });
-    // let unknownRows = unknown.donors.map((item, index) => {
-    //   return (
-    //       <DonorRowItem key={index} donors={unknown.donors} payee={item.contributor_payee} amount={item.amount}/>
-    //   )
-    // });
 
     return (
       <Col  xs={12} md={6} sm={6} style={{
@@ -72,13 +57,4 @@ class ResultDonorsList extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   const {entities:{
-//     contributions
-//     }
-//   } = state;
-//   return {contributions};
-// }
-
 export default ResultDonorsList;
-// export default connect(mapStateToProps)(ResultDonorsList);

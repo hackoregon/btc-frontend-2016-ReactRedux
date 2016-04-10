@@ -41,6 +41,7 @@ class ResultPage extends Component {
       // needs loading icon here
       return <h1><i>Loading... </i></h1>
     }
+
     return (
       <div {...this.props}>
         <ResultHeader

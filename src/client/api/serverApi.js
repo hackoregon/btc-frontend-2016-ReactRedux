@@ -60,10 +60,18 @@ const list = {
 const indivContribution = new Schema('indivContributions', {
   idAttribute: 'contributorPayee'
 });
+const pacContribution = new Schema('pacContributions', {
+  idAttribute: 'contributorPayee'
+});
+const businessContribution = new Schema('businessContributions', {
+  idAttribute: 'contributorPayee'
+});
 
 const contributions = ({
   owner: campaign,
-  individual: arrayOf(indivContribution)
+  individual: arrayOf(indivContribution),
+  business: arrayOf(businessContribution),
+  pac: arrayOf(pacContribution)
 })
 
 campaign.define({
@@ -71,6 +79,7 @@ campaign.define({
     schemaAttribute: 'candidateName'
   })
 })
+
 
 const search = new Schema('searches');
 
@@ -106,7 +115,11 @@ export const Schemas = {
   DONOR_ARRAY: arrayOf(donor),
   LIST: list,
   INDIV_CONTRIBUTION: indivContribution,
-  INDIV_CONTRIBUTION_ARRAY: arrayOf(indivContribution)
+  INDIV_CONTRIBUTION_ARRAY: arrayOf(indivContribution),
+  BIZ_CONTRIBUTION: businessContribution,
+  BIZ_CONTRIBUTION_ARRAY: arrayOf(businessContribution),
+  PAC_CONTRIBUTION: pacContribution,
+  PAC_CONTRIBUTION_ARRAY: arrayOf(pacContribution)
 }
 
 export const CALL_API = Symbol('Call API');
