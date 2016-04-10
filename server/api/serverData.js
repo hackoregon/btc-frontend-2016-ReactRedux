@@ -1,1 +1,31 @@
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function readDataFile(){return(0,_fileUtils.readJson)(_path2["default"].join((0,_fileUtils.getCurrentWorkingDirPath)(),dataFilePath))}function writeDataFile(e){return new _promise2["default"](function(t,r){try{return(0,_fileUtils.writeJson)(_path2["default"].join((0,_fileUtils.getCurrentWorkingDirPath)(),dataFilePath),e)}catch(i){r("Error: "+i.message)}})}Object.defineProperty(exports,"__esModule",{value:!0});var _promise=require("babel-runtime/core-js/promise"),_promise2=_interopRequireDefault(_promise);exports.readDataFile=readDataFile,exports.writeDataFile=writeDataFile;var _path=require("path"),_path2=_interopRequireDefault(_path),_fileUtils=require("./fileUtils.js"),dataFilePath="data/sample-data.json";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.readDataFile = readDataFile;
+exports.writeDataFile = writeDataFile;
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _fileUtils = require('./fileUtils.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var dataFilePath = 'data/states-defaults.json';
+
+function readDataFile() {
+    return (0, _fileUtils.readJson)(_path2.default.join((0, _fileUtils.getCurrentWorkingDirPath)(), dataFilePath));
+}
+
+function writeDataFile(options) {
+    return new Promise(function (resolve, reject) {
+        try {
+            return (0, _fileUtils.writeJson)(_path2.default.join((0, _fileUtils.getCurrentWorkingDirPath)(), dataFilePath), options);
+        } catch (e) {
+            reject('Error: ' + e.message);
+        }
+    });
+}
