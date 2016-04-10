@@ -1,4 +1,4 @@
-import NavbarCollapsible from './NavbarCollapsible.js';
+import NavbarCollapsible from './NavbarCollapsible.jsx';
 
 export default {
     NavbarCollapsible

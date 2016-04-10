@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 
 class CustomNavRouterLink extends Component {
 
-    constructor(props, content) {
-        super(props, content);
+    constructor(props) {
+        super(props);
     }
 
     render() {
