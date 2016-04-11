@@ -21,20 +21,32 @@ class ResultLocationStoryCard extends Component {
   }
 
   render() {
+    let stateContribs;
     const {stateContributions} = this.props;
-    let stateArray = _.values(stateContributions)
-    var stateDataArr = statesData.map((i) => {
-      if (stateContributions[i.regionName] !== undefined) {
-        console.log(stateContributions[i.regionName]);
-        return {
-          code: i.code,
-          regionName: i.regionName,
-          value: stateContributions[i.regionName].value
-        }
-      } else {
-        return i;
+    stateContribs = stateContributions;
+    // let stateArray = _.values(stateContributions)
+    let stateArr = [];
+    statesData.forEach((item) => {
+      if(stateContribs && stateContribs[item.regionName]){
+          console.log(stateContribs[item.regionName])
+          item.value = stateContribs[item.regionName].value;
+          stateArr.push(item);
       }
-    });
+    })
+    console.log(stateArr);
+
+    // var stateDataArr = statesData.map((i) => {
+    //   if (stateContribs && stateContribs[i.regionName] !== undefined) {
+    //     // console.log(stateContribs[i.regionName]);
+    //     return {
+    //       code: i.code,
+    //       regionName: i.regionName,
+    //       value: stateContribs[i.regionName].value
+    //     }
+    //   }
+    //
+    // });
+    // console.log(stateDataArr);
 
   return (
     <div>
@@ -42,7 +54,7 @@ class ResultLocationStoryCard extends Component {
         minHeight: '400px',
         minWidth: '600px'
       }} question={"Where does the money come from?"} description={"Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin."}>
-        <DataMap {...this.props} regionData={stateDataArr}/>
+        <DataMap {...this.props} regionData={stateArr}/>
       </StoryCard>
     </div>
   );
