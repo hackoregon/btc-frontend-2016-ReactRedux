@@ -5,37 +5,58 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import statesDefaults from '../../data/states-defaults';
 import objectAssign from 'object-assign';
-
+import numeral from 'numeral';
+const styles = {
+  position: 'relative'
+}
 export default class DataMap extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.datamap = null;
     this.currentScreenWidth = this.currentScreenWidth.bind(this);
   }
-  linearPalleteScale(value){
-    const dataValues = this.props.regionData.map(function(data) { return data.value });
-    const minVal = Math.min(...dataValues);
-    const maxVal = Math.max(...dataValues);
-    return d3.scale.linear().domain([minVal, maxVal]).range(["#A3D3D2","#10716F"])(value);
+  linearPalleteScale(value) {
+    const dataValues = this.props.regionData.map(function(data) {
+      return data.value
+    });
+
+    return d3.scale.linear().domain(d3.extent(dataValues)).range(["#fcfff0", "#10716F"])(value);
   }
-  redducedData(){
+  reducedData() {
     const newData = this.props.regionData.reduce((object, data) => {
-      object[data.code] = { value: data.value, fillColor: this.linearPalleteScale(data.value) };
+        console.log(data)
+      if (data) {
+        // console.log()
+      object[data.code] = {
+        value: data.value,
+        fillColor: this.linearPalleteScale(data.value)
+        }
+      }
+      // } else {
+      //   object[data.code] = {
+      //     fillColor: '#f2f2f2',
+      //     value: ''
+      //   }
+      // }
       return object;
+
     }, {});
     return objectAssign({}, statesDefaults, newData);
   }
-  renderMap(){
+  renderMap() {
     return new Datamap({
       element: ReactDOM.findDOMNode(this),
       scope: 'usa',
-      data: this.redducedData(),
+      data: this.reducedData(),
       geographyConfig: {
         borderWidth: 0.5,
-        highlightFillColor: '#EFE',
+        highlightBorderColor: 'rgba(0, 0, 0, 0.2)',
+        highlightBorderWidth: 0.5,
+        highlightBorderOpacity: 0.5,
+        highlightFillColor: '#edf2c5',
         popupTemplate: function(geography, data) {
           if (data && data.value) {
-            return '<div class="hoverinfo"><strong>' + geography.properties.name + ', ' + data.value + '</strong></div>';
+            return '<div class="hoverinfo"><strong>' + geography.properties.name + ', ' + numeral(data.value).format('($0.0a)') + '</strong></div>';
           } else {
             return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
           }
@@ -43,18 +64,22 @@ export default class DataMap extends React.Component {
       }
     });
   }
-  currentScreenWidth(){
-    return window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth;
+  currentScreenWidth() {
+    return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   }
-  componentDidMount(){
+  componentDidMount() {
     const mapContainer = d3.select('#datamap-container');
     const initialScreenWidth = this.currentScreenWidth();
-    const containerWidth = (initialScreenWidth < 600) ?
-      { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.5625) + 'px' } :
-      { width: '600px', height: '350px' }
-      // { width: '600px', height: '350px' }
+    const containerWidth = (initialScreenWidth < 600)
+      ? {
+        width: initialScreenWidth + 'px',
+        height: (initialScreenWidth * 0.5625) + 'px'
+      }
+      : {
+        width: '600px',
+        height: '350px'
+      }
+    // { width: '600px', height: '350px' }
 
     mapContainer.style(containerWidth);
     this.datamap = this.renderMap();
@@ -63,13 +88,9 @@ export default class DataMap extends React.Component {
       const mapContainerWidth = mapContainer.style('width');
       if (this.currentScreenWidth() > 600 && mapContainerWidth !== '600px') {
         d3.select('svg').remove();
-        mapContainer.style({
-          width: '80%',
-          height: '40%'
-        });
+        mapContainer.style({width: '80%', height: '40%'});
         this.datamap = this.renderMap();
-      }
-      else if (this.currentScreenWidth() <= 600) {
+      } else if (this.currentScreenWidth() <= 600) {
         d3.select('svg').remove();
         mapContainer.style({
           width: currentScreenWidth + 'px',
@@ -79,19 +100,23 @@ export default class DataMap extends React.Component {
       }
     });
   }
-  componentDidUpdate(){
-    this.datamap.updateChoropleth(this.redducedData());
+  componentDidUpdate() {
+    let data = this.reducedData();
+    if(data){
+
+    this.datamap.updateChoropleth(data);
+    }
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     d3.select('svg').remove();
   }
   render() {
     return (
-      <div style={{position:'relative'}}id="datamap-container"></div>
+      <div id="datamap-container" style={styles}></div>
     );
   }
 }
 
 DataMap.propTypes = {
-    regionData: React.PropTypes.array.isRequired
+  regionData: React.PropTypes.array.isRequired
 };

@@ -1,3 +1,4 @@
+// container
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Grid, Carousel, CarouselItem } from 'react-bootstrap';
@@ -19,33 +20,21 @@ function loadData(props) {
 
 class ResultDonorsCard extends Component {
 
-    constructor(props, content) {
-        super(props, content);
+    constructor(props) {
+        super(props);
     }
-    componentWillReceiveProps(nextProps) {
-      // debugger
-        const {dispatch} = this.props;
-    }
-    componentWillUpdate(nextProps, nextState) {
-      // console.log('update:',nextProps,nextState)
-        const {dispatch} = this.props;
-    }
+
     componentWillMount() {
-      // debugger
       loadData(this.props);
-    }
-    componentDidMount() {
-        let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '931';
-        loadData(this.props);
     }
 
     render() {
       const {pacContributions,businessContributions, indivContributions} = this.props;
-      // let donorArray = _.values(contributions);
+      debugger
       let individualDonors = _.values(indivContributions);
       let businessDonors = _.values(businessContributions);
       let pacDonors = _.values(pacContributions);
-
+// .orderBy('amount','desc');
       let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)

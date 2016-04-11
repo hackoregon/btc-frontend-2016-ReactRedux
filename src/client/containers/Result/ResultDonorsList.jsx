@@ -1,3 +1,4 @@
+// component
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Panel, Col, Table} from 'react-bootstrap';
@@ -5,25 +6,6 @@ import DonorRowItem from '../../components/Visuals/DonorRowItem.jsx';
 import numeral from 'numeral';
 
 class ResultDonorsList extends Component {
-
-  constructor(props, content) {
-    super(props, content);
-    console.log(props, content)
-  }
-  componentWillReceiveProps(nextProps) {
-    const {dispatch} = this.props;
-  }
-
-  componentWillMount() {
-
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    const {dispatch} = this.props;
-  }
-  componentDidMount() {
-    const {dispatch} = this.props;
-  }
 
   render() {
     const {donors} = this.props;

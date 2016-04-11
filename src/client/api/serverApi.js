@@ -57,9 +57,14 @@ const list = {
 //   idAttribute: 'contributorPayee'
 // });
 
+const stateContribution = new Schema('stateContributions',{
+  idAttribute: 'state'
+});
+
 const indivContribution = new Schema('indivContributions', {
   idAttribute: 'contributorPayee'
 });
+
 const pacContribution = new Schema('pacContributions', {
   idAttribute: 'contributorPayee'
 });
@@ -71,7 +76,8 @@ const contributions = ({
   owner: campaign,
   individual: arrayOf(indivContribution),
   business: arrayOf(businessContribution),
-  pac: arrayOf(pacContribution)
+  pac: arrayOf(pacContribution),
+  states: arrayOf(stateContribution)
 })
 
 campaign.define({
@@ -90,6 +96,7 @@ search.define({
 // contribution.define({
 //   owner: campaign
 // });
+
 
 indivContribution.define({
   owner: campaign,
@@ -114,6 +121,8 @@ export const Schemas = {
   DONOR: donor,
   DONOR_ARRAY: arrayOf(donor),
   LIST: list,
+  STATE_CONTRIBUTION: stateContribution,
+  STATE_CONTRIBUTION_ARRAY: arrayOf(stateContribution),
   INDIV_CONTRIBUTION: indivContribution,
   INDIV_CONTRIBUTION_ARRAY: arrayOf(indivContribution),
   BIZ_CONTRIBUTION: businessContribution,

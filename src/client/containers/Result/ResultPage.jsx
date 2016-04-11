@@ -16,25 +16,16 @@ function loadData(props) {
 class ResultPage extends Component {
   constructor(props){
     super(props)
-    this.renderCampaign = this.renderCampaign.bind(this)
   }
   componentWillMount() {
-
     loadData(this.props);
-  }
-  componentDidMount() {
-
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.filer_id !== this.props.filer_id){
       loadData(nextProps)
     }
   }
-  renderCampaign(campaign){
-    return(
-      <ResultHeader renderItem={this.renderCampaign} />
-    )
-  }
+
   render(){
     const { campaign } = this.props
     if (!campaign) {
@@ -50,6 +41,7 @@ class ResultPage extends Component {
           race = { campaign.race } />
         <ResultSummaryCard total={campaign.total} totalSpent={campaign.totalSpent} grassroots={campaign.grassroots} instate={campaign.instate} />
         <ResultDonorsCard params={this.props.params}/>
+        <ResultLocationStoryCard params={this.props.params} />
       </div>
     )
   }
