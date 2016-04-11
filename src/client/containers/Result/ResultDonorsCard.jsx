@@ -1,3 +1,4 @@
+// container
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Grid, Carousel, CarouselItem } from 'react-bootstrap';
@@ -22,14 +23,7 @@ class ResultDonorsCard extends Component {
     constructor(props, content) {
         super(props, content);
     }
-    componentWillReceiveProps(nextProps) {
-      // debugger
-        const {dispatch} = this.props;
-    }
-    componentWillUpdate(nextProps, nextState) {
-      // console.log('update:',nextProps,nextState)
-        const {dispatch} = this.props;
-    }
+  
     componentWillMount() {
       // debugger
       loadData(this.props);

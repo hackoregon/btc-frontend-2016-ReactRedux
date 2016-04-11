@@ -1,3 +1,4 @@
+// Component
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
@@ -38,22 +39,9 @@ class ResultHeader extends Component {
             );
     }
 }
-// function mapStateToProps(state) {
-//     const {resultData: {summaryData: {candidate_name, race}}} = state;
-//     return {
-//       candidate_name, race
-//     };
-// }
-// function mapStateToProps(state) {
-//     const {resultData: {summaryData: {candidate_name, race}}} = state;
-//     return {
-//       candidate_name, race
-//     };
-// }
 
 ResultHeader.propTypes = {
   candidate: PropTypes.string.isRequired,
   race: PropTypes.string.isRequired,
 }
 export default ResultHeader;
-// export default connect(mapStateToProps)(ResultHeader);

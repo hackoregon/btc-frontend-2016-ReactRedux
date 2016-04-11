@@ -145,8 +145,8 @@ function fetchIndivs(filerId) {
 
 export function loadIndivs(filerId, requiredFields = []) {
   return (dispatch, getState) => {
-    // const donor = getState().entities.donors['contributorPayee']
-    // if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
+    // const contribution = getState().entities.indivContributions[filerId]
+    // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
     //   return null
     // }
   return dispatch(fetchIndivs(filerId));
@@ -169,10 +169,10 @@ function fetchPACinfo(filerId) {
 
 export function loadPACinfo(filerId, requiredFields = []) {
   return (dispatch, getState) => {
-    //   const donor = getState().entities.donors[filerId]
-    //   if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
-    //     return null
-    //   }
+    // const contribution = getState().entities.pacContributions[filerId]
+    // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
+    //   return null
+    // }
 
     return dispatch(fetchPACinfo(filerId))
   }
@@ -194,12 +194,36 @@ function fetchBizInfo(filerId) {
 
 export function loadBizInfo(filerId, requiredFields = []) {
   return (dispatch, getState) => {
-    //   const donor = getState().entities.donors[filerId]
-    //   if (donor && requiredFields.every(key => donor.hasOwnProperty(key))) {
-    //     return null
-    //   }
+    // const contribution = getState().entities.businessContributions[filerId]
+    // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
+    //   return null
+    // }
 
     return dispatch(fetchBizInfo(filerId))
+  }
+}
+export const STATE_REQUEST = 'STATE_REQUEST'
+export const STATE_SUCCESS = 'STATE_SUCCESS'
+export const STATE_FAILURE = 'STATE_FAILURE'
+
+function fetchStateInfo(filerId) {
+  return {
+    [CALL_API]: {
+      types: [STATE_REQUEST, STATE_SUCCESS, STATE_FAILURE],
+      endpoint: `candidate_in_by_state_by_id/${filerId}/`,
+      schema: Schemas.STATE_CONTRIBUTION_ARRAY
+    }
+  }
+}
+
+export function loadStateInfo(filerId, requiredFields = []) {
+  return (dispatch, getState) => {
+      // const contribution = getState().entities.stateContributions[filerId]
+      // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
+      //   return null
+      // }
+
+    return dispatch(fetchStateInfo(filerId))
   }
 }
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'

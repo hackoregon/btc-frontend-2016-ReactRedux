@@ -7,25 +7,30 @@ import statesDefaults from '../../data/states-defaults';
 import objectAssign from 'object-assign';
 
 export default class DataMap extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.datamap = null;
     this.currentScreenWidth = this.currentScreenWidth.bind(this);
   }
-  linearPalleteScale(value){
-    const dataValues = this.props.regionData.map(function(data) { return data.value });
+  linearPalleteScale(value) {
+    const dataValues = this.props.regionData.map(function(data) {
+      return data.value
+    });
     const minVal = Math.min(...dataValues);
     const maxVal = Math.max(...dataValues);
-    return d3.scale.linear().domain([minVal, maxVal]).range(["#A3D3D2","#10716F"])(value);
+    return d3.scale.linear().domain([minVal, maxVal]).range(["#cededd", "#10716F"])(value);
   }
-  redducedData(){
+  redducedData() {
     const newData = this.props.regionData.reduce((object, data) => {
-      object[data.code] = { value: data.value, fillColor: this.linearPalleteScale(data.value) };
+      object[data.code] = {
+        value: data.value,
+        fillColor: this.linearPalleteScale(data.value)
+      };
       return object;
     }, {});
     return objectAssign({}, statesDefaults, newData);
   }
-  renderMap(){
+  renderMap() {
     return new Datamap({
       element: ReactDOM.findDOMNode(this),
       scope: 'usa',
@@ -43,18 +48,22 @@ export default class DataMap extends React.Component {
       }
     });
   }
-  currentScreenWidth(){
-    return window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth;
+  currentScreenWidth() {
+    return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   }
-  componentDidMount(){
+  componentDidMount() {
     const mapContainer = d3.select('#datamap-container');
     const initialScreenWidth = this.currentScreenWidth();
-    const containerWidth = (initialScreenWidth < 600) ?
-      { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.5625) + 'px' } :
-      { width: '600px', height: '350px' }
-      // { width: '600px', height: '350px' }
+    const containerWidth = (initialScreenWidth < 600)
+      ? {
+        width: initialScreenWidth + 'px',
+        height: (initialScreenWidth * 0.5625) + 'px'
+      }
+      : {
+        width: '600px',
+        height: '350px'
+      }
+    // { width: '600px', height: '350px' }
 
     mapContainer.style(containerWidth);
     this.datamap = this.renderMap();
@@ -63,13 +72,9 @@ export default class DataMap extends React.Component {
       const mapContainerWidth = mapContainer.style('width');
       if (this.currentScreenWidth() > 600 && mapContainerWidth !== '600px') {
         d3.select('svg').remove();
-        mapContainer.style({
-          width: '80%',
-          height: '40%'
-        });
+        mapContainer.style({width: '80%', height: '40%'});
         this.datamap = this.renderMap();
-      }
-      else if (this.currentScreenWidth() <= 600) {
+      } else if (this.currentScreenWidth() <= 600) {
         d3.select('svg').remove();
         mapContainer.style({
           width: currentScreenWidth + 'px',
@@ -79,19 +84,21 @@ export default class DataMap extends React.Component {
       }
     });
   }
-  componentDidUpdate(){
+  componentDidUpdate() {
     this.datamap.updateChoropleth(this.redducedData());
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     d3.select('svg').remove();
   }
   render() {
     return (
-      <div style={{position:'relative'}}id="datamap-container"></div>
+      <div id="datamap-container" style={{
+        position: 'relative'
+      }}></div>
     );
   }
 }
 
 DataMap.propTypes = {
-    regionData: React.PropTypes.array.isRequired
+  regionData: React.PropTypes.array.isRequired
 };
