@@ -9,11 +9,11 @@ export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'SEARCH_FAILURE';
 
 function fetchSearchData(searchTerm) {
-  let searchFor = searchTerm.capitalize();
+  // let searchFor = searchTerm.capitalize();
   return {
     [CALL_API]: {
       types: [SEARCH_REQUEST, SEARCH_SUCCESS, SEARCH_FAILURE],
-      endpoint: `competitors_from_name/${searchFor}/`,
+      endpoint: `candidate_search/${searchTerm}/`,
       schema: Schemas.LIST
     }
   }
