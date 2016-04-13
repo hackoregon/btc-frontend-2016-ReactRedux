@@ -10,6 +10,8 @@ import {
   camelizeKeys
 } from 'humps'
 
+import assign from "lodash/assign";
+
 import 'isomorphic-fetch';
 
 const API_ROOT = 'http://54.213.83.132/hackoregon/http/';
@@ -166,7 +168,7 @@ export default store => next => action => {
   }
 
   function actionWith(data) {
-    const finalAction = Object.assign({}, action, data)
+    const finalAction = assign({}, action, data)
     delete finalAction[CALL_API]
     return finalAction
   }
