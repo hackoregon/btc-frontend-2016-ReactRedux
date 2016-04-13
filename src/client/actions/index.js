@@ -186,7 +186,7 @@ function fetchBizInfo(filerId) {
   return {
     [CALL_API]: {
       types: [BIZ_REQUEST, BIZ_SUCCESS, BIZ_FAILURE],
-      endpoint: `current_candidate_transactions_pac_in/${filerId}/`,
+      endpoint: `current_candidate_transactions_business_in/${filerId}/`,
       schema: Schemas.BIZ_CONTRIBUTION_ARRAY
     }
   }
