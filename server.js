@@ -1,4 +1,3 @@
-var fs = require('fs-extra');
 var path = require('path');
 var request = require('request');
 var express = require('express');

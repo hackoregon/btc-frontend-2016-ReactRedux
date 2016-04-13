@@ -4,7 +4,7 @@ import Datamap from 'datamaps/dist/datamaps.usa.min'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import statesDefaults from '../../data/states-defaults';
-import objectAssign from 'object-assign';
+import assign from "lodash/assign";
 import numeral from 'numeral';
 const styles = {
   position: 'relative'
@@ -36,7 +36,7 @@ export default class DataMap extends React.Component {
       }
       return object;
     }, {});
-    return objectAssign({}, statesDefaults, newData);
+    return assign({}, statesDefaults, newData);
   }
   // renderLegend() {
   //
