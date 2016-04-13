@@ -42,6 +42,6 @@ class ResultHeader extends Component {
 
 ResultHeader.propTypes = {
   candidate: PropTypes.string.isRequired,
-  race: PropTypes.string.isRequired,
+  race: PropTypes.string,
 }
 export default ResultHeader;

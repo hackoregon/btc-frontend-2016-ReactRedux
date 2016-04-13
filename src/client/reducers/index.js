@@ -42,21 +42,27 @@ function entities(state = {
 }
 
 function errorMessage(state = {}, action) {
-
   const {
     type,
     error
   } = action
-  if (type === ActionTypes.RESET_ERROR_MESSAGE) {
-    return state = null
-  } else if (type === ActionTypes.SEARCH_FAILURE) {
-    debugger
-    return state = {
-      error: 'trigger'
-    }
-  } else if (error) {
+  switch (type) {
+    case ActionTypes.RESET_ERROR_MESSAGE:
+      return state = null
+      break;
+    case ActionTypes.SEARCH_FAILURE:
+      return state = {
+        error: 'trigger'
+      }
+      break;
+    default:
+
+  }
+
+  if (error) {
     return action.error
   }
+
   return state
 }
 

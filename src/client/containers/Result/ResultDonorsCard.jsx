@@ -30,7 +30,6 @@ class ResultDonorsCard extends Component {
 
     render() {
       const {pacContributions,businessContributions, indivContributions} = this.props;
-      debugger
       let individualDonors = _.values(indivContributions);
       let businessDonors = _.values(businessContributions);
       let pacDonors = _.values(pacContributions);
@@ -60,15 +59,17 @@ class ResultDonorsCard extends Component {
 }
 
 ResultDonorsCard.propTypes = {
-  contributions: PropTypes.object
+  indivContributions: PropTypes.object,
+  businessContributions: PropTypes.object,
+  pacContributions: PropTypes.object
 }
 
 function mapStateToProps(state) {
   const {entities:{
-    donors, indivContributions, businessContributions, pacContributions,transactions
+    indivContributions, businessContributions, pacContributions,
     }
   } = state;
-  return {donors,transactions,indivContributions,pacContributions, businessContributions};
+  return {indivContributions,pacContributions, businessContributions};
 
 }
 export default connect(mapStateToProps,{
