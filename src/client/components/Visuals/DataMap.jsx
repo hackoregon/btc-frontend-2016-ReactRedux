@@ -9,40 +9,46 @@ import numeral from 'numeral';
 const styles = {
   position: 'relative'
 }
+const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
 export default class DataMap extends React.Component {
   constructor(props) {
     super(props);
     this.datamap = null;
+    this.legend = null;
     this.currentScreenWidth = this.currentScreenWidth.bind(this);
   }
   linearPalleteScale(value) {
     const dataValues = this.props.regionData.map(function(data) {
       return data.value
     });
-
-    return d3.scale.linear().domain(d3.extent(dataValues)).range(["#fcfff0", "#10716F"])(value);
+    // let palletteRange = ['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b']
+    // let minValue = d3.min(dataValues);
+    let donorSize = d3.scale.linear().domain([d3.min(dataValues), d3.max(dataValues)]).range([0, 1]);
+    return colorBlend(donorSize(value))
   }
   reducedData() {
     const newData = this.props.regionData.reduce((object, data) => {
-        console.log(data)
       if (data) {
-        // console.log()
-      object[data.code] = {
-        value: data.value,
-        fillColor: this.linearPalleteScale(data.value)
+        object[data.code] = {
+          value: data.value,
+          fillColor: this.linearPalleteScale(data.value)
         }
       }
-      // } else {
-      //   object[data.code] = {
-      //     fillColor: '#f2f2f2',
-      //     value: ''
-      //   }
-      // }
       return object;
-
     }, {});
     return objectAssign({}, statesDefaults, newData);
   }
+  // renderLegend() {
+  //
+  //   // var svg = d3.select("#svg-color-quant");
+  //   // var quantize = d3.scale.quantize().domain([0, 0.15]).range(d3.range(9).map(function(i) {
+  //   //   return "q" + i + "-9";
+  //   // }));
+  //   // var colorLegend = d3.legend.color().labelFormat(d3.format(".2f")).useClass(true).scale(quantize);
+  //   //
+  //   //
+  //   // return svg.append("g").attr("class", "legendQuant").attr("transform", "translate(20,20)").select(".legendQuant").call(colorLegend);
+  // }
   renderMap() {
     return new Datamap({
       element: ReactDOM.findDOMNode(this),
@@ -50,15 +56,13 @@ export default class DataMap extends React.Component {
       data: this.reducedData(),
       geographyConfig: {
         borderWidth: 0.5,
-        highlightBorderColor: 'rgba(0, 0, 0, 0.2)',
-        highlightBorderWidth: 0.5,
-        highlightBorderOpacity: 0.5,
-        highlightFillColor: '#edf2c5',
+        highlightBorderColor: function(data){return data && data.value ? 'rgba(0, 0, 0, 0.2)' : 'none' },
+        highlightBorderWidth: function(data){return data && data.value ? 0.5 : 0 },
+        highlightBorderOpacity: function(data){return data && data.value ? 0.5 : 0 },
+        highlightFillColor: function(data){return data && data.value ? '#edf2c5' : 'none' },
         popupTemplate: function(geography, data) {
           if (data && data.value) {
-            return '<div class="hoverinfo"><strong>' + geography.properties.name + ', ' + numeral(data.value).format('($0.0a)') + '</strong></div>';
-          } else {
-            return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+            return '<div class="hoverinfo">' + geography.properties.name + ', ' + numeral(data.value).format('($0.0a)') + '</div>';
           }
         }
       }
@@ -83,6 +87,7 @@ export default class DataMap extends React.Component {
 
     mapContainer.style(containerWidth);
     this.datamap = this.renderMap();
+    // this.legend = this.renderLegend();
     window.addEventListener('resize', () => {
       const currentScreenWidth = this.currentScreenWidth();
       const mapContainerWidth = mapContainer.style('width');
@@ -102,9 +107,9 @@ export default class DataMap extends React.Component {
   }
   componentDidUpdate() {
     let data = this.reducedData();
-    if(data){
+    if (data) {
 
-    this.datamap.updateChoropleth(data);
+      this.datamap.updateChoropleth(data);
     }
   }
   componentWillUnmount() {
@@ -112,7 +117,9 @@ export default class DataMap extends React.Component {
   }
   render() {
     return (
-      <div id="datamap-container" style={styles}></div>
+      <div id="datamap-container" style={styles}>
+        <div id="svg-color-quant"/>
+      </div>
     );
   }
 }

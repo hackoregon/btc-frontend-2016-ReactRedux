@@ -45,9 +45,7 @@ class SearchResultsForm extends Component {
 
   loadSuggestions(value) {
     this.setState({isLoading: true});
-
     fetchSuggestions(value).then((data) => {
-
       let dataArr = [
         ...data.candidate_names,
         ...data.related
