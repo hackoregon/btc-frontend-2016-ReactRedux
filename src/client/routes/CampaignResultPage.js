@@ -4,16 +4,19 @@ import BTCNav from '../components/BTCNav.jsx';
 
 class CampaignResultPage extends Component {
   componentWillMount() {
-    let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
+    let filerId = this.props.params.filer_id != undefined
+      ? this.props.params.filer_id
+      : '913'
   }
-
+  
   render() {
     return (
       <div>
-      <BTCNav />
-      <ResultPage style= {{paddingTop:'60px'}}
-        params={this.props.params} filerId={this.props.params.filer_id} />
-    </div>
+        <BTCNav/>
+        <ResultPage key="" style={{
+          paddingTop: '60px'
+        }} params={this.props.params} filerId={this.props.params.filer_id}/>
+      </div>
     )
   }
 }

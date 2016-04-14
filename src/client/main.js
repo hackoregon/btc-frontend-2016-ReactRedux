@@ -16,6 +16,7 @@ import storeManager from './store/storeManager.js';
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import DevTools from './containers/DevTools.jsx';
+import BTCNav from './components/BTCNav.jsx';
 
 const store = storeManager();
 const history = syncHistoryWithStore(browserHistory, store)
@@ -26,7 +27,9 @@ const mainStyles = {
 }
 ReactDOM.render(
     <Provider store={store} >
+      <BTCNav />
         <div style={mainStyles}>
+
         {routes}
         <DevTools />
         </div>
