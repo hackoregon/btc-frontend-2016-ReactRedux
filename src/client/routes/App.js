@@ -1,10 +1,24 @@
 // TODO - finish singular app Component
-import React, { PropTypes } from 'react'
+import React from 'react';
+import BTCNav from '../components/BTCNav.jsx';
+import Grid from 'react-bootstrap';
 
-class App extends React.Component {
-  render () {
+const styles = {
+  paddingTop: '60px',
+};
 
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <BTCNav />
+      <Grid fluid
+        style={ styles }
+        params={ this.props.params }
+      >
+        { this.props.children }
+      </Grid>
+    </div>
+  );
+};
 
 export default App;
