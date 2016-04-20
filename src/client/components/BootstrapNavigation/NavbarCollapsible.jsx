@@ -9,8 +9,16 @@ const styles = {
   },
 
   base: {
-    backgroundColor: '#FFF',
-    fontSize: '1em'
+    backgroundColor: '#64BCBB',
+    fontSize: '1em',
+    height: '75px'
+  },
+
+  logo: {
+    color: '#FFF',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)'
   }
 }
 
@@ -23,7 +31,7 @@ class NavbarCollapsible extends Component {
         <Navbar.Header>
           <Navbar.Brand>
             <IndexLink to="/">
-              <span>{brandName}</span>
+              <span style={styles.logo}>{brandName}</span>
             </IndexLink>
           </Navbar.Brand>
           <Navbar.Toggle/>
