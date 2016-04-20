@@ -1,9 +1,8 @@
 import { expect } from 'chai';
 import rootReducer from '../src/client/reducers';
 
-function foo(){return "that"}
-
-describe('reducers', () => {
+describe('TEST REDUCER', () => {
+    
     var initState = {entities:{campaign:"ctest"}};
     const frozenState = {entities:{campaign:"ctest"}};
     const testAction = {type:"SEARCH_SUCCESS", response:{result:{campaign:"check",filer_id:1234}}};
@@ -13,6 +12,4 @@ describe('reducers', () => {
         expect(initState).to.eql(frozenState);
     })
 
-  
-
-})
+});
