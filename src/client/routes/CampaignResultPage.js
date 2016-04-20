@@ -1,21 +1,18 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import ResultPage from '../containers/Result/ResultPage.jsx';
-import BTCNav from '../components/BTCNav.jsx';
+// import BTCNav from '../components/BTCNav.jsx';
 
-class CampaignResultPage extends Component {
-  componentWillMount() {
-    let filerId = this.props.params.filer_id != undefined ? this.props.params.filer_id : '913'
-  }
-
+const CampaignResultPage = () => ({
   render() {
     return (
       <div>
-      <BTCNav />
-      <ResultPage style= {{paddingTop:'60px'}}
-        params={this.props.params} filerId={this.props.params.filer_id} />
-    </div>
-    )
-  }
-}
-
+        <ResultPage style={{
+          paddingTop: '60px',
+        }} params={this.props.params}
+          filerId={this.props.params.filer_id}
+        />
+        </div>
+    );
+  },
+});
 export default CampaignResultPage;
