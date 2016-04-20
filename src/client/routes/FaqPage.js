@@ -1,7 +1,8 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import { Grid , Panel } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import { PanelGroup } from '../components/Bootstrap';
 import { NavbarCollapsible } from '../components/BootstrapNavigation';
 import { Nav } from 'react-bootstrap';

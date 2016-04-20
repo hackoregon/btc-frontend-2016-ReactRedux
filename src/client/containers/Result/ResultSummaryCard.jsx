@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import numeral from 'numeral';
 import DataBoxGroup from '../../components/DataBoxes/DataBoxGroup.jsx';
 
-const ResultSummaryCard = ({ total, totalSpent, grassroots, instate }) => {
+const ResultSummaryCard = ({total, totalSpent, grassroots, instate}) => {
 
   total = numeral(total).format('($ 0.00 a)')
   totalSpent = numeral(totalSpent).format('($ 0.00 a)')
