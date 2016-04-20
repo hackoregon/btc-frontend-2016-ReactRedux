@@ -6,22 +6,24 @@ import './assets/css/components/autosuggest.css';
 import './assets/css/stylesheets/app.css';
 import './assets/css/stylesheets/bootstrapOverride.css';
 
+import Moment from 'moment';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import getRoutes from './routes/routes.js';
 import storeManager from './store/storeManager.js';
-import { browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 import DevTools from './containers/DevTools.jsx';
 
 const store = storeManager();
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(browserHistory, store)
 const routes = getRoutes(history);
 const mainStyles = {
   fontFamily: 'Helvetica',
-  fontWeight: '300',
-};
+  fontWeight: '300'
+}
 ReactDOM.render(
     <Provider store={store} >
         <div style={mainStyles}>

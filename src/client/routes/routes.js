@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import HomePage from './HomePage.js';
@@ -10,26 +12,23 @@ import OregonPage from './OregonPage.js';
 import FaqPage from './FaqPage.js';
 import AboutPage from './AboutPage.js';
 import CampaignResultPage from './CampaignResultPage.js';
-import App from './App.js';
 
-export default function (history) {
-  return (
-      <Router history={history}>
-          <Route path="/" component={'div'}>
-            <Route path= "/" component={App}>
-              <IndexRoute component={HomePage} />
-              <Route path="/" component={HomePage} />
-              <Route path="/search" component={SearchPage} />
-              <Route path="/campaigns" component={CampaignsPage} />
-              <Route path="/results/:searchTerm" component={ResultsPage} />
-              <Route path="/donors" component={DonorsPage} />
-              <Route path="/candidates" component={CandidatesPage} />
-              <Route path="/oregon" component={OregonPage} />
-              <Route path="/faq" component={FaqPage} />
-              <Route path="/about" component={AboutPage} />
-              <Route path="/campaign/:filer_id" component={CampaignResultPage} />
+export default function(history) {
+    return (
+        <Router history={history}>
+            <Route path="/" component="div">
+                <IndexRoute component={ HomePage } />
+                <Route path="/" component={ HomePage } />
+                <Route path="/search" component={ SearchPage } />
+                <Route path="/campaigns" component={ CampaignsPage } />
+                <Route path="/results/:searchTerm" component={ ResultsPage } />
+                <Route path="/donors" component={ DonorsPage } />
+                <Route path="/candidates" component={ CandidatesPage } />
+                <Route path="/oregon" component={ OregonPage } />
+                <Route path="/faq" component={ FaqPage } />
+                <Route path="/about" component={ AboutPage } />
+                <Route path="/campaign/:filer_id" component={ CampaignResultPage } />
             </Route>
-          </Route>
-      </Router>
-  );
+        </Router>
+        );
 }
