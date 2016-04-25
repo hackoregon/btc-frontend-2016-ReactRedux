@@ -1,21 +1,25 @@
-import React, {PropTypes} from 'react'
-import { Carousel, CarouselItem } from 'react-bootstrap';
+import React, {Component} from 'react'
+import {Carousel} from 'react-bootstrap';
 
-const ListsCarousel = ({children}) => {
-  // let items = children.map((child,index) => {
-  //   return (<CarouselItem key={index} >
-  //           {child}
-  //           </CarouselItem>)
-  // });
-
-  return (
-    <Carousel wrap={false} indicators={false}>
-        {children}
-    </Carousel>
-  )
+class ListsCarousel extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            index: 0,
+            direction: null
+        }
+        this.handleSelect = this.handleSelect.bind(this);
+    }
+    handleSelect(selectedIndex, evt) {
+        this.setState({index: selectedIndex, direction: evt.direction})
+    }
+    render() {
+        return (
+            <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect} wrap={false} indicators={false}>
+                {this.props.children}
+            </Carousel>
+        )
+    }
 }
 
-// ListCarousel.PropTypes = {
-
-// }
 export default ListsCarousel
