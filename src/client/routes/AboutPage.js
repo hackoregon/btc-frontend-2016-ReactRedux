@@ -104,7 +104,7 @@ class AboutPage extends Component {
                     <Nav pullRight={ false } params={ this.props.params }></Nav>
                 </NavbarCollapsible>
                 <Grid fluid={ true }
-                      style={ {    marginTop: '60px',    fontWeight: '200px'} }
+                      style={ {    marginTop: '100px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
                 </Grid>
@@ -173,4 +173,3 @@ class AboutPage extends Component {
 }
 
 export default AboutPage;
-

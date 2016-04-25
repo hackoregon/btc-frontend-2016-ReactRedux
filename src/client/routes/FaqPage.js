@@ -45,7 +45,7 @@ class FaqPage extends Component {
                     <Nav pullRight={ false } params={ this.props.params }></Nav>
                 </NavbarCollapsible>
                 <Grid fluid={ true }
-                      style={ {    marginTop: '60px',    fontWeight: '200px'} }
+                      style={ {    marginTop: '100px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                     <PanelGroup accordion={ true }
                                 defaultActiveKey={ 1 }
@@ -72,4 +72,3 @@ class FaqPage extends Component {
 }
 
 export default FaqPage;
-

@@ -11,7 +11,7 @@ class CampaignResultPage extends Component {
     return (
       <div>
       <BTCNav />
-      <ResultPage style= {{paddingTop:'60px'}}
+      <ResultPage style= {{paddingTop:'100px'}}
         params={this.props.params} filerId={this.props.params.filer_id} />
     </div>
     )
