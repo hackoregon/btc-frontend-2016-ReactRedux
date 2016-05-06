@@ -7,10 +7,8 @@ import { Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Panel } from 'react-bootstrap';
 import { Input } from 'react-bootstrap';
-import { NavbarCollapsible } from '../components/BootstrapNavigation';
-import { Nav } from 'react-bootstrap';
-import CustomNavRouterLink from '../components/CustomNav/CustomNavRouterLink.jsx';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
+import BTCNav from '../components/Navigation/BTCNav.jsx';
 
 
 class HomePage extends Component {
@@ -18,36 +16,7 @@ class HomePage extends Component {
     render() {
         return (
             <div>
-                <NavbarCollapsible inverse={ false }
-                                   fixedTop={ true }
-                                   fluid={ true }
-                                   brandName='Behind the Curtain'
-                                   params={ this.props.params }>
-                    <Nav pullRight={ true } params={ this.props.params }>
-                        <CustomNavRouterLink className="nav-item"
-                                             name="Search"
-                                             params={ this.props.params }></CustomNavRouterLink>
-                        <CustomNavRouterLink className="nav-item"
-                                             name="Oregon"
-                                             params={ this.props.params }></CustomNavRouterLink>
-                        <CustomNavRouterLink className="nav-item"
-                                             name="Campaigns"
-                                             params={ this.props.params }></CustomNavRouterLink>
-                        <CustomNavRouterLink className="nav-item"
-                                             name="Candidates"
-                                             params={ this.props.params }></CustomNavRouterLink>
-                        <CustomNavRouterLink className="nav-item"
-                                             name="Donors"
-                                             params={ this.props.params }></CustomNavRouterLink>
-                        <CustomNavRouterLink className="nav-item"
-                                             name="About"
-                                             params={ this.props.params }></CustomNavRouterLink>
-                        <CustomNavRouterLink className="nav-item"
-                                             name="FAQ"
-                                             params={ this.props.params }></CustomNavRouterLink>
-                    </Nav>
-                    <Nav pullRight={ false } params={ this.props.params }></Nav>
-                </NavbarCollapsible>
+                <BTCNav />
                 <Grid fluid={ true }
                       style={ {    marginTop: '100px',    fontWeight: '200px'} }
                       params={ this.props.params }>
