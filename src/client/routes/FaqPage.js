@@ -4,9 +4,22 @@ import React, { Component, PropTypes } from 'react';
 import { Grid } from 'react-bootstrap';
 import { Panel } from 'react-bootstrap';
 import { PanelGroup } from '../components/Bootstrap';
+import ReactMarkdown from 'react-markdown';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 
 class FaqPage extends Component {
+    getFaqData() {
+        const fileData = require('../assets/faqData.hson');
+        return fileData.map((obj,key) => {
+          return (
+              <Panel header={ obj.q } eventKey={ key } key={ key }>
+                <p className="faq-answer">
+                  <ReactMarkdown source={ obj.a.replace(/\n/g, '<br/>') } />
+                </p>
+              </Panel>
+            )
+        })
+    }
 
     render() {
         return (
@@ -18,20 +31,9 @@ class FaqPage extends Component {
                     <PanelGroup accordion={ true }
                                 defaultActiveKey={ 1 }
                                 params={ this.props.params }>
-                        <Panel header="Panel 1"
-                               eventKey={ 1 }
-                               params={ this.props.params }>
-                            <p params={ this.props.params }>
-                                <span params={ this.props.params }>Basic panel</span>
-                            </p>
-                        </Panel>
-                        <Panel header="Panel 2"
-                               eventKey={ 2 }
-                               params={ this.props.params }>
-                            <p params={ this.props.params }>
-                                <span params={ this.props.params }>Basic panel</span>
-                            </p>
-                        </Panel>
+                        
+                        { this.getFaqData() }
+                        
                     </PanelGroup>
                 </Grid>
             </div>
