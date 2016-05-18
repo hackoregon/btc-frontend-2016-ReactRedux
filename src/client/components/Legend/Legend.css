@@ -1,0 +1,76 @@
+.Legend > div {
+    line-height: 14px;
+    display: flex;
+}
+
+.Legend--color {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 2px;
+    width: 12px;
+    height: 12px;
+}
+
+.Legend--label {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: Helvetica, sans-serif;
+    font-size: 10px;
+    margin: 0 6px 0 3px;
+}
+
+
+/*.Legend > div {
+    line-height: 14px;
+}
+
+.Legend--color {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 2px;
+    width: 12px;
+    height: 12px;
+}
+
+.Legend--label {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: Helvetica, sans-serif;
+    font-size: 10px;
+    margin: 0 0 0 2px;
+}*/
+
+@media only screen and (min-width: 400px) {
+    .Legend {
+        align-self: flex-start;
+        margin: 2em 0;
+    }
+    .Legend.centered {
+      align-self: center;
+      margin: 1em;
+    }
+    .Legend.wrapRow {
+      display: flex;
+    }
+    /*.centered.wrapRow > div {
+      flex-flow:
+    }*/
+}
+
+
+@media only screen and (min-width: 789px) {
+
+  .Legend.wrapRow {
+    display: block;
+  }
+  .Legend.centered {
+    align-self: center;
+  }
+
+}
+
+@media only screen and (min-width: 992px) {
+  /*.Legend.wrapRow {
+    display: flex;
+  }*/
+}

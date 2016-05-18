@@ -3,8 +3,10 @@ import {connect} from 'react-redux';
 import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
+import Legend from '../../components/Legend/Legend.jsx';
 import {loadStateInfo} from '../../actions'
 import SizeMe from 'react-sizeme';
+import numeral from 'numeral';
 function loadData(props) {
   const {filer_id} = props.params;
   props.loadStateInfo(filer_id);
@@ -14,6 +16,14 @@ const SizeMeHOC = SizeMe({
   monitorHeight: true,
   refreshRate: 16
 });
+
+const colors = ['#EEFBFB','#CDF3F2','#89C2C0','#84BEBB','#71B0AE','#6CACAA','#5A9E9B','#1F8481','#165F5C'];
+const domainRange = [100, 1000, 10000, 100000, 1000000, 10000000];
+
+function formatMoney(num){
+  // let minNum = num == 100 ? 1 : (num/10)+1;
+  return numeral(num).format('$0,0');
+}
 class ResultLocationStoryCard extends Component {
 
   constructor(props, content) {
@@ -51,15 +61,18 @@ class ResultLocationStoryCard extends Component {
     // console.log(stateDataArr);
 
   return (
-    <div {...this.props} style={{}}>
+    <div {...this.props}>
       <StoryCard style={{
         minHeight: '400px',
         minWidth: '600px'
       }} question={"Where does the money come from?"} description={"Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin."}>
       <div style = {{ display: 'flex',
-          flexFlow: 'row nowrap',
-          alignItems: 'center'}} >
-        <DataMap regionData={stateArr}/>
+          flexFlow: 'wrap',
+          alignItems: 'center',
+        justifyContent: 'center'}} >
+
+        <DataMap palletteRange={colors} domainRange={domainRange} regionData={stateArr}/>
+        <Legend centered wrapRow labels={domainRange.map(formatMoney)} colors={colors}/>
         </div>
       </StoryCard>
     </div>
