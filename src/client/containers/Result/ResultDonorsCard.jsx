@@ -38,7 +38,6 @@ class ResultDonorsCard extends Component {
       let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
 
-      console.log('ind ',indivsTotal, 'bus ',businessTotal, 'pac ',pacTotal);
         return (<div {...this.props}>
                 <StoryCard
                   question={"Who is giving?"}

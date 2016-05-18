@@ -7,6 +7,7 @@ import ResultSummaryCard from './ResultSummaryCard.jsx'
 import ResultLocationStoryCard from './ResultLocationStoryCard.jsx'
 import ResultSpendingCard from './ResultSpendingCard.jsx'
 import ResultWhen from './ResultWhen.jsx'
+import { Grid } from 'react-bootstrap';
 
 function loadData(props) {
   const { filer_id } = props;
