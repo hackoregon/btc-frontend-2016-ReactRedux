@@ -25,7 +25,7 @@ const styles = {
 }
 
 @Radium
-class CustomNavRouterLink extends Component {
+class NavRouterLink extends Component {
 
     constructor(props) {
         super(props);
@@ -34,7 +34,7 @@ class CustomNavRouterLink extends Component {
     render() {
         let route = '/' + this.props.name.toLowerCase();
         return (<li {...this.props}
-                    className="nav-item">
+                    className={this.props.classes}>
                     <Link to= {route} activeClass={"active"} style={styles.links}>
                     <span>{this.props.name}</span>
                     </Link>
@@ -43,4 +43,9 @@ class CustomNavRouterLink extends Component {
     }
 }
 
-export default CustomNavRouterLink;
+NavRouterLink.propTypes = {
+  name: PropTypes.string,
+  classes: PropTypes.string
+}
+
+export default NavRouterLink;

@@ -9,7 +9,7 @@ import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
 import {loadPACinfo,loadBizInfo, loadIndivs} from '../../actions'
 import _ from 'lodash';
-
+import WhoChart from './WhoChart.jsx';
 
 function loadData(props) {
   const { filer_id } = props.params;
@@ -38,11 +38,11 @@ class ResultDonorsCard extends Component {
       let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
 
-      console.log('ind ',indivsTotal, 'bus ',businessTotal, 'pac ',pacTotal);
-        return (<div>
+        return (<div {...this.props}>
                 <StoryCard
                   question={"Who is giving?"}
                   description={"This visualization is calculated by total dollars, not total people."}>
+                  <WhoChart />
                   <ListsCarousel>
                     <CarouselItem >
                     <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
