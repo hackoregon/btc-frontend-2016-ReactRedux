@@ -51,7 +51,7 @@
     -webkit-animation: slideUp .6s;
     animation: slideUp .6s;
     position: relative;
-    border-bottom: solid 1px #cdcdcd;
+    border-bottom: solid 0.5px #cdcdcd;
 }
 
 .BarChart--series.stacked {

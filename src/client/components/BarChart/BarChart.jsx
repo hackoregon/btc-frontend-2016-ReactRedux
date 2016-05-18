@@ -36,7 +36,6 @@ class BarChart extends Component {
     }
 
     mapSeries(self,series,seriesIndex,sum){
-      console.log(self,series,seriesIndex,sum);
       return series.map((item, itemIndex) => {
           let color = self.props.colorBySeries
                   ? self.props.colors[seriesIndex]
@@ -89,12 +88,11 @@ class BarChart extends Component {
                     ? ' horizontal'
                     : '')}>
                     {data.map((series, seriesIndex) => {
-                        console.log('SERIES ',series,seriesIndex,series.length);
                         let sum = series.length > 1
                             ? series.reduce((carry, current) => {
                                 return carry + current;
                             }, 0)
-                            : series[seriesIndex];
+                            : 0;
 
                             let fullSeries = series.length > 1 ? self.mapSeries(self,series,seriesIndex,sum) : self.mapSeries(self,series,seriesIndex,sum);
 
@@ -123,7 +121,9 @@ class BarChart extends Component {
 BarChart.propTypes = {
     data: PropTypes.array.isRequired,
     labels: PropTypes.array.isRequired,
-    colors: PropTypes.array.isRequired
+    colors: PropTypes.array.isRequired,
+    horizontal: PropTypes.boolean,
+    opaque: PropTypes.boolean
 }
 
 export default BarChart
