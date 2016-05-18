@@ -1,0 +1,147 @@
+.BarChart {
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    padding: 50px;
+}
+
+.BarChart.horizontal {
+    display: block;
+}
+
+.BarChart.horizontal .BarChart--series {
+    display: block;
+    margin: 0 0 30px 0;
+    border: 0;
+}
+
+.BarChart.horizontal .BarChart--series label {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: 0;
+    bottom: auto;
+    padding: 0 0 10px 0;
+}
+
+.BarChart--series {
+    height: 100%;
+    margin: 0 30px 0 0;
+    display: inline-block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-animation: slideUp .6s;
+    animation: slideUp .6s;
+    position: relative;
+    border-bottom: solid 0.5px #cdcdcd;
+}
+
+.BarChart--series.stacked {
+    display: block;
+}
+
+.BarChart--series label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    font-family: Helvetica, sans-serif;
+    font-size: 10px;
+    text-align: center;
+    color: #525252;
+}
+
+.BarChart.horizontal .BarChart--item {
+    display: block;
+    border-radius: 0 2px 2px 0;
+    margin: 0 0 5px 0;
+    height: 1em;
+}
+
+.BarChart.horizontal .BarChart--item b {
+    position: absolute;
+    right: -30px;
+    top: 1em;
+}
+
+.BarChart--item {
+    background-color: #43A19E;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-transition: height 1s ease-out, width 1s ease-out;
+    transition: height 1s ease-out, width 1s ease-out;
+    position: relative;
+    text-align: center;
+    border-radius: 2px 2px 0 0;
+}
+
+.BarChart--item.layered {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    bottom: 0;
+    margin: 0;
+}
+
+.BarChart--item.layered b {
+    position: absolute;
+    right: 0;
+}
+
+.BarChart--item.stacked {
+    position: relative;
+    display: block;
+    border-radius: 0;
+}
+
+.BarChart--item b {
+    position: relative;
+    font-family: Helvetica, sans-serif;
+    font-size: 10px;
+    top: -20px;
+    color: #43A19E;
+}
+
+@-webkit-keyframes slideUp {
+    from {
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+    to {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+    to {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
