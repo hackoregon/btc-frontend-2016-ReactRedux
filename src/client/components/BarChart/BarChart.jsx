@@ -78,15 +78,15 @@ class BarChart extends Component {
     }
 
     render() {
+        const {customStyle,opaque} = this.props;
         let self = this;
         let max = self.state.max;
-        let opaque = this.props.opaque;
         if (this.props.data.length) {
             let data = this.props.data;
             return (
                 <div className={'BarChart' + (this.props.horizontal
                     ? ' horizontal'
-                    : '')}>
+                    : '')} style={customStyle}>
                     {data.map((series, seriesIndex) => {
                         let sum = series.length > 1
                             ? series.reduce((carry, current) => {

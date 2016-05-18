@@ -8,7 +8,7 @@
     -webkit-align-items: flex-end;
     -ms-flex-align: end;
     align-items: flex-end;
-    padding: 50px;
+    padding: 2em;
 }
 
 .BarChart.horizontal {
@@ -51,7 +51,7 @@
     -webkit-animation: slideUp .6s;
     animation: slideUp .6s;
     position: relative;
-    border-bottom: solid 0.5px #cdcdcd;
+    /*border-bottom: solid 0.5px #cdcdcd; TODO - inquire about this */
 }
 
 .BarChart--series.stacked {

@@ -1,9 +1,7 @@
 // container
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Col, Row, Grid, Carousel, CarouselItem } from 'react-bootstrap';
-import DataMap from '../../components/Visuals/DataMap.jsx';
-import statesData from '../../data/statesData';
+import { CarouselItem } from 'react-bootstrap';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 import ResultDonorsList from './ResultDonorsList.jsx';
@@ -33,10 +31,10 @@ class ResultDonorsCard extends Component {
       let individualDonors = _.values(indivContributions);
       let businessDonors = _.values(businessContributions);
       let pacDonors = _.values(pacContributions);
-// .orderBy('amount','desc');
-      let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      // .orderBy('amount','desc');
+      // let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
 
         return (<div {...this.props}>
                 <StoryCard
@@ -66,7 +64,7 @@ ResultDonorsCard.propTypes = {
 
 function mapStateToProps(state) {
   const {entities:{
-    indivContributions, businessContributions, pacContributions,
+    indivContributions, businessContributions, pacContributions
     }
   } = state;
   return {indivContributions,pacContributions, businessContributions};

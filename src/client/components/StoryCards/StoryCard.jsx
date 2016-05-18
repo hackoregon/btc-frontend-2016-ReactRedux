@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 
 const styles = {
   base : {
-    minWidth: '500px',
-    minHeight: '500px',
+    // minWidth: '500px',
+    // minHeight: '500px',
     textAlign: 'center',
     fontWeight: '200'
   }

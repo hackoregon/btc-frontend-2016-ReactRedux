@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 var path = require('path');
-var request = require('request');
+// var request = require('request'); TODO - ?
 var express = require('express');
 var rewrite = require('express-urlrewrite');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 var serverAPI = require('./server/api');
 
 var app = express();

@@ -12,7 +12,7 @@ class WhoChart extends Component {
         this.state = {
             divHeight: 0,
             data: [
-                [10000], [22000], [3223240], [123130],[2133]
+                [10000], [22000], [322320], [123130],[2133]
             ],
             series: ['Finances'],
             labels: [
@@ -35,7 +35,7 @@ class WhoChart extends Component {
     }
 
     componentDidMount() {
-      setTimeout(this.handleResize,1000);
+      setTimeout(this.renderChart,1000);
       window.addEventListener('resize', this.handleResize);
     }
     currentScreenWidth() {
@@ -43,7 +43,7 @@ class WhoChart extends Component {
     }
     handleResize(){
       const { height } = this.props.size;
-      let divHeight = (height*0.6);
+      let divHeight = (height*0.7);
       this.setState({
         divHeight: divHeight
       });
@@ -51,12 +51,12 @@ class WhoChart extends Component {
     }
 
     renderChart(){
-      return (<BarChart
+      return (<BarChart customStyle={{flex:'1'}}
       data={this.state.data}
       labels={this.state.labels}
       dollarFormat
       colors={this.state.colors}
-      height={this.state.divHeight}
+      height={this.props.size.height*0.7}
       opaque
       colorBySeries />);
     }

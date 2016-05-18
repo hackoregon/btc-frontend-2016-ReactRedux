@@ -6,7 +6,7 @@ import './assets/css/components/autosuggest.css';
 import './assets/css/stylesheets/app.css';
 import './assets/css/stylesheets/bootstrapOverride.css';
 
-import Moment from 'moment';
+// import Moment from 'moment'; TODO - needed?
 
 import React from 'react';
 import ReactDOM from 'react-dom';
