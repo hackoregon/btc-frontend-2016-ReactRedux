@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import {Navbar} from 'react-bootstrap';
+import {Navbar, Nav} from 'react-bootstrap';
+import NavRouterLink from './NavRouterLink.jsx';
 import {IndexLink} from 'react-router';
 import Radium from 'radium';
 
@@ -24,6 +25,13 @@ const styles = {
 
 @Radium
 class NavbarCollapsible extends Component {
+  makeLinks() {
+    let links = this.props.menuItems.map((name, index) => {
+      return (<NavRouterLink classes={this.props.linkClasses} name={name} params={this.props.params} key={index}/>);
+    })
+    return links
+  }
+
   render() {
     const {brandName} = this.props;
     return (
@@ -37,7 +45,11 @@ class NavbarCollapsible extends Component {
           <Navbar.Toggle/>
         </Navbar.Header>
         <Navbar.Collapse>
-          {this.props.children}
+          <Nav pullRight={ true } params={ this.props.params }>
+            {this.makeLinks()}
+          </Nav>
+                       
+          <Nav pullRight={ false } params={ this.props.params }></Nav>
         </Navbar.Collapse>
       </Navbar>
     );
@@ -45,7 +57,10 @@ class NavbarCollapsible extends Component {
 }
 
 NavbarCollapsible.propTypes = {
-  brandName: PropTypes.string
+  brandName: PropTypes.string,
+  params: PropTypes.string,
+  menuItems: PropTypes.arrayOf(PropTypes.string),
+  linkClasses: PropTypes.string
 };
 
 NavbarCollapsible.defaultProps = {

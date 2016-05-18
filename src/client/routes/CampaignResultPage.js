@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ResultPage from '../containers/Result/ResultPage.jsx';
-import BTCNav from '../components/BTCNav.jsx';
+import BTCNav from '../components/Navigation/BTCNav.jsx';
 
 class CampaignResultPage extends Component {
   componentWillMount() {
@@ -10,10 +10,10 @@ class CampaignResultPage extends Component {
   render() {
     return (
       <div>
-      <BTCNav />
-      <ResultPage style= {{paddingTop:'100px'}}
-        params={this.props.params} filerId={this.props.params.filer_id} />
-    </div>
+        <BTCNav />
+        <ResultPage style= {{paddingTop:'100px'}}
+          params={this.props.params} filerId={this.props.params.filer_id} />
+      </div>
     )
   }
 }
