@@ -1,18 +1,23 @@
 import d3 from 'd3';
 // import topojson from 'topojson';
 import Datamap from 'datamaps/dist/datamaps.usa.min'
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import statesDefaults from '../../data/states-defaults';
 import assign from 'lodash/assign';
 import numeral from 'numeral';
 // import colorbrewer from 'colorbrewer';
-
+import SizeMe from 'react-sizeme';
+const SizeMeHOC = SizeMe({
+  monitorWidth: true,
+  monitorHeight: true,
+  refreshRate: 24
+});
 const styles = {
     position: 'relative'
 }
 // const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
-export default class DataMap extends React.Component {
+class DataMap extends Component {
     constructor(props) {
         super(props);
         this.datamap = null;
@@ -95,7 +100,7 @@ export default class DataMap extends React.Component {
         const initialScreenWidth = this.currentScreenWidth();
         const containerWidth = (initialScreenWidth < 600)
             ? {
-                width: initialScreenWidth + 'px',
+                width: (initialScreenWidth*0.8) + 'px',
                 height: (initialScreenWidth * 0.5625) + 'px'
             }
             : {
@@ -108,15 +113,15 @@ export default class DataMap extends React.Component {
         window.addEventListener('resize', () => {
             const currentScreenWidth = this.currentScreenWidth();
             const mapContainerWidth = mapContainer.style('width');
-            if (this.currentScreenWidth() > 600 && mapContainerWidth !== '600px') {
+            if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
                 d3.select('svg').remove();
-                mapContainer.style({width: '80%', height: '40%'});
+                mapContainer.style({width: this.props.size.width, height: this.props.size.height});
                 this.datamap = this.renderMap();
-            } else if (this.currentScreenWidth() <= 600) {
+            } else if (this.props.size.width <= 600) {
                 d3.select('svg').remove();
                 mapContainer.style({
-                    width: currentScreenWidth + 'px',
-                    height: (currentScreenWidth * 0.5625) + 'px'
+                    width: (currentScreenWidth*0.8) + 'px',
+                    height: (currentScreenWidth * 0.6) + 'px'
                 });
                 this.datamap = this.renderMap();
             }
@@ -133,9 +138,7 @@ export default class DataMap extends React.Component {
     }
     render() {
         return (
-            <div id="datamap-container" style={styles}>
-                <div id="svg-color-quant"/>
-            </div>
+            <div id="datamap-container" style={styles} />
         );
     }
 }
@@ -143,3 +146,4 @@ export default class DataMap extends React.Component {
 DataMap.propTypes = {
     regionData: React.PropTypes.array.isRequired
 };
+export default SizeMeHOC(DataMap);

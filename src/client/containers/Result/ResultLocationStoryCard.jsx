@@ -4,12 +4,16 @@ import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import {loadStateInfo} from '../../actions'
-
+import SizeMe from 'react-sizeme';
 function loadData(props) {
   const {filer_id} = props.params;
   props.loadStateInfo(filer_id);
 }
-
+const SizeMeHOC = SizeMe({
+  monitorWidth: true,
+  monitorHeight: true,
+  refreshRate: 16
+});
 class ResultLocationStoryCard extends Component {
 
   constructor(props, content) {
@@ -28,12 +32,10 @@ class ResultLocationStoryCard extends Component {
     let stateArr = [];
     statesData.forEach((item) => {
       if(stateContribs && stateContribs[item.regionName]){
-          console.log(stateContribs[item.regionName])
           item.value = stateContribs[item.regionName].value;
           stateArr.push(item);
       }
     })
-    console.log(stateArr);
 
     // var stateDataArr = statesData.map((i) => {
     //   if (stateContribs && stateContribs[i.regionName] !== undefined) {
@@ -49,12 +51,16 @@ class ResultLocationStoryCard extends Component {
     // console.log(stateDataArr);
 
   return (
-    <div>
+    <div {...this.props} style={{}}>
       <StoryCard style={{
         minHeight: '400px',
         minWidth: '600px'
       }} question={"Where does the money come from?"} description={"Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin."}>
-        <DataMap {...this.props} regionData={stateArr}/>
+      <div style = {{ display: 'flex',
+          flexFlow: 'row nowrap',
+          alignItems: 'center'}} >
+        <DataMap regionData={stateArr}/>
+        </div>
       </StoryCard>
     </div>
   );
@@ -73,4 +79,4 @@ return {stateContributions};
 }
 
 // export default ResultLocationStoryCard;
-export default connect(mapStateToProps, {loadStateInfo})(ResultLocationStoryCard);
+export default connect(mapStateToProps, {loadStateInfo})(SizeMeHOC(ResultLocationStoryCard));
