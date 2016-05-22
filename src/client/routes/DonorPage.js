@@ -1,17 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import _ from 'lodash';
 import { Grid, Row, Col, Table, Panel } from 'react-bootstrap';
-import BTCNav from '../components/Navigation/BTCNav.jsx';
-import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
-import BarChart from '../components/BarChart/BarChart.jsx';
-
-import StoryCard from '../components/StoryCards/StoryCard.jsx';
-import ListsCarousel from '../components/ResultsPage/ListsCarousel.jsx';
-import ResultDonorsList from '../containers/Result/ResultDonorsList.jsx';
-import { CarouselItem } from 'react-bootstrap';
-
 import d3 from 'd3';
+
+import BTCNav from '../components/Navigation/BTCNav';
+import DataBoxGroup from '../components/DataBoxes/DataBoxGroup';
+import BarChart from '../components/BarChart/BarChart';
+import StoryCard from '../components/StoryCards/StoryCard';
+
 
 const DataTableBar = React.createClass({
   getDefaultProps() {
@@ -86,7 +82,7 @@ const DataTable = React.createClass({
   }
 });
 
-class DonorPage extends Component {
+class DonorPage extends React.Component {
   render() {
     const dataSummaryValues = [
       { name: 'Total Cash Donated', value: '22.5K' },
