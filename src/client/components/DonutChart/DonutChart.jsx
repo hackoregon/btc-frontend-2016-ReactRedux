@@ -75,6 +75,7 @@ class DonutChart extends Component {
     render() {
         // let name = null;
         // let label = name || 'Label Name';
+        // const {width,height} = this.props;
         let percent = null || Math.round((this.state.currValue / this.state.total) * 100);
         let labelPercent = percent
             ? `${percent}%`
