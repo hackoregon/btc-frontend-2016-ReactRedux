@@ -7,6 +7,7 @@ import ResultSummaryCard from './ResultSummaryCard.jsx'
 import ResultLocationStoryCard from './ResultLocationStoryCard.jsx'
 import ResultSpendingCard from './ResultSpendingCard.jsx'
 import ResultWhen from './ResultWhen.jsx'
+import ResultDonut from './ResultDonut.jsx'
 import { Grid } from 'react-bootstrap';
 
 function loadData(props) {
@@ -41,6 +42,7 @@ class ResultPage extends Component {
           key={campaign.filerId}
           race = { campaign.race } />
         <ResultSummaryCard total={campaign.total} totalSpent={campaign.totalSpent} grassroots={campaign.grassroots} instate={campaign.instate} />
+        <ResultDonut data={[campaign.total,campaign.totalSpent,campaign.grassroots,campaign.instate]}></ResultDonut>
         <ResultDonorsCard params={this.props.params}/>
         <ResultLocationStoryCard params={this.props.params} />
       </div>
