@@ -24,12 +24,30 @@ const mainStyles = {
   fontFamily: 'Helvetica',
   fontWeight: '300'
 }
-ReactDOM.render(
-    <Provider store={store} >
+
+const Root = () => {
+    return (
+      <Provider store={store} >
         <div style={mainStyles}>
         {routes}
         <DevTools />
         </div>
-    </Provider>,
-    document.getElementById('content')
-);
+      </Provider>
+    );
+
+};
+
+function renderApp() {
+    ReactDOM.render(
+        <Root />,
+        document.getElementById('content')
+    );
+}
+
+renderApp();
+
+if (module.hot) {
+    module.hot.accept(() => {
+        renderApp();
+    });
+}
