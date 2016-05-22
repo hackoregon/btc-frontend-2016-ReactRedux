@@ -4,7 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   name: 'browser',
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   entry: ['webpack-hot-middleware/client', './src/client/main.js'],
   output: {
     path: path.join(__dirname, '../public'),
@@ -15,6 +15,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
+    extensions: ['', '.jsx', '.js'],
     alias: {
       portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits')
     }
