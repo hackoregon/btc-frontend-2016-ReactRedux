@@ -2,11 +2,14 @@ import React from 'react';
 import _ from 'lodash';
 import { Grid, Row, Col, Table, Panel } from 'react-bootstrap';
 import d3 from 'd3';
+import {connect} from'react-redux';
 
 import BTCNav from '../components/Navigation/BTCNav';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup';
 import BarChart from '../components/BarChart/BarChart';
 import StoryCard from '../components/StoryCards/StoryCard';
+import DonorCard from '../components/DonorCard/DonorCard';
+
 
 
 const DataTableBar = React.createClass({
@@ -133,6 +136,7 @@ class DonorPage extends React.Component {
       }
     });
 
+    const donor = this.props.donor;
 
     return (
       <div>
@@ -141,8 +145,7 @@ class DonorPage extends React.Component {
           style={ { marginTop: '100px', fontWeight: '200px' } }
           params={ this.props.params }>
 
-          <h2>Donor name</h2>
-          <p>details</p>
+          <DonorCard donor={this.props.donor} />
 
           <StoryCard
             question={"Who are they giving to?"}
@@ -163,7 +166,6 @@ class DonorPage extends React.Component {
             data={barChartData}
             labels={labelData}
             colors={colorData} />
-
 
           <Grid>
             <Row>
@@ -192,4 +194,17 @@ class DonorPage extends React.Component {
   }
 }
 
-export default DonorPage;
+function mapStateToProps(state) {
+  return _.assign({
+    donor: {
+      name: 'Phil Knight',
+      locationDescription: 'In-State Donor',
+      title: 'CEO',
+      organization: 'Nike Inc.'
+    }
+  }, _.pick(state, 'params'));
+}
+
+export default connect(
+  mapStateToProps
+)(DonorPage);
