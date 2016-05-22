@@ -10,9 +10,9 @@ import loadTransactions from './transactions';
 import loadDonors from './donors';
 import { loadIndivs, loadPACinfo, loadBizInfo } from './donorCategories';
 import loadStateInfo from './state';
-
+import loadDonor from './donor_page';
 export { loadSearchData, loadCampaign, loadLocationData, loadTransactions };
-export { loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo}
+export { loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadDonor};
 
 
 
