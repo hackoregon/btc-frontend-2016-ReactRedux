@@ -8,31 +8,25 @@ import assign from 'lodash/assign';
 import numeral from 'numeral';
 // import colorbrewer from 'colorbrewer';
 import SizeMe from 'react-sizeme';
-const SizeMeHOC = SizeMe({
-  monitorWidth: true,
-  monitorHeight: true,
-  refreshRate: 24
-});
+const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 24});
 const styles = {
     position: 'relative'
 }
-// const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
+// const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F'); NOTE - alternate color pallete
 class DataMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          palletteRange: [],
-          domainRange: []
+            palletteRange: [],
+            domainRange: []
         }
         this.datamap = null;
-        this.handleResize = this.handleResize.bind(this);
+        // this.handleResize = this.handleResize.bind(this);
         this.currentScreenWidth = this.currentScreenWidth.bind(this);
+        this.reducedData = this.reducedData.bind(this);
     }
     linearPalleteScale(value) {
-        let manualScale = d3.scale.quantile()
-                          .range(this.state.palletteRange)
-                          .domain(this.state.domainRange);
-
+        let manualScale = d3.scale.quantile().range(this.state.palletteRange).domain(this.state.domainRange);
         return manualScale(value);
     }
     reducedData() {
@@ -47,17 +41,6 @@ class DataMap extends Component {
         }, {});
         return assign({}, statesDefaults, newData);
     }
-    // renderLegend() {
-    //
-    //   // var svg = d3.select("#svg-color-quant");
-    //   // var quantize = d3.scale.quantize().domain([0, 0.15]).range(d3.range(9).map(function(i) {
-    //   //   return "q" + i + "-9";
-    //   // }));
-    //   // var colorLegend = d3.legend.color().labelFormat(d3.format(".2f")).useClass(true).scale(quantize);
-    //   //
-    //   //
-    //   // return svg.append("g").attr("class", "legendQuant").attr("transform", "translate(20,20)").select(".legendQuant").call(colorLegend);
-    // }
     renderMap() {
         return new Datamap({
             element: ReactDOM.findDOMNode(this),
@@ -97,18 +80,15 @@ class DataMap extends Component {
         return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     }
     componentWillMount() {
-      const {domainRange,palletteRange} = this.props;
-      this.setState({
-        domainRange: domainRange,
-        palletteRange: palletteRange
-      });
+        const {domainRange, palletteRange} = this.props;
+        this.setState({domainRange: domainRange, palletteRange: palletteRange});
     }
     componentDidMount() {
         const mapContainer = d3.select('#datamap-container');
         const initialScreenWidth = this.currentScreenWidth();
         const containerWidth = (initialScreenWidth < 600)
             ? {
-                width: (initialScreenWidth*0.8) + 'px',
+                width: (initialScreenWidth * 0.8) + 'px',
                 height: (initialScreenWidth * 0.5625) + 'px'
             }
             : {
@@ -117,26 +97,24 @@ class DataMap extends Component {
             }
         mapContainer.style(containerWidth);
         this.datamap = this.renderMap();
-        // this.legend = this.renderLegend();
-        window.addEventListener('resize', this.handleResize );
-
+        window.addEventListener('resize', () => {
+            const currentScreenWidth = this.currentScreenWidth();
+            const mapContainerWidth = mapContainer.style('width');
+            if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
+                d3.select('svg').remove();
+                mapContainer.style({width: this.props.size.width, height: this.props.size.height});
+                this.datamap = this.renderMap();
+            } else if (this.props.size.width <= 600) {
+                d3.select('svg').remove();
+                mapContainer.style({
+                    width: (currentScreenWidth * 0.9) + 'px',
+                    height: (currentScreenWidth * 0.5625) + 'px'
+                });
+                this.datamap = this.renderMap();
+            }
+        });
     }
-    handleResize(){
-        const currentScreenWidth = this.currentScreenWidth();
-        const mapContainerWidth = mapContainer.style('width');
-        if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
-            d3.select('svg').remove();
-            mapContainer.style({width: this.props.size.width, height: this.props.size.height});
-            this.datamap = this.renderMap();
-        } else if (this.props.size.width <= 600) {
-            d3.select('svg').remove();
-            mapContainer.style({
-                width: (currentScreenWidth*0.8) + 'px',
-                height: (currentScreenWidth * 0.6) + 'px'
-            });
-            this.datamap = this.renderMap();
-        }
-    }
+    // handleResize()
 
     componentDidUpdate() {
         let data = this.reducedData();
@@ -149,13 +127,14 @@ class DataMap extends Component {
         // window.removeEventListener('resize', this.handleResize);
     }
     render() {
-        return (
-            <div id="datamap-container" style={styles} />
-        );
+        const {customStyle} = this.props;
+        return (<div id="datamap-container" style={{...customStyle,...styles}}/>);
     }
 }
 
 DataMap.propTypes = {
-    regionData: React.PropTypes.array.isRequired
+    regionData: React.PropTypes.array.isRequired,
+    domainRange: React.PropTypes.array,
+    palletteRange: React.PropTypes.array
 };
 export default SizeMeHOC(DataMap);

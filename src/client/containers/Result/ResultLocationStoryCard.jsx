@@ -66,12 +66,13 @@ class ResultLocationStoryCard extends Component {
         minHeight: '400px',
         minWidth: '600px'
       }} question={"Where does the money come from?"} description={"Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin."}>
-      <div style = {{ display: 'flex',
+      <div style = {{
+          display: 'flex',
           flexFlow: 'wrap',
           alignItems: 'center',
-        justifyContent: 'center'}} >
+          justifyContent: 'center'}} >
 
-        <DataMap palletteRange={colors} domainRange={domainRange} regionData={stateArr}/>
+        <DataMap customStyle={{order:'2'}} palletteRange={colors} domainRange={domainRange} regionData={stateArr}/>
         <Legend centered wrapRow labels={domainRange.map(formatMoney)} colors={colors}/>
         </div>
       </StoryCard>
