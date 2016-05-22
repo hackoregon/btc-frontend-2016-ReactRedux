@@ -30,7 +30,7 @@ class DonutChart extends Component {
         this.state = {
             total: 0,
             currValue: 0,
-            currLabel: 'Sectors',
+            currLabel: 'Label',
             values: [],
             labels: []
         }
@@ -38,20 +38,20 @@ class DonutChart extends Component {
         this.animateLabel = this.animateLabel.bind(this);
     }
 
-    componentDidMount() {
-        // let total = 0;
-        // let totalVals = [];
-        // let labelOfVals = [];
+    componentWillMount() {
+        let total = 0;
+        let totalVals = [];
+        let labelOfVals = [];
         // for (var i = 0; i < this.props.data.length; i++) {
         //     total += this.props.data[i].money_from_indivs + this.props.data[i].money_from_pacs;
         //     totalVals.push(this.props.data[i].money_from_indivs + this.props.data[i].money_from_pacs);
         //     labelOfVals.push(this.props.data[i].sector_name);
         // }
-        // this.setState({
-        //     total: total,
-        //     values: [...totalVals],
-        //     labels: [...labelOfVals]
-        // });
+        this.setState({
+            total: total,
+            values: [...totalVals],
+            labels: [...labelOfVals]
+        });
     }
 
     getColors(d, i) {
@@ -73,8 +73,8 @@ class DonutChart extends Component {
     }
 
     render() {
-        // let name = null;
-        // let label = name || 'Label Name';
+        let name = null;
+        let label = name || 'Label Name';
         let percent = null || Math.round((this.state.currValue / this.state.total) * 100);
         let labelPercent = percent
             ? `${percent}%`
