@@ -57,7 +57,7 @@ const DataTable = React.createClass({
       return (
         <tr key={datum.name}>
           <td>{datum.name}</td>
-          <td>{datum.value}</td>
+          <td>{currency(datum.value)}</td>
           <td>{this.renderBar(scale, datum.value, dataMax)}</td>
         </tr>
       );
@@ -86,6 +86,40 @@ const DataTable = React.createClass({
   }
 });
 
+function currency(amount) {
+
+  if (amount > 1000000) {
+    return '$' + ((amount) / 1000000).toFixed(1) + ' M';
+  } else if (amount > 1000) {
+    return '$' + ((amount) / 1000).toFixed(1) + ' K';
+  } else {
+    return '$' + amount.toFixed(2);
+  }
+}
+
+function filterTransactions(transaction, filterFunction) {
+
+  return _.chain(transactions)
+    .filter(filterFunction)
+    .reduce((acc, d) => {
+      if (acc[d.subType]) {
+        acc[d.subType] += d.amount;
+      } else {
+        acc[d.subType] = d.amount;
+      }
+      return acc;
+    }, {})
+    .map((total, receiver) => {
+      return {
+        value: total,
+        name: receiver
+      }
+    })
+    .sortBy('value')
+    .takeRight(4)
+    .reverse()
+    .value();
+}
 
 
 function loadData(props) {
@@ -120,54 +154,50 @@ class DonorPage extends Component {
       organization: 'Nike Inc.'
     };
 
+
+
     const dataSummaryValues = [
-      { name: 'Total Cash Donated', value: '22.5K' },
-      { name: 'Total Donated In-Kind', value: '22.5K' },
-      { name: 'Average Contribution', value: '22.5K' },
-      { name: 'Largest Contribution', value: '22.5K' }
+      { name: 'Total Cash Donated', value: currency(22500) },
+      { name: 'Total Donated In-Kind', value: currency(10.28000) },
+      { name: 'Average Contribution', value: currency(10) },
+      { name: 'Largest Contribution', value: currency(222500.1) }
     ];
     const barChartData = [[26], [87], [90], [10], [34]];
     const colorData = ['#bebada', '#fb8072', '#8dd3c7', '#b3de69', '#80b1d3'];
     const labelData = [];
-    const campaignRecipients = _.map([
-      {
-        contributorPayee: 'lsdkfdlk',
-        filerId: 1,
-        grandTotal: 2500,
-        totalCount: 1
-      },
-      {
-        contributorPayee: 'hello',
-        filerId: 2,
-        grandTotal: 200,
-        totalCount: 1
-      }
-    ], (d) => {
-      return {
-        name: d.contributorPayee,
-        value: d.grandTotal
-      }
+
+    // const campaignRecipients = _.map([
+    //   {
+    //     contributorPayee: 'lsdkfdlk',
+    //     filerId: 1,
+    //     grandTotal: 2500,
+    //     totalCount: 1
+    //   },
+    //   {
+    //     contributorPayee: 'hello',
+    //     filerId: 2,
+    //     grandTotal: 200,
+    //     totalCount: 1
+    //   }
+    // ], (d) => {
+    //   return {
+    //     name: d.contributorPayee,
+    //     value: d.grandTotal
+    //   }
+    // });
+
+    const transactions = _.values(donors);
+
+    // Warning: Unsure if d.bookType is the best way to differentiate between Campaign and PAC recipients
+    
+    const campaignRecipients = filterTransactions(transations, (d) => {
+      return d.bookType === "Individual";
     });
 
-    const pacRecipients = _.map([
-      {
-        contributorPayee: 'Future PAC',
-        filerId: 1,
-        grandTotal: 2500,
-        totalCount: 1
-      },
-      {
-        contributorPayee: 'Democratic Party',
-        filerId: 2,
-        grandTotal: 200,
-        totalCount: 1
-      }
-    ], (d) => {
-      return {
-        name: d.contributorPayee,
-        value: d.grandTotal
-      }
+    const pacRecipients = filterTransactions(transations, (d) => {
+      return d.bookType !== "Individual";
     });
+
 
     return (
       <div>
