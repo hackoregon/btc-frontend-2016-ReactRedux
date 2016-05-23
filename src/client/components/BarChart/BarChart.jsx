@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import './BarChart.css';
 import numeral from 'numeral';
+import d3 from 'd3';
 
 function sortNums(a, b) {
     return a - b;
@@ -9,10 +10,6 @@ function sortNums(a, b) {
 class BarChart extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            data: [],
-            max: 0
-        }
         this.mapSeries = this.mapSeries.bind(this);
     }
     componentWillMount() {
@@ -23,19 +20,12 @@ class BarChart extends Component {
             stacked = this.props.grouping === 'stacked'
                 ? true
                 : false,
-            opaque = this.props.opaque,
-            max = 0;
-        for (let i = data.length; i--;) {
-            for (let j = data[i].length; j--;) {
-                if (data[i][j] > max) {
-                    max = data[i][j];
-                }
-            }
-        }
-        this.setState({data: data, layered: layered, stacked: stacked, opaque: opaque, max: max});
+            opaque = this.props.opaque;
+
+        this.setState({layered: layered, stacked: stacked, opaque: opaque});
     }
 
-    mapSeries(self,series,seriesIndex,sum){
+    mapSeries(self,series,seriesIndex,sum, max){
       return series.map((item, itemIndex) => {
           let color = self.props.colorBySeries
                   ? self.props.colors[seriesIndex]
@@ -43,13 +33,12 @@ class BarChart extends Component {
               style,
               size = item / (self.state.stacked
                   ? sum
-                  : self.state.max) * 100;
+                  : max) * 100;
           style = {
               backgroundColor: color,
               opacity: self.state.opaque
                   ? 1
-                  : (item / self.state.max + .05),
-              zIndex: item/self.state.max
+                  : (item / max + .05)
           };
 
           if (self.props.horizontal) {
@@ -78,9 +67,9 @@ class BarChart extends Component {
     }
 
     render() {
-        const {customStyle,opaque} = this.props;
-        let self = this;
-        let max = self.state.max;
+        const {customStyle, opaque} = this.props;
+        let max = d3.max(_.flatten(this.props.data));
+
         if (this.props.data.length) {
             let data = this.props.data;
             return (
@@ -94,15 +83,15 @@ class BarChart extends Component {
                             }, 0)
                             : 0;
 
-                            let fullSeries = series.length > 1 ? self.mapSeries(self,series,seriesIndex,sum) : self.mapSeries(self,series,seriesIndex,sum);
+                        let fullSeries = this.mapSeries(this, series, seriesIndex, sum, max);
 
                         return (
-                            <div className={'BarChart--series ' + (self.props.grouping)} key={seriesIndex} style={{
-                                height: self.props.height
-                                    ? self.props.height
+                            <div className={'BarChart--series ' + (this.props.grouping)} key={seriesIndex} style={{
+                                height: this.props.height
+                                    ? this.props.height
                                     : 'auto'
                             }}>
-                                <label>{self.props.labels[seriesIndex]}</label>
+                                <label>{this.props.labels[seriesIndex]}</label>
                                 { fullSeries }
                             </div>
                         );
@@ -122,8 +111,8 @@ BarChart.propTypes = {
     data: PropTypes.array.isRequired,
     labels: PropTypes.array.isRequired,
     colors: PropTypes.array.isRequired,
-    horizontal: PropTypes.boolean,
-    opaque: PropTypes.boolean
+    horizontal: PropTypes.bool,
+    opaque: PropTypes.bool
 }
 
 export default BarChart

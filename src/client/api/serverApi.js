@@ -45,7 +45,7 @@ const campaign = new Schema('campaigns', {
   idAttribute: 'filerId'
 });
 const donor = new Schema('donors', {
-  idAttribute: 'contributorPayee'
+  idAttribute: 'tranId'
 });
 const transaction = new Schema('transactions', {
   idAttribute: 'tranId'
