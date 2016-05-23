@@ -73,6 +73,8 @@
     "file-loader": "^0.8.5",
     "mocha": "^2.4.5",
     "nock": "^8.0.0",
+    "postcss-loader": "^0.9.1",
+    "precss": "^1.4.0",
     "raw-loader": "^0.5.1",
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",

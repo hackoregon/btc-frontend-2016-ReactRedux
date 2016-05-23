@@ -34,21 +34,10 @@
     height: 100%;
     margin: 0 30px 0 0;
     display: inline-block;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: end;
-    -webkit-align-items: flex-end;
-    -ms-flex-align: end;
     align-items: flex-end;
-    -webkit-transform-origin: 0 100%;
     transform-origin: 0 100%;
-    -webkit-animation: slideUp .6s;
     animation: slideUp .6s;
     position: relative;
     /*border-bottom: solid 0.5px #cdcdcd; TODO - inquire about this */
