@@ -38,8 +38,7 @@ class BarChart extends Component {
               backgroundColor: color,
               opacity: self.state.opaque
                   ? 1
-                  : (item / max + .05),
-              zIndex: item / max
+                  : (item / max + .05)
           };
 
           if (self.props.horizontal) {
@@ -112,8 +111,8 @@ BarChart.propTypes = {
     data: PropTypes.array.isRequired,
     labels: PropTypes.array.isRequired,
     colors: PropTypes.array.isRequired,
-    horizontal: PropTypes.boolean,
-    opaque: PropTypes.boolean
+    horizontal: PropTypes.bool,
+    opaque: PropTypes.bool
 }
 
 export default BarChart

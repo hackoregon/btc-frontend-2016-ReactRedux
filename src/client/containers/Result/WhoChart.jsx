@@ -10,17 +10,13 @@ class WhoChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            divHeight: 0,
-            data: [
-                [10000], [22000], [322320], [123130],[2133]
-            ],
             series: ['Finances'],
             labels: [
                 'PAC', 'Business', 'Large Donors', 'Grassroots', 'Party'
             ],
             colors: ['#bebada', '#fb8072', '#8dd3c7', '#b3de69','#80b1d3']
         }
-        this.handleResize = this.handleResize.bind(this);
+        //this.handleResize = this.handleResize.bind(this);
     }
 
     componentWillMount() {
@@ -34,10 +30,11 @@ class WhoChart extends Component {
         // });
     }
 
-    componentDidMount() {
-      setTimeout(this.renderChart,1000);
-      window.addEventListener('resize', this.handleResize);
-    }
+    //componentDidMount() {
+    //  //setTimeout(this.renderChart,1000);
+    //  window.addEventListener('resize', this.handleResize);
+    //}
+
     currentScreenWidth() {
         return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     }
@@ -52,7 +49,7 @@ class WhoChart extends Component {
 
     renderChart(){
       return (<BarChart customStyle={{flex:'1'}}
-      data={this.state.data}
+      data={this.props.data}
       labels={this.state.labels}
       dollarFormat
       colors={this.state.colors}
@@ -61,16 +58,20 @@ class WhoChart extends Component {
       colorBySeries />);
     }
     componentWillUnmount() {
-      window.removeEventListener('resize', this.handleResize);
+      //window.removeEventListener('resize', this.handleResize);
     }
     render() {
+      if (_.isArray(this.props.data) && this.props.data.length === 5) {
         return (
           <div {...this.props}
-            style = {{ display: 'flex',
-                flexFlow: 'row nowrap',
-                alignItems: 'center'}} >
-          {this.renderChart()}
+            style={{ display: 'flex',
+              flexFlow: 'row nowrap',
+              alignItems: 'center'}}>
+            {this.renderChart()}
           </div>);
+      } else {
+        return <div>Loading...</div>
+      }
     }
 }
 
