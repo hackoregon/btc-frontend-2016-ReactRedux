@@ -97,7 +97,7 @@ function currency(amount) {
   }
 }
 
-function filterTransactions(transaction, filterFunction) {
+function filterTransactions(transactions, filterFunction) {
 
   return _.chain(transactions)
     .filter(filterFunction)
@@ -154,12 +154,29 @@ class DonorPage extends Component {
       organization: 'Nike Inc.'
     };
 
+    const transactions = _.values(donors);
+
+    const cashSpent = _.filter(transactions, (transaction) => {
+      return transaction.subType === 'Cash Expenditure' && transaction.direction === 'out';
+    });
+    const totalCashSpent = _.reduce(cashSpent, (acc, transaction) => {
+      return acc + transaction.amount;
+    }, 0);
+    // const inKindDonated = _.filter(transactions, (transaction) => {
+    //   return transaction.subType === 'Cash Expenditure' && transaction.direction === 'out';
+    // });
+    const spentTransactions = _.filter(transactions, (transaction) => transaction.direction === 'out');
+    const totalContribution = _.reduce(spentTransactions, (acc, transaction) => {
+      return acc + transaction.amount;
+    }, 0);
+    const averageSpent = totalContribution / spentTransactions.length;
+
 
 
     const dataSummaryValues = [
-      { name: 'Total Cash Donated', value: currency(22500) },
+      { name: 'Total Cash Donated', value: currency(totalCashSpent) },
       { name: 'Total Donated In-Kind', value: currency(10.28000) },
-      { name: 'Average Contribution', value: currency(10) },
+      { name: 'Average Contribution', value: currency(averageSpent) },
       { name: 'Largest Contribution', value: currency(222500.1) }
     ];
     const barChartData = [[26], [87], [90], [10], [34]];
@@ -186,15 +203,14 @@ class DonorPage extends Component {
     //   }
     // });
 
-    const transactions = _.values(donors);
 
     // Warning: Unsure if d.bookType is the best way to differentiate between Campaign and PAC recipients
-    
-    const campaignRecipients = filterTransactions(transations, (d) => {
+
+    const campaignRecipients = filterTransactions(transactions, (d) => {
       return d.bookType === "Individual";
     });
 
-    const pacRecipients = filterTransactions(transations, (d) => {
+    const pacRecipients = filterTransactions(transactions, (d) => {
       return d.bookType !== "Individual";
     });
 
