@@ -12,7 +12,7 @@ const styles = {
   base: {
     backgroundColor: '#64BCBB',
     fontSize: '1em',
-    height: '75px'
+    height: 'auto'
   },
 
   logo: {
