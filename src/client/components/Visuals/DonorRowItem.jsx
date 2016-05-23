@@ -1,6 +1,7 @@
 import React from 'react';
 import {Col} from 'react-bootstrap';
 import _ from 'lodash';
+import { Link } from 'react-router';
 import d3 from 'd3';
 
 const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
@@ -23,7 +24,7 @@ const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
     <tr>
       <td>
         <Col sm={7} xs={10}>
-          <span>{payee}</span>
+          <span><Link to={`/donors/${payee}`}>{payee}</Link></span>
         </Col>
         <Col sm={2} xs={2}>
           <span>{formattedAmount}</span>
