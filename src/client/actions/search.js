@@ -18,6 +18,7 @@ function fetchSearchData(searchTerm) {
 
 export default function loadSearchData(searchTerm, requiredFields = []) {
   return (dispatch, getState) => {
+    // TODO: Add push state here once we refactor the reducer
     return dispatch(fetchSearchData(searchTerm))
   }
 }
