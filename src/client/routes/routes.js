@@ -7,7 +7,6 @@ import SearchPage from './SearchPage.js';
 import CampaignsPage from './CampaignsPage.js';
 import ResultsPage from './ResultsPage.js';
 import DonorsPage from './DonorsPage.js';
-import DonorPage from './DonorPage';
 import CandidatesPage from './CandidatesPage.js';
 import OregonPage from './OregonPage.js';
 import FaqPage from './FaqPage.js';

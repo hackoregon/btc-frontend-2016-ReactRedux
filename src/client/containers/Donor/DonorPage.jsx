@@ -109,7 +109,7 @@ class DonorPage extends Component {
   render(){
 
     const { donors, donor_name } = this.props
-    if (!donors) {
+    if (_.isEmpty(donors)) {
       // needs loading icon here
       return <h1><i>Loading... </i></h1>
     }
