@@ -6,14 +6,11 @@ class BTCNav extends Component {
     const menuItemList = [
       'Search',
       'Oregon',
-      'Campaigns',
-      'Candidates',
-      'Donors',
       'About',
       'FAQ'
     ]
     return (
-      
+
         <NavbarCollapsible inverse={ false }
                          fixedTop={ true }
                          fluid={ true }
@@ -22,7 +19,7 @@ class BTCNav extends Component {
                          menuItems={ menuItemList }
                          params={ this.props.params }>
         </NavbarCollapsible>
-      
+
     )
   }
 }
