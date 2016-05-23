@@ -6,9 +6,9 @@ import { Table } from 'react-bootstrap';
 import { Carousel } from 'react-bootstrap';
 import { CarouselItem } from 'react-bootstrap';
 import { Panel } from 'react-bootstrap';
-import DonorPage from '../containers/Donor/DonorPage.jsx';
-import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
-import BTCNav from '../components/Navigation/BTCNav.jsx';
+import DonorPage from '../containers/Donor/DonorPage';
+import SearchResultsForm from '../containers/SearchResults/SearchResultsForm';
+import BTCNav from '../components/Navigation/BTCNav';
 
 class DonorsPage extends Component {
 
