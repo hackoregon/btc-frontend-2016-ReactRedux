@@ -26,11 +26,23 @@ class ResultDonorsCard extends Component {
       loadData(this.props);
     }
 
+    getWhoChartData(...bookTypes) {
+      // Wrap sum values in array because WhoChart is expecting array of arrays
+      return _.map(bookTypes, (donors) => [_.sumBy(donors, 'grandTotal')]);
+    }
+
     render() {
-      const {pacContributions,businessContributions, indivContributions} = this.props;
+      const {pacContributions,businessContributions, indivContributions } = this.props;
+      const [ smallDonors, largeDonors ] = _.partition(indivContributions, (contr) => contr.grandTotal <= 250);
+
       let individualDonors = _.values(indivContributions);
       let businessDonors = _.values(businessContributions);
       let pacDonors = _.values(pacContributions);
+
+      // TODO: Empty array is placeholder for party information -- needs to be added
+      // Order matters for WhoChart labels
+      const whoChartDonorData = this.getWhoChartData(pacDonors, businessDonors, largeDonors, smallDonors, []);
+
       // .orderBy('amount','desc');
       // let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
@@ -40,7 +52,7 @@ class ResultDonorsCard extends Component {
                 <StoryCard
                   question={"Who is giving?"}
                   description={"This visualization is calculated by total dollars, not total people."}>
-                  <WhoChart />
+                  <WhoChart data={whoChartDonorData} />
                   <ListsCarousel>
                     <CarouselItem >
                     <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
@@ -67,9 +79,17 @@ function mapStateToProps(state) {
     indivContributions, businessContributions, pacContributions
     }
   } = state;
-  return {indivContributions,pacContributions, businessContributions};
 
+  // TODO: These objects are coming in asynchronously (and separately) but we only want to render the chart ...
+  // ... once all the data is there. So higher up we need to do a Promise.all on requests that fetch these resources
+  // This is a band-aid solution
+  if (!indivContributions || !businessContributions || !pacContributions) {
+    return {indivContributions: {}, pacContributions: {}, businessContributions: {}};
+  }
+
+  return {indivContributions,pacContributions, businessContributions};
 }
+
 export default connect(mapStateToProps,{
   loadPACinfo, loadBizInfo, loadIndivs
 })(ResultDonorsCard);
