@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
 import _ from 'lodash';
 import { Grid, Row, Col, Table, Panel } from 'react-bootstrap';
 import d3 from 'd3';
-import {connect} from'react-redux';
 
-import BTCNav from '../components/Navigation/BTCNav';
-import DataBoxGroup from '../components/DataBoxes/DataBoxGroup';
-import BarChart from '../components/BarChart/BarChart';
-import StoryCard from '../components/StoryCards/StoryCard';
-import DonorCard from '../components/DonorCard/DonorCard';
+import {loadDonor} from '../../actions'
 
+import BTCNav from '../../components/Navigation/BTCNav';
+import DataBoxGroup from '../../components/DataBoxes/DataBoxGroup';
+import BarChart from '../../components/BarChart/BarChart';
+import StoryCard from '../../components/StoryCards/StoryCard';
+import DonorCard from '../../components/DonorCard/DonorCard';
 
 
 const DataTableBar = React.createClass({
@@ -85,8 +86,40 @@ const DataTable = React.createClass({
   }
 });
 
-class DonorPage extends React.Component {
-  render() {
+
+
+function loadData(props) {
+  const { donor_name } = props;
+  props.loadDonor(donor_name);
+}
+
+class DonorPage extends Component {
+  constructor(props){
+    super(props)
+  }
+  componentWillMount() {
+    loadData(this.props);
+  }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.donor_name !== this.props.donor_name){
+      loadData(nextProps)
+    }
+  }
+
+  render(){
+
+    const { donors, donor_name } = this.props
+    if (!donors) {
+      // needs loading icon here
+      return <h1><i>Loading... </i></h1>
+    }
+    const donor = {
+      name: donor_name,
+      locationDescription: 'In-State Donor',
+      title: 'CEO',
+      organization: 'Nike Inc.'
+    };
+
     const dataSummaryValues = [
       { name: 'Total Cash Donated', value: '22.5K' },
       { name: 'Total Donated In-Kind', value: '22.5K' },
@@ -136,16 +169,13 @@ class DonorPage extends React.Component {
       }
     });
 
-    const donor = this.props.donor;
-
     return (
       <div>
         <BTCNav />
         <Grid fluid={ false }
-          style={ { marginTop: '100px', fontWeight: '200px' } }
           params={ this.props.params }>
 
-          <DonorCard donor={this.props.donor} />
+          <DonorCard donor={donor} />
 
           <StoryCard
             question={"Who are they giving to?"}
@@ -160,29 +190,29 @@ class DonorPage extends React.Component {
             question={"Who are they giving to?"}
             description={"This visualization is calculated by total dollars, not total people."}>
 
-          <BarChart
-            colorBySeries={true}
-            height={300}
-            data={barChartData}
-            labels={labelData}
-            colors={colorData} />
+            <BarChart
+              colorBySeries={true}
+              height={300}
+              data={barChartData}
+              labels={labelData}
+              colors={colorData} />
 
-          <Grid>
-            <Row>
-              <Col md={6}>
-                <DataTable
-                  title='Top Campaign Recipients'
-                  data={campaignRecipients}
-                  />
-              </Col>
-              <Col md={6}>
-                <DataTable
-                  title='Top PAC Recipients'
-                  data={pacRecipients}
-                  />
-              </Col>
-            </Row>
-          </Grid>
+            <Grid>
+              <Row>
+                <Col md={6}>
+                  <DataTable
+                    title='Top Campaign Recipients'
+                    data={campaignRecipients}
+                    />
+                </Col>
+                <Col md={6}>
+                  <DataTable
+                    title='Top PAC Recipients'
+                    data={pacRecipients}
+                    />
+                </Col>
+              </Row>
+            </Grid>
           </StoryCard>
 
 
@@ -194,17 +224,24 @@ class DonorPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return _.assign({
-    donor: {
-      name: 'Phil Knight',
-      locationDescription: 'In-State Donor',
-      title: 'CEO',
-      organization: 'Nike Inc.'
-    }
-  }, _.pick(state, 'params'));
+DonorPage.propTypes = {
+  campaign: PropTypes.object,
+  // searchTerm: PropTypes.string.isRequired,
+  donor_name: PropTypes.string.isRequired
 }
 
-export default connect(
-  mapStateToProps
-)(DonorPage);
+function mapStateToProps(state, ownProps) {
+  const { donor_name } = ownProps.params
+  const {
+    entities: { donors }
+  } = state;
+  // const donor = transactions[donor_name]
+  return {
+    // donor_name, donor
+    donors
+  }
+}
+
+export default connect(mapStateToProps, {
+  loadDonor
+})(DonorPage)

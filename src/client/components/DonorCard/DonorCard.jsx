@@ -8,8 +8,7 @@ const DonorCard = (props) => {
       <h2>
         <span className='DonorCard-name'>
           {donor.name}
-        </span>,
-        {donor.locationDescription}</h2>
+        </span>, {donor.locationDescription}</h2>
       <div>
         {donor.title}, {donor.organization}<br />
         #14 Donor to Oregon
