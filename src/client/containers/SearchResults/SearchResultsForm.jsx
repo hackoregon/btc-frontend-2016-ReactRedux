@@ -68,6 +68,7 @@ class SearchResultsForm extends Component {
     this.setState({searchTerm: suggestionValue})
     const {dispatch} = this.props;
     dispatch(loadSearchData(suggestionValue));
+    this.context.router.push('/search');
   }
 
   onSuggestionsUpdateRequested({value}) {
@@ -88,7 +89,7 @@ class SearchResultsForm extends Component {
       return
     }
     dispatch(loadSearchData(this.searchTermRef));
-    this.context.router.push('/search')
+    this.context.router.push('/search');
   }
 
   render() {

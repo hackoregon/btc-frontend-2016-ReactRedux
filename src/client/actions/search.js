@@ -6,7 +6,7 @@ import {
 const types = ['SEARCH_REQUEST', 'SEARCH_SUCCESS', 'SEARCH_FAILURE'];
 
 function fetchSearchData(searchTerm) {
-  
+
   return {
     [CALL_API]: {
       types: types,
@@ -18,7 +18,6 @@ function fetchSearchData(searchTerm) {
 
 export default function loadSearchData(searchTerm, requiredFields = []) {
   return (dispatch, getState) => {
-    // TODO: Add push state here once we refactor the reducer
     return dispatch(fetchSearchData(searchTerm))
   }
 }
