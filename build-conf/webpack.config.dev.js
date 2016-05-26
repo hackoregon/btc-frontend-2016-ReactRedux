@@ -1,6 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path              = require('path');
+var precss            = require('precss');
+var autoprefixer      = require('autoprefixer');
 
 module.exports = {
   name: 'browser',
@@ -29,7 +32,7 @@ module.exports = {
     }, {
       test: /\.css$/,
       exclude: /node_modules/,
-      loader: 'style-loader!css-loader'
+      loader: 'style-loader!css-loader!postcss-loader'
     }, {
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg|jpeg|gif)([\?]?.*)$/,
       exclude: /node_modules/,
@@ -50,5 +53,8 @@ module.exports = {
   },
   externals: {
     'jquery': 'jQuery'
+  },
+  postcss: function () {
+    return [precss, autoprefixer];
   }
 };
