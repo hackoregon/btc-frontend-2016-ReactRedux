@@ -88,6 +88,7 @@ class SearchResultsForm extends Component {
       return
     }
     dispatch(loadSearchData(this.searchTermRef));
+    this.context.router.push('/search')
   }
 
   render() {
@@ -135,6 +136,8 @@ class SearchResultsForm extends Component {
     );
   }
 }
+
+SearchResultsForm.contextTypes = {router: React.PropTypes.object.isRequired}
 
 function mapStateToProps(state) {
   const {entities: {
