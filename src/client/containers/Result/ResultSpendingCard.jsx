@@ -1,46 +1,47 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Col } from 'react-bootstrap';
-import DataMap from '../../components/Visuals/DataMap.jsx';
-import statesData from '../../data/statesData';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
+import SpendingChart from './SpendingChart.jsx';
+import {loadSpending} from '../../actions/spending';
+
+function loadData(props) {
+    const {filer_id} = props.params;
+    // props.loadSpending(filer_id);
+}
 
 class ResultSpendingCard extends Component {
 
     constructor(props, content) {
         super(props, content);
     }
-    componentWillReceiveProps(nextProps) {
+
+    componentWillMount() {
+        // loadData(this.props);
         // const {dispatch} = this.props;
     }
-    componentWillUpdate(nextProps, nextState) {
-        // const {dispatch} = this.props;
-    }
-    componentDidMount() {
-        // const {dispatch} = this.props;
-    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if(nextProps.filer_id !== this.props.filer_id){
+    //     loadData(nextProps)
+    //   }
+    // }
 
     render() {
-      const {donations} = this.props;
-        return (<div>
-                <StoryCard
-                  question={"What are they spending money on?"}
-                  description={"Did you know campaigns self select these categories?"}>
+        // const {donations} = this.props;
+        return (
+            <div {...this.props}>
+                <StoryCard question={"What are they spending money on?"} description={"Did you know campaigns self select these categories?"}>
 
+                  <SpendingChart />
                 </StoryCard>
-                </div>
+            </div>
         );
     }
 }
-// function mapStateToProps(state) {
-//   const {resultData:{
-//     donorData: {
-//       individual, pac, business, party, unknown
-//       }
-//     }
-//   } = state;
-//   return {individual,pac,business,unknown,party};
-//
-// }
-export default ResultSpendingCard;
-// export default connect(mapStateToProps)(ResultSpendingCard);
+function mapStateToProps(state) {
+    const {entities: {
+            expenditures
+        }} = state;
+    return {expenditures};
+}
+export default connect(mapStateToProps, {loadSpending})(ResultSpendingCard);

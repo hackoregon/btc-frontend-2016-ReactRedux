@@ -42,6 +42,7 @@ class ResultPage extends Component {
           race = { campaign.race } />
         <ResultSummaryCard total={campaign.total} totalSpent={campaign.totalSpent} grassroots={campaign.grassroots} instate={campaign.instate} />
         <ResultDonorsCard params={this.props.params}/>
+        <ResultSpendingCard params={this.props.params}/>
         <ResultLocationStoryCard params={this.props.params} />
       </div>
     )
