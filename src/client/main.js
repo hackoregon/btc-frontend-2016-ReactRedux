@@ -21,7 +21,7 @@ const store = storeManager();
 const history = syncHistoryWithStore(browserHistory, store)
 const routes = getRoutes(history);
 const mainStyles = {
-  fontFamily: 'Helvetica',
+  fontFamily: 'Lato',
   fontWeight: '300'
 }
 

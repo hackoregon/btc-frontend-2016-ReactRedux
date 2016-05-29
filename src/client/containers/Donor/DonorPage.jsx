@@ -204,7 +204,7 @@ class DonorPage extends Component {
     // });
 
 
-    // Warning: Unsure if d.bookType is the best way to differentiate between Campaign and PAC recipients
+    // NOTE: Warning: Unsure if d.bookType is the best way to differentiate between Campaign and PAC recipients
 
     const campaignRecipients = filterTransactions(transactions, (d) => {
       return d.bookType === "Individual";

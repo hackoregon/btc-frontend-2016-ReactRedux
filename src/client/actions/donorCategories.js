@@ -23,7 +23,7 @@ export function loadIndivs(filerId, requiredFields = []) {
     //   return null
     // }
   return dispatch(fetchIndivs(filerId));
-}
+  }
 }
 
 

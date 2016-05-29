@@ -11,6 +11,7 @@ function entities(state = {
   campaigns: {},
   transactions: {},
   contributions: {},
+  expenditures: {},
   donors: {},
   searchData: {}
 }, action) {
@@ -19,6 +20,7 @@ function entities(state = {
     state = {
       campaigns: {},
       transactions: {},
+      expenditures: {},
       contributions: {},
       donors: {},
       searchData: {
@@ -67,8 +69,8 @@ function errorMessage(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  entities,
   errorMessage,
+  entities,
   routing
 });
 export default rootReducer;

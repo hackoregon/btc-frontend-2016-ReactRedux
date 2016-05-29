@@ -9,6 +9,7 @@ import { Panel } from 'react-bootstrap';
 import { Input } from 'react-bootstrap';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 
 
 class HomePage extends Component {
@@ -32,19 +33,11 @@ class HomePage extends Component {
                              sm={ 12 }
                              lg={ 12 }
                              params={ this.props.params }>
-                        <form params={ this.props.params }>
-                            <Input type="text"
-                                   placeholder="Enter value"
-                                   buttonAfter={ <Button bsStyle="default"
-                                                         type="submit"
-                                                         params={ this.props.params }>
-                                                     <i className="fa fa-search" params={ this.props.params }></i>
-                                                 </Button> }
-                                   params={ this.props.params }></Input>
-                        </form>
+                        <SearchResultsForm params={ this.props.params }></SearchResultsForm>
                         </Col>
                     </Row>
-                    <Col xs={ 12 }
+                    <Col style={{    marginTop: '40px'} }
+                         xs={ 12 }
                          md={ 12 }
                          sm={ 12 }
                          lg={ 12 }

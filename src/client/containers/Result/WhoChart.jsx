@@ -16,7 +16,6 @@ class WhoChart extends Component {
             ],
             colors: ['#bebada', '#fb8072', '#8dd3c7', '#b3de69','#80b1d3']
         }
-        //this.handleResize = this.handleResize.bind(this);
     }
 
     componentWillMount() {
