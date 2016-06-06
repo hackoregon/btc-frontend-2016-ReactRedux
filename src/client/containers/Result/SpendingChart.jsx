@@ -2,6 +2,28 @@ import React, { PropTypes } from 'react';
 import BarChart from '../../components/BarChart/BarChart.jsx';
 import SizeMe from 'react-sizeme';
 
+// function formatData(arr) {
+//     let newData = {
+//         labels: [],
+//         series: [
+//             [], []
+//         ]
+//     };
+//     arr.forEach((item) => {
+//         let raised = item.total_in == null
+//             ? 0
+//             : item.total_in;
+//         let spent = item.total_out == null
+//             ? 0
+//             : (item.total_out);
+//         newData.labels.push(item.tran_date);
+//         newData.series[0].push(raised);
+//         newData.series[1].push(spent);
+//     });
+//     console.log(d3.extent(newData.series[0]));
+//     return newData;
+// }
+
 const SizeMeHOC = SizeMe({
   monitorWidth: true,
   monitorHeight: true,
@@ -22,13 +44,14 @@ const colors = [
     '#ffed6f',
     '#E91E63'
 ];
+
 // NOTE: dummy data in the state right now
 class SpendingChart extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
           series: ['Spending'],
-          data: [[175000],[13999],[21000],[896],[3514],[250000],[19999]],
+          data: [[175000],[13999],[21000],[89640],[3514],[25000],[19999]],
           labels: ['General Operational Expenses',
 'Postage',
 'Reimbursement for Personal Expenditures',
@@ -39,26 +62,11 @@ class SpendingChart extends React.Component {
           colors: colors
       }
   }
+
   componentWillMount() {
     const {labels, data} = this.props;
     this.setState({...labels, ...data});
   }
-  // currentScreenWidth() {
-  //     return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  // }
-  // handleResize(){
-  //   const { height } = this.props.size;
-  //   let divHeight = (height*0.7);
-  //   this.setState({
-  //     divHeight: divHeight
-  //   });
-  //   // this.renderChart();
-  // }
-
-  // renderChart(){
-  //   return ();
-  //   {this.renderChart()}
-  // }
 
   render() {
     // if (_.isArray(this.props.data) && this.props.data.length === 5) {
