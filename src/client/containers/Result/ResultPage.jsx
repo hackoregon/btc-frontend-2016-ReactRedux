@@ -6,8 +6,7 @@ import ResultDonorsCard from './ResultDonorsCard.jsx'
 import ResultSummaryCard from './ResultSummaryCard.jsx'
 import ResultLocationStoryCard from './ResultLocationStoryCard.jsx'
 import ResultSpendingCard from './ResultSpendingCard.jsx'
-import ResultWhen from './ResultWhen.jsx'
-import { Grid } from 'react-bootstrap';
+import ResultWhen from './ResultWhen.jsx';
 
 function loadData(props) {
   const { filer_id } = props;
@@ -43,6 +42,7 @@ class ResultPage extends Component {
         <ResultSummaryCard total={campaign.total} totalSpent={campaign.totalSpent} grassroots={campaign.grassroots} instate={campaign.instate} />
         <ResultDonorsCard params={this.props.params}/>
         <ResultSpendingCard params={this.props.params}/>
+        <ResultWhen />
         <ResultLocationStoryCard params={this.props.params} />
       </div>
     )
