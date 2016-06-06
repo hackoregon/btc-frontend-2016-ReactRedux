@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
-
+import './Panels.css'
 class PanelGroup extends Component {
 
     renderChildren(){

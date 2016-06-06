@@ -31,6 +31,40 @@ class ResultDonorsCard extends Component {
       return _.map(bookTypes, (donors) => [_.sumBy(donors, 'grandTotal')]);
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
+    renderDonorLists(ind,bus,pac){
+      debugger;
+      let args = [].slice.call(arguments);
+      let donorTypes = [];
+      let fullList = [];
+      args.forEach((item) => {
+        if(item.length>0){
+          donorTypes.push(item);
+        }
+      });
+      for (var i = 0; i < donorTypes.length; i++) {
+        fullList.push(<ResultDonorsList key={i} donorType={"Top Donors"} donors={donorTypes[i]}></ResultDonorsList>)
+      }
+
+      if(fullList.length > 2){
+        return (
+        <ListsCarousel>
+          <CarouselItem>
+            {[...fullList[0],...fullList[1]]}
+          </CarouselItem>
+          <CarouselItem>
+            {[...fullList[2]]}
+          </CarouselItem>
+        </ListsCarousel>);
+      }
+        return (<div>Loading...</div>)
+
+
+    }
+
     render() {
       const {pacContributions,businessContributions, indivContributions } = this.props;
       const [ smallDonors, largeDonors ] = _.partition(indivContributions, (contr) => contr.grandTotal <= 250);
@@ -48,20 +82,22 @@ class ResultDonorsCard extends Component {
       // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
 
+      // const listItems =  this.renderDonorLists(individualDonors,businessDonors,pacDonors);
+
         return (<div {...this.props}>
                 <StoryCard
                   question={"Who is giving?"}
                   description={"This visualization is calculated by total dollars, not total people."}>
                   <WhoChart data={whoChartDonorData} />
-                  <ListsCarousel>
-                    <CarouselItem >
-                    <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
-                    <ResultDonorsList donorType={"Top Business Donors"} donors={businessDonors}></ResultDonorsList>
-                    </CarouselItem>
-                    <CarouselItem>
-                    <ResultDonorsList donorType={"Top PAC Donors"} donors={pacDonors}></ResultDonorsList>
-                    </CarouselItem>
-                  </ListsCarousel>
+                    <ListsCarousel>
+                      <CarouselItem >
+                      <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
+                      <ResultDonorsList donorType={"Top Business Donors"} donors={businessDonors}></ResultDonorsList>
+                      </CarouselItem>
+                      <CarouselItem>
+                      <ResultDonorsList donorType={"Top PAC Donors"} donors={pacDonors}></ResultDonorsList>
+                      </CarouselItem>
+                    </ListsCarousel>
                 </StoryCard>
                 </div>
         );

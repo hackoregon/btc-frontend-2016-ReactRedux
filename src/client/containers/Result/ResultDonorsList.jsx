@@ -4,6 +4,7 @@ import React, {Component, PropTypes} from 'react';
 import {Panel, PanelGroup, Col, Table} from 'react-bootstrap';
 import DonorRowItem from '../../components/Visuals/DonorRowItem.jsx';
 import numeral from 'numeral';
+import './DonorList.css'
 
 function makeTop(a,b){
   for (let i = 0; i < 5; i++) {
@@ -76,7 +77,6 @@ class ResultDonorsList extends Component {
           </tbody>
         </Table>
       </Col>
-
     </Panel>
     </PanelGroup>
       </Col>
