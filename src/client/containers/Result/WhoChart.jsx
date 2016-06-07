@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import BarChart from '../../components/BarChart/BarChart.jsx';
 import SizeMe from 'react-sizeme';
+import Spinner from 'react-spinkit';
 const SizeMeHOC = SizeMe({
   monitorWidth: true,
   monitorHeight: true,
@@ -19,36 +20,35 @@ class WhoChart extends Component {
     }
 
     componentWillMount() {
-        // this.setState({
-        //     data: [
-        //         [this.props.data.total],
-        //         [this.props.data.spent],
-        //         [this.props.data.cash_on_hand],
-        //         [this.props.data.debt]
-        //     ]
-        // });
+
     }
 
-    //componentDidMount() {
+    componentWillReceiveProps(nextProps) {
+      const {data} = nextProps;
+        this.setState({
+            data: data
+        });
+    }
     //  //setTimeout(this.renderChart,1000);
     //  window.addEventListener('resize', this.handleResize);
     //}
 
-    currentScreenWidth() {
-        return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    }
-    handleResize(){
-      const { height } = this.props.size;
-      let divHeight = (height*0.7);
-      this.setState({
-        divHeight: divHeight
-      });
-      this.renderChart();
-    }
+    // currentScreenWidth() {
+    //     return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    // }
+    // handleResize(){
+    //   const { height } = this.props.size;
+    //   let divHeight = (height*0.7);
+    //   this.setState({
+    //     divHeight: divHeight
+    //   });
+    //   this.renderChart();
+    // }
 
     renderChart(){
+
       return (<BarChart customStyle={{flex:'1'}}
-      data={this.props.data}
+      data={this.state.data}
       labels={this.state.labels}
       dollarFormat
       colors={this.state.colors}
@@ -56,20 +56,21 @@ class WhoChart extends Component {
       opaque
       colorBySeries />);
     }
-    componentWillUnmount() {
-      //window.removeEventListener('resize', this.handleResize);
-    }
+    // componentWillUnmount() {
+    //   //window.removeEventListener('resize', this.handleResize);
+    // }
     render() {
-      if (_.isArray(this.props.data) && this.props.data.length === 5) {
+
+      if (_.isArray(this.state.data) && this.state.data.length === 5) {
         return (
-          <div {...this.props}
+          <div
             style={{ display: 'flex',
               flexFlow: 'row nowrap',
               alignItems: 'center'}}>
             {this.renderChart()}
           </div>);
       } else {
-        return <div>Loading...</div>
+        return (<Spinner spinnerName='cube-grid' />);
       }
     }
 }

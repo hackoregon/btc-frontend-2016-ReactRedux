@@ -6,9 +6,7 @@ import SearchResultsListRow from '../../components/SearchResults/SearchResultsLi
 import SearchResultsAlert from '../../components/SearchResults/SearchResultsAlert.jsx';
 import './SearchResultsList.css';
 
-function format(num){
-  return numeral(num).format('($0.0a)')
-}
+
 class SearchResultsList extends Component {
 
   constructor(props, content) {

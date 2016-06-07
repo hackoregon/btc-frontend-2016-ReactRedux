@@ -7,44 +7,59 @@ import Legend from '../../components/Legend/Legend.jsx';
 import {loadStateInfo} from '../../actions'
 import SizeMe from 'react-sizeme';
 import numeral from 'numeral';
-function loadData(props) {
-  const {filer_id} = props.params;
-  props.loadStateInfo(filer_id);
+// function loadData(props) {
+//   const {filer_id} = props.params;
+//   props.loadStateInfo(filer_id);
+// }
+const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 16});
+
+const colors = [
+    '#EEFBFB',
+    '#CDF3F2',
+    '#89C2C0',
+    '#84BEBB',
+    '#71B0AE',
+    '#6CACAA',
+    '#5A9E9B',
+    '#1F8481',
+    '#165F5C'
+];
+const domainRange = [
+    100,
+    1000,
+    10000,
+    100000,
+    1000000,
+    10000000
+];
+
+function formatMoney(num) {
+    // let minNum = num == 100 ? 1 : (num/10)+1;
+    return numeral(num).format('$0,0');
 }
-const SizeMeHOC = SizeMe({
-  monitorWidth: true,
-  monitorHeight: true,
-  refreshRate: 16
-});
+const ResultLocationStoryCard = (props) => {
+    const {stateContributions} = props;
+    // class ResultLocationStoryCard extends Component {
 
-const colors = ['#EEFBFB','#CDF3F2','#89C2C0','#84BEBB','#71B0AE','#6CACAA','#5A9E9B','#1F8481','#165F5C'];
-const domainRange = [100, 1000, 10000, 100000, 1000000, 10000000];
+    // constructor(props, content) {
+    //   super(props, content);
+    // }
 
-function formatMoney(num){
-  // let minNum = num == 100 ? 1 : (num/10)+1;
-  return numeral(num).format('$0,0');
-}
-class ResultLocationStoryCard extends Component {
+    // componentWillMount() {
+    //   loadData(this.props);
+    // }
 
-  constructor(props, content) {
-    super(props, content);
-  }
-
-  componentWillMount() {
-    loadData(this.props);
-  }
-
-  render() {
-    let stateContribs;
-    const {stateContributions} = this.props;
-    stateContribs = stateContributions;
+    // render() {
+    // let stateContribs;
+    // const {stateContributions} = this.props;
+    let stateContribs = stateContributions;
     // let stateArray = _.values(stateContributions)
     let stateArr = [];
     statesData.forEach((item) => {
-      if(stateContribs && stateContribs[item.regionName]){
-          item.value = stateContribs[item.regionName].value;
-          stateArr.push(item);
-      }
+        if (stateContribs && stateContribs[item.regionName]) {
+            item.value = stateContribs[item.regionName].value;
+            stateArr.push(item);
+        }
     })
 
     // var stateDataArr = statesData.map((i) => {
@@ -60,37 +75,38 @@ class ResultLocationStoryCard extends Component {
     // });
     // console.log(stateDataArr);
 
-  return (
-    <div {...this.props}>
-      <StoryCard style={{
-        minHeight: '400px',
-        minWidth: '600px'
-      }} question={"Where does the money come from?"} description={"Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin."}>
-      <div style = {{
-          display: 'flex',
-          flexFlow: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'center'}} >
+    return (
+        <StoryCard style={{
+            minHeight: '400px',
+            minWidth: '600px'
+        }} question={"Where does the money come from?"} description={"Money spent in Oregon is raised all across the country. This graphic demonstrates the magnitude of money spent in Oregon by state of origin."}>
+            <div style={{
+                display: 'flex',
+                flexFlow: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
 
-        <DataMap customStyle={{order:'2'}} palletteRange={colors} domainRange={domainRange} regionData={stateArr}/>
-        <Legend centered wrapRow labels={domainRange.map(formatMoney)} colors={colors}/>
-        </div>
-      </StoryCard>
-    </div>
-  );
-}
+                <DataMap customStyle={{
+                    order: '2'
+                }} palletteRange={colors} domainRange={domainRange} regionData={stateArr}/>
+                <Legend centered wrapRow labels={domainRange.map(formatMoney)} colors={colors}/>
+            </div>
+        </StoryCard>
+    );
+    // }
 }
 
 ResultLocationStoryCard.propTypes = {
-contributions: PropTypes.object
+    stateContributions: PropTypes.object
 }
 
-function mapStateToProps(state) {
-const {entities: {
-    stateContributions
-  }} = state;
-return {stateContributions};
-}
+// function mapStateToProps(state) {
+// const {entities: {
+//     stateContributions
+//   }} = state;
+// return {stateContributions};
+// }
 
-// export default ResultLocationStoryCard;
-export default connect(mapStateToProps, {loadStateInfo})(SizeMeHOC(ResultLocationStoryCard));
+export default ResultLocationStoryCard;
+// export default connect(mapStateToProps, {loadStateInfo})(SizeMeHOC(ResultLocationStoryCard));

@@ -9,7 +9,7 @@ from 'normalizr';
 import {
   camelizeKeys
 } from 'humps'
-import assign from "lodash/assign";
+import assign from 'lodash/assign';
 import 'isomorphic-fetch';
 const API_ROOT = 'http://54.213.83.132/hackoregon/http/';
 

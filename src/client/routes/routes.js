@@ -24,7 +24,7 @@ export default function(history) {
                 <Route path="/results/:searchTerm" component={ ResultsPage } />
                 <Route path="/donors" component={ DonorsPage } />
                 <Route path="/donors/:donor_name" component={ DonorsPage } />
-                <Route path="/candidates" component={ CandidatesPage } />
+                <Route path="/recipients" component={ CandidatesPage } />
                 <Route path="/oregon" component={ OregonPage } />
                 <Route path="/faq" component={ FaqPage } />
                 <Route path="/about" component={ AboutPage } />

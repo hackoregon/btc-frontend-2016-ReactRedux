@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import './BarChart.css';
 import numeral from 'numeral';
+import Spinner from 'react-spinkit';
 import d3 from 'd3';
 import _ from 'lodash';
 
@@ -99,6 +100,7 @@ class BarChart extends Component {
 
         if (this.props.data.length) {
             let data = this.props.data;
+            debugger;
             return (
                 <div className={'BarChart' + (this.props.horizontal
                     ? ' horizontal '
@@ -136,7 +138,7 @@ class BarChart extends Component {
             );
         } else {
             return (
-                <div>Loading...</div>
+                <Spinner spinnerName='cube-grid'/>
             )
         }
     }

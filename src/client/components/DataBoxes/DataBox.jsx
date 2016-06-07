@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Grid,Col,Row } from 'react-flexbox-grid';
-import { Panel } from 'react-bootstrap';
+import { Col } from 'react-flexbox-grid';
 
 class DataBox extends Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class DataBox extends Component {
         borderRadius: '4px',
         margin: '1.5rem'
       }
-      
+
     return (
       <Col center='xs' style={column}>
         <h2> { this.props.value } </h2>
