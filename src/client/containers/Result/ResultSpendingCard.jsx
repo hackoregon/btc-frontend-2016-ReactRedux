@@ -4,10 +4,10 @@ import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import SpendingChart from './SpendingChart.jsx';
 import {loadSpending} from '../../actions/spending';
 
-function loadData(props) {
-    const {filer_id} = props.params;
-    // props.loadSpending(filer_id);
-}
+// function loadData(props) {
+//     const {filer_id} = props.params;
+//     // props.loadSpending(filer_id);
+// }
 
 class ResultSpendingCard extends Component {
 
@@ -38,10 +38,11 @@ class ResultSpendingCard extends Component {
         );
     }
 }
-function mapStateToProps(state) {
-    const {entities: {
-            expenditures
-        }} = state;
-    return {expenditures};
-}
-export default connect(mapStateToProps, {loadSpending})(ResultSpendingCard);
+// function mapStateToProps(state) {
+//     const {entities: {
+//             expenditures
+//         }} = state;
+//     return {expenditures};
+// }
+export default ResultSpendingCard;
+// export default connect(mapStateToProps, {loadSpending})(ResultSpendingCard);

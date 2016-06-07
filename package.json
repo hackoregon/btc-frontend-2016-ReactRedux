@@ -46,6 +46,7 @@
     "react-router-redux": "^4.0.2",
     "react-select": "^1.0.0-beta13",
     "react-sizeme": "^2.0.1",
+    "react-spinkit": "^1.1.7",
     "redux": "^3.4.0",
     "redux-thunk": "^2.0.1",
     "topojson": "^1.6.20"

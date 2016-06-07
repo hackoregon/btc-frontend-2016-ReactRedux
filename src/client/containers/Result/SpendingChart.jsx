@@ -75,7 +75,6 @@ class SpendingChart extends React.Component {
           style={{ display: 'flex',
             flexFlow: 'row nowrap',
             alignItems: 'center'}}>
-
           <BarChart customStyle={{flex:'1'}}
           data={this.state.data}
           labels={this.state.labels}
@@ -87,7 +86,7 @@ class SpendingChart extends React.Component {
            />
         </div>);
     // } else {
-    //   return <div>Loading...</div>
+      // return <div>Loading...</div>
     // }
   }
 }
