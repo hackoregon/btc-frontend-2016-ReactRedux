@@ -6,6 +6,7 @@ import { Panel } from 'react-bootstrap';
 import { PanelGroup } from '../components/Bootstrap';
 import ReactMarkdown from 'react-markdown';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Footer from '../components/Navigation/Footer.jsx';
 
 class FaqPage extends Component {
     getFaqData() {
@@ -31,11 +32,12 @@ class FaqPage extends Component {
                     <PanelGroup accordion={ true }
                                 defaultActiveKey={ 1 }
                                 params={ this.props.params }>
-                        
+
                         { this.getFaqData() }
-                        
+
                     </PanelGroup>
                 </Grid>
+              <Footer />
             </div>
             );
     }

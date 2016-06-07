@@ -6,6 +6,7 @@ import { Col } from 'react-bootstrap';
 import SearchResultsList from '../containers/SearchResults/SearchResultsList.jsx';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Footer from '../components/Navigation/Footer.jsx'
 
 class ResultsPage extends Component {
     render() {
@@ -29,6 +30,7 @@ class ResultsPage extends Component {
                                        params={ this.props.params }></SearchResultsList>
                     </Col>
                 </Grid>
+                <Footer />
             </div>
             );
     }

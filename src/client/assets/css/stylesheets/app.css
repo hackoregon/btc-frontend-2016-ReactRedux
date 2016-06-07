@@ -95,7 +95,7 @@ h3 {
 
 /* line 100, ../sass/_base.scss */
 .footer, .footer-spacer {
-  height: 12em;
+  /*height: 12em;*/
 }
 
 /* line 106, ../sass/_base.scss */
@@ -818,7 +818,7 @@ g.tick {
 /* FOOTER ======================================================= */
 /* line 554, ../sass/app.scss */
 .footer {
-  margin-top: 75px;
+  bottom: -1px;
 }
 /* line 557, ../sass/app.scss */
 .footer .social-container {

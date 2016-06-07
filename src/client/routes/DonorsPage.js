@@ -9,6 +9,7 @@ import { Panel } from 'react-bootstrap';
 import DonorPage from '../containers/Donor/DonorPage';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm';
 import BTCNav from '../components/Navigation/BTCNav';
+import Footer from '../components/Navigation/Footer.jsx';
 
 class DonorsPage extends Component {
 
@@ -20,6 +21,7 @@ class DonorsPage extends Component {
                   <DonorPage
                     params={this.props.params} donor_name={this.props.params.donor_name} />
                   </Grid>
+                <Footer />
             </div>
             );
     }

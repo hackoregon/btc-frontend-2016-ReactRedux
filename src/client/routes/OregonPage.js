@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { Grid } from 'react-bootstrap';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Footer from '../components/Navigation/Footer.jsx'
 
 class OregonPage extends Component {
 
@@ -16,6 +17,7 @@ class OregonPage extends Component {
                       params={ this.props.params }>
                     <SearchResultsForm params={ this.props.params }></SearchResultsForm>
                 </Grid>
+                <Footer/>
             </div>
             );
     }
