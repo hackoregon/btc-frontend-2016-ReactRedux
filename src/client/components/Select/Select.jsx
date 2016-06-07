@@ -19,10 +19,14 @@ const YearField = React.createClass({
 	updateValue (newValue) {
 		console.log('State changed to ' + newValue);
     const {onToggleSelect} = this.props;
+
 		this.setState({
 			selectValue: newValue
 		});
-    onToggleSelect(newValue);
+
+    if (onToggleSelect){
+      onToggleSelect(newValue);
+    }
 	},
 	render () {
 		var options = YEARS;
