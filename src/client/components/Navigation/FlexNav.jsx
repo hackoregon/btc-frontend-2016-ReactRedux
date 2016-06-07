@@ -32,7 +32,7 @@ class FlexNav extends React.Component{
                   {this.makeLinks()}
                 </Row>
                 <Row xs={2} md={2} style={{padding:'0.5rem'}}>
-                    <YearField style={{ width:'3rem'}} />
+                    <YearField ref={'year'} style={{ width:'3rem'}} onToggleSelect={this.props.onToggleSelect}/>
                 </Row>
 
                 <SearchResultsForm style={{
