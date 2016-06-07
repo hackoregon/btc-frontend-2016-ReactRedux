@@ -5,9 +5,11 @@ import FlexNav from './FlexNav.jsx';
 import './BTCNav.css';
 class BTCNav extends Component {
 
-    enableSelect(){
-
-    }
+    // componentWillUpdate(nextProps, nextState) {
+    //   this.setState({
+    //
+    //   })
+    // }
 
     render() {
         const menuItemList = ['About', 'FAQ']
@@ -15,7 +17,7 @@ class BTCNav extends Component {
         return (
             <div {...this.props} className={'BTCNav'}>
                 <NavbarCollapsible inverse={false} fixedTop={true} fluid={true} brandName='Behind the Curtain' linkClasses='nav-item' menuItems={menuItemList} params={this.props.params}></NavbarCollapsible>
-                <FlexNav menuItems={subMenuItems}/>
+                <FlexNav ref={'subnav'} menuItems={subMenuItems} onToggleSelect={this.props.onToggleSelect}/>
             </div>
         )
     }

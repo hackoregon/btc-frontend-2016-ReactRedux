@@ -9,7 +9,7 @@ const YEARS = [{ value: '2011', label: '2011' },
     { value: '2015', label: '2015' },
     { value: '2016', label: '2016' }];
 
-var YearField = React.createClass({
+const YearField = React.createClass({
 	getInitialState () {
 		return {
 			year: YEARS[0],
@@ -18,12 +18,15 @@ var YearField = React.createClass({
 	},
 	updateValue (newValue) {
 		console.log('State changed to ' + newValue);
+    const {onToggleSelect} = this.props;
 		this.setState({
 			selectValue: newValue
 		});
+    onToggleSelect(newValue);
 	},
 	render () {
 		var options = YEARS;
+
 		return (
 				<Select style={{ width:'10rem'}} ref="yearSelect" options={options} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
 		);
