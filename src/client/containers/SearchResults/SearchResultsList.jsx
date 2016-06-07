@@ -1,10 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Table} from 'react-bootstrap';
+import {Col} from 'react-flexbox-grid';
 import SearchResultsHeader from '../../components/SearchResults/SearchResultsHeader.jsx';
 import SearchResultsListRow from '../../components/SearchResults/SearchResultsListRow.jsx';
 import SearchResultsAlert from '../../components/SearchResults/SearchResultsAlert.jsx';
+import './SearchResultsList.css';
 
+function format(num){
+  return numeral(num).format('($0.0a)')
+}
 class SearchResultsList extends Component {
 
   constructor(props, content) {
@@ -16,8 +20,8 @@ class SearchResultsList extends Component {
 
   render() {
     const {list, errorMessage} = this.props;
-    let listItems;
-    console.log(this.props);
+    let listItems = (<div></div>);
+
     let errorMsg = null;
 
     if (errorMessage.error === 'trigger') {
@@ -28,33 +32,39 @@ class SearchResultsList extends Component {
     if (list && list.length > 0) {
       listItems = list.map((item, index) => {
         return (
-          <div colSpan="12" key={index}>
+          <Col className={'SearchResultsList-item'} key={index}>
             <SearchResultsListRow item={item}/>
-          </div>
+          </Col>
+
         );
       });
-      return (
-        <div colSpan="12" {...this.props}>
+       (
+        <Col className={'SearchResultsList-item'} {...this.props}>
           <SearchResultsHeader/>
           {listItems}
-        </div>
+        </Col>
       );
     } else if (list && list.length == 0) {
       return (
-        <div colSpan="12" {...this.props}>
+        <Col className={'SearchResultsList-item'} {...this.props}>
           <SearchResultsHeader/>
           <SearchResultsAlert/>
-        </div>
+        </Col>
       );
     } else {
       return (
-        <div colSpan="12" {...this.props}>
+        <Col className={'SearchResultsList-item'} {...this.props}>
           <SearchResultsHeader/>
           {errorMsg}
-        </div>
+        </Col>
       );
     }
 
+    return (
+      <Col xs={12} md={12} lg={12} className={'SearchResultsList-container'}>
+        {listItems}
+      </Col>
+    )
   }
 }
 function mapStateToProps(state) {

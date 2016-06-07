@@ -105,8 +105,9 @@ class SearchResultsForm extends Component {
 
     const iconstyle = {
       position: 'absolute',
-      top: '10px',
-      right: '30px',
+      fontSize: '1.5rem',
+      top: '8px',
+      right: '20px',
       color: '#888'
     }
     let enterMessage = (

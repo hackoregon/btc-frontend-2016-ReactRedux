@@ -4,6 +4,12 @@ import SearchResultsForm from '../../containers/SearchResults/SearchResultsForm.
 import NavRouterLink from './NavRouterLink.jsx';
 import YearField from '../Select/Select.jsx';
 class FlexNav extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      selectOpts: false
+    }
+  }
     makeLinks() {
         let links = this.props.menuItems.map((name, index) => {
             return (
@@ -19,7 +25,8 @@ class FlexNav extends React.Component{
                 top: '70px',
                 left: '0px',
                 width: '101%',
-                zIndex: '1020'
+                zIndex: '1020',
+                margin: '0'
             }}>
                 <Row style={{padding:'0.5rem 1rem'}} xs={6} md={6} lg={6} >
                   {this.makeLinks()}
@@ -31,7 +38,7 @@ class FlexNav extends React.Component{
                 <SearchResultsForm style={{
                     flex: '1',
                     margin: '.5rem',
-                    minWidth: '380px'
+                    minWidth: '350px'
                 }}/>
 
 
