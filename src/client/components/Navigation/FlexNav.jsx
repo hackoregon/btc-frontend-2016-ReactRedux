@@ -26,7 +26,7 @@ class FlexNav extends React.Component{
                 left: '0px',
                 width: '101%',
                 zIndex: '1020',
-                margin: '0'
+                margin: '0px'
             }}>
                 <Row style={{padding:'0.5rem 1rem'}} xs={6} md={6} lg={6} >
                   {this.makeLinks()}

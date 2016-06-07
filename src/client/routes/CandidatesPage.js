@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid, Col } from 'react-flexbox-grid';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Spinner from 'react-spinkit';
 import * as json from '../data/transactions.json';
 import d3 from 'd3';
 import _ from 'lodash'
@@ -29,6 +30,7 @@ const selectKeys = Object.keys(byYear);
 console.log(selectKeys);
 
 const Test = ({year,data}) =>{
+  if(data){
   const divs = data.map((item,i) => {
     return (
       <Col key={i} style={{paddingBottom:'.5rem',margin:'.5rem',borderBottom:'1px #eee solid'}}>
@@ -42,6 +44,12 @@ const Test = ({year,data}) =>{
         <Col><h3>{year}</h3></Col>
         {divs}</div>
     )
+  }
+  else {
+    return (<Col>
+      <h5>Choose a year</h5>
+    </Col>);
+  }
 };
 
 class CandidatesPage extends Component {
@@ -57,7 +65,12 @@ class CandidatesPage extends Component {
     }
 
     componentDidMount() {
+      debugger;
+      // this.renderTest()
+    }
 
+    renderTest(){
+      return(<Test year={this.state.year} data={this.state.data[this.state.year]} />);
     }
 
     handleSelect(year) {
@@ -76,7 +89,7 @@ class CandidatesPage extends Component {
                       style={ {    marginTop: '100px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                   <Col>
-                    <Test year={this.state.year} data={this.state.data[this.state.year]} />
+                    {this.renderTest()}
                   </Col>
                 </Grid>
             </div>
