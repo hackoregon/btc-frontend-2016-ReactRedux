@@ -1,5 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import {Link} from 'react-router';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import numeral from 'numeral';
+
+function format(num){
+  return numeral(num).format('($0.0a)')
+}
 
 class SearchResultsListRow extends Component {
 
@@ -9,18 +15,28 @@ class SearchResultsListRow extends Component {
 
     render() {
         const {item} = this.props;
-        return (<div colSpan="12" {...this.props}>
-                    <h4>
+        return (<Col {...this.props} style={{
+          borderBottom: 'solid #eee 1px',
+          paddingTop: '1rem'
+        }}>
+                    <Col>
+                    <h4 style={{
+                        fontSize:'1.75rem',
+                        margin: '1.5rem 0 0'}}>
                       <Link to= {`/campaign/${item.filerId}`} >
                       {item.candidateName}
                       </Link>
                     </h4>
-                    <div>
-                      <p><span>{item.race}</span></p>
-                      <span>Raised: ${item.total}</span>
-                      <span>Spent: ${item.totalSpent}</span>
-                    </div>
-                </div>
+                    <p style={{fontSize:'1.5rem'}}>{item.race}</p>
+                    </Col>
+                    <Col>
+
+                      <Col>
+                      <p> Raised: {format(item.total)} Spent: {format(item.totalSpent)}</p>
+                      </Col>
+
+                    </Col>
+                </Col>
             );
     }
 }
