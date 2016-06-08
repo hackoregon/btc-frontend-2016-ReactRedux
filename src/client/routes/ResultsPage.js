@@ -17,7 +17,6 @@ class ResultsPage extends Component {
                 <Grid fluid={ true }
                       style={ {    marginTop: '100px',    fontWeight: '200px'} }
                       params={ this.props.params }>
-                    <SearchResultsForm params={ this.props.params }></SearchResultsForm>
                     <Col xs={ 12 }
                          md={ 12 }
                          sm={ 12 }

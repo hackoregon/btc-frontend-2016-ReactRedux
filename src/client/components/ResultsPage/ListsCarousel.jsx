@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Carousel} from 'react-bootstrap';
+import {Carousel,CarouselItem} from 'react-bootstrap';
 
 class ListsCarousel extends Component {
     constructor(props) {
@@ -23,3 +23,14 @@ class ListsCarousel extends Component {
 }
 
 export default ListsCarousel
+
+//
+// <ListsCarousel>
+//   <CarouselItem >
+//   <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
+//   <ResultDonorsList donorType={"Top Business Donors"} donors={businessDonors}></ResultDonorsList>
+//   </CarouselItem>
+//   <CarouselItem>
+//   <ResultDonorsList donorType={"Top PAC Donors"} donors={pacDonors}></ResultDonorsList>
+//   </CarouselItem>
+// </ListsCarousel>

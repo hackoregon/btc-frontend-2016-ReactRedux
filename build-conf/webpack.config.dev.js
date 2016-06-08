@@ -1,10 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path              = require('path');
-var precss            = require('precss');
-var autoprefixer      = require('autoprefixer');
-
+var path = require('path');
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
 module.exports = {
   name: 'browser',
   devtool: 'cheap-module-source-map',
@@ -31,6 +30,15 @@ module.exports = {
       loader: 'babel'
     }, {
       test: /\.css$/,
+      loader: 'style!css?modules',
+      include: /flexboxgrid/
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader',
+      include: /react-spinkit/,
+    },
+    {
+      test: /\.css$/,
       exclude: /node_modules/,
       loader: 'style-loader!css-loader!postcss-loader'
     }, {
@@ -49,7 +57,6 @@ module.exports = {
       test: /\.json$/,
       loader: 'json-loader'
     }]
-
   },
   externals: {
     'jquery': 'jQuery'

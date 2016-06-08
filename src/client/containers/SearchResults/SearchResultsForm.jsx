@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Grid, Row, Col, Button, Input} from 'react-bootstrap';
+// import {Grid, Row, Col} from 'react-bootstrap';
+import {Grid, Row, Col}  from 'react-flexbox-grid';
 import {loadSearchData} from '../../actions/index.js';
 import Autosuggest from 'react-autosuggest';
 import fetchSuggestions from '../../utils/fetchSuggestions.js';
-
+import './SearchForm.css'
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -104,8 +105,9 @@ class SearchResultsForm extends Component {
 
     const iconstyle = {
       position: 'absolute',
-      top: '10px',
-      right: '30px',
+      fontSize: '1.5rem',
+      top: '8px',
+      right: '20px',
       color: '#888'
     }
     let enterMessage = (
@@ -121,13 +123,11 @@ class SearchResultsForm extends Component {
 
     return (
       <form {...this.props} onSubmit={this.handleFetch}>
-        <Grid fluid={true}>
+        <Grid fluid>
           <Row>
-            <Col xs={12} md={12} sm={12} lg={12}>
-
+            <Col style={{position:'relative'}} xs={12} md={12} sm={12} lg={12}>
               <Autosuggest ref={() => this.setRef(this.state.value)} suggestions={suggestions} onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested} onSuggestionSelected={this.onSuggestionSelected} getSuggestionValue={getSuggestionValue} renderSuggestion={renderSuggestion} inputProps={inputProps}/>
               {enterMessage}
-
             </Col>
           </Row>
 

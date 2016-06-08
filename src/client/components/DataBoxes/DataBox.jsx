@@ -1,19 +1,23 @@
 import React, { Component, PropTypes } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Col } from 'react-flexbox-grid';
 
 class DataBox extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const boxStyle = {
-      textAlign : 'center'
-    };
+    const column = {
+        textAlign : 'center',
+        border: '1px solid #eee',
+        borderRadius: '4px',
+        margin: '1.5rem'
+      }
+
     return (
-      <Panel style={boxStyle}>
+      <Col center='xs' style={column}>
         <h2> { this.props.value } </h2>
         <h4> { this.props.name } </h4>
-      </Panel>
+      </Col>
     );
   }
 }

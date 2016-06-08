@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import _ from 'lodash';
-import { Grid, Row, Col, Table, Panel } from 'react-bootstrap';
+import { Table, Panel } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import d3 from 'd3';
 
 import {loadDonor} from '../../actions'
