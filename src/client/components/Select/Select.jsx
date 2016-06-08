@@ -13,9 +13,32 @@ const YearField = React.createClass({
 	getInitialState () {
 		return {
 			year: YEARS[0],
+      years: YEARS,
 			selectValue: YEARS[0]
 		};
 	},
+  componentWillReceiveProps(nextProps) {
+    const {years} = nextProps;
+    let yrs;
+    if(years != undefined && years.length>0){
+        yrs = years.map((year) => {
+          return {
+            value: year,
+            label: year
+        }
+      });
+    }
+    this.setState({
+      years: yrs
+    });
+  },
+  shouldComponentUpdate(nextProps, nextState) {
+    const {years} = nextState;
+    if(years != undefined && years.length > 0) {
+      return true;
+    }
+    return false;
+  },
 	updateValue (newValue) {
 		console.log('State changed to ' + newValue);
     const {onToggleSelect} = this.props;
@@ -29,21 +52,23 @@ const YearField = React.createClass({
     }
 	},
 	render () {
-    const {years} = this.props;
-    let yrs;
-    if(years.length>0){
-        yrs = years.map((year) => {
-          return {
-            value: year,
-            label: year
-        }
-      });
-    }
 
-		var options = years.length > 0 ? yrs : YEARS;
+    // let yrs;
+    //
+    // if(years && years.length>0){
+    //     yrs = years.map((year) => {
+    //       return {
+    //         value: year,
+    //         label: year
+    //     }
+    //   });
+    // }
+    //
+		var options = this.state.years || YEARS;
+
 
 		return (
-				<Select style={{ width:'10rem'}} ref="yearSelect" options={options} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
+				<Select style={{ width:'10rem'}} ref="yearSelect" options={this.state.years} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
 		);
 	}
 });
