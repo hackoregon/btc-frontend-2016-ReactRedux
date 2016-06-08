@@ -1,28 +1,46 @@
 import React, { PropTypes } from 'react';
 import BarChart from '../../components/BarChart/BarChart.jsx';
 import SizeMe from 'react-sizeme';
+import d3 from 'd3';
 
-// function formatData(arr) {
-//     let newData = {
-//         labels: [],
-//         series: [
-//             [], []
-//         ]
-//     };
-//     arr.forEach((item) => {
-//         let raised = item.total_in == null
-//             ? 0
-//             : item.total_in;
-//         let spent = item.total_out == null
-//             ? 0
-//             : (item.total_out);
-//         newData.labels.push(item.tran_date);
-//         newData.series[0].push(raised);
-//         newData.series[1].push(spent);
-//     });
-//     console.log(d3.extent(newData.series[0]));
-//     return newData;
-// }
+function formatData(arr) {
+    let newData = {
+        labels: [],
+        series: []
+    };
+    arr.forEach((item) => {
+        let raised = item.total_in == null
+            ? 0
+            : item.total_in;
+        let spent = item.total_out == null
+            ? 0
+            : (item.total_out);
+        newData.labels.push(item.tran_date);
+        newData.series[0].push(raised);
+        newData.series[1].push(spent);
+    });
+    console.log(d3.extent(newData.series[0]));
+    return newData;
+}
+
+function splitCodes (trans) {
+  var obj = {}
+  trans.forEach((item) => {
+    if(item.direction=='out' && item.purposeCodes){
+    let codes = item['purposeCodes'].split(';');
+    codes.map((code) => {
+      c = code.trim()
+      if(c in obj){
+        obj[c] += item.amount / codes.length; // NOTE - splitting based on length of codes in trans
+      } else {
+        obj[c] = 0;
+      }
+    })
+  }
+  })
+  return obj
+}
+
 
 const SizeMeHOC = SizeMe({
   monitorWidth: true,
@@ -62,11 +80,13 @@ class SpendingChart extends React.Component {
           colors: colors
       }
   }
-
-  componentWillMount() {
-    const {labels, data} = this.props;
+  componentWillReceiveProps(nextProps) {
+    const {labels, data} = nextProps;
     this.setState({...labels, ...data});
   }
+  // componentWillMount() {
+  //   const {labels, data} = this.props;
+  // }
 
   render() {
     // if (_.isArray(this.props.data) && this.props.data.length === 5) {

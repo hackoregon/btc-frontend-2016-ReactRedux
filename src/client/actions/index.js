@@ -4,7 +4,7 @@ import {
 } from '../api/serverApi.js';
 
 import loadSearchData from './search';
-import loadCampaign from './campaign';
+import {loadCampaign,fetchCampaigns} from './campaign';
 import loadLocationData from './location';
 import loadTransactions from './transactions';
 import loadSpending from './spending';
@@ -12,7 +12,7 @@ import loadDonors from './donors';
 import { loadIndivs, loadPACinfo, loadBizInfo } from './donorCategories';
 import loadStateInfo from './state';
 import loadDonor from './donor_page';
-export { loadSearchData, loadCampaign, loadLocationData, loadTransactions };
+export { loadSearchData, loadCampaign, fetchCampaigns, loadLocationData, loadTransactions };
 export { loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadDonor, loadSpending };
 
 

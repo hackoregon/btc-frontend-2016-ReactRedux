@@ -29,7 +29,18 @@ const YearField = React.createClass({
     }
 	},
 	render () {
-		var options = YEARS;
+    const {years} = this.props;
+    let yrs;
+    if(years.length>0){
+        yrs = years.map((year) => {
+          return {
+            value: year,
+            label: year
+        }
+      });
+    }
+
+		var options = years.length > 0 ? yrs : YEARS;
 
 		return (
 				<Select style={{ width:'10rem'}} ref="yearSelect" options={options} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />

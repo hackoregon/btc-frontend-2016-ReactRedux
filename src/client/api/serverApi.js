@@ -54,22 +54,185 @@ const list = {
 function mungeExpenditures(data) {
   let expenditures = {};
   data.forEach((val) => {
-    let key = val['purpose_code'];
+    let key = val['purposeCodes'];
+    console.log(key);
     if (!_(expenditures)
       .has(key)) {
       expenditures[key] = 0;
     }
     expenditures[key] += val.total;
   });
+  console.log(data, expenditures);
   return expenditures;
 }
+var self = {};
+var CONTRIBUTION = {
+  PAC: 'PAC',
+  BUSINESS: 'Business',
+  GRASSROOTS: 'Grassroots',
+  INDIVIDUAL: 'Individual',
+  PARTY: 'Party',
+  UNION: 'Union',
+  NA: 'NA'
+};
+self.CONTRIBUTION = CONTRIBUTION;
+
+function mungeContribs(data) {
+  var keyMap = {
+    'Political Committee': CONTRIBUTION.PAC,
+    'Large Donor': CONTRIBUTION.INDIVIDUAL,
+    'Grassroot': CONTRIBUTION.GRASSROOTS,
+    'Political Party Committee': CONTRIBUTION.PARTY,
+    'Business Entity': CONTRIBUTION.BUSINESS,
+    'Labor Organization': CONTRIBUTION.UNION,
+    'Other': CONTRIBUTION.NA
+  }
+  var result = {};
+  Array.forEach(data, function (val) {
+    var key = keyMap[val['contribution_type']];
+    if (key) {
+      if (!_(result)
+        .has(key)) {
+        result[key] = {
+          amount: 0
+        };
+      }
+      result[key].amount += val.total;
+    }
+  });
+  return result;
+}
+
+function munge(t) {
+  var contributions = {};
+  _(self.CONTRIBUTION)
+    .each(function (type) {
+      contributions[type] = {
+        amount: 0,
+        number: 0
+      };
+    });
+  var expenditures = {};
+  var donors = {
+    indiv: {},
+    corp: {},
+    pac: {}
+  };
+  var committee_codes = {};
+  // Use contributor name as a unique key to add up total donations for each contributor
+  var addDonorItem = function (type, row) {
+    var payee = row['contributor_payee'];
+    if (!_.has(donors[type], payee)) {
+      donors[type][payee] = 0;
+    }
+    donors[type][payee] += row.amount;
+    if (type === 'pac' && _.has(row, 'contributor_payee_committee_id')) {
+      committee_codes[payee] = row['contributor_payee_committee_id'];
+    }
+  };
+  _(transactions)
+    .chain()
+    .each(function (row) {
+      var subType = row['sub_type'];
+      switch (subType) {
+      case 'In-Kind Contribution':
+      case 'Cash Contribution':
+        var bookType = row['book_type'];
+        var contributionKey = '';
+        switch (bookType) {
+        case 'Business Entity':
+          contributionKey = self.CONTRIBUTION.BUSINESS;
+          addDonorItem('corp', row);
+          break;
+        case 'Political Committee':
+          contributionKey = self.CONTRIBUTION.PAC;
+          addDonorItem('pac', row);
+          break;
+        case 'Political Party Committee':
+          contributionKey = self.CONTRIBUTION.PARTY;
+          addDonorItem('pac', row);
+          break;
+        case 'NA':
+          contributionKey = self.CONTRIBUTION.NA;
+          break;
+        case 'Individual':
+          if (row['contributor_payee_class'] !== 'grassroots_contributor') {
+            contributionKey = self.CONTRIBUTION.INDIVIDUAL;
+            addDonorItem('indiv', row);
+          }
+          break;
+        }
+        if (contributionKey) {
+          contributions[contributionKey].amount += Number(row['amount']);
+          contributions[contributionKey].number += 1;
+        }
+        if (row['contributor_payee_class'] === 'grassroots_contributor') {
+          contributions[self.CONTRIBUTION.GRASSROOTS].amount += Number(row['amount']);
+          contributions[self.CONTRIBUTION.GRASSROOTS].number += 1;
+        }
+        break;
+      case 'Cash Expenditure':
+        var purposeCodes = (row['purpose_codes'] || '')
+          .split('; ');
+        _(purposeCodes)
+          .each(function (purposeCode) {
+            if (!_(expenditures)
+              .has(purposeCode)) {
+              expenditures[purposeCode] = 0;
+            }
+            expenditures[purposeCode] += (Number(row['amount']) / purposeCodes.length);
+          });
+        break;
+      }
+    });
+  donors.indiv = _.map(donors.indiv, function (amount, donor) {
+    return {
+      payee: donor,
+      amount: amount
+    };
+  });
+  donors.indiv.sort(sortEntry);
+  donors.corp = _.map(donors.corp, function (amount, donor) {
+    return {
+      payee: donor,
+      amount: amount
+    };
+  });
+  donors.corp.sort(sortEntry);
+  donors.pac = _.map(donors.pac, function (amount, donor) {
+    return {
+      payee: donor,
+      amount: amount
+    };
+  })
+  donors.pac.sort(sortEntry);
+  _.each(donors.pac, function (val) {
+    if (_.has(committee_codes, val.payee)) {
+      val['filer_id'] = committee_codes[val.payee];
+    }
+  })
+}
+function mungeExp(data) {
+      var expenditures = {};
+      Array.forEach(data, function(val) {
+        var key = val['purposeCodes'];
+        if (!_(expenditures).has(key)) {
+          expenditures[key] = 0;
+        }
+        expenditures[key] += val.total;
+      });
+
+      return expenditures;
+    }
 
 function makeSpending(transactions) {
+  let expenditures = {};
   return _(transactions)
     .chain()
     .each(function (row) {
-      const purposeCodes = (row['purpose_codes'] || '')
+      const purposeCodes = (row['purposeCodes'] || '')
         .split('; ');
+      console.log(purposeCodes);
       _(purposeCodes)
         .each(function (purposeCode) {
           if (!_(expenditures)
@@ -80,9 +243,6 @@ function makeSpending(transactions) {
         });
     })
 }
-
-
-
 // function splitPurposeCodes(str){
 //   str.split('; ')
 // }
@@ -91,24 +251,21 @@ function makeSpending(transactions) {
 //   return
 // }
 //
-// let options = {
-//   idAttribute: 'purpose_code',
-//   assignEntity: (output, key, value, input) => {
-//     if(key === 'purpose_code'){
-//
-//     }
-//
-//     if (key in obj) {
-//       obj[key] += value;
-//     } else {
-//       obj[key] = value;
-//     }
-//   }
-// }
-// const expenditure = new Schema('expenditure', );
-// const contribution = new Schema('contributions', {
-//   idAttribute: 'contributorPayee'
-// });
+let options = {
+    idAttribute: 'purposeCodes',
+    assignEntity: (output, key, value, input) => {
+      if (key === 'purposeCodes') {}
+      if (key in obj) {
+        obj[key] += value;
+      } else {
+        obj[key] = value;
+      }
+    }
+  }
+  // const expenditure = new Schema('expenditure', );
+  // const contribution = new Schema('contributions', {
+  //   idAttribute: 'contributorPayee'
+  // });
 const stateContribution = new Schema('stateContributions', {
   idAttribute: 'state'
 });

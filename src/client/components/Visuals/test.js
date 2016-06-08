@@ -38,7 +38,10 @@ const Test = () =>{
     )
   });
     return (
-      <div>{divs}</div>
+      <div>
+        <Col>this.state.year</Col>
+        {divs}
+      </div>
     )
 };
 

@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ResultPage from '../containers/Result/ResultPage.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import { Grid } from 'react-bootstrap';
-import {loadCampaign,loadPACinfo,loadBizInfo, loadIndivs,loadStateInfo} from '../actions'
+import {loadCampaign, fetchCampaigns,loadPACinfo,loadBizInfo, loadIndivs,loadStateInfo} from '../actions'
 import {connect} from 'react-redux'
 
 function loadData(props) {
@@ -50,6 +50,7 @@ export default connect(mapStateToProps, {
   loadCampaign, loadIndivs,
   loadBizInfo,
   loadPACinfo,
+  fetchCampaigns,
   loadStateInfo
 })(CampaignResultPage)
 // export default CampaignResultPage;
