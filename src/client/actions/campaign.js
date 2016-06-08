@@ -24,6 +24,7 @@ export function loadCampaign(filerId, requiredFields = []) {
     return dispatch(fetchCampaign(filerId))
   }
 }
+// new stuff
 const requestCampaign = (filerId) => ({
   type: 'CAMPAIGN_REQUEST',
   filerId
