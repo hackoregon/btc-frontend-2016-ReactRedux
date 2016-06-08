@@ -1,67 +1,135 @@
 
 import React, { Component, PropTypes } from 'react';
-
-import { Col } from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-flexbox-grid';
+import './Footer.css'
 
 class Footer extends Component {
 
 render(){
+        let linkStyle = {fontWeight: '200px'}
         return (
-              <div className="footer container-fluid" params={ this.props.params }>
-                  <div className="container-fluid" params={ this.props.params }>
+              <Grid className="footer" style={{
+                  color: 'white',
+                  backgroundColor: '#4D92C2',
+                  maxHeight: '7%',
+                  position: 'fixed',
+                  left: '0px',
+                  bottom: '0px',
+                  width: '100%',
+                  zIndex: '1020',
+                  margin: '0px',
+                  padding: '3px'
+              }}
+              params={ this.props.params }>
+                  <Row xs={12}
+                      md={12} lg={12}
+                      center='xs'
+                      middle='xs'
+                      params={ this.props.params }>
+
                       <Col xs={ 12 }
-                           md={ 3 }
-                           sm={ 3 }
-                           lg={ 3 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
                            params={ this.props.params }>
-                      <h4 className="underlined text-center"
+                      <a syle={linkStyle} href="#"
                           style={ {    fontWeight: '200'} }
-                          params={ this.props.params }><span params={ this.props.params }>About</span></h4>
-                      <div className="text-center nav-item" params={ this.props.params }>
-                          <a href="#" params={ this.props.params }><span params={ this.props.params }>2016 Team</span></a>
-                      </div>
+                          params={ this.props.params }><span params={ this.props.params }>About</span></a>
                       </Col>
+
                       <Col xs={ 12 }
-                           md={ 3 }
-                           sm={ 3 }
-                           lg={ 3 }
-                           params={ this.props.params }>
-                      <h4 className="underlined text-center"
-                          style={ {    fontWeight: 200} }
-                          params={ this.props.params }><span params={ this.props.params }>Take action</span></h4>
-                      <div className="text-center nav-item" params={ this.props.params }>
-                          <a href="#" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
-                      </div>
+                               md={ 1 }
+                               sm={ 1 }
+                               lg={ 1 }
+                               params={ this.props.params }>
+                      <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>2016 Team</span></a>
                       </Col>
+
                       <Col xs={ 12 }
-                           md={ 3 }
-                           sm={ 3 }
-                           lg={ 3 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
                            params={ this.props.params }>
-                      <h4 className="underlined text-center"
-                          style={ {    fontWeight: 200} }
-                          params={ this.props.params }><span params={ this.props.params }>Contact</span></h4>
-                      <div className="text-center nav-item" params={ this.props.params }>
-                          <a href="#" params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
-                      </div>
-                      <div className="text-center nav-item" params={ this.props.params }>
-                          <a href="#" params={ this.props.params }><span params={ this.props.params }>Email</span></a>
-                      </div>
+                      <a href="#"
+                          params={ this.props.params }><span params={ this.props.params }>Take action</span></a>
                       </Col>
+
                       <Col xs={ 12 }
-                           md={ 3 }
-                           sm={ 3 }
-                           lg={ 3 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
                            params={ this.props.params }>
-                      <h4 className="underlined text-center"
-                          style={ {    fontWeight: 200} }
-                          params={ this.props.params }><span params={ this.props.params }>Explore</span></h4>
-                      <div className="text-center nav-item" params={ this.props.params }>
-                          <a href="#" params={ this.props.params }><span params={ this.props.params }>Search campaigns</span></a>
-                      </div>
+                     <a href="#" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
                       </Col>
-                  </div>
-              </div>
+
+                      <Col xs={ 12 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
+                           params={ this.props.params }>
+                      <a href="#"
+                          params={ this.props.params }><span params={ this.props.params }>Contact</span></a>
+                      </Col>
+
+                      <Col xs={ 12 }
+                          md={ 1 }
+                          sm={ 1 }
+                          lg={ 1 }
+                          params={ this.props.params }>
+                      <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
+                      </Col>
+
+                      <Col xs={ 12 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
+                           params={ this.props.params }>
+                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Email</span></a>
+                      </Col>
+
+                      <Col xs={ 12 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
+                           params={ this.props.params }>
+                      <a href="#" syle={linkStyle}
+                          params={ this.props.params }><span params={ this.props.params }>Explore</span></a>
+                      </Col>
+
+                      <Col xs={ 12 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
+                           params={ this.props.params }>
+                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Search</span></a>
+                      </Col>
+
+                      <Col xs={ 12 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
+                           params={ this.props.params }>
+                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
+                      </Col>
+
+                      <Col xs={ 12 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
+                           params={ this.props.params }>
+                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
+                      </Col>
+
+                      <Col xs={ 12 }
+                           md={ 1 }
+                           sm={ 1 }
+                           lg={ 1 }
+                           params={ this.props.params }>
+                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
+                      </Col>
+
+                  </Row>
+              </Grid>
     )
   }
 }
