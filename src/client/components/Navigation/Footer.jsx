@@ -32,7 +32,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                      <a syle={linkStyle} href="#"
+                      <a className="footer-link" syle={linkStyle} href="#"
                           style={ {    fontWeight: '200'} }
                           params={ this.props.params }><span params={ this.props.params }>About</span></a>
                       </Col>
@@ -42,7 +42,7 @@ render(){
                                sm={ 1 }
                                lg={ 1 }
                                params={ this.props.params }>
-                      <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>2016 Team</span></a>
+                      <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>2016 Team</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -50,7 +50,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                      <a href="#"
+                      <a className="footer-link" href="#"
                           params={ this.props.params }><span params={ this.props.params }>Take action</span></a>
                       </Col>
 
@@ -59,7 +59,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                     <a href="#" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
+                     <a className="footer-link" href="#" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -67,7 +67,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                      <a href="#"
+                      <a className="footer-link" href="#"
                           params={ this.props.params }><span params={ this.props.params }>Contact</span></a>
                       </Col>
 
@@ -76,7 +76,7 @@ render(){
                           sm={ 1 }
                           lg={ 1 }
                           params={ this.props.params }>
-                      <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
+                      <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -84,7 +84,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Email</span></a>
+                      <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Email</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -92,7 +92,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                      <a href="#" syle={linkStyle}
+                      <a className="footer-link" href="#" syle={linkStyle}
                           params={ this.props.params }><span params={ this.props.params }>Explore</span></a>
                       </Col>
 
@@ -101,7 +101,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Search</span></a>
+                      <a className="footer-link"  href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Search</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -109,7 +109,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
+                      <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -117,7 +117,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
+                          <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -125,7 +125,7 @@ render(){
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                          <a href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
+                          <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
                       </Col>
 
                   </Row>
