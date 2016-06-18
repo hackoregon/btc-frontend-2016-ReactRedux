@@ -3,6 +3,7 @@ import {
   Schemas
 } from '../api/serverApi.js';
 import * as api from '../api/api.js'
+
 const types = ['CAMPAIGN_REQUEST', 'CAMPAIGN_SUCCESS', 'CAMPAIGN_FAILURE'];
 
 function fetchCampaign(filerId) {
@@ -43,7 +44,25 @@ const recieveTransactions = (filerId, response) => ({
   filerId,
   response
 });
-export const fetchCampaigns = (filerId) => (dispatch) => {
+const requestSumByDate = (filerId) => ({
+  type: 'SUM_REQUEST',
+  filerId
+});
+const recieveSumByDate = (filerId,response) => ({
+  type: 'RECIEVE_SUM',
+  filerId,
+  response
+});
+const requestMungedSum = (filerId) => ({
+  type: 'REQUEST_MUNGED_SUM',
+  filerId
+});
+const recieveMungedSum = (filerId,response) => ({
+  type: 'RECIEVE_MUNGED_SUM',
+  filerId,
+  response
+});
+export const fetchCampaigns = (filerId) => (dispatch,getState) => {
   dispatch(requestCampaign(filerId));
   return api.fetchCampaigns(filerId)
     .then(response => {
@@ -55,9 +74,26 @@ export const fetchCampaigns = (filerId) => (dispatch) => {
       return api.fetchTransactions(filerId)
         .then(response => {
           dispatch(recieveTransactions(filerId, response));
+          return filerId
         })
-        return filerId
     })
+    .then(filerId => {
+      dispatch(requestSumByDate(filerId));
+      return api.fetchTransactionsForTimeline(filerId)
+        .then(response => {
+          dispatch(recieveSumByDate(filerId, response));
+          return filerId;
+        })
+    })
+    .then(filerId => {
+      const dataToMunge = getState().entities.sums
+      dispatch(requestMungedSum(filerId));
+      return api.mungeByYear(dataToMunge)
+      .then(response => {
+        dispatch(recieveMungedSum(filerId,response));
+        return filerId;
+      })
+    });
     // .then(filerId => { TODO: add more dispatch actions here
     //   // dispatch(requestState)
     // })

@@ -1,18 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Grid, Col } from 'react-flexbox-grid';
 import {connect} from 'react-redux';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Spinner from 'react-spinkit';
 import * as json from '../data/transactions.json';
-import {fetchCampaigns} from '../actions';
+import {fetchCampaigns,loadStateInfo} from '../actions';
 import d3 from 'd3';
 import _ from 'lodash'
+import ResultPage from '../containers/Result/ResultPage.jsx';
+import moment from 'moment';
 
 const parsed = _.values(json);
 
 function loadData(props){
   const {filer_id} = props;
  props.fetchCampaigns(filer_id);
+ props.loadStateInfo(filer_id);
 }
 
 function cleanData(array) {
@@ -83,6 +86,7 @@ class CandidatesPage extends Component {
     constructor(){
       super()
       this.state = {
+        year: '2016',
         display: false,
         dispData: null
       }
@@ -94,22 +98,26 @@ class CandidatesPage extends Component {
 
     componentWillReceiveProps(nextProps) {
       const {transactions} = nextProps;
-      let trans = _.values(transactions);
-      const cleaned = cleanData(trans);
-      const byYear = d3.nest().key(function(d) {
-        if(d.filedDate){
-            return d.filedDate.split("-")[0];
-        }
-        }).rollup(function(v) {
-        return v
-      }).map(cleaned);
-      const selectKeys = Object.keys(byYear);
-      this.setState({
-        data: byYear,
-        year: selectKeys[selectKeys.length],
-        display: true,
-        dispData: byYear[selectKeys.length]
-      });
+      if(!_.isEmpty(transactions)){
+        let trans = _.values(transactions);
+        const cleaned = cleanData(trans);
+        const byYear = d3.nest()
+        .key(function(d) {
+          if(d.filedDate){
+            return moment(d.filedDate).format('YYYY');
+              // return d.filedDate.split("-")[1];
+          }
+          }).rollup(function(v) {
+          return v
+        }).map(cleaned);
+        const selectKeys = Object.keys(byYear);
+        this.setState({
+          data: byYear,
+          year: selectKeys[selectKeys.length-1],
+          display: true,
+          dispData: byYear[selectKeys[selectKeys.length-1]]
+        });
+      }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -120,8 +128,9 @@ class CandidatesPage extends Component {
       }
       return false;
     }
+
     renderTest(){
-        console.log(this.state);
+        console.log('render test',this.state);
           return(<Test year={this.state.year} data={this.state.dispData} />);
     }
 
@@ -143,11 +152,30 @@ class CandidatesPage extends Component {
       )
     }
 
+    renderPage(campaign,transactions,mungedSums,stateInfo, filerId){
+      const data = this.state.data[this.state.year];
+      if(data){
+        const contribs = {
+          ind : data.filter(datum => {return datum.bookType === 'Individual' && datum.contributorPayeeClass != 'grassroots_contributor' }),
+          grassroots: data.filter(datum => datum.contributorPayeeClass === 'grassroots_contributor'),
+          biz : data.filter(datum => {return datum.bookType === ('Business Entity')}),
+          pac : data.filter(datum => {return datum.contributorPayeeCommitteeId != null && datum.bookType !== ('Political Party Committee')}),
+          party: data.filter((datum) => {return datum.bookType === 'Political Party Committee'})
+        }
+        console.log('render page',this.state.year);
+        return (
+          <ResultPage year={this.state.year}
+            campaign={campaign} contributions={contribs} sums={mungedSums} stateInfo={stateInfo} filerId={filerId} />
+        )
+      }
+    }
+
     render() {
-      const {transactions} = this.props;
+      const {campaign, filer_id, transactions, stateContributions,mungedSums} = this.props;
       let trans = _.values(transactions);
       const cleaned = cleanData(trans);
-      const byYear = d3.nest().key(function(d) {
+      const byYear = d3.nest()
+      .key(function(d) {
         if(d.filedDate){
             return d.filedDate.split("-")[0];
         }
@@ -158,8 +186,8 @@ class CandidatesPage extends Component {
 
       let elem = this.state.display ?
         (this.renderTest()) : (<Spinner spinnerName='rotating-plane'/>);
-
-        let spending = this.state.display ? (this.renderSpend()) : (<Spinner spinnerName='cube-grid'/>);
+        console.log('before spending',this.state.data,this.state.year);
+        let spending = this.state.display ? (this.renderPage(campaign,this.state.data[this.state.year],mungedSums,stateContributions,filer_id)) : (<Spinner spinnerName='cube-grid'/>);
         return (
             <div {...this.props}>
                 <BTCNav ref={'nav'} years={selectKeys} onToggleSelect={this.handleSelect}/>
@@ -180,16 +208,16 @@ class CandidatesPage extends Component {
 function mapStateToProps(state, ownProps) {
   const { filer_id } = ownProps.params
   const {
-    entities: { transactions, campaigns }
+    entities: { transactions, campaigns, stateContributions, mungedSums }
   } = state;
   const campaign = campaigns[filer_id]
   return {
-    filer_id, campaign, transactions
+    filer_id, campaign, transactions, stateContributions, mungedSums
   }
 }
 
 
 export default connect(mapStateToProps, {
-  fetchCampaigns
+  fetchCampaigns, loadStateInfo
 })(CandidatesPage)
 // export default CandidatesPage;

@@ -63,7 +63,7 @@
     transform-origin: 0 100%;
     animation: slideUp .6s;
     position: relative;
-    /*border-bottom: solid 0.5px #cdcdcd; TODO - inquire about this */
+    border-bottom: solid 0.5px #cdcdcd; /*TODO - inquire about this */
 }
 
 .BarChart--series.stacked {
@@ -97,7 +97,8 @@
 .BarChart--item {
     background-color: #43A19E;
     display: inline-block;
-    margin: 0 5px 0 0;
+    /*margin: 0 5px 0 0;*/
+    height: 0px;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;

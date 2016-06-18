@@ -1,8 +1,9 @@
 import React from 'react';
-import {Col} from 'react-bootstrap';
+import {Col,Row} from 'react-flexbox-grid';
 import _ from 'lodash';
 import { Link } from 'react-router';
 import d3 from 'd3';
+import {capitalize,fixNames} from '../../utils';
 
 const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
   const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
@@ -19,28 +20,28 @@ const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
     } else
       return {size: '0%', color: '#FFF'};
   }
-
+  const name = fixNames(payee.toLowerCase().capitalize());
   return (
-    <tr>
-      <td>
-        <Col sm={7} xs={10}>
-          <span><Link to={`/donors/${payee}`}>{payee}</Link></span>
+    <Col>
+      <Row start = "xs" >
+        <Col sm={6} xs={10}>
+          <span><Link to={`/donors/${name}`}>{name}</Link></span>
         </Col>
-        <Col sm={2} xs={2}>
+        <Col sm={3} xs={2}>
           <span>{formattedAmount}</span>
         </Col>
-        <Col sm={3} xs={12}>
+        <Col sm={3} xs={12} style={{alignItems:'center',display:'block'}}>
           <div style={{
-            height: "15px",
-            borderRadius: "3px",
-            width: "100%",
-            backgroundColor: "rgb(16, 113, 111)",
+            height: '15px',
+            borderRadius: '3px',
+            width: '100%',
+            backgroundColor: 'rgb(16, 113, 111)',
             width: donorPercent(amount).size,
             backgroundColor: donorPercent(amount).color
-          }}></div>
+          }}/>
         </Col>
-      </td>
-    </tr>
+      </Row>
+    </Col>
   );
 }
 

@@ -15,16 +15,35 @@ class BarChart extends Component {
         this.mapSeries = this.mapSeries.bind(this);
     }
     componentWillMount() {
-        let data = this.props.data,
-            layered = this.props.grouping === 'layered'
-                ? true
-                : false,
-            stacked = this.props.grouping === 'stacked'
-                ? true
-                : false,
-            opaque = this.props.opaque;
+      let layered = this.props.grouping === 'layered'
+          ? true
+          : false,
+      stacked = this.props.grouping === 'stacked'
+          ? true
+          : false,
+      opaque = this.props.opaque;
 
-        this.setState({layered: layered, stacked: stacked, opaque: opaque});
+  this.setState({layered: layered, stacked: stacked, opaque: opaque});
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   let data = nextProps.data,
+    //       layered = nextProps.grouping === 'layered'
+    //           ? true
+    //           : false,
+    //       stacked = nextProps.grouping === 'stacked'
+    //           ? true
+    //           : false,
+    //       opaque = nextProps.opaque;
+    //
+    //   this.setState({layered: layered, stacked: stacked, opaque: opaque});
+    // }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      if(nextProps.data.length){
+        return true
+      }
+      return false
     }
 
     mapSeries(self, series, seriesIndex, sum, max) {
@@ -100,7 +119,6 @@ class BarChart extends Component {
 
         if (this.props.data.length) {
             let data = this.props.data;
-            debugger;
             return (
                 <div className={'BarChart' + (this.props.horizontal
                     ? ' horizontal '
@@ -121,12 +139,12 @@ class BarChart extends Component {
                                 </label>
                             )
                             : null;
-
+                        let height = this.props.height
+                            ? this.props.height
+                            : '0px'
                         return (
                             <div className={'BarChart--series ' + (this.props.grouping)} key={seriesIndex} style={{
-                                height: this.props.height
-                                    ? this.props.height
-                                    : 'auto'
+                                height: height
                             }}>
                                 {seriesLabels}
                                 {fullSeries}

@@ -27,7 +27,7 @@ class SearchResultsListRow extends Component {
                       {item.candidateName}
                       </Link>
                     </h4>
-                    <p style={{fontSize:'1.5rem'}}>{item.race}</p>
+
                     </Col>
                     <Col>
 
@@ -40,6 +40,7 @@ class SearchResultsListRow extends Component {
             );
     }
 }
+// <p style={{fontSize:'1.5rem'}}>{item.race}</p>
 SearchResultsListRow.defaultProps = {
     item: {
         name: 'Temp Candidate name'

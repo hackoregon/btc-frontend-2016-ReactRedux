@@ -33,13 +33,13 @@ class ResultHeader extends Component {
                          lg={ 6 }
                          style={ styles.base }>
                     <h1 style={styles.centered} >{candidate}</h1>
-                    <h4 style={styles.centered} >{race}</h4>
+
                     </Col>
                 </Row>
             );
     }
 }
-
+// <h4 style={styles.centered} >{race}</h4>
 ResultHeader.propTypes = {
   candidate: PropTypes.string.isRequired,
   race: PropTypes.string,

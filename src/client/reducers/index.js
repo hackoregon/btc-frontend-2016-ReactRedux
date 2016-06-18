@@ -13,9 +13,18 @@ function entities(state = {
   contributions: {},
   expenditures: {},
   donors: {},
+  sums: {},
+  mungedSums: {},
   searchData: {}
 }, action) {
-  if (action.type === 'SEARCH_SUCCESS') {
+  switch (action.type) {
+  case 'RECIEVE_MUNGED_SUM':
+    let nextState = {...state,
+      mungedSums: {...action.response
+      }
+    }
+    return nextState
+  case 'SEARCH_SUCCESS':
     let result = action.response.result
     state = {
       campaigns: {},
@@ -23,24 +32,29 @@ function entities(state = {
       expenditures: {},
       contributions: {},
       donors: {},
+      sums: {},
+      mungedSums: {},
       searchData: {
         list: []
       }
     }
-
     for (var key in result) {
       if (result.hasOwnProperty(key)) {
         state.searchData.list.push(result[key])
       }
     }
     return state
+  default:
+    if (action.response && action.response.entities) {
+      return merge({}, state, action.response.entities)
+    }
+    return state
   }
-
-  if (action.response && action.response.entities) {
-    return merge({}, state, action.response.entities)
-  }
-
-  return state
+  // if (action.type === ) {
+  //   debugger;
+  // }
+  // if (action.type === 'SEARCH_SUCCESS') {
+  // }
 }
 
 function errorMessage(state = {}, action) {
@@ -49,25 +63,21 @@ function errorMessage(state = {}, action) {
     error
   } = action
   switch (type) {
-    case ActionTypes.RESET_ERROR_MESSAGE:
-      return state = null
-      break;
-    case ActionTypes.SEARCH_FAILURE:
-      return state = {
-        error: 'trigger'
-      }
-      break;
-    default:
-
+  case ActionTypes.RESET_ERROR_MESSAGE:
+    return state = null
+    break;
+  case ActionTypes.SEARCH_FAILURE:
+    return state = {
+      error: 'trigger'
+    }
+    break;
+  default:
   }
-
   if (error) {
     return action.error
   }
-
   return state
 }
-
 const rootReducer = combineReducers({
   errorMessage,
   entities,

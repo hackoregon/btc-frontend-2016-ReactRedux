@@ -6,11 +6,14 @@ import DonorRowItem from '../../components/Visuals/DonorRowItem.jsx';
 import numeral from 'numeral';
 import './DonorList.css'
 
-function makeTop(a,b){
-  for (let i = 0; i < 5; i++) {
-    b.unshift.apply(b, a.slice(i,i+1));
+function makeTop(arr,num){
+  if (arr.length < 10) num = 5;
+  let top = [];
+  for (let i = 0; i < num; i++) {
+    top.unshift.apply(top,arr.slice(i,i+1));
   }
-
+  return top.reverse();
+  // return b.reverse();
 }
 class ResultDonorsList extends Component {
   constructor(props){

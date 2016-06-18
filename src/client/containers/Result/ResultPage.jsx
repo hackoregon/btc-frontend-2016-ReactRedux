@@ -13,20 +13,24 @@ import Spinner from 'react-spinkit';
 //   props.loadCampaign(filer_id);
 // }
 
-const ResultPage = ({campaign, filerId, contributions, stateInfo}) => {
+const ResultPage = ({year, campaign, filerId, contributions, sums, stateInfo}) => {
     if (!campaign) {
         // needs loading icon here
         return (<Spinner spinnerName='cube-grid' />);
     }
 
+    const newMoney = _.sumBy([...contributions.ind,...contributions.grassroots,...contributions.biz], 'amount');
+    const xferMoney = _.sumBy([...contributions.pac,...contributions.party],'amount');
+debugger;
     return (
+
         <div>
             <ResultHeader candidate={campaign.candidateName} key={campaign.filerId} race={campaign.race}/>
-            <ResultSummaryCard total={campaign.total} totalSpent={campaign.totalSpent} grassroots={campaign.grassroots} instate={campaign.instate}/>
-            <ResultDonorsCard contributions={contributions}/>
-            <ResultSpendingCard params={filerId}/>
-            <ResultWhen/>
-            <ResultLocationStoryCard stateContributions={stateInfo}/>
+            <ResultSummaryCard year={year} newTotal={newMoney} xferTotal={xferMoney} />
+            <ResultDonorsCard year={year} contributions={contributions}/>
+            <ResultSpendingCard year={year} params={filerId}/>
+            <ResultWhen year={year} sums={sums} />
+            <ResultLocationStoryCard year={year} stateContributions={stateInfo}/>
         </div>
     )
 };

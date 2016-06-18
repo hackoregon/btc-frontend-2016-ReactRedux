@@ -7,8 +7,14 @@ import {
 }
 from 'normalizr';
 import { camelizeKeys } from 'humps';
+import moment from 'moment';
+import d3 from 'd3';
 import 'isomorphic-fetch';
+
 const API_ROOT = 'http://54.213.83.132/hackoregon/http/';
+
+// local below
+// const API_ROOT = 'http://localhost:8080/hackoregon/http/';
 
 // promise wrapper for fetching endpoints
 function promiseToFetch (url,schema) {
@@ -54,4 +60,52 @@ export const fetchTransactions = (filerId) => {
   return promiseToFetch(url,schema);
 }
 
-//
+// donor info
+const donor = new Schema('donors', {
+  idAttribute: 'fullName'
+});
+
+export const fetchDonor = (name) => {
+  const url = `${API_ROOT}donor_meta/${name}/`
+  const schema = arrayOf(donor);
+  return promiseToFetch(url,schema);
+}
+
+export const fetchDonorTransactions = (name) => {
+  const url = `${API_ROOT}transactions_by_alias/${name}/`
+  const schema = arrayOf(transaction);
+  return promiseToFetch(url,schema);
+}
+const sum = new Schema('sums', {
+  idAttribute: 'tranDate'
+});
+
+export const fetchTransactionsForTimeline = (filerId) => {
+  const url = `${API_ROOT}candidate_sum_by_date/${filerId}/`
+  const schema = arrayOf(sum);
+  return promiseToFetch(url,schema);
+}
+
+export const mungeByYear = (data) => {
+ const sumData = d3.values(data);
+  return new Promise((resolve,reject)=>{
+    try {
+      const munged = d3.nest()
+      .key(function(d) {
+        if(d.tranDate){
+          return moment(d.tranDate).format('YYYY');
+          }
+        })
+      .key(function(d) {
+          return moment(d.tranDate).format('MMM');
+        })
+        .rollup(function(v) {
+        return v
+      }).map(sumData);
+
+      resolve(munged);
+    } catch (e) {
+      reject(e)
+    }
+  });
+}

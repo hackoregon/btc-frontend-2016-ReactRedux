@@ -2,29 +2,22 @@ import React, { PropTypes } from 'react';
 import numeral from 'numeral';
 import DataBoxGroup from '../../components/DataBoxes/DataBoxGroup.jsx';
 
-const ResultSummaryCard = ({total, totalSpent, grassroots, instate}) => {
+const formatMoney = (num) => numeral(num).format('($ 0.00 a)');
+const ResultSummaryCard = ({newTotal, xferTotal}) => {
 
-  total = numeral(total).format('($ 0.00 a)')
-  totalSpent = numeral(totalSpent).format('($ 0.00 a)')
-  grassroots = numeral(grassroots).format('0.0%')
-  instate = numeral(instate).format('0.0%')
+  // newTotal = numeral(total).format('($ 0.00 a)')
+  // totalSpent = numeral(totalSpent).format('($ 0.00 a)')
+  // grassroots = numeral(grassroots).format('0.0%')
+  // instate = numeral(instate).format('0.0%')
   return (
     <DataBoxGroup
       boxes={[
         {
-        name: 'Raised',
-        value: total},
+        name: 'New Funds',
+        value: formatMoney(newTotal)},
         {
-          name: 'Spent',
-          value: totalSpent
-        },
-        {
-          name: 'Grassroots',
-          value: grassroots
-        },
-        {
-          name: 'In state',
-          value: instate
+          name: 'Transferred Funds',
+          value: formatMoney(xferTotal)
         }
       ]}/>
   )

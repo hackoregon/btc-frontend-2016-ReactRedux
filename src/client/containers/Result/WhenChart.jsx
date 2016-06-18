@@ -3,9 +3,10 @@ import ChartistGraph from 'react-chartist';
 import SizeMe from 'react-sizeme';
 import moment from 'moment';
 import d3 from 'd3';
+import _ from 'lodash';
 import './Select.css';
 import './Line.css';
-import Dropdown from 'react-dropdown';
+import MonthField from '../../components/Select/Month.jsx'
 const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 16});
 
 const simpleLineChartData = {
@@ -89,7 +90,7 @@ const biPolarLineChartOptions = {
     }
 }
 const simpleLineChartOptions = {
-    showArea: false,
+    showArea: true,
     showLine: true,
     showPoint: false,
     axisX: {
@@ -99,25 +100,28 @@ const simpleLineChartOptions = {
 }
 
 function formatData(arr) {
+
     let newData = {
         labels: [],
         series: [
             [], []
         ]
     };
+    if(arr && arr.length){
     arr.forEach((item) => {
-        let raised = item.total_in == null
+        let raised = item.totalIn == null
             ? 0
-            : item.total_in;
-        let spent = item.total_out == null
+            : item.totalIn;
+        let spent = item.totalOut == null
             ? 0
-            : (item.total_out);
-        newData.labels.push(item.tran_date);
+            : (item.totalOut);
+        newData.labels.push(item.tranDate);
         newData.series[0].push(raised);
         newData.series[1].push(spent);
     });
     console.log(d3.extent(newData.series[0]));
     return newData;
+  }
 }
 
 const biPolarBarChartData = {
@@ -208,7 +212,7 @@ const barResponsiveOptions = [
     }
   }]
 ];
-// const expensesByYear = d3.nest().key(function(d) {
+// const expensesByMonth = d3.nest().key(function(d) {
 //   return d.tran_date.split("-")[0];
 //   }).rollup(function(v) {
 //   return v
@@ -221,7 +225,7 @@ const barResponsiveOptions = [
 //         return d.total_out;
 //     });
 // }).map(dataSet);
-// console.log(expensesByYear);
+// console.log(expensesByMonth);
 //
 // var expensesByMonth = d3.nest().key(d => moment(d.tran_date).format('MM_YYYY')).rollup(function(v) {
 //     return d3.sum(v, function(d) {
@@ -239,104 +243,119 @@ const barResponsiveOptions = [
 class WhenChart extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-          multi: true,
-          max: 3,
-          opts:[
-          	{ github: 'jedwatson', name: 'Jed Watson' },
-          	{ github: 'bruderstein', name: 'Dave Brotherstone' },
-          	{ github: 'jossmac', name: 'Joss Mackison' },
-          	{ github: 'jniechcial', name: 'Jakub Niechciał' },
-          	{ github: 'craigdallimore', name: 'Craig Dallimore' },
-          	{ github: 'julen', name: 'Julen Ruiz Aizpuru' },
-          	{ github: 'dcousens', name: 'Daniel Cousens' },
-          	{ github: 'jgautsch', name: 'Jon Gautsch' },
-          	{ github: 'dmitry-smirnov', name: 'Dmitry Smirnov' },
-          ],
-            series: ['Spending'],
-            data: [
-                [175000],
-                [13999],
-                [21000],
-                [896],
-                [3514],
-                [250000],
-                [19999]
-            ],
-            labels: [
-                'General Operational Expenses',
-                'Postage',
-                'Reimbursement for Personal Expenditures',
-                'Travel Expenses',
-                'Unknown',
-                'Management Services',
-                'Other Advertising (yard signs, buttons, etc.)'
-            ]
-        }
-        this._onSelect = this._onSelect.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
     }
+
     componentWillMount() {
-      const {data} = this.props;
-      let expensesByYear = d3.nest().key(function(d) {
-        return d.tran_date.split("-")[0];
-        }).rollup(function(v) {
-        return v
-      }).map(data);
-      let selectKeys = Object.keys(expensesByYear);
-      let dataSet = formatData(expensesByYear[selectKeys[0]]);
+      const {data,year} = this.props
+    }
+    componentWillReceiveProps(nextProps) {
+      const {data,year} = nextProps;
+      if(!_.isEmpty(data)){
+        this.setState({
+          year: year,
+          data: data
+        });
+      }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      const {data,year} = nextProps;
+      if(typeof year == 'string' && !_.isEmpty(data) ){
+          return true;
+      }
+      return false;
+    }
+
+
+      // let expensesByMonth = d3.nest()
+      // .key(function(d) {
+      //   return moment(d.tran_date).format('MMM');
+      // })
+      //   .rollup(function(v) {
+      //   return v
+      // }).map(data);
+
+      // let years = Object.keys(expensesByMonth);
+
+
+    // handleSelect (option) {
+    //
+    //   // const {data} = this.props;
+    //   // let expensesByMonth = d3.nest()
+    //   // .key(function(d) {
+    //   //   return moment(d.tran_date).format('MMM');
+    //   // }).rollup(function(v) {
+    //   //   return v
+    //   // }).map(data);
+    //
+    // console.log('You selected ', option.label)
+    // let dataSet = formatData(this.state.data[this.state.year][option.label]);
+    // this.setState({
+    //   selected: option.label,
+    //   dispData: dataSet
+    //  });
+    // }
+
+    handleSelect(month) {
+
+      console.log('month choice',month);
+
       this.setState({
-        selected: selectKeys[0],
-        dataSet: dataSet
+        month: month,
+        dispData: this.state.data[this.state.year][month]
+        // year: this.refs.nav.refs.subnav.refs.year.state.year
       });
-    }
-    _onSelect (option) {
-      const {data} = this.props;
-      let expensesByYear = d3.nest().key(function(d) {
-        return d.tran_date.split("-")[0];
-        }).rollup(function(v) {
-        return v
-      }).map(data);
-    console.log('You selected ', option.label)
 
-    let dataSet = formatData(expensesByYear[option.value]);
-    this.setState({
-      selected: option,
-      dataSet: dataSet});
     }
-    getContributors (input, callback) {
-  		input = input.toLowerCase();
-  		let options = this.state.opts.filter(i => {
-  			return i.github.substr(0, input.length) === input;
-  		});
-  		let data = {
-  			options: options.slice(0, this.state.max),
-  			complete: options.length <= this.state.max,
-  		};
+    // getContributors (input, callback) {
+  	// 	input = input.toLowerCase();
+  	// 	let options = this.state.opts.filter(i => {
+  	// 		return i.github.substr(0, input.length) === input;
+  	// 	});
+  	// 	let data = {
+  	// 		options: options.slice(0, this.state.max),
+  	// 		complete: options.length <= this.state.max,
+  	// 	};
+    //
+  	// }
 
-  	}
-    componentDidMount() {
-        console.log(formatData(this.props.data));
+    renderGraph(dataSet){
+
     }
-
 
     render() {
 
-        const {data} = this.props;
-        const expensesByYear = d3.nest().key(function(d) {
-          return d.tran_date.split("-")[0];
-          }).rollup(function(v) {
-          return v
-        }).map(data);
-        let selectKeys = Object.keys(expensesByYear);
-        let dataSet = formatData(expensesByYear['2015']);
-        const defaultOption = this.state.selected;
-        const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
+        const {data,year} = this.props;
+        // const expensesByMonth = d3.nest()
+        // .key(function(d) {
+        //   return moment(d.tran_date).format('MMM');
+        // })
+        // .rollup(function(v) {
+        //   return v
+        // }).map(data);
+        if(_.isEmpty(data)){
+          return (<div>Loading...</div>)
+        } else {
+
+        const labels= Object.keys(this.state.data[this.state.year]);
+        // let selectKeys = Object.keys();
+        // let dataSet = formatData(expensesByMonth['2015']['May']);
+
+        // const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
+        let today = moment.now();
+        // let thisYear = moment(today).format('YYYY');
+        let lastMonth = moment(today).subtract(1,'months').format('MMM');
+        let dataSet = formatData(this.state.data[this.state.year][this.state.month]) || formatData(data[year][lastMonth]);
+
         return (<div {...this.props} >
-          <Dropdown style={{marginBottom: '1rem'}} options={selectKeys} onChange={this._onSelect} value={defaultOption} placeholder={"Select an option"} />
-          <ChartistGraph data={this.state.dataSet} options={simpleLineChartOptions}  type={'Line'} redraw/>
+          <MonthField ref={'month'} months={labels} year={this.state.year} style={{ width:'3rem'}} onToggleSelect={this.handleSelect} />
+          <ChartistGraph data={dataSet} options={simpleLineChartOptions}  type={'Line'} redraw/>
         </div>
       );
     }
+  }
 }
+
 
 export default SizeMeHOC(WhenChart);
