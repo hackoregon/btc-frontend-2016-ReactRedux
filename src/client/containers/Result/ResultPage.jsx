@@ -21,7 +21,7 @@ const ResultPage = ({year, campaign, filerId, contributions, sums, stateInfo}) =
 
     const newMoney = _.sumBy([...contributions.ind,...contributions.grassroots,...contributions.biz], 'amount');
     const xferMoney = _.sumBy([...contributions.pac,...contributions.party],'amount');
-debugger;
+
     return (
 
         <div>

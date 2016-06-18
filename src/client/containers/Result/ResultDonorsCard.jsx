@@ -26,8 +26,34 @@ function getWhoChartData(...types) {
   // return newArr;
   return arr;
 }
+const formatName = (payee) => {
+  return /\ \(/.test(payee) ? payee.split(/\ \(/)[0] : payee;
+}
+const makeTop = (trans,num) => {
 
+  return _.chain(trans)
+    .reduce((acc, d) => {
+      if (acc[d.contributorPayee]) {
+        acc[d.contributorPayee] += d.amount;
+      } else {
+        acc[d.contributorPayee] = d.amount;
+      }
+      return acc;
+    }, {})
+    .map((total, payee) => {
+      return {
+        value: total,
+        name: formatName(payee),
+        link: payee
+      }
+    })
+    .sortBy('value')
+    .takeRight(num)
+    .reverse()
+    .value();
+}
 function filterTransactions(transactions) {
+
   if(transactions.length){
   return _.chain(transactions)
     .reduce((acc, d) => {
@@ -50,15 +76,16 @@ function filterTransactions(transactions) {
     .value();
   }
 }
-function makeTop(arr,num){
+function filterTop(arr,num){
   if (arr.length < 10) num = 5;
   let top = [];
   for (let i = 0; i < num; i++) {
     top.unshift.apply(top,arr.slice(i,i+1));
   }
+
   return top.reverse().map((item) => {
     return {
-      value: item.grandTotal,
+      value: item.total,
       name: item.contributorPayee
     }
   });
@@ -120,7 +147,8 @@ function makeTop(arr,num){
     render() {
       // const {pacContributions,businessContributions, indivContributions } = this.props;
       const {biz,ind,grassroots,pac,party} = this.props.contributions;
-      debugger
+
+
       // const [ smallDonors, largeDonors ] = _.partition(ind, (contr) => contr.grandTotal <= 250);
 
       // let individualDonors = _.values(ind);
@@ -132,14 +160,31 @@ function makeTop(arr,num){
       // TODO: Empty array is placeholder for party information -- needs to be added
       // Order matters for WhoChart labels
       const whoChartDonorData = getWhoChartData(biz, ind, grassroots, pac, party);
-      debugger;
+
       // const newFundsData = getWhoChartData(businessDonors, largeDonors, smallDonors);
       // const xferFundsData = getWhoChartData(pacDonors, [{bookType:'party',grandTotal:0}]);
       // .orderBy('amount','desc');
       // let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      const indTop = ind.length ? (
+        <Col xs={12} md={4}>
+        <DataTable style={{flex:'1', height:'20%'}} title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
+        </Col>
+      ) : null;
 
+      const bizTop = biz.length ? (
+        <Col xs={12} md={4}>
+        <DataTable style={{flex:'1', height:'20%'}} title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
+        </Col>
+      ) : null;
+
+      const pacTop = pac.length ? (
+        <Col xs={12} md={4}>
+          <DataTable style={{flex:'1', height:'20%'}} title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
+        </Col>
+       ) :
+        null;
       // const listItems =  this.renderDonorLists(individualDonors,businessDonors,pacDonors);
         return (<StoryCard
                   question={"Who is giving?"}
@@ -149,16 +194,10 @@ function makeTop(arr,num){
                     ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
                   <Grid fluid center="xs" >
                     <Row around="xs" center="xs" middle="xs" xs={6}>
-                      <Col xs={12} md={3}>
-                      <DataTable style={{flex:'1', height:'20%'}} title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
-                      </Col>
-                      <Col xs={12} md={3}>
-                      <DataTable style={{flex:'1'}} title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
-                      </Col>
-                      <Col xs={12} md={3}>
-                      <DataTable style={{flex:'1'}} title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
-                      </Col>
-                      </Row>
+                      {bizTop}
+                      {indTop}
+                      {pacTop}
+                    </Row>
                     </Grid>
                 </StoryCard>
         );

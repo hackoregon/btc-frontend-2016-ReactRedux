@@ -6,15 +6,6 @@ import DonorRowItem from '../../components/Visuals/DonorRowItem.jsx';
 import numeral from 'numeral';
 import './DonorList.css'
 
-function makeTop(arr,num){
-  if (arr.length < 10) num = 5;
-  let top = [];
-  for (let i = 0; i < num; i++) {
-    top.unshift.apply(top,arr.slice(i,i+1));
-  }
-  return top.reverse();
-  // return b.reverse();
-}
 class ResultDonorsList extends Component {
   constructor(props){
     super(props)
@@ -26,10 +17,11 @@ class ResultDonorsList extends Component {
   }
   renderTop(){
     const {donors} = this.props;
+    debugger;
     let allDonors = donors.map((item, index) => {
-      let amount = numeral(item.grandTotal).format('0,0');
+      let amount = numeral(item.total).format('0,0');
       return (
-          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.grandTotal}/>
+          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.total}/>
       )
     });
     if(allDonors.length > 5) {

@@ -5,12 +5,12 @@ import { Link } from 'react-router';
 import d3 from 'd3';
 import {capitalize,fixNames} from '../../utils';
 
-const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
+const DonorRowItem = ({donors, payee, link, amount, formattedAmount}) => {
   const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
   function donorPercent(amount) {
     if (amount > 0) {
       let donorMax = d3.max(donors, function(donor) {
-        return donor.grandTotal;
+        return donor.value;
       });
       let donorSize = d3.scale.linear().domain([0, donorMax]).range([0, 1]);
       return {
@@ -19,15 +19,18 @@ const DonorRowItem = ({donors, payee, amount, formattedAmount}) => {
       };
     } else
       return {size: '0%', color: '#FFF'};
+
   }
   const name = fixNames(payee.toLowerCase().capitalize());
+
+  debugger;
   return (
     <Col>
       <Row start = "xs" >
-        <Col sm={6} xs={10}>
-          <span><Link to={`/donors/${name}`}>{name}</Link></span>
+        <Col sm={7} xs={10}>
+          <span><Link style={{fontSize:'1.2rem'}} to={`/donors/${link}`}>{name}</Link></span>
         </Col>
-        <Col sm={3} xs={2}>
+        <Col sm={2} xs={2}>
           <span>{formattedAmount}</span>
         </Col>
         <Col sm={3} xs={12} style={{alignItems:'center',display:'block'}}>

@@ -46,8 +46,7 @@ const DataTable = React.createClass({
     // });
     const dataRows = _.map(this.props.data, (datum, idx) => {
       return (
-        <DonorRowItem key={idx} donors={this.props.data} payee={datum.name} formattedAmount={datum.value} amount={datum.value}/>
-
+        <DonorRowItem key={idx} donors={this.props.data} link={datum.link} payee={datum.name} formattedAmount={currency(datum.value)} amount={datum.value}/>
       );
     });
     return (
