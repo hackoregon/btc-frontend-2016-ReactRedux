@@ -9,20 +9,13 @@ class Footer extends Component {
 render(){
         let linkStyle = {fontWeight: '200px'}
         return (
-              <Grid className="footer" style={{
-                  color: 'white',
-                  backgroundColor: '#4D92C2',
-                  maxHeight: '20%',
-                  position: 'absolute',
-                  left: '0px',
-                  bottom: '0px',
-                  width: '100%',
-                  zIndex: '1020',
-                  margin: '0px',
-                  padding: '3px'
-              }}
-              params={ this.props.params }>
-                  <Row xs={12}
+                  <footer {...this.props} params={this.props.params} className="footer" style={{
+                      zIndex: '1020',
+                      padding: '3rem',
+                      backgroundColor:'#4D92C2'
+                  }} >
+                  <Row
+                  xs={12}
                       md={12} lg={12}
                       center='xs'
                       middle='xs'
@@ -126,9 +119,9 @@ render(){
                            params={ this.props.params }>
                           <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
                       </Col>
+                      </Row>
+                  </footer>
 
-                  </Row>
-              </Grid>
     )
   }
 }

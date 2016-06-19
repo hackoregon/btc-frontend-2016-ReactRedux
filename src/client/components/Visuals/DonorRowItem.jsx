@@ -22,17 +22,27 @@ const DonorRowItem = ({donors, payee, link, amount, formattedAmount}) => {
 
   }
   const name = fixNames(payee.toLowerCase().capitalize());
-
+  const parentStyle = {
+    display:'flex',
+    minWidth: '0'
+  }
+  const withChildStyle = {
+    flex: '1'
+  }
+  const childStyle = {
+    flex: '1',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  }
   return (
-    <Col>
-      <Row start = "xs" >
-        <Col style={{flexWrap:'nowrap'}} sm={8} xs={10}>
-          <span style={{fontSize:'1.2rem',maxWidth:'50px'}}><Link  to={`/donors/${link}`}>{name}</Link></span>
-        </Col>
-        <Col sm={2} xs={2}>
-          <span>{formattedAmount}</span>
-        </Col>
-        <Col sm={2} xs={12} style={{alignItems:'center',display:'block'}}>
+    <Col style={parentStyle}>
+      <Row start = "xs" style={withChildStyle}>
+          <Link sm={6} xs={10} style={childStyle} to={`/donors/${link}`}>{name}</Link>
+
+          <div sm={3} xs={2} style={{fontWeight:'light'}}>{formattedAmount}</div>
+
+        <Col sm={3} xs={12} style={{alignItems:'center',display:'block'}}>
           <div style={{
             height: '15px',
             borderRadius: '3px',

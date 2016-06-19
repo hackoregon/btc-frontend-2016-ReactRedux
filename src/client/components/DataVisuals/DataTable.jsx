@@ -51,7 +51,7 @@ const DataTable = React.createClass({
     });
     return (
       <Panel
-        header={this.props.title}>
+        header={this.props.title} style={{flex:'1'}}>
           <Col>
             {dataRows}
           </Col>

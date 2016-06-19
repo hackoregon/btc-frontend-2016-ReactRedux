@@ -23,6 +23,9 @@ const routes = getRoutes(history);
 const mainStyles = {
   // fontFamily: 'Lato',
   // fontWeight: '300'
+  display: 'flex',
+  minHeight: '100vh',
+  flexDirection: 'column'
 }
 
 const Root = () => {
