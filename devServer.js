@@ -7,6 +7,7 @@ const app = express();
 const compiler = webpack(config);
 const port = 5000;
 // const port = 80; // backup incase
+
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
