@@ -22,7 +22,7 @@ class FlexNav extends React.Component{
     }
     render() {
         return (
-            <Row {...this.props} xs={12} md={12} lg={12} center='xs' middle='xs' style={{
+            <Row {...this.props} center='xs' middle='xs' style={{
                 backgroundColor: '#4D92C2',
                 position: 'fixed',
                 top: '0px',

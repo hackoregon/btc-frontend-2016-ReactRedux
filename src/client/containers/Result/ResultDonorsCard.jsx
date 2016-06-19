@@ -168,20 +168,20 @@ function filterTop(arr,num){
       // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       const indTop = ind.length ? (
-        <Col xs={12} md={4}>
-        <DataTable style={{flex:'1', height:'20%'}} title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
+        <Col style={{flex:'1', margin:'.5rem'}} sm={12} md={6}>
+        <DataTable  title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
         </Col>
       ) : null;
 
       const bizTop = biz.length ? (
-        <Col xs={12} md={4}>
-        <DataTable style={{flex:'1', height:'20%'}} title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
+        <Col style={{flex:'1', margin:'.5rem'}} sm={12} md={6}>
+        <DataTable title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
         </Col>
       ) : null;
 
       const pacTop = pac.length ? (
-        <Col xs={12} md={4}>
-          <DataTable style={{flex:'1', height:'20%'}} title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
+        <Col style={{flex:'1', margin:'.5rem'}} sm={12} md={6}>
+          <DataTable title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
         </Col>
        ) :
         null;
@@ -192,8 +192,8 @@ function filterTop(arr,num){
                     <WhoChart data={whoChartDonorData} labels={[
                         'Business', 'Big Donors','Grassroots','PAC','Party'
                     ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
-                  <Grid fluid center="xs" >
-                    <Row around="xs" center="xs" middle="xs" xs={6}>
+                  <Grid fluid center="xs" middle='xs' around='xs'>
+                    <Row around="md" center="sm" middle="xs" xs={6} style={{display:'flex'}}>
                       {bizTop}
                       {indTop}
                       {pacTop}

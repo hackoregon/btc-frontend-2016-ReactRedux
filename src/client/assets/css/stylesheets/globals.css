@@ -1,14 +1,91 @@
-@import url(https://fonts.googleapis.com/css?family=Lato);
+@import 'https://fonts.googleapis.com/css?family=Lato:300,400|Raleway:300,400|Open+Sans:300,400,600,800';
+/*@font-face {
+  font-family: 'BTC-OpenSans';
+  src: url('../fonts/open-sans/OpenSans-regular');
+}*/
 
+/*@font-face {
+  font-family: 'BTC-OpenSans-r';
+  src:  url('OpenSans-Regular.ttf') format('ttf'),
+        url('myfont.woff') format('woff');
+}*/
 html {
-  font-size: 10px;
+  font-size: 14px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.font-extra-light {
+  font-weight: 100;
+}
+.font-light {
+  font-weight: 300;
+}
+.font-reg {
+  font-weight: 400;
+}
+.font-bold {
+  font-weight: 600;
+}
+.font-extra-bold {
+  font-weight: 800;
+}
+
+.Lato {
+  font-family: "Lato", sans-serif;
+}
+.Raleway {
+  font-family: "Raleway", sans-serif;
+}
+.OpenSans {
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
   font-family: "Lato", sans-serif;
   font-size: 14px;
-  line-height: 1.42857143;
+  font-weight: 400;
+  line-height: 1.4rem;
   color: #333;
   background-color: #fff;
 }
+
+h1, h2, h3, h4, h5, h6, a {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+ font-size: 1.25rem;
+}
+
+
+p, span, i {
+  font-family: 'Raleway', sans-serif;
+}
+
+
+
+
+
+/*.BTC-app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.BTC-app #content {
+  flex: 1;
+}*/
+

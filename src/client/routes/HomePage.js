@@ -8,6 +8,7 @@ import {Grid, Row, Col}  from 'react-flexbox-grid';
 import { Panel } from 'react-bootstrap';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Footer from '../components/Navigation/Footer.jsx';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 
 
@@ -15,10 +16,11 @@ class HomePage extends Component {
 
     render() {
         return (
-            <div {...this.props}>
+            <div {...this.props} style={{display:'flex',minHeight:'100vh',flexDirection:'column'}}>
               <BTCNav />
+              <div style={{flex:'1',paddingTop:'2rem'}}>
                 <Grid fluid params={ this.props.params }
-                  style={{marginTop:'100px'}}>
+                  >
 
                       <DataBoxGroup boxes={[
                         {name:"Expenditures", value:"$313,412,231"},
@@ -121,10 +123,15 @@ class HomePage extends Component {
                                 <a href="#" params={ this.props.params }><span params={ this.props.params }>Search campaigns</span></a>
                             </div>
                             </Col>
+
                         </div>
                     </div>
+
                 </Grid>
+              </div>
+                <Footer style={{flex: '1'}}/>
             </div>
+
             );
     }
 }

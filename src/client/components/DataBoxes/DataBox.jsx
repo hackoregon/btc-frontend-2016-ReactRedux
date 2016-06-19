@@ -19,7 +19,7 @@ class DataBox extends Component {
       <Col center='xs' style={column}>
         {topTitle}
         <h1> { this.props.value } </h1>
-        <h4> { this.props.msg } </h4>
+        <p> { this.props.msg } </p>
       </Col>
     );
   }
