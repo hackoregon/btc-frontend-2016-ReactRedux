@@ -8,6 +8,7 @@ import {Grid, Row, Col}  from 'react-flexbox-grid';
 import { Panel } from 'react-bootstrap';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Footer from '../components/Navigation/Footer.jsx';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 
 
@@ -121,6 +122,7 @@ class HomePage extends Component {
                                 <a href="#" params={ this.props.params }><span params={ this.props.params }>Search campaigns</span></a>
                             </div>
                             </Col>
+                            <Footer />
                         </div>
                     </div>
                 </Grid>
