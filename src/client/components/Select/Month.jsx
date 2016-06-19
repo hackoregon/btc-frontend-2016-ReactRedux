@@ -63,7 +63,7 @@ const MonthField = React.createClass({
 		var options = this.state.months || MONTHS;
 
 		return (
-				<Select ref="monthSelect" options={this.state.months} multi={true} clearable={false} searchable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
+				<Select ref="monthSelect" options={this.state.months} multi={true} clearable={false} searchable={false} autosize={true} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} placeholder={'Select months'}/>
 		);
 	}
 });

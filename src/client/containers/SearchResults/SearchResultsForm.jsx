@@ -126,7 +126,7 @@ class SearchResultsForm extends Component {
 
     if (this.state.value.length > 0) {
       enterMessage = (
-        <i style={iconstyle}>Press Enter/return to search</i>
+        <i style={{...iconstyle,fontSize:'1rem'}}>Press Enter/return to search</i>
       );
     }
 
