@@ -1,26 +1,34 @@
 import React, { Component, PropTypes } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Col } from 'react-flexbox-grid';
 
 class DataBox extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const boxStyle = {
-      textAlign : 'center'
-    };
+    const column = {
+        textAlign : 'center',
+        border: '1px solid #eee',
+        borderRadius: '4px',
+        margin: '1.5rem'
+      }
+    const {title} = this.props;
+
+    const topTitle = title ? (<h3> { this.props.title} </h3>) : null;
     return (
-      <Panel style={boxStyle}>
-        <h2> { this.props.value } </h2>
-        <h4> { this.props.name } </h4>
-      </Panel>
+      <Col center='xs' style={column}>
+        {topTitle}
+        <h1> { this.props.value } </h1>
+        <p> { this.props.msg } </p>
+      </Col>
     );
   }
 }
 
 DataBox.propTypes = {
+  title: PropTypes.string,
   value: PropTypes.string,
-  name: PropTypes.string
+  msg: PropTypes.string
 };
 
 DataBox.defaultProps = {

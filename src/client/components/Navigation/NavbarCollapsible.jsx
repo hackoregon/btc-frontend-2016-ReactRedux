@@ -3,23 +3,29 @@ import {Navbar, Nav} from 'react-bootstrap';
 import NavRouterLink from './NavRouterLink.jsx';
 import {IndexLink} from 'react-router';
 import Radium from 'radium';
-
+import './Navbar.css'
 const styles = {
   ':hover': {
     fontFamily: 'OpenSansBold'
   },
 
   base: {
-    backgroundColor: '#64BCBB',
+    backgroundColor: '#4D92C2',
+    borderColor: 'rgba(0,0,0,0.1)',
     fontSize: '1em',
-    height: '75px'
+    height: 'auto'
   },
 
   logo: {
     color: '#FFF',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)'
+    // position: 'absolute',
+    fontSize: '2rem',
+    // top: '50%',
+    // transform: 'translateY(-50%)'
+  },
+  slogan: {
+    color: '#fff',
+    fontSize: '1rem'
   }
 }
 
@@ -40,6 +46,7 @@ class NavbarCollapsible extends Component {
           <Navbar.Brand>
             <IndexLink to="/">
               <span style={styles.logo}>{brandName}</span>
+              <p style={styles.slogan}>Explore campaign finance in Oregon</p>
             </IndexLink>
           </Navbar.Brand>
           <Navbar.Toggle/>
@@ -48,7 +55,7 @@ class NavbarCollapsible extends Component {
           <Nav pullRight={ true } params={ this.props.params }>
             {this.makeLinks()}
           </Nav>
-                       
+
           <Nav pullRight={ false } params={ this.props.params }></Nav>
         </Navbar.Collapse>
       </Navbar>

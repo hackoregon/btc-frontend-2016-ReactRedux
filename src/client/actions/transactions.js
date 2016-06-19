@@ -3,15 +3,13 @@ import {
   Schemas
 } from '../api/serverApi.js';
 
-export const TRANSACTIONS_REQUEST = 'TRANSACTIONS_REQUEST'
-export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS'
-export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE'
+const types = ['TRANSACTIONS_REQUEST','TRANSACTIONS_SUCCESS','TRANSACTIONS_FAILURE']
 
 function fetchTransactions(filerId) {
 
   return {
     [CALL_API]: {
-      types: [TRANSACTIONS_REQUEST, TRANSACTIONS_SUCCESS, TRANSACTIONS_FAILURE],
+      types: types,
       endpoint: `current_candidate_transactions/${filerId}/`,
       schema: Schemas.TRANSACTION_ARRAY
     }

@@ -1,25 +1,27 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import { Grid } from 'react-bootstrap';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+// import { Grid } from 'react-bootstrap';
+// import { Row } from 'react-bootstrap';
+// import { Col } from 'react-bootstrap';
+import {Grid, Row, Col}  from 'react-flexbox-grid';
 import { Panel } from 'react-bootstrap';
-import { Input } from 'react-bootstrap';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Footer from '../components/Navigation/Footer.jsx';
+import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
 
 
 class HomePage extends Component {
 
     render() {
         return (
-            <div>
-                <BTCNav />
-                <Grid fluid={ true }
-                      style={ {    marginTop: '100px',    fontWeight: '200px'} }
-                      params={ this.props.params }>
+            <div {...this.props} style={{display:'flex',minHeight:'100vh',flexDirection:'column'}}>
+              <BTCNav />
+              <div style={{flex:'1',paddingTop:'2rem'}}>
+                <Grid fluid params={ this.props.params }
+                  >
+
                       <DataBoxGroup boxes={[
                         {name:"Expenditures", value:"$313,412,231"},
                         {name:"Contributions", value:"$307,489,692"},
@@ -32,19 +34,10 @@ class HomePage extends Component {
                              sm={ 12 }
                              lg={ 12 }
                              params={ this.props.params }>
-                        <form params={ this.props.params }>
-                            <Input type="text"
-                                   placeholder="Enter value"
-                                   buttonAfter={ <Button bsStyle="default"
-                                                         type="submit"
-                                                         params={ this.props.params }>
-                                                     <i className="fa fa-search" params={ this.props.params }></i>
-                                                 </Button> }
-                                   params={ this.props.params }></Input>
-                        </form>
                         </Col>
                     </Row>
-                    <Col xs={ 12 }
+                    <Col style={{    marginTop: '40px'} }
+                         xs={ 12 }
                          md={ 12 }
                          sm={ 12 }
                          lg={ 12 }
@@ -130,10 +123,15 @@ class HomePage extends Component {
                                 <a href="#" params={ this.props.params }><span params={ this.props.params }>Search campaigns</span></a>
                             </div>
                             </Col>
+
                         </div>
                     </div>
+
                 </Grid>
+              </div>
+                <Footer style={{flex: '1'}}/>
             </div>
+
             );
     }
 }

@@ -15,9 +15,10 @@ class SearchResultsAlert extends Component {
 
     render() {
       const {searchTerm} = this.props;
+      const msgTerm = searchTerm ? searchTerm : 'that';
         return (<AlertDismissable {...this.props}
                 bsStyle="danger">
-                <p>We did not find a match for that. Please update your search and try again.</p>
+                <p>We did not find a match for {msgTerm}. Please update your search and try again.</p>
                 <strong>Tips:</strong>
                 <ol>
                   <li>Check your spelling.</li>

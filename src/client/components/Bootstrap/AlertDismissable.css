@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../../assets/fonts/glyphicons-halflings-regular.eot');
+  src: url('../../assets/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../assets/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../../assets/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.Alert {
+  margin-top: 4rem;
+}
+
+.Alert strong {
+  font-weight: bold;
+}
+
+.Alert button {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.Alert button {
+  overflow: visible;
+}
+
+.Alert button {
+  text-transform: none;
+}
+
+.Alert button {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+.Alert button::-moz-focus-inner,
+.Alert input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+
+.Alert button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.Alert .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.Alert p {
+  margin: 0 0 10px;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert > p {
+  margin-bottom: 0;
+}
+
+.alert-dismissable {
+  padding-right: 35px;
+}
+
+.alert-dismissable .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.Alert .close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
+
+.Alert .close:hover,
+.Alert .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+
+.Alert button.close {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}

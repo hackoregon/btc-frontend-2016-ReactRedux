@@ -5,17 +5,14 @@ const styles = {
     // minWidth: '500px',
     // minHeight: '500px',
     textAlign: 'center',
-    fontWeight: '200'
   }
 }
 
 const StoryCard = ({question,description,children}) => {
   return (
       <div style = {styles.base}>
-          <h3>{question}</h3>
-        <p>
-            <span>{description}</span>
-        </p>
+          <h2>{question}</h2>
+        <p>{description}</p>
         {children}
   </div>
   )

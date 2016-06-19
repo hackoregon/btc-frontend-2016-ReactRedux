@@ -1,10 +1,11 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const path = require('path');
+const webpack = require('webpack');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 module.exports = {
   name: 'browser',
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   entry: ['webpack-hot-middleware/client', './src/client/main.js'],
   output: {
     path: path.join(__dirname, '../public'),
@@ -15,6 +16,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
+    extensions: ['', '.jsx', '.js'],
     alias: {
       portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits')
     }
@@ -27,8 +29,17 @@ module.exports = {
       loader: 'babel'
     }, {
       test: /\.css$/,
+      loader: 'style!css?modules',
+      include: /flexboxgrid/
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader',
+      include: /react-spinkit/,
+    },
+    {
+      test: /\.css$/,
       exclude: /node_modules/,
-      loader: 'style-loader!css-loader'
+      loader: 'style-loader!css-loader!postcss-loader'
     }, {
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg|jpeg|gif)([\?]?.*)$/,
       exclude: /node_modules/,
@@ -45,9 +56,8 @@ module.exports = {
       test: /\.json$/,
       loader: 'json-loader'
     }]
-
   },
-  externals: {
-    'jquery': 'jQuery'
+  postcss: function () {
+    return [precss, autoprefixer];
   }
 };

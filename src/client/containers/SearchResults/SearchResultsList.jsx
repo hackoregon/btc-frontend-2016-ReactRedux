@@ -1,9 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Table} from 'react-bootstrap';
+import {Col} from 'react-flexbox-grid';
 import SearchResultsHeader from '../../components/SearchResults/SearchResultsHeader.jsx';
 import SearchResultsListRow from '../../components/SearchResults/SearchResultsListRow.jsx';
 import SearchResultsAlert from '../../components/SearchResults/SearchResultsAlert.jsx';
+import './SearchResultsList.css';
+
 
 class SearchResultsList extends Component {
 
@@ -13,60 +15,77 @@ class SearchResultsList extends Component {
       noResults: false
     }
   }
+  // 
+  // componentWillMount() {
+  //   const {list,params} = this.props;
+  //
+  // }
 
   render() {
-    const {list, errorMessage} = this.props;
-    let listItems;
-    console.log(this.props);
-    let errorMsg = null;
+    const {list, error, searchTerm} = this.props;
+    let listItems = (<div></div>);
 
-    if (errorMessage.error === 'trigger') {
-      errorMessage.error = '';
-      errorMsg = (<SearchResultsAlert/>);
+    let errorMsg = null;
+    if (error === 'trigger') {
+      // errorMessage.error = '';
+
+      errorMsg = (<Col xs={12} md={12} lg={12} className={'SearchResultsList-container'}>
+        <SearchResultsAlert searchTerm={searchTerm}/>
+      </Col>);
       return errorMsg
     }
     if (list && list.length > 0) {
       listItems = list.map((item, index) => {
         return (
-          <div colSpan="12" key={index}>
+          <Col className={'SearchResultsList-item'} key={index}>
             <SearchResultsListRow item={item}/>
-          </div>
+          </Col>
+
         );
       });
-      return (
-        <div colSpan="12" {...this.props}>
+       (
+        <Col className={'SearchResultsList-item'} {...this.props}>
           <SearchResultsHeader/>
           {listItems}
-        </div>
+        </Col>
       );
     } else if (list && list.length == 0) {
       return (
-        <div colSpan="12" {...this.props}>
+        <Col className={'SearchResultsList-item'} {...this.props}>
           <SearchResultsHeader/>
           <SearchResultsAlert/>
-        </div>
+        </Col>
       );
     } else {
       return (
-        <div colSpan="12" {...this.props}>
+        <Col className={'SearchResultsList-item'} {...this.props}>
           <SearchResultsHeader/>
           {errorMsg}
-        </div>
+        </Col>
       );
     }
 
+    return (
+      <Col xs={12} md={12} lg={12} className={'SearchResultsList-container'}>
+        {listItems}
+      </Col>
+    )
   }
 }
-function mapStateToProps(state) {
+
+SearchResultsList.contextTypes = {router: React.PropTypes.object.isRequired}
+function mapStateToProps(state,ownProps) {
   const {
     entities: {
       searchData: {
         list
-      }
-    },
-    errorMessage
+      },
+      error
+    }
+
   } = state;
-  return {errorMessage, list};
+  const {searchTerm} = ownProps.params;
+  return {error, list, searchTerm};
 }
 
 export default connect(mapStateToProps)(SearchResultsList);

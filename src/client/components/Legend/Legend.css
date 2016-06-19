@@ -35,7 +35,12 @@
   justify-content: center;
 }
 
-
+.Legend.inRow {
+  display: flex;
+  flex-flow: wrap;
+  align-content: center;
+  justify-content: center;
+}
 
 /* tablet range */
 @media only screen and (max-width: 788px) {

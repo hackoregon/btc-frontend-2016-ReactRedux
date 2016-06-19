@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+import {Grid,Row,Col} from 'react-flexbox-grid';
 import BarChart from '../../components/BarChart/BarChart.jsx';
 import SizeMe from 'react-sizeme';
+import Spinner from 'react-spinkit';
+import _ from 'lodash';
 const SizeMeHOC = SizeMe({
   monitorWidth: true,
   monitorHeight: true,
@@ -10,68 +13,92 @@ class WhoChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            divHeight: 0,
-            data: [
-                [10000], [22000], [322320], [123130],[2133]
-            ],
-            series: ['Finances'],
-            labels: [
-                'PAC', 'Business', 'Large Donors', 'Grassroots', 'Party'
-            ],
-            colors: ['#bebada', '#fb8072', '#8dd3c7', '#b3de69','#80b1d3']
+            series: ['New Funds','Transferred Funds'],
+            labels: ["Business", "Big Donors", "Grassroots", "PAC", "Party"],
+            height: 0
         }
-        this.handleResize = this.handleResize.bind(this);
     }
 
     componentWillMount() {
-        // this.setState({
-        //     data: [
-        //         [this.props.data.total],
-        //         [this.props.data.spent],
-        //         [this.props.data.cash_on_hand],
-        //         [this.props.data.debt]
-        //     ]
-        // });
+     const {height} = this.props.size;
+     this.setState({
+         height: height
+     });
     }
 
-    componentDidMount() {
-      setTimeout(this.renderChart,1000);
-      window.addEventListener('resize', this.handleResize);
+    componentWillReceiveProps(nextProps) {
+      const {data, labels, colors} = nextProps;
+        this.setState({
+            data: data,
+            labels: labels,
+            colors: colors
+        });
     }
-    currentScreenWidth() {
-        return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    }
-    handleResize(){
-      const { height } = this.props.size;
-      let divHeight = (height*0.7);
-      this.setState({
-        divHeight: divHeight
-      });
-      this.renderChart();
+
+    shouldComponentUpdate(nextProps,nextState){
+      if(nextState.data != undefined && nextProps.data.length > 0){
+        return true;
+      }
+      return false;
     }
 
     renderChart(){
-      return (<BarChart customStyle={{flex:'1'}}
+      // const spinner = ( <Spinner spinnerName='cube-grid' /> );
+      //
+      return (
+        <Col>
+        <Row centered='xs'>
+          <Col xs={6}>
+            <h5>New Funds</h5>
+          </Col >
+          <Col xs={6}>
+            <h5>Transferred Funds</h5>
+          </Col>
+        </Row>
+        <BarChart
+      titles={this.state.series}
       data={this.state.data}
       labels={this.state.labels}
+      itemLabels
       dollarFormat
       colors={this.state.colors}
-      height={this.props.size.height*0.7}
+      height={200}
+      splitAt={3}
       opaque
-      colorBySeries />);
+      thick
+      colorBySeries
+      />
+    </Col>
+);
     }
-    componentWillUnmount() {
-      window.removeEventListener('resize', this.handleResize);
-    }
+// height={height*0.65}
+// {this.renderChart(height)}
     render() {
+
+      if (_.isArray(this.state.data) && this.state.data.length > 1) {
         return (
-          <div {...this.props}
-            style = {{ display: 'flex',
-                flexFlow: 'row nowrap',
-                alignItems: 'center'}} >
-          {this.renderChart()}
-          </div>);
+          <Grid style={{flex:'1'}}>
+           <Row middle="xs">
+            <Col xs={12}>
+              {this.renderChart()}
+          </Col>
+        </Row>
+      </Grid>);
+      } else {
+        return (
+          <Row center={'xs'} xs={12}>
+          <Spinner spinnerName='cube-grid' />
+          </Row>
+        );
+      }
     }
 }
 
 export default SizeMeHOC(WhoChart);
+
+// <div
+//   style={{ display: 'flex',
+//     flex: '1',
+//     flexFlow: 'row nowrap',
+//     alignItems: 'center',
+//   justifyContent: 'center'}}>

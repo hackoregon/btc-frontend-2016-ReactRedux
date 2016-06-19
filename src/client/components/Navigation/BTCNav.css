@@ -1,0 +1,9 @@
+.BTCNav {
+  padding-bottom: 3rem;
+}
+
+@media (max-width: 767px) {
+  .BTCNav {
+    padding-bottom: 7rem;
+  }
+}

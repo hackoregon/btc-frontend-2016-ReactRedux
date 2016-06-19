@@ -11,14 +11,23 @@
     padding: 2em;
 }
 
+
 .BarChart.horizontal {
     display: block;
 }
 
 .BarChart.horizontal .BarChart--series {
     display: block;
-    margin: 0 0 30px 0;
+    margin: 30px 0 30px 0;
     border: 0;
+}
+
+.BarChart--series.thick {
+  margin: 0.25rem 0;
+}
+
+.BarChart--series.marginSplitLeft {
+  margin-left: 1.5rem;
 }
 
 .BarChart.horizontal .BarChart--series label {
@@ -30,28 +39,40 @@
     padding: 0 0 10px 0;
 }
 
+.BarChart .horizontalLabels {
+  text-align: right;
+  width: 100%;
+  margin-right: 2rem;
+}
+
+.BarChart .horizontalLabels-container {
+    display: flex;
+    width: 100%;
+}
+
+.BarChart .horizontalLabels-labels-container {
+  flex: .4;
+  display: flex;
+}
+.BarChart .horizontalLabels-item-container {
+  flex: 1;
+}
+.BarChart.horizontal.horizontalLabels .BarChart--item b {
+  right: -5rem;
+  top: 0;
+}
+
 .BarChart--series {
     height: 100%;
     margin: 0 30px 0 0;
     display: inline-block;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: end;
-    -webkit-align-items: flex-end;
-    -ms-flex-align: end;
     align-items: flex-end;
-    -webkit-transform-origin: 0 100%;
     transform-origin: 0 100%;
-    -webkit-animation: slideUp .6s;
     animation: slideUp .6s;
     position: relative;
-    /*border-bottom: solid 0.5px #cdcdcd; TODO - inquire about this */
+    border-bottom: solid 0.5px #cdcdcd; /*TODO - inquire about this */
 }
 
 .BarChart--series.stacked {
@@ -85,7 +106,8 @@
 .BarChart--item {
     background-color: #43A19E;
     display: inline-block;
-    margin: 0 5px 0 0;
+    /*margin: 0 5px 0 0;*/
+    height: 0px;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;

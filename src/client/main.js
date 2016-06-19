@@ -1,11 +1,10 @@
 import 'babel-polyfill';
-import './assets/css/stylesheets/react-widgets.css';
-import './assets/css/stylesheets/bootstrap.css';
+// import './assets/css/stylesheets/bootstrap.css';
 import './assets/css/stylesheets/font-awesome.css';
 import './assets/css/components/autosuggest.css';
-import './assets/css/stylesheets/app.css';
+// import './assets/css/stylesheets/app.css';
+import './assets/css/stylesheets/globals.css';
 import './assets/css/stylesheets/bootstrapOverride.css';
-
 // import Moment from 'moment'; TODO - needed?
 
 import React from 'react';
@@ -20,16 +19,38 @@ import DevTools from './containers/DevTools.jsx';
 const store = storeManager();
 const history = syncHistoryWithStore(browserHistory, store)
 const routes = getRoutes(history);
+
 const mainStyles = {
-  fontFamily: 'Helvetica',
-  fontWeight: '300'
+  // fontFamily: 'Lato',
+  // fontWeight: '300'
+  display: 'flex',
+  minHeight: '100vh',
+  flexDirection: 'column'
 }
-ReactDOM.render(
-    <Provider store={store} >
+
+const Root = () => {
+    return (
+      <Provider store={store} >
         <div style={mainStyles}>
         {routes}
         <DevTools />
         </div>
-    </Provider>,
-    document.getElementById('content')
-);
+      </Provider>
+    );
+
+};
+
+function renderApp() {
+    ReactDOM.render(
+        <Root />,
+        document.getElementById('content')
+    );
+}
+
+renderApp();
+
+if (module.hot) {
+    module.hot.accept(() => {
+        renderApp();
+    });
+}

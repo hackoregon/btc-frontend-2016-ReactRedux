@@ -101,11 +101,11 @@ class DataMap extends Component {
             const currentScreenWidth = this.currentScreenWidth();
             const mapContainerWidth = mapContainer.style('width');
             if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
-                d3.select('svg').remove();
+                d3.select('#datamap-container svg').remove();
                 mapContainer.style({width: this.props.size.width, height: this.props.size.height});
                 this.datamap = this.renderMap();
             } else if (this.props.size.width <= 600) {
-                d3.select('svg').remove();
+                d3.select('#datamap-container svg').remove();
                 mapContainer.style({
                     width: (currentScreenWidth * 0.9) + 'px',
                     height: (currentScreenWidth * 0.5625) + 'px'
@@ -122,10 +122,10 @@ class DataMap extends Component {
             this.datamap.updateChoropleth(data);
         }
     }
-    componentWillUnmount() {
-        d3.select('svg').remove();
-        // window.removeEventListener('resize', this.handleResize);
-    }
+    // componentWillUnmount() {
+    //     d3.select('#datamap-container svg').remove();
+    //     // window.removeEventListener('resize', this.handleResize);
+    // }
     render() {
         const {customStyle} = this.props;
         return (<div id="datamap-container" style={{...customStyle,...styles}}/>);

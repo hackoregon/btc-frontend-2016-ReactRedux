@@ -23,27 +23,27 @@ describe ('TEST ACTIONS', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('SEARCH')
       const store = getStore()
 
       return store.dispatch(actions.loadSearchData("Valerie Folkema"))
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
     })
-  
+
 
     it('creates CAMPAIGN_SUCCESS when campaign fetching is completed successfully', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('CAMPAIGN')
       const store = getStore()
 
       return store.dispatch(actions.loadCampaign("931"),store.getState())
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
     })
@@ -55,28 +55,28 @@ describe ('TEST ACTIONS', () => {
   //     nock('http://54.213.83.132/')
   //       .get(/hackoregon.*/)
   //       .reply(200, {"returned": "foo"})
-        
+
   //     const expectedActions = genericResponse('LOCATION')
   //     const store = getStore()
   //     console.log('location store\n',store.getState())
 
   //     return store.dispatch(actions.loadLocationData("931"),store.getState())
-  //       .then(() => { 
+  //       .then(() => {
   //         expect(store.getActions()).to.eql(expectedActions)
   //       })
   //   })
-  
+
 
     it('creates TRANSACTIONS_SUCCESS when campaign fetching is completed successfully', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('TRANSACTIONS')
       const store = getStore()
 
       return store.dispatch(actions.loadTransactions("931"),store.getState())
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
     })
@@ -86,12 +86,12 @@ describe ('TEST ACTIONS', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('DONOR')
       const store = getStore()
 
       return store.dispatch(actions.loadDonors("931"),store.getState())
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
     })
@@ -101,12 +101,12 @@ describe ('TEST ACTIONS', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('INDIV')
       const store = getStore()
 
       return store.dispatch(actions.loadIndivs("931"),store.getState())
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
     })
@@ -116,12 +116,12 @@ describe ('TEST ACTIONS', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('PAC')
       const store = getStore()
 
       return store.dispatch(actions.loadPACinfo("931"),store.getState())
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
     })
@@ -131,12 +131,12 @@ describe ('TEST ACTIONS', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('BIZ')
       const store = getStore()
 
       return store.dispatch(actions.loadBizInfo("931"),store.getState())
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
     })
@@ -146,14 +146,28 @@ describe ('TEST ACTIONS', () => {
       nock('http://54.213.83.132/')
         .get(/hackoregon.*/)
         .reply(200, {"returned": "foo"})
-        
+
       const expectedActions = genericResponse('STATE')
       const store = getStore()
 
       return store.dispatch(actions.loadStateInfo("931"),store.getState())
-        .then(() => { 
+        .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
+    })
+
+    it('creates SPENDING SUCCESS when fetch is completed successfully', ()=>{
+      nock('http://54.213.83.132/')
+        .get(/hackoregon.*/)
+        .reply(200, {"returned": "foo"})
+
+        const expectedActions = genericResponse('SPENDING')
+        const store = getStore()
+
+        return store.dispatch(actions.loadStateInfo("931"),store.getState())
+          .then(() => {
+            expect(store.getActions()).to.eql(expectedActions)
+          })
     })
   })
 
@@ -164,12 +178,12 @@ const genericResponse = function(type) {
   return (
     [
       { type: type + '_REQUEST' },
-      { type: type + '_SUCCESS', 
-        response: { 
-          entities: {}, 
-          result: {"returned": "foo"} 
+      { type: type + '_SUCCESS',
+        response: {
+          entities: {},
+          result: {"returned": "foo"}
         }
-      } 
+      }
     ]
   )
 }
