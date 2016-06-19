@@ -11,9 +11,9 @@ import loadSpending from './spending';
 import {loadDonors} from './donors';
 import { loadIndivs, loadPACinfo, loadBizInfo } from './donorCategories';
 import loadStateInfo from './state';
+import getMonthsData from './getMonths';
 import {fetchDonor} from './donor_page';
-export { loadSearchData, loadCampaign, fetchCampaigns, fetchDonor, loadLocationData, loadTransactions };
-export { loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadSpending };
+export { loadSearchData, loadCampaign, fetchCampaigns, fetchDonor, loadLocationData, loadTransactions, loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadSpending, getMonthsData };
 
 
 

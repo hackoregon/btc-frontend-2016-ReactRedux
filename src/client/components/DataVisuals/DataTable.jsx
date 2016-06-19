@@ -8,11 +8,11 @@ const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
 function currency(amount) {
 
   if (amount > 1000000) {
-    return '$' + ((amount) / 1000000).toFixed(1) + 'M';
+    return '$' + ((amount) / 1000000).toFixed(0) + 'm';
   } else if (amount > 1000) {
-    return '$' + ((amount) / 1000).toFixed(1) + 'K';
+    return '$' + ((amount) / 1000).toFixed(0) + 'k';
   } else {
-    return '$' + amount.toFixed(2);
+    return '$' + amount.toFixed(0);
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import './Select.css';
+import './Year.css';
 
 const YEARS = [{ value: '2011', label: '2011' },
     { value: '2012', label: '2012' },
@@ -68,7 +69,7 @@ const YearField = React.createClass({
 
 
 		return (
-				<Select style={{ width:'10rem'}} ref="yearSelect" options={this.state.years} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
+				<Select className={'Year'} ref="yearSelect" options={this.state.years} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
 		);
 	}
 });

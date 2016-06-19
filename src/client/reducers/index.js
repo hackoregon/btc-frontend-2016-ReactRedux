@@ -15,9 +15,17 @@ function entities(state = {
   donors: {},
   sums: {},
   mungedSums: {},
+  concactedMonths: {},
   searchData: {}
 }, action) {
   switch (action.type) {
+    // case 'RECIEVE_MONTHS':
+    // debugger;
+    // let nextState = {...state,
+    //   concactedMonths: {...action.response
+    //   }
+    // }
+    // return nextState;
   case 'RECIEVE_MUNGED_SUM':
     let nextState = {...state,
       mungedSums: {...action.response

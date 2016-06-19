@@ -13,14 +13,22 @@ const ResultSummaryCard = ({newTotal, xferTotal}) => {
     <DataBoxGroup
       boxes={[
         {
-        name: 'New Funds',
-        value: formatMoney(newTotal)},
+        title: 'New Funds',
+        msg: 'Donations from individuals & businesses',
+        value: formatMoney(newTotal)
+        },
         {
-          name: 'Transferred Funds',
+          title: 'Transferred Funds',
+          msg: 'Transfers from party & PACs. This is not new money.',
           value: formatMoney(xferTotal)
         }
       ]}/>
   )
 }
+
+ResultSummaryCard.propTypes = {
+  newTotal: PropTypes.number,
+  xferTotal: PropTypes.number
+};
 
 export default ResultSummaryCard

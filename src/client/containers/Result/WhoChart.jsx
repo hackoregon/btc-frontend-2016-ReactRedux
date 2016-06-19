@@ -14,6 +14,7 @@ class WhoChart extends Component {
         super(props);
         this.state = {
             series: ['New Funds','Transferred Funds'],
+            labels: ["Business", "Large Donors", "Grassroots", "PAC", "Party"],
             height: 0
         }
     }
@@ -41,16 +42,14 @@ class WhoChart extends Component {
       return false;
     }
 
-    renderChart(height){
+    renderChart(){
       // const spinner = ( <Spinner spinnerName='cube-grid' /> );
       //
-      // if(this.state.data && this.state.data){
-      //   debugger;
-      // }
       return (
         <BarChart
       data={this.state.data}
       labels={this.state.labels}
+      itemLabels
       dollarFormat
       colors={this.state.colors}
       height={200}
@@ -61,14 +60,13 @@ class WhoChart extends Component {
 // height={height*0.65}
 // {this.renderChart(height)}
     render() {
-      const { height } = this.props.size;
-      const spinner = ( <Spinner spinnerName='cube-grid' /> )
+
       if (_.isArray(this.state.data) && this.state.data.length > 1) {
         return (
           <Grid style={{flex:'1'}}>
            <Row middle="xs">
             <Col xs={12}>
-              {this.renderChart(height)}
+              {this.renderChart()}
           </Col>
         </Row>
       </Grid>);

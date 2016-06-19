@@ -23,7 +23,6 @@ const DonorRowItem = ({donors, payee, link, amount, formattedAmount}) => {
   }
   const name = fixNames(payee.toLowerCase().capitalize());
 
-  debugger;
   return (
     <Col>
       <Row start = "xs" >

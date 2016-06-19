@@ -76,7 +76,7 @@ const MonthField = React.createClass({
 
 
 		return (
-				<Select style={{ width:'10rem'}} ref="monthSelect" options={this.state.months} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
+				<Select ref="monthSelect" options={this.state.months} multi={true} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
 		);
 	}
 });

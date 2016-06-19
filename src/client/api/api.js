@@ -109,3 +109,29 @@ export const mungeByYear = (data) => {
     }
   });
 }
+
+function formatMonth (year,[...months]) {
+  let monthData = months.map((item) => {
+    return year[item]
+  })
+  let newYear = year[months];
+  console.log(newYear);
+}
+
+export const concatMonths = (months,year,data) => {
+  return new Promise((resolve,reject)=>{
+    try {
+      const monthData = months.map(m => {
+        return {
+          [m]: data[year][m]
+          }
+        })
+      const newData = {
+        [year]: {...monthData}
+      }
+      resolve({months,year,newData});
+    } catch (e) {
+        reject(e)
+    }
+  });
+}

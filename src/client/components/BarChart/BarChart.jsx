@@ -39,7 +39,7 @@ class BarChart extends Component {
     //   this.setState({layered: layered, stacked: stacked, opaque: opaque});
     // }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
       if(nextProps.data.length){
         return true
       }
@@ -114,7 +114,7 @@ class BarChart extends Component {
     }
 
     render() {
-        const {customStyle, opaque} = this.props;
+        const {customStyle} = this.props;
         let max = d3.max(_.flatten(this.props.data));
 
         if (this.props.data.length) {
@@ -135,18 +135,25 @@ class BarChart extends Component {
                         let fullSeries = this.mapSeries(this, series, seriesIndex, sum, max);
                         let seriesLabels = this.props.seriesLabels
                             ? (
-                                <label>{this.props.labels[seriesIndex]}
+                                <label key={seriesIndex}>{this.props.labels[seriesIndex]}
                                 </label>
                             )
                             : null;
+
+                        let itemLabels = this.props.itemLabels ? (
+                          <label key={seriesIndex}>{this.props.labels[seriesIndex]}
+                          </label>
+                        ) : null;
+
                         let height = this.props.height
                             ? this.props.height
                             : '0px'
+
                         return (
                             <div className={'BarChart--series ' + (this.props.grouping)} key={seriesIndex} style={{
                                 height: height
                             }}>
-                                {seriesLabels}
+                                {seriesLabels || itemLabels}
                                 {fullSeries}
                             </div>
                         );
@@ -166,8 +173,14 @@ BarChart.propTypes = {
     data: PropTypes.array.isRequired,
     labels: PropTypes.array.isRequired,
     colors: PropTypes.array.isRequired,
+    grouping: PropTypes.string,
     horizontal: PropTypes.bool,
-    opaque: PropTypes.bool
+    horizontalLabels: PropTypes.array,
+    seriesLabels: PropTypes.array,
+    itemLabels: PropTypes.array,
+    opaque: PropTypes.bool,
+    customStyle: PropTypes.object,
+    height: PropTypes.number
 }
 
 export default BarChart

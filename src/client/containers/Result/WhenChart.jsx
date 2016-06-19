@@ -1,94 +1,31 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import ChartistGraph from 'react-chartist';
 import SizeMe from 'react-sizeme';
 import moment from 'moment';
-import d3 from 'd3';
+import {Grid, Col, Row} from 'react-flexbox-grid';
+import Legend from '../../components/Legend/Legend.jsx';
 import _ from 'lodash';
+import d3 from 'd3';
+import MonthField from '../../components/Select/Month.jsx'
+import {getMonthsData} from '../../actions';
+
 import './Select.css';
 import './Line.css';
-import MonthField from '../../components/Select/Month.jsx'
-const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 16});
 
-const simpleLineChartData = {
-    labels: [
-        'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'
-    ],
-    series: [
-        [
-            12, 9, 7, 8, 5
-        ],
-        [
-            2, 1, 3.5, 7, 3
-        ],
-        [1, 3, 4, 5, 6]
-    ]
-}
+// const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 16});
 
-const biPolarLineChartData = {
-    labels: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-    ],
-    series: [
-        [
-            2.5,
-            2,
-            1,
-            0.5,
-            1,
-            0.5,
-            -1,
-            -2.5
-        ],
-        [
-            -2,
-            -1,
-            -2,
-            -1,
-            -2.5,
-            -1,
-            -2,
-            -1
-        ],
-        [
-            2,
-            2,
-            3,
-            1,
-            -2,
-            0,
-            1,
-            0
-        ],
-        [
-            0,
-            0,
-            0,
-            1,
-            2,
-            2.5,
-            2,
-            1
-        ]
-    ]
-}
-const biPolarLineChartOptions = {
-    high: 3,
-    low: -3,
-    showArea: true,
-    showLine: false,
-    showPoint: false,
-    axisX: {
-        showLabel: false,
-        showGrid: false
-    }
-}
+// const biPolarLineChartOptions = {
+//     high: 3,
+//     low: -3,
+//     showArea: true,
+//     showLine: false,
+//     showPoint: false,
+//     axisX: {
+//         showLabel: false,
+//         showGrid: false
+//     }
+// }
 const simpleLineChartOptions = {
     showArea: true,
     showLine: true,
@@ -124,45 +61,6 @@ function formatData(arr) {
   }
 }
 
-const biPolarBarChartData = {
-    labels: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-    ],
-    series: [
-        [
-            1,
-            2,
-            4,
-            8,
-            6,
-            -2,
-            -1,
-            -4,
-            -6,
-            -2
-        ],
-        [
-            -1,
-            -4,
-            -6,
-            -2,
-            8,
-            6,
-            -2
-        ]
-    ]
-};
 const biPolarBarChartOptions = {
     axisX: {
         labelInterpolationFnc: function(value, index) {
@@ -212,34 +110,12 @@ const barResponsiveOptions = [
     }
   }]
 ];
-// const expensesByMonth = d3.nest().key(function(d) {
-//   return d.tran_date.split("-")[0];
-//   }).rollup(function(v) {
-//   return v
-//   }).map(dataSet);
-//
-// var expensesTotalByYear = d3.nest().key(function(d) {
-//     return d.tran_date.split("-")[0];
-// }).rollup(function(v) {
-//     return d3.sum(v, function(d) {
-//         return d.total_out;
-//     });
-// }).map(dataSet);
-// console.log(expensesByMonth);
-//
-// var expensesByMonth = d3.nest().key(d => moment(d.tran_date).format('MM_YYYY')).rollup(function(v) {
-//     return d3.sum(v, function(d) {
-//         return d.total_out;
-//     });
-// }).map(dataSet);
-// console.log(JSON.stringify(expensesByMonth));
-//
-//
-// function splitData(data) {
-//
-// }
 
-// NOTE: dummy data in the state right now
+function loadMonths(months,year,data,props){
+  console.log(props);
+  const {getMonthsData} = props;
+  getMonthsData(months,year,data);
+}
 class WhenChart extends React.Component {
     constructor(props) {
         super(props);
@@ -248,14 +124,24 @@ class WhenChart extends React.Component {
 
     componentWillMount() {
       const {data,year} = this.props
+
     }
-    componentWillReceiveProps(nextProps) {
-      const {data,year} = nextProps;
+    componentWillReceiveProps(nextProps,nextState) {
+      const {data,year,months} = nextProps;
       if(!_.isEmpty(data)){
-        this.setState({
-          year: year,
-          data: data
-        });
+
+        const today = moment.now();
+        const lastMonth = moment(today).subtract(1,'months').format('MMM');
+        // let dataSet = null;
+        // if(_.isEmpty(months)){
+         let dataSet = formatData(nextProps.data[nextProps.year][nextProps.month]) || formatData(data[year][lastMonth]);
+         this.setState({
+           year: year,
+           data: data,
+           dispData: dataSet
+         });
+        // }
+
       }
     }
 
@@ -297,13 +183,19 @@ class WhenChart extends React.Component {
     //  });
     // }
 
-    handleSelect(month) {
+    handleSelect(options) {
+      const months = options.split(',');
+      const monthData = [...months.map(m => { return this.state.data[this.state.year][m] })];
+      let concacted = [];
+      for (var i = 0; i < monthData.length; i++) {
+        concacted.push(...monthData[i])
+      }
+      // loadMonths(months,this.state.year,this.state.data,this.props);
 
-      console.log('month choice',month);
 
       this.setState({
-        month: month,
-        dispData: this.state.data[this.state.year][month]
+        months: months,
+        dispData: formatData(concacted)
         // year: this.refs.nav.refs.subnav.refs.year.state.year
       });
 
@@ -343,19 +235,35 @@ class WhenChart extends React.Component {
         // let dataSet = formatData(expensesByMonth['2015']['May']);
 
         // const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
-        let today = moment.now();
-        // let thisYear = moment(today).format('YYYY');
-        let lastMonth = moment(today).subtract(1,'months').format('MMM');
-        let dataSet = formatData(this.state.data[this.state.year][this.state.month]) || formatData(data[year][lastMonth]);
 
-        return (<div {...this.props} >
-          <MonthField ref={'month'} months={labels} year={this.state.year} style={{ width:'3rem'}} onToggleSelect={this.handleSelect} />
-          <ChartistGraph data={dataSet} options={simpleLineChartOptions}  type={'Line'} redraw/>
-        </div>
+
+        return (<Grid {...this.props} >
+          <Row center='xs' xs={6} md={6} lg={6} >
+            <Col xs={12} style={{padding:'0.5rem'}}>
+            <Legend inRow labels={['Recieved','Spent']} colors={['#F6675A','#AFAAD4']}/>
+            </Col >
+          </Row>
+
+          <ChartistGraph data={this.state.dispData} options={simpleLineChartOptions}  type={'Line'} redraw/>
+            <Col center = 'xs' xs={12}>
+            <MonthField ref={'month'} months={labels} year={this.state.year} onToggleSelect={this.handleSelect} />
+            </Col>
+        </Grid>
       );
     }
   }
 }
 
+WhenChart.contextTypes = {router: React.PropTypes.object.isRequired}
 
-export default SizeMeHOC(WhenChart);
+function mapStateToProps(state,ownProps) {
+const {entities: {
+    concactedMonths
+  }} = state;
+  const { data, year } = ownProps;
+  return {concactedMonths, data, year};
+}
+
+export default connect(mapStateToProps, {
+  getMonthsData
+})(WhenChart);
