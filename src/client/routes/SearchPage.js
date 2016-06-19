@@ -12,9 +12,7 @@ class SearchPage extends Component {
             <div {...this.props} params={this.props.params}>
                 <BTCNav params={this.props.params} />
                 <Grid fluid>
-
-                        <SearchResultsList striped={true} bordered={false} condensed={false} hover={true} params={this.props.params}></SearchResultsList>
-
+                  <SearchResultsList  striped={true} bordered={false} condensed={false} hover={true} params={this.props.params} searchTerm={this.props.params}></SearchResultsList>
                 </Grid>
             </div>
         );

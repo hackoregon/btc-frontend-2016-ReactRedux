@@ -12,7 +12,7 @@ function loadData(props) {
   props.loadCampaign(filer_id);
 }
 
-class CampaignsPage extends Component {
+class RecipientsPage extends Component {
     // constructor(props){
     //   super(props)
     //   this.state = {
@@ -50,5 +50,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
   loadCampaign
-})(CampaignsPage)
-// export default CampaignsPage;
+})(RecipientsPage)
+// export default RecipientsPage;

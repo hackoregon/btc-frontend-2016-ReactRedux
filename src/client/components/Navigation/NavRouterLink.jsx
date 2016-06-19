@@ -31,11 +31,15 @@ const styles = {
 }
 
 class NavRouterLink extends Component {
+
     render() {
-        let route = '/' + this.props.name.toLowerCase();
-        return (<li {...this.props} style={styles.links} >
-                    <Link to= {route} activeClass={"active"} className={'NavRouterLink'}>
-                    <span>{this.props.name}</span>
+        const {routeTo, customStyles} = this.props;
+        let boxStyle = customStyles ? customStyles.box : null;
+        let linkStyle = customStyles ? customStyles.link : null;
+        let route = routeTo || '/' + this.props.name.toLowerCase();
+        return (<li {...this.props} style={{...styles.links,...boxStyle}} >
+                    <Link to= {route} activeClass={'active'} className={'NavRouterLink'}>
+                    <span style={{...linkStyle}}>{this.props.name}</span>
                     </Link>
                     </li>
             );
@@ -44,6 +48,7 @@ class NavRouterLink extends Component {
 
 NavRouterLink.propTypes = {
   name: PropTypes.string,
+  route: PropTypes.string,
   classes: PropTypes.string
 }
 

@@ -1,9 +1,8 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
-var precss = require('precss');
-var autoprefixer = require('autoprefixer');
+const path = require('path');
+const webpack = require('webpack');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 module.exports = {
   name: 'browser',
   devtool: 'cheap-module-source-map',
@@ -57,9 +56,6 @@ module.exports = {
       test: /\.json$/,
       loader: 'json-loader'
     }]
-  },
-  externals: {
-    'jquery': 'jQuery'
   },
   postcss: function () {
     return [precss, autoprefixer];

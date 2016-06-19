@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 // import {Grid, Row, Col} from 'react-bootstrap';
 import {Grid, Row, Col}  from 'react-flexbox-grid';
-import {loadSearchData} from '../../actions/index.js';
+import {loadSearchData,directLoad} from '../../actions/index.js';
 import Autosuggest from 'react-autosuggest';
 import fetchSuggestions from '../../utils/fetchSuggestions.js';
 import './SearchForm.css'
@@ -33,30 +33,30 @@ class SearchResultsForm extends Component {
 
   constructor(props, content) {
     super(props, content);
-    this.handleFetch = this.handleFetch.bind(this);
+
     this.state = {
       value: '',
       suggestions: getMatches('')
     };
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this);
-    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+    this.handleFetch = this.handleFetch.bind(this);
+    // this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
     this.setRef = this.setRef.bind(this);
   }
 
   loadSuggestions(value) {
-    this.setState({isLoading: true});
     fetchSuggestions(value).then((data) => {
+
       let dataArr = [
         ...data.candidate_names,
         ...data.related
       ]
+
       const suggestions = getMatches(value, dataArr);
 
       if (value === this.state.value) {
-        this.setState({isLoading: false, suggestions});
-      } else {
-        this.setState({isLoading: false})
+        this.setState({suggestions});
       }
     })
   }
@@ -65,12 +65,12 @@ class SearchResultsForm extends Component {
     this.setState({value: newValue});
   }
 
-  onSuggestionSelected(e, {suggestionValue}) {
-    this.setState({searchTerm: suggestionValue})
-    const {dispatch} = this.props;
-    dispatch(loadSearchData(suggestionValue));
-    this.context.router.push('/search');
-  }
+  // onSuggestionSelected(e, {suggestionValue}) {
+  //   // this.setState({searchTerm: suggestionValue})
+  //   const {dispatch} = this.props;
+  //   dispatch(loadSearchData(suggestionValue));
+  //   this.context.router.push(`/search`);
+  // }
 
   onSuggestionsUpdateRequested({value}) {
     this.loadSuggestions(value);
@@ -85,16 +85,25 @@ class SearchResultsForm extends Component {
     e.stopPropagation();
 
     const {dispatch} = this.props;
+    const {suggestions} = this.state;
     // const searchTerm = this.searchTermRef;
-    if (!this.searchTermRef.trim()) {
+    const searchTerm = this.searchTermRef;
+    if (!searchTerm.trim()) {
       return
     }
-    dispatch(loadSearchData(this.searchTermRef));
-    this.context.router.push('/search');
+
+    // if (suggestions && suggestions.length === 1){
+    //   const filerId = suggestions[0].filer_id;
+    //   dispatch(directLoad(searchTerm,filerId))
+    //   return this.context.router.push(`/recipients/${filerId}`);
+    // }
+
+    dispatch(loadSearchData(searchTerm));
+    return this.context.router.push(`/search/${searchTerm}`);
   }
 
   render() {
-    const {value, suggestions, isLoading, noResults} = this.state;
+    const {value, suggestions} = this.state;
 
     const inputProps = {
       placeholder: 'Search for candidates, measures or PAC name',
@@ -113,7 +122,7 @@ class SearchResultsForm extends Component {
     let enterMessage = (
       <i style={iconstyle} className={"fa fa-search"}></i>
     );
-    let fetchButton = null;
+    // let fetchButton = null;
 
     if (this.state.value.length > 0) {
       enterMessage = (
@@ -126,7 +135,7 @@ class SearchResultsForm extends Component {
         <Grid fluid>
           <Row>
             <Col style={{position:'relative'}} xs={12} md={12} sm={12} lg={12}>
-              <Autosuggest ref={() => this.setRef(this.state.value)} suggestions={suggestions} onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested} onSuggestionSelected={this.onSuggestionSelected} getSuggestionValue={getSuggestionValue} renderSuggestion={renderSuggestion} inputProps={inputProps}/>
+              <Autosuggest ref={() => this.setRef(this.state.value)} suggestions={suggestions} onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested} onSuggestionSelected={this.handleFetch} getSuggestionValue={getSuggestionValue} renderSuggestion={renderSuggestion} inputProps={inputProps}/>
               {enterMessage}
             </Col>
           </Row>
@@ -140,12 +149,12 @@ class SearchResultsForm extends Component {
 
 SearchResultsForm.contextTypes = {router: React.PropTypes.object.isRequired}
 
-function mapStateToProps(state) {
+function mapStateToProps(state,ownProps) {
   const {entities: {
       searchData
     }} = state;
-
-  return {searchData};
+  const searchTerm = ownProps.params
+  return {searchData, searchTerm};
 }
 
 export default connect(mapStateToProps)(SearchResultsForm);
