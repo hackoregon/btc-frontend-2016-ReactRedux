@@ -1,0 +1,32 @@
+.Loading-cube-grid .cube {
+    width: 33%;
+    height: 33%;
+    background: tomato;
+    float: left;
+    -webkit-animation: scaleDelay 1.5s infinite ease-in-out;
+    animation: scaleDelay 1.5s infinite ease-in-out;
+}
+.Loading-cube-grid.cube-grid {
+  width: 8rem;
+  height: 8rem;
+}
+
+.Loading-rotating-plane .rotating-plane {
+  width: 4rem;
+  height: 4rem;
+  background-color: tomato;
+  -webkit-animation: rotateplane 1.5s infinite ease-in-out;
+  animation: rotateplane 1.5s infinite ease-in-out;
+}
+
+.Loading-three-bounce .three-bounce > div {
+ width: 4rem;
+ height: 4rem;
+ background-color: tomato;
+ border-radius: 100%;
+ display: inline-block;
+ -webkit-animation: bouncedelay 1.5s infinite ease-in-out;
+ animation: bouncedelay 1.5s infinite ease-in-out;
+ -webkit-animation-fill-mode: both;
+ animation-fill-mode: both;
+}

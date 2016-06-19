@@ -3,7 +3,7 @@ import {
   Schemas
 } from '../api/serverApi.js';
 
-import loadSearchData from './search';
+import {loadSearchData,directLoad} from './search';
 import {loadCampaign,fetchCampaigns} from './campaign';
 import loadLocationData from './location';
 import loadTransactions from './transactions';
@@ -13,9 +13,10 @@ import { loadIndivs, loadPACinfo, loadBizInfo } from './donorCategories';
 import loadStateInfo from './state';
 import getMonthsData from './getMonths';
 import {fetchDonor} from './donor_page';
-export { loadSearchData, loadCampaign, fetchCampaigns, fetchDonor, loadLocationData, loadTransactions, loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadSpending, getMonthsData };
+export { loadSearchData,directLoad, loadCampaign, fetchCampaigns, fetchDonor, loadLocationData, loadTransactions, loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadSpending, getMonthsData };
 
 
+console.log(directLoad)
 
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 

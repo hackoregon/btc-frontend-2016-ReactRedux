@@ -15,16 +15,23 @@ class SearchResultsList extends Component {
       noResults: false
     }
   }
+  // 
+  // componentWillMount() {
+  //   const {list,params} = this.props;
+  //
+  // }
 
   render() {
-    const {list, errorMessage} = this.props;
+    const {list, error, searchTerm} = this.props;
     let listItems = (<div></div>);
 
     let errorMsg = null;
+    if (error === 'trigger') {
+      // errorMessage.error = '';
 
-    if (errorMessage.error === 'trigger') {
-      errorMessage.error = '';
-      errorMsg = (<SearchResultsAlert/>);
+      errorMsg = (<Col xs={12} md={12} lg={12} className={'SearchResultsList-container'}>
+        <SearchResultsAlert searchTerm={searchTerm}/>
+      </Col>);
       return errorMsg
     }
     if (list && list.length > 0) {
@@ -65,16 +72,20 @@ class SearchResultsList extends Component {
     )
   }
 }
-function mapStateToProps(state) {
+
+SearchResultsList.contextTypes = {router: React.PropTypes.object.isRequired}
+function mapStateToProps(state,ownProps) {
   const {
     entities: {
       searchData: {
         list
-      }
-    },
-    errorMessage
+      },
+      error
+    }
+
   } = state;
-  return {errorMessage, list};
+  const {searchTerm} = ownProps.params;
+  return {error, list, searchTerm};
 }
 
 export default connect(mapStateToProps)(SearchResultsList);

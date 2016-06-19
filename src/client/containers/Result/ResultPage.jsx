@@ -7,7 +7,7 @@ import ResultSummaryCard from './ResultSummaryCard.jsx'
 import ResultLocationStoryCard from './ResultLocationStoryCard.jsx'
 import ResultSpendingCard from './ResultSpendingCard.jsx'
 import ResultWhen from './ResultWhen.jsx';
-import Spinner from 'react-spinkit';
+import Loading from '../../components/Loading/Loading.jsx';
 // function loadData(props) {
 //   const { filer_id } = props;
 //   props.loadCampaign(filer_id);
@@ -16,7 +16,7 @@ import Spinner from 'react-spinkit';
 const ResultPage = ({year, campaign, filerId, contributions, sums, stateInfo}) => {
     if (!campaign) {
         // needs loading icon here
-        return (<Spinner spinnerName='cube-grid' />);
+        return (<Loading name='cube-grid' />);
     }
 
     const newMoney = _.sumBy([...contributions.ind,...contributions.grassroots,...contributions.biz], 'amount');

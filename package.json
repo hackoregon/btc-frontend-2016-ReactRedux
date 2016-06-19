@@ -23,6 +23,7 @@
     "diffract": "^0.3.2",
     "express": "^4.13.3",
     "express-urlrewrite": "1.2.0",
+    "flexboxgrid": "^6.3.0",
     "hanson": "^1.1.1",
     "history": "^2.0.1",
     "hson-loader": "^1.0.0",

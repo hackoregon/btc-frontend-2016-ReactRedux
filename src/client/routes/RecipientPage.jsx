@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Col } from 'react-flexbox-grid';
 import {connect} from 'react-redux';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
-import Spinner from 'react-spinkit';
+import Loading from '../components/Loading/Loading.jsx';
 import {fetchCampaigns,loadStateInfo} from '../actions';
 import d3 from 'd3';
 import _ from 'lodash'
@@ -141,7 +141,7 @@ class Recipient extends Component {
 
 
 
-        let spending = this.state.display ? (this.renderPage(campaign,this.state.data[this.state.year],mungedSums,stateContributions,filer_id)) : (<Spinner spinnerName='cube-grid'/>);
+        let spending = this.state.display ? (this.renderPage(campaign,this.state.data[this.state.year],mungedSums,stateContributions,filer_id)) : (<Loading name='cube-grid'/>);
         return (
             <div {...this.props}>
                 <BTCNav ref={'nav'} years={selectKeys} onToggleSelect={this.handleSelect}/>

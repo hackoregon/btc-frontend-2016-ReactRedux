@@ -3,7 +3,8 @@ import Select from 'react-select';
 import './Select.css';
 import './Year.css';
 
-const YEARS = [{ value: '2011', label: '2011' },
+const YEARS = [{ value: '2010', label: '2010' },
+    { value: '2011', label: '2011' },
     { value: '2012', label: '2012' },
     { value: '2013', label: '2013' },
     { value: '2014', label: '2014' },
@@ -13,38 +14,57 @@ const YEARS = [{ value: '2011', label: '2011' },
 const YearField = React.createClass({
 	getInitialState () {
 		return {
-			year: YEARS[0],
+      disabled: true,
+			year: YEARS[YEARS.length-1],
       years: YEARS,
-			selectValue: YEARS[0]
+      selectValue: YEARS[YEARS.length-1]
 		};
 	},
-  componentWillReceiveProps(nextProps) {
+
+  // componentWillMount() {
+  //   this.setState({})
+  // }
+  componentWillReceiveProps(nextProps,nextState) {
     const {years} = nextProps;
-    let yrs;
+    const {noUpdate} = this.state;
+
     if(years != undefined && years.length>0){
-        yrs = years.map((year) => {
+        let yrs = years.map((year) => {
           return {
             value: year,
             label: year
-        }
+          }
+        });
+      if(!noUpdate){
+        debugger;
+        console.log('yrs',yrs[yrs.length])
+          this.setState({
+              selectValue: yrs[yrs.length-1],
+              noUpdate: true
+          });
+      }
+      this.setState({
+        disabled: false,
+        years: yrs
       });
     }
-    this.setState({
-      years: yrs
-    });
+
   },
   shouldComponentUpdate(nextProps, nextState) {
-    const {years} = nextState;
+    const {years} = nextProps;
+
     if(years != undefined && years.length > 0) {
       return true;
     }
     return false;
   },
+
 	updateValue (newValue) {
 		console.log('State changed to ' + newValue);
     const {onToggleSelect} = this.props;
 
 		this.setState({
+      noUpdate: true,
 			selectValue: newValue
 		});
 
@@ -69,7 +89,7 @@ const YearField = React.createClass({
 
 
 		return (
-				<Select className={'Year'} ref="yearSelect" options={this.state.years} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
+				<Select className={'Year'} ref="yearSelect" disabled={this.state.disabled} options={this.state.years} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
 		);
 	}
 });

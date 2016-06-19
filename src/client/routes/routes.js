@@ -4,7 +4,7 @@ import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import HomePage from './HomePage.js';
 import SearchPage from './SearchPage.js';
-import CampaignsPage from './CampaignsPage.js';
+import RecipientsPage from './RecipientsPage.js';
 import ResultsPage from './ResultsPage.js';
 import DonorsPage from './DonorsPage.js';
 import CandidatesPage from './CandidatesPage.js';
@@ -21,15 +21,13 @@ export default function(history) {
                 <IndexRoute component={ HomePage } />
                 <Route path="/" component={ HomePage } />
                 <Route path="/search" component={ SearchPage } />
-                <Route path="/campaigns" component={ CampaignsPage } />
-                <Route path="/results/:searchTerm" component={ ResultsPage } />
+                <Route path="/search/:searchTerm" component={ SearchPage } />
+                <Route path="/recipients" component={ RecipientsPage } />
+                <Route path="/recipients/:filer_id" component={ RecipientPage } />
                 <Route path="/donors" component={ DonorsPage } />
                 <Route path="/donors/:donor_name" component={ DonorsPage } />
-                <Route path="/recipients" component={ CandidatesPage } />
-                <Route path="/oregon" component={ OregonPage } />
                 <Route path="/faq" component={ FaqPage } />
                 <Route path="/about" component={ AboutPage } />
-                <Route path="/recipients/:filer_id" component={ RecipientPage } />
             </Route>
         </Router>
         );

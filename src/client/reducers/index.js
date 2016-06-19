@@ -18,6 +18,7 @@ function entities(state = {
   concactedMonths: {},
   searchData: {}
 }, action) {
+  let nextState;
   switch (action.type) {
     // case 'RECIEVE_MONTHS':
     // debugger;
@@ -26,8 +27,14 @@ function entities(state = {
     //   }
     // }
     // return nextState;
+
+  case 'SEARCH_FAILURE':
+   nextState = {...state,
+     error: 'trigger'
+   }
+   return nextState;
   case 'RECIEVE_MUNGED_SUM':
-    let nextState = {...state,
+    nextState = {...state,
       mungedSums: {...action.response
       }
     }
@@ -71,14 +78,13 @@ function errorMessage(state = {}, action) {
     error
   } = action
   switch (type) {
-  case ActionTypes.RESET_ERROR_MESSAGE:
+    case ActionTypes.SEARCH_FAILURE:
+    debugger;
+      return state = {
+        error: 'trigger'
+      }
+    case ActionTypes.RESET_ERROR_MESSAGE:
     return state = null
-    break;
-  case ActionTypes.SEARCH_FAILURE:
-    return state = {
-      error: 'trigger'
-    }
-    break;
   default:
   }
   if (error) {
