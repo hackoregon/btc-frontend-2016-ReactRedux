@@ -15,16 +15,36 @@ class BarChart extends Component {
         this.mapSeries = this.mapSeries.bind(this);
     }
     componentWillMount() {
-        let data = this.props.data,
-            layered = this.props.grouping === 'layered'
-                ? true
-                : false,
-            stacked = this.props.grouping === 'stacked'
-                ? true
-                : false,
-            opaque = this.props.opaque;
+      let layered = this.props.grouping === 'layered'
+          ? true
+          : false,
+      stacked = this.props.grouping === 'stacked'
+          ? true
+          : false,
+      opaque = this.props.opaque,
+      thick = this.props.thick;
 
-        this.setState({layered: layered, stacked: stacked, opaque: opaque});
+  this.setState({layered: layered, stacked: stacked, opaque: opaque, thick:thick});
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   let data = nextProps.data,
+    //       layered = nextProps.grouping === 'layered'
+    //           ? true
+    //           : false,
+    //       stacked = nextProps.grouping === 'stacked'
+    //           ? true
+    //           : false,
+    //       opaque = nextProps.opaque;
+    //
+    //   this.setState({layered: layered, stacked: stacked, opaque: opaque});
+    // }
+
+    shouldComponentUpdate(nextProps) {
+      if(nextProps.data.length){
+        return true
+      }
+      return false
     }
 
     mapSeries(self, series, seriesIndex, sum, max) {
@@ -95,18 +115,20 @@ class BarChart extends Component {
     }
 
     render() {
-        const {customStyle, opaque} = this.props;
+        const {customStyle} = this.props;
         let max = d3.max(_.flatten(this.props.data));
 
         if (this.props.data.length) {
             let data = this.props.data;
-            debugger;
+            let split = (this.props.splitAt > -1);
+            let titlesAvail = (this.props.titles > -1);
             return (
                 <div className={'BarChart' + (this.props.horizontal
                     ? ' horizontal '
                     : '') + (this.props.horizontalLabels
                     ? 'horizontalLabels '
                     : '')} style={customStyle}>
+
                     {data.map((series, seriesIndex) => {
                         let sum = series.length > 1
                             ? series.reduce((carry, current) => {
@@ -115,20 +137,37 @@ class BarChart extends Component {
                             : 0;
 
                         let fullSeries = this.mapSeries(this, series, seriesIndex, sum, max);
+                        let titles = this.props.titles ? (
+                          <h4 className={'titles `${series}`'} key={seriesIndex}>
+                            {this.props.titles[seriesIndex]}
+                          </h4>
+                        ) : null;
+
                         let seriesLabels = this.props.seriesLabels
                             ? (
-                                <label>{this.props.labels[seriesIndex]}
+                                <label key={seriesIndex}>{this.props.labels[seriesIndex]}
                                 </label>
                             )
                             : null;
 
+                        let itemLabels = this.props.itemLabels ? (
+                          <label key={seriesIndex}>{this.props.labels[seriesIndex]}
+                          </label>
+                        ) : null;
+
+                        let height = this.props.height
+                            ? this.props.height
+                            : '0px'
+                        let marginSplitLeft = split && this.props.splitAt == seriesIndex ? ' marginSplitLeft ': '';
+                        let classNames = 'BarChart--series ' + (this.props.thick ? ' thick '
+                            : '') + (this.props.grouping) + (marginSplitLeft);
+
                         return (
-                            <div className={'BarChart--series ' + (this.props.grouping)} key={seriesIndex} style={{
-                                height: this.props.height
-                                    ? this.props.height
-                                    : 'auto'
+                            <div className={classNames} key={seriesIndex} style={{
+                                height: height
                             }}>
-                                {seriesLabels}
+
+                                {seriesLabels || itemLabels}
                                 {fullSeries}
                             </div>
                         );
@@ -148,8 +187,16 @@ BarChart.propTypes = {
     data: PropTypes.array.isRequired,
     labels: PropTypes.array.isRequired,
     colors: PropTypes.array.isRequired,
+    grouping: PropTypes.string,
     horizontal: PropTypes.bool,
-    opaque: PropTypes.bool
+    horizontalLabels: PropTypes.array,
+    seriesLabels: PropTypes.array,
+    itemLabels: PropTypes.array,
+    opaque: PropTypes.bool,
+    thick: PropTypes.bool,
+    customStyle: PropTypes.object,
+    height: PropTypes.number,
+    splitAt : PropTypes.number
 }
 
 export default BarChart

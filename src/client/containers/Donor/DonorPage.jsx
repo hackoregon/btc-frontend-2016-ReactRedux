@@ -5,94 +5,28 @@ import { Table, Panel } from 'react-bootstrap';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import d3 from 'd3';
 
-import {loadDonor} from '../../actions'
+import {fetchDonor} from '../../actions'
 
 import BTCNav from '../../components/Navigation/BTCNav';
 import DataBoxGroup from '../../components/DataBoxes/DataBoxGroup';
+import DataTable from '../../components/DataVisuals/DataTable';
 import BarChart from '../../components/BarChart/BarChart';
 import StoryCard from '../../components/StoryCards/StoryCard';
 import DonorCard from '../../components/DonorCard/DonorCard';
 
+function totalOf(arr){
+  return _.reduce(arr,(acc,transaction)=> {
+    return acc + transaction.amount
+  },0);
+}
 
-const DataTableBar = React.createClass({
-  getDefaultProps() {
-    return {
-      height: 10
-    };
-  },
-  render() {
-    const {
-      max,
-      height,
-      scale,
-      value,
-      color
-    } = this.props;
-    return (
-      <svg
-        width={scale(max)}
-        height={height}>
-        <rect
-          width={scale(value)}
-          height={height}
-          style={{fill: color}}></rect>
-      </svg>
-    );
-  }
-});
-
-
-const DataTable = React.createClass({
-  propTypes: {
-    data: React.PropTypes.array,
-    title: React.PropTypes.string
-  },
-  render() {
-    const dataMax = d3.max(_.map(this.props.data, 'value'));
-    const scale = d3.scale.linear()
-      .domain([0, dataMax])
-      .range([10, 100]);
-
-    // determine width of bar
-    const dataRows = _.map(this.props.data, (datum, idx) => {
-      return (
-        <tr key={datum.name}>
-          <td>{datum.name}</td>
-          <td>{currency(datum.value)}</td>
-          <td>{this.renderBar(scale, datum.value, dataMax)}</td>
-        </tr>
-      );
-    });
-    return (
-      <Panel
-        header={this.props.title}>
-        <Table striped fill>
-          <tbody>
-            {dataRows}
-          </tbody>
-        </Table>
-      </Panel>
-    );
-  },
-  renderBar(scale, value, max) {
-    const height = 18;
-    return (
-      <DataTableBar
-        height={height}
-        scale={scale}
-        max={max}
-        value={value}
-        color={'rgb(66,141,137)'} />
-    );
-  }
-});
 
 function currency(amount) {
 
   if (amount > 1000000) {
-    return '$' + ((amount) / 1000000).toFixed(1) + ' M';
+    return '$' + ((amount) / 1000000).toFixed(1) + 'M';
   } else if (amount > 1000) {
-    return '$' + ((amount) / 1000).toFixed(1) + ' K';
+    return '$' + ((amount) / 1000).toFixed(1) + 'K';
   } else {
     return '$' + amount.toFixed(2);
   }
@@ -103,10 +37,10 @@ function filterTransactions(transactions, filterFunction) {
   return _.chain(transactions)
     .filter(filterFunction)
     .reduce((acc, d) => {
-      if (acc[d.subType]) {
-        acc[d.subType] += d.amount;
+      if (acc[d.filer]) {
+        acc[d.filer] += d.amount;
       } else {
-        acc[d.subType] = d.amount;
+        acc[d.filer] = d.amount;
       }
       return acc;
     }, {})
@@ -117,15 +51,17 @@ function filterTransactions(transactions, filterFunction) {
       }
     })
     .sortBy('value')
-    .takeRight(4)
+    .takeRight(5)
     .reverse()
     .value();
 }
 
 
+
+
 function loadData(props) {
   const { donor_name } = props;
-  props.loadDonor(donor_name);
+  props.fetchDonor(donor_name);
 }
 
 class DonorPage extends Component {
@@ -143,8 +79,8 @@ class DonorPage extends Component {
 
   render(){
 
-    const { donors, donor_name } = this.props
-    if (_.isEmpty(donors)) {
+    const { donors, donor_name, transactions } = this.props
+    if (_.isEmpty(transactions)) {
       // needs loading icon here
       return <h1><i>Loading... </i></h1>
     }
@@ -155,17 +91,22 @@ class DonorPage extends Component {
       organization: 'Nike Inc.'
     };
 
-    const transactions = _.values(donors);
-
-    const cashSpent = _.filter(transactions, (transaction) => {
-      return transaction.subType === 'Cash Expenditure' && transaction.direction === 'out';
+    // const transactions = _.values(donors);
+    // const total = _.reduce
+    const cash = _.filter(transactions, (transaction) => {
+      return transaction.subType === 'Cash Expenditure';
     });
-    const totalCashSpent = _.reduce(cashSpent, (acc, transaction) => {
+
+    const totalCash = _.reduce(cash, (acc, transaction) => {
       return acc + transaction.amount;
     }, 0);
-    // const inKindDonated = _.filter(transactions, (transaction) => {
-    //   return transaction.subType === 'Cash Expenditure' && transaction.direction === 'out';
-    // });
+
+    const inKind = _.filter(transactions, (transaction) => {
+      return transaction.subType === 'In-Kind Contribution';
+    });
+
+    const largest = d3.max(_.toArray(transactions), (t)=>{return t.amount});
+
     const spentTransactions = _.filter(transactions, (transaction) => transaction.direction === 'out');
     const totalContribution = _.reduce(spentTransactions, (acc, transaction) => {
       return acc + transaction.amount;
@@ -173,13 +114,14 @@ class DonorPage extends Component {
     const averageSpent = totalContribution / spentTransactions.length;
 
 
-
     const dataSummaryValues = [
-      { name: 'Total Cash Donated', value: currency(totalCashSpent) },
-      { name: 'Total Donated In-Kind', value: currency(10.28000) },
+      { name: 'Total Donations', value: currency(totalOf(transactions))},
+      { name: 'Total Cash Donations', value: currency(totalOf(cash)) },
+      { name: 'Total Donated In-Kind', value: currency(totalOf(inKind)) },
       { name: 'Average Contribution', value: currency(averageSpent) },
-      { name: 'Largest Contribution', value: currency(222500.1) }
+      { name: 'Largest Contribution', value: currency(largest) }
     ];
+
     const barChartData = [[26], [87], [90], [10], [34]];
     const colorData = ['#bebada', '#fb8072', '#8dd3c7', '#b3de69', '#80b1d3'];
     const labelData = [];
@@ -208,12 +150,13 @@ class DonorPage extends Component {
     // NOTE: Warning: Unsure if d.bookType is the best way to differentiate between Campaign and PAC recipients
 
     const campaignRecipients = filterTransactions(transactions, (d) => {
-      return d.bookType === "Individual";
+      return d.contributor_payee_committee_id === null;
     });
 
     const pacRecipients = filterTransactions(transactions, (d) => {
-      return d.bookType !== "Individual";
+      return d.contributorPayeeCommitteeId != null;
     });
+
 
 
     return (
@@ -280,15 +223,16 @@ DonorPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   const { donor_name } = ownProps.params
   const {
-    entities: { donors }
+    entities: { donors, transactions }
   } = state;
-  // const donor = transactions[donor_name]
+  // const donors = donors[donor_name]
   return {
-    // donor_name, donor
-    donors
+    donor_name,
+    donors,
+    transactions
   }
 }
 
 export default connect(mapStateToProps, {
-  loadDonor
+  fetchDonor
 })(DonorPage)

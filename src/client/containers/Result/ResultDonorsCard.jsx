@@ -1,10 +1,12 @@
 // container
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import { CarouselItem } from 'react-bootstrap';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
-import ResultDonorsList from './ResultDonorsList.jsx';
+// import ResultDonorsList from './ResultDonorsList.jsx';
+import DataTable from '../../components/DataVisuals/DataTable.jsx'
 import {loadPACinfo,loadBizInfo, loadIndivs} from '../../actions'
 import _ from 'lodash';
 import WhoChart from './WhoChart.jsx';
@@ -17,9 +19,77 @@ import WhoChart from './WhoChart.jsx';
 // }
 
 // class ResultDonorsCard extends Component {
-function getWhoChartData(...bookTypes) {
+function getWhoChartData(...types) {
   // Wrap sum values in array because WhoChart is expecting array of arrays
-  return _.map(bookTypes, (donors) => [_.sumBy(donors, 'grandTotal')]);
+  let arr = _.map(types, (donors) => [_.sumBy(donors, 'amount')]);
+  // let newArr = [[...arr[0],...arr[1],...arr[2]],[...arr[3],...arr[4]]]; // modified for new adjustments requested in data visual grouping
+  // return newArr;
+  return arr;
+}
+const formatName = (payee) => {
+  return /\ \(/.test(payee) ? payee.split(/\ \(/)[0] : payee;
+}
+const makeTop = (trans,num) => {
+
+  return _.chain(trans)
+    .reduce((acc, d) => {
+      if (acc[d.contributorPayee]) {
+        acc[d.contributorPayee] += d.amount;
+      } else {
+        acc[d.contributorPayee] = d.amount;
+      }
+      return acc;
+    }, {})
+    .map((total, payee) => {
+      return {
+        value: total,
+        name: formatName(payee),
+        link: payee
+      }
+    })
+    .sortBy('value')
+    .takeRight(num)
+    .reverse()
+    .value();
+}
+function filterTransactions(transactions) {
+
+  if(transactions.length){
+  return _.chain(transactions)
+    .reduce((acc, d) => {
+      if (acc[d.contributorPayee]) {
+        acc[d.contributorPayee] += d.amount;
+      } else {
+        acc[d.contributorPayee] = d.amount;
+      }
+      return acc;
+    }, {})
+    .map((total, receiver) => {
+      return {
+        value: total,
+        name: receiver
+      }
+    })
+    .sortBy('value')
+    .takeRight(5)
+    .reverse()
+    .value();
+  }
+}
+function filterTop(arr,num){
+  if (arr.length < 10) num = 5;
+  let top = [];
+  for (let i = 0; i < num; i++) {
+    top.unshift.apply(top,arr.slice(i,i+1));
+  }
+
+  return top.reverse().map((item) => {
+    return {
+      value: item.total,
+      name: item.contributorPayee
+    }
+  });
+  // return b.reverse();
 }
 
 // const ResultDonorsCard = (props) => {
@@ -76,37 +146,59 @@ function getWhoChartData(...bookTypes) {
 
     render() {
       // const {pacContributions,businessContributions, indivContributions } = this.props;
-      const {ind,biz,pac} = this.state;
-      debugger;
-      const [ smallDonors, largeDonors ] = _.partition(ind, (contr) => contr.grandTotal <= 250);
+      const {biz,ind,grassroots,pac,party} = this.props.contributions;
 
-      let individualDonors = _.values(ind);
-      let businessDonors = _.values(biz);
-      let pacDonors = _.values(pac);
+
+      // const [ smallDonors, largeDonors ] = _.partition(ind, (contr) => contr.grandTotal <= 250);
+
+      // let individualDonors = _.values(ind);
+      // let businessDonors = _.values(biz);
+      // let pacDonors = _.values(pac);
+
+
+
       // TODO: Empty array is placeholder for party information -- needs to be added
       // Order matters for WhoChart labels
-      const whoChartDonorData = getWhoChartData(pacDonors, businessDonors, largeDonors, smallDonors, []);
+      const whoChartDonorData = getWhoChartData(biz, ind, grassroots, pac, party);
 
+      // const newFundsData = getWhoChartData(businessDonors, largeDonors, smallDonors);
+      // const xferFundsData = getWhoChartData(pacDonors, [{bookType:'party',grandTotal:0}]);
       // .orderBy('amount','desc');
       // let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      const indTop = ind.length ? (
+        <Col xs={12} md={4}>
+        <DataTable style={{flex:'1', height:'20%'}} title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
+        </Col>
+      ) : null;
 
+      const bizTop = biz.length ? (
+        <Col xs={12} md={4}>
+        <DataTable style={{flex:'1', height:'20%'}} title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
+        </Col>
+      ) : null;
+
+      const pacTop = pac.length ? (
+        <Col xs={12} md={4}>
+          <DataTable style={{flex:'1', height:'20%'}} title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
+        </Col>
+       ) :
+        null;
       // const listItems =  this.renderDonorLists(individualDonors,businessDonors,pacDonors);
-      debugger;
         return (<StoryCard
                   question={"Who is giving?"}
                   description={"This visualization is calculated by total dollars, not total people."}>
-                  <WhoChart data={whoChartDonorData} />
-                    <ListsCarousel>
-                      <CarouselItem >
-                      <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
-                      <ResultDonorsList donorType={"Top Business Donors"} donors={businessDonors}></ResultDonorsList>
-                      </CarouselItem>
-                      <CarouselItem>
-                      <ResultDonorsList donorType={"Top PAC Donors"} donors={pacDonors}></ResultDonorsList>
-                      </CarouselItem>
-                    </ListsCarousel>
+                    <WhoChart data={whoChartDonorData} labels={[
+                        'Business', 'Big Donors','Grassroots','PAC','Party'
+                    ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
+                  <Grid fluid center="xs" >
+                    <Row around="xs" center="xs" middle="xs" xs={6}>
+                      {bizTop}
+                      {indTop}
+                      {pacTop}
+                    </Row>
+                    </Grid>
                 </StoryCard>
         );
     }

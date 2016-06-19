@@ -3,7 +3,7 @@ import {
   Schemas
 } from '../api/serverApi.js';
 const types = ['SPENDING_REQUEST', 'SPENDING_SUCCESS', 'SPENDING_FAILURE'];
-console.log(types);
+
 function fetchSpending(filerId) {
   return {
     [CALL_API]: {

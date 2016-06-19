@@ -84,6 +84,13 @@ class SpendingChart extends React.Component {
     const {labels, data} = nextProps;
     this.setState({...labels, ...data});
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextState.data.length > 0){
+      return true;
+    }
+    return false;
+  }
   // componentWillMount() {
   //   const {labels, data} = this.props;
   // }

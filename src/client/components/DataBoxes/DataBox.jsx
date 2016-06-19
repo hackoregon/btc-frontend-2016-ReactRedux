@@ -12,19 +12,23 @@ class DataBox extends Component {
         borderRadius: '4px',
         margin: '1.5rem'
       }
+    const {title} = this.props;
 
+    const topTitle = title ? (<h3> { this.props.title} </h3>) : null;
     return (
       <Col center='xs' style={column}>
-        <h2> { this.props.value } </h2>
-        <h4> { this.props.name } </h4>
+        {topTitle}
+        <h1> { this.props.value } </h1>
+        <h4> { this.props.msg } </h4>
       </Col>
     );
   }
 }
 
 DataBox.propTypes = {
+  title: PropTypes.string,
   value: PropTypes.string,
-  name: PropTypes.string
+  msg: PropTypes.string
 };
 
 DataBox.defaultProps = {

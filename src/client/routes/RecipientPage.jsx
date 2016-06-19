@@ -3,14 +3,11 @@ import { Grid, Col } from 'react-flexbox-grid';
 import {connect} from 'react-redux';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Spinner from 'react-spinkit';
-import * as json from '../data/transactions.json';
 import {fetchCampaigns,loadStateInfo} from '../actions';
 import d3 from 'd3';
 import _ from 'lodash'
 import ResultPage from '../containers/Result/ResultPage.jsx';
 import moment from 'moment';
-
-const parsed = _.values(json);
 
 function loadData(props){
   const {filer_id} = props;
@@ -20,7 +17,7 @@ function loadData(props){
 
 function cleanData(array) {
   for (var i = 0; i < array.length; i++) {
-    if (array[i]["filedDate"] == undefined) {
+    if (array[i]['filedDate'] == undefined) {
       array.splice(i)
     }
   }
@@ -47,42 +44,8 @@ function splitCodes (trans) {
   }
 }
 
-// const cleaned = cleanData(parsed);
-//
-// const byYear = d3.nest().key(function(d) {
-//   if(d.filed_date){
-//       return d.filed_date.split("-")[0];
-//   }
-//   }).rollup(function(v) {
-//   return v
-// }).map(cleaned);
-// const selectKeys = Object.keys(byYear);
-// console.log(selectKeys);
 
-const Test = ({year,data}) =>{
-  if(data){
-  const divs = data.map((item,i) => {
-    return (
-      <Col key={i} style={{paddingBottom:'.5rem',margin:'.5rem',borderBottom:'1px #eee solid'}}>
-      <Col>Filed date: {item.filedDate}</Col>
-      <Col>Trans id: {item.tranId}</Col>
-       </Col>
-    )
-  });
-    return (
-      <div>
-        <Col><h3>{year}</h3></Col>
-        {divs}</div>
-    )
-  }
-  else {
-    return (<Col>
-      <h5>Choose a year</h5>
-    </Col>);
-  }
-};
-
-class CandidatesPage extends Component {
+class Recipient extends Component {
     constructor(){
       super()
       this.state = {
@@ -120,7 +83,7 @@ class CandidatesPage extends Component {
       }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
       const {transactions} = nextProps;
       let trans = _.values(transactions);
       if(transactions && trans.length > 0){
@@ -129,17 +92,10 @@ class CandidatesPage extends Component {
       return false;
     }
 
-    renderTest(){
-        console.log('render test',this.state);
-          return(<Test year={this.state.year} data={this.state.dispData} />);
-    }
-
     handleSelect(year) {
-      console.log('parent year',year);
       this.setState({
         year: year,
         dispData: this.state.data[year]
-        // year: this.refs.nav.refs.subnav.refs.year.state.year
       });
     }
 
@@ -162,7 +118,6 @@ class CandidatesPage extends Component {
           pac : data.filter(datum => {return datum.contributorPayeeCommitteeId != null && datum.bookType !== ('Political Party Committee')}),
           party: data.filter((datum) => {return datum.bookType === 'Political Party Committee'})
         }
-        console.log('render page',this.state.year);
         return (
           <ResultPage year={this.state.year}
             campaign={campaign} contributions={contribs} sums={mungedSums} stateInfo={stateInfo} filerId={filerId} />
@@ -184,9 +139,8 @@ class CandidatesPage extends Component {
       }).map(cleaned);
       const selectKeys = Object.keys(byYear);
 
-      let elem = this.state.display ?
-        (this.renderTest()) : (<Spinner spinnerName='rotating-plane'/>);
-        console.log('before spending',this.state.data,this.state.year);
+
+
         let spending = this.state.display ? (this.renderPage(campaign,this.state.data[this.state.year],mungedSums,stateContributions,filer_id)) : (<Spinner spinnerName='cube-grid'/>);
         return (
             <div {...this.props}>
@@ -195,10 +149,7 @@ class CandidatesPage extends Component {
                       style={ {    marginTop: '100px',    fontWeight: '200px'} }
                       params={ this.props.params }>
                   <Col>
-                    <Col>
                       {spending}
-                    </Col>
-                    {elem}
                   </Col>
                 </Grid>
             </div>
@@ -219,5 +170,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
   fetchCampaigns, loadStateInfo
-})(CandidatesPage)
-// export default CandidatesPage;
+})(Recipient)
+// export default Recipient;
