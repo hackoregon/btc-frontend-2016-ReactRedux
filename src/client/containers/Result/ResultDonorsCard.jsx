@@ -190,7 +190,7 @@ function filterTop(arr,num){
                   question={"Who is giving?"}
                   description={"This visualization is calculated by total dollars, not total people."}>
                     <WhoChart data={whoChartDonorData} labels={[
-                        'Business', 'Large Donors','Grassroots','PAC','Party'
+                        'Business', 'Big Donors','Grassroots','PAC','Party'
                     ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
                   <Grid fluid center="xs" >
                     <Row around="xs" center="xs" middle="xs" xs={6}>

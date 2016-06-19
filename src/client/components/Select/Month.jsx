@@ -60,23 +60,10 @@ const MonthField = React.createClass({
     }
 	},
 	render () {
-
-    // let mon;
-    //
-    // if(months && months.length>0){
-    //     mon = months.map((month) => {
-    //       return {
-    //         value: month,
-    //         label: month
-    //     }
-    //   });
-    // }
-    //
 		var options = this.state.months || MONTHS;
 
-
 		return (
-				<Select ref="monthSelect" options={this.state.months} multi={true} clearable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
+				<Select ref="monthSelect" options={this.state.months} multi={true} clearable={false} searchable={false} autosize={false} simpleValue name="selected-state" value={this.state.selectValue} onChange={this.updateValue} />
 		);
 	}
 });

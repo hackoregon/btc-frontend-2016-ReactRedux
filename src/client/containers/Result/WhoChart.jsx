@@ -14,7 +14,7 @@ class WhoChart extends Component {
         super(props);
         this.state = {
             series: ['New Funds','Transferred Funds'],
-            labels: ["Business", "Large Donors", "Grassroots", "PAC", "Party"],
+            labels: ["Business", "Big Donors", "Grassroots", "PAC", "Party"],
             height: 0
         }
     }
@@ -46,16 +46,30 @@ class WhoChart extends Component {
       // const spinner = ( <Spinner spinnerName='cube-grid' /> );
       //
       return (
+        <Col>
+        <Row centered='xs'>
+          <Col xs={6}>
+            <h5>New Funds</h5>
+          </Col >
+          <Col xs={6}>
+            <h5>Transferred Funds</h5>
+          </Col>
+        </Row>
         <BarChart
+      titles={this.state.series}
       data={this.state.data}
       labels={this.state.labels}
       itemLabels
       dollarFormat
       colors={this.state.colors}
       height={200}
+      splitAt={3}
       opaque
+      thick
       colorBySeries
-      />);
+      />
+    </Col>
+);
     }
 // height={height*0.65}
 // {this.renderChart(height)}

@@ -219,23 +219,12 @@ class WhenChart extends React.Component {
     render() {
 
         const {data,year} = this.props;
-        // const expensesByMonth = d3.nest()
-        // .key(function(d) {
-        //   return moment(d.tran_date).format('MMM');
-        // })
-        // .rollup(function(v) {
-        //   return v
-        // }).map(data);
+
         if(_.isEmpty(data)){
           return (<div>Loading...</div>)
         } else {
 
         const labels= Object.keys(this.state.data[this.state.year]);
-        // let selectKeys = Object.keys();
-        // let dataSet = formatData(expensesByMonth['2015']['May']);
-
-        // const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
-
 
         return (<Grid {...this.props} >
           <Row center='xs' xs={6} md={6} lg={6} >
@@ -254,16 +243,16 @@ class WhenChart extends React.Component {
   }
 }
 
-WhenChart.contextTypes = {router: React.PropTypes.object.isRequired}
+// function mapStateToProps(state,ownProps) {
+// const {entities: {
+//     concactedMonths
+//   }} = state;
+//   const { data, year } = ownProps;
+//   return {concactedMonths, data, year};
+// }
 
-function mapStateToProps(state,ownProps) {
-const {entities: {
-    concactedMonths
-  }} = state;
-  const { data, year } = ownProps;
-  return {concactedMonths, data, year};
-}
-
-export default connect(mapStateToProps, {
-  getMonthsData
-})(WhenChart);
+export default WhenChart;
+//
+// export default connect(mapStateToProps, {
+//   getMonthsData
+// })(WhenChart);

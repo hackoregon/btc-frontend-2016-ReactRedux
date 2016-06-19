@@ -11,14 +11,23 @@
     padding: 2em;
 }
 
+
 .BarChart.horizontal {
     display: block;
 }
 
 .BarChart.horizontal .BarChart--series {
     display: block;
-    margin: 0 0 30px 0;
+    margin: 30px 0 30px 0;
     border: 0;
+}
+
+.BarChart--series.thick {
+  margin: 0.25rem 0;
+}
+
+.BarChart--series.marginSplitLeft {
+  margin-left: 1.5rem;
 }
 
 .BarChart.horizontal .BarChart--series label {
