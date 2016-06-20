@@ -52,7 +52,7 @@ class AboutPage extends Component {
             <div>
                 <BTCNav />
                 <Grid fluid={ true }
-                      style={ {    marginTop: '100px',    fontWeight: '200px'} }
+                      style={ {    marginTop: '3rem',    fontWeight: '200px'} }
                       params={ this.props.params }>
                 </Grid>
 

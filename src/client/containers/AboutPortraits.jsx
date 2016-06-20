@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import PhotoGrid from '../components/Bootstrap/PhotoGrid.jsx';
-import path from 'path';
+// import path from 'path';
 
 class AboutPortraits extends Component {
 

@@ -17,8 +17,8 @@ html {
   line-height: 1.4;
   background-color: #fffefe;
   font-family: 'Open Sans';
-  font-weight: 300;
-  color: #0E0E0E;
+  font-weight: 400;
+  color: #001732;
   min-height: 100% /* [3] */;
   -webkit-text-size-adjust: 100% /* [4] */;
   -ms-text-size-adjust: 100% /* [4] */;
@@ -155,6 +155,9 @@ h6,
   border-radius: 50%;
 }
 
+a {
+  text-decoration: none;
+}
 
 
 

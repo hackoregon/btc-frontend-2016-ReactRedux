@@ -1,7 +1,7 @@
 .Loading-cube-grid .cube {
     width: 33%;
     height: 33%;
-    background: tomato;
+    background: #2653A5;
     float: left;
     -webkit-animation: scaleDelay 1.5s infinite ease-in-out;
     animation: scaleDelay 1.5s infinite ease-in-out;
@@ -14,7 +14,7 @@
 .Loading-rotating-plane .rotating-plane {
   width: 4rem;
   height: 4rem;
-  background-color: tomato;
+  background-color: #2653A5;
   -webkit-animation: rotateplane 1.5s infinite ease-in-out;
   animation: rotateplane 1.5s infinite ease-in-out;
 }
@@ -22,7 +22,7 @@
 .Loading-three-bounce .three-bounce > div {
  width: 4rem;
  height: 4rem;
- background-color: tomato;
+ background-color: #2653A5;
  border-radius: 100%;
  display: inline-block;
  -webkit-animation: bouncedelay 1.5s infinite ease-in-out;

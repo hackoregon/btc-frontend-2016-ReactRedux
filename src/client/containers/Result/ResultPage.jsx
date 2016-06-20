@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 // import {loadCampaign} from '../../actions'
 import ResultHeader from './ResultHeader.jsx'
 import ResultDonorsCard from './ResultDonorsCard.jsx'
+import ResultDonut from './ResultDonut.jsx'
 import ResultSummaryCard from './ResultSummaryCard.jsx'
 import ResultLocationStoryCard from './ResultLocationStoryCard.jsx'
 import ResultSpendingCard from './ResultSpendingCard.jsx'
@@ -22,6 +23,7 @@ const ResultPage = ({year, campaign, filerId, contributions, sums, stateInfo}) =
     const newMoney = _.sumBy([...contributions.ind,...contributions.grassroots,...contributions.biz], 'amount');
     const xferMoney = _.sumBy([...contributions.pac,...contributions.party],'amount');
 
+    // const allMoneyOut = _.
     return (
         <div>
             <ResultHeader candidate={campaign.candidateName} key={campaign.filerId} race={campaign.race}/>

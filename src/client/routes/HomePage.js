@@ -1,16 +1,14 @@
-
 import React, { Component, PropTypes } from 'react';
-
-// import { Grid } from 'react-bootstrap';
-// import { Row } from 'react-bootstrap';
-// import { Col } from 'react-bootstrap';
 import {Grid, Row, Col}  from 'react-flexbox-grid';
 import { Panel } from 'react-bootstrap';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Footer from '../components/Navigation/Footer.jsx';
 import SearchResultsForm from '../containers/SearchResults/SearchResultsForm.jsx';
-
+// http://54.213.83.132/hackoregon/http/oregon_committee_contributors/_/
+// http://54.213.83.132/hackoregon/http/oregon_business_contributors/_/
+// http://54.213.83.132/hackoregon/http/oregon_individual_contributors/_/
+// http://54.213.83.132/hackoregon/http/all_oregon_sum/_/
 
 class HomePage extends Component {
 
@@ -19,13 +17,10 @@ class HomePage extends Component {
             <div {...this.props} style={{display:'flex',minHeight:'100vh',flexDirection:'column'}}>
               <BTCNav />
               <div style={{flex:'1',paddingTop:'2rem'}}>
-                <Grid fluid params={ this.props.params }
-                  >
-
+                <Grid fluid params={ this.props.params }>
                       <DataBoxGroup boxes={[
-                        {name:"Expenditures", value:"$313,412,231"},
-                        {name:"Contributions", value:"$307,489,692"},
-                        {name:"Average Cost per Ballot", value:"$48"}
+                        {title:"New Funds", value:"$313,412,231"},
+                        {title:"Transferred Funds", value:"$307,489,692"}
                       ]} />
 
                     <Row params={ this.props.params }>

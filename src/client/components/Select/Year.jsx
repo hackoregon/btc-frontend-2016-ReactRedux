@@ -36,7 +36,6 @@ const YearField = React.createClass({
           }
         });
       if(!noUpdate){
-        debugger;
         console.log('yrs',yrs[yrs.length])
           this.setState({
               selectValue: yrs[yrs.length-1],

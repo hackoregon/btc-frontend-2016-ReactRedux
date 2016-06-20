@@ -6,7 +6,8 @@ import d3 from 'd3';
 import {capitalize,fixNames} from '../../utils';
 
 const DonorRowItem = ({donors, payee, link, amount, formattedAmount}) => {
-  const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
+  // const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
+  const colorBlend = d3.interpolateRgb('#C0CFFF', '#1B3E99');
   function donorPercent(amount) {
     if (amount > 0) {
       let donorMax = d3.max(donors, function(donor) {
@@ -24,33 +25,40 @@ const DonorRowItem = ({donors, payee, link, amount, formattedAmount}) => {
   const name = fixNames(payee.toLowerCase().capitalize());
   const parentStyle = {
     display:'flex',
-    minWidth: '0'
+    flex: '1',
+    minWidth: '1rem'
   }
   const withChildStyle = {
-    flex: '1'
+    flex: '1',
+    textOverflow: 'ellipsis',
+    alignItems: 'flex-start'
+
   }
   const childStyle = {
-    flex: '1',
-    whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
   }
   return (
-    <Col style={parentStyle}>
-      <Row start = "xs" style={withChildStyle}>
-          <Link sm={6} xs={10} style={childStyle} to={`/donors/${link}`}>{name}</Link>
+    <Col style={{flex:'0'}}>
+      <Row start="xs" around='xs' style={parentStyle}>
+        <div xs={10} style={withChildStyle}>
+          <Link  style={childStyle} to={`/donors/${link}`}>{name}</Link>
+          </div>
 
-          <div sm={3} xs={2} style={{fontWeight:'light'}}>{formattedAmount}</div>
+        <div  xs={2} style={{fontWeight:'light'}}>{formattedAmount}</div>
+        <Col  xs={12} style={{alignItems:'flex-start',display:'block'}}>
 
-        <Col sm={3} xs={12} style={{alignItems:'center',display:'block'}}>
           <div style={{
             height: '15px',
             borderRadius: '3px',
+            margin: '2px 4px',
             width: '100%',
-            backgroundColor: 'rgb(16, 113, 111)',
+            backgroundColor: 'RGB(27, 62, 153)',
             width: donorPercent(amount).size,
             backgroundColor: donorPercent(amount).color
-          }}/>
+          }}></div>
+
         </Col>
       </Row>
     </Col>

@@ -4,7 +4,7 @@ import DataTableBar from './DataTableBar.jsx';
 import DonorRowItem from '../Visuals/DonorRowItem.jsx';
 import {Panel} from 'react-bootstrap'
 import {Row,Col} from 'react-flexbox-grid';
-const colorBlend = d3.interpolateRgb('#A3D3D2', '#10716F');
+const colorBlend = d3.interpolateRgb('#C0CFFF', '#1B3E99');
 function currency(amount) {
 
   if (amount > 1000000) {

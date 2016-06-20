@@ -18,7 +18,8 @@ module.exports = {
   resolve: {
     extensions: ['', '.jsx', '.js'],
     alias: {
-      portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits')
+      portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits'),
+      imgPath:path.resolve(__dirname,'../src/client/assets/img')
     }
   },
   module: {
@@ -40,10 +41,16 @@ module.exports = {
       test: /\.css$/,
       exclude: /node_modules/,
       loader: 'style-loader!css-loader!postcss-loader'
-    }, {
-      test: /\.(eot|woff|woff2|ttf|svg|png|jpg|jpeg|gif)([\?]?.*)$/,
+    },
+     {
+      test: /\.(eot|woff|woff2|ttf)([\?]?.*)$/,
       exclude: /node_modules/,
-      loader: 'url-loader'
+      loader: 'url-loader?limit=25000'
+    },
+    {
+      test: /\.(svg|png|jpg|jpeg|gif)([\?]?.*)$/,
+      exclude: /node_modules/,
+      loader: 'file-loader'
     }, {
       test: /\.tab$/,
       exclude: /node_modules/,

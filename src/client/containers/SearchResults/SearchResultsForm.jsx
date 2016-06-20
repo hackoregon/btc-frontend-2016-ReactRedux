@@ -106,7 +106,7 @@ class SearchResultsForm extends Component {
     const {value, suggestions} = this.state;
 
     const inputProps = {
-      placeholder: 'Search for candidates, measures or PAC name',
+      placeholder: 'Search candidates, measures or PACs',
       value,
       className: 'form-control input-group',
       onChange: this.onChange
