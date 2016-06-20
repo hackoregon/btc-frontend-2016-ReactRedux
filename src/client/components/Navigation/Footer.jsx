@@ -20,11 +20,12 @@ render(){
                       center='xs'
                       middle='xs'
                       params={ this.props.params }>
-
+                  
                       <Col xs={ 2 }
                            md={ 1 }
                            sm={ 1 }
                            lg={ 1 }
+                           start='xs'
                            params={ this.props.params }>
                       <NavRouterLink name={'About'} />
                       </Col>
@@ -34,33 +35,24 @@ render(){
                                sm={ 1 }
                                lg={ 1 }
                                params={ this.props.params }>
-                      <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>2016 Team</span></a>
+                      <NavRouterLink name={'FAQ'} />
                       </Col>
 
+                      
                       <Col xs={ 2 }
                            md={ 1 }
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                      <a className="footer-link" href="#"
-                          params={ this.props.params }><span params={ this.props.params }>Take action</span></a>
+                      <a className="footer-link" href="https://secure.sos.state.or.us/orestar/vr/register.do" target="_blank" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
                       </Col>
-
+                    
                       <Col xs={ 2 }
                            md={ 1 }
                            sm={ 1 }
                            lg={ 1 }
                            params={ this.props.params }>
-                     <a className="footer-link" href="#" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
-                      </Col>
-
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                      <a className="footer-link" href="#"
-                          params={ this.props.params }><span params={ this.props.params }>Contact</span></a>
+                      <a className="footer-link" href="mailto:catherine@hackoregon.org" target="_blank" params={ this.props.params }><span params={ this.props.params }>Email</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -71,54 +63,10 @@ render(){
                       <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
                       </Col>
 
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                      <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Email</span></a>
-                      </Col>
 
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                      <a className="footer-link" href="#" syle={linkStyle}
-                          params={ this.props.params }><span params={ this.props.params }>Explore</span></a>
-                      </Col>
+                      
 
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                      <a className="footer-link"  href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Search</span></a>
-                      </Col>
-
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                      <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
-                      </Col>
-
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                          <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
-                      </Col>
-
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                          <a className="footer-link" href="#" syle={linkStyle} params={ this.props.params }><span params={ this.props.params }>Link</span></a>
-                      </Col>
+                      
                       </Row>
                   </footer>
 
