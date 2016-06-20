@@ -151,27 +151,31 @@ export const mungeSpending = (filerId, data) => {
       let trans = d3.values(data);
       trans.forEach((item) => {
         if (item.purposeCodes) {
+
           let codes = item['purposeCodes'].split(';');
           codes.map((code) => {
             let c = code.trim()
             let short = /\ \(/.test(c);
-            let cash = /[C|c]ash/.test(c);
+            // let cash = /[C|c]ash/.test(c);
+            let cash = item.purposeCodes == 'Cash Contribution'
             if (short) {
               c = c.split(/\ \(/)[0];
             }
-            if (cash && item.purposeCodes == 'Cash Contribution') {
+            debugger;
+            if (cash) {
               if (item.payee in cashContribs) {
                 cashContribs[item.contributorPayee] += Number((item.amount / codes.length)
                   .toFixed(2));
               } else {
                 cashContribs[item.contributorPayee] = Number(item.amount.toFixed(2)) || 0;
               }
-            }
+            } else {
             if (c in response) {
               response[c] += Number((item.amount / codes.length)
                 .toFixed(2));
             } else {
               response[c] = Number(item.amount.toFixed(2)) || 0;
+              }
             }
           })
         }
