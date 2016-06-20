@@ -60,7 +60,7 @@ render(){
                           sm={ 1 }
                           lg={ 1 }
                           params={ this.props.params }>
-                      <a className="footer-link" href="#" style={linkStyle} params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
+                      <a className="footer-link" href="https://twitter.com/HackOregon" target="_blank" style={linkStyle} params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
                       </Col>
 
                       <Col xs={ 2 }
@@ -68,7 +68,7 @@ render(){
                           sm={ 1 }
                           lg={ 1 }
                           params={ this.props.params }>
-                      <a className="footer-link" href="https://github.com/hackoregon" target="blank" style={linkStyle} params={ this.props.params }><span params={ this.props.params }>GitHub</span></a>
+                      <a className="footer-link" href="https://github.com/hackoregon" target="_blank" style={linkStyle} params={ this.props.params }><span params={ this.props.params }>GitHub</span></a>
                       </Col>
                       
 
