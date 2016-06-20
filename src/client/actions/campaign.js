@@ -34,6 +34,10 @@ const requestTransactions = (filerId) => ({
   type: 'TRANSACTION_REQUEST',
   filerId
 });
+const requestSpending = (filerId) => ({
+  type: 'SPENDING_REQUEST',
+  filerId
+});
 const recieveCampaign = (filerId, response) => ({
   type: 'RECIEVE_CAMPAIGN',
   filerId,
@@ -44,6 +48,12 @@ const recieveTransactions = (filerId, response) => ({
   filerId,
   response
 });
+const recieveSpending = (filerId, response) => ({
+  type: 'RECIEVE_SPENDING',
+  filerId,
+  response
+});
+
 const requestSumByDate = (filerId) => ({
   type: 'SUM_REQUEST',
   filerId
@@ -52,6 +62,16 @@ const recieveSumByDate = (filerId,response) => ({
   type: 'RECIEVE_SUM',
   filerId,
   response
+});
+const requestMungedSpending = (filerId) => ({
+  type: 'REQUEST_MUNGED_SPENDING',
+  filerId
+});
+const recieveMungedSpending = (filerId,response,cashContribs) => ({
+  type: 'RECIEVE_MUNGED_SPENDING',
+  filerId,
+  response,
+  cashContribs
 });
 const requestMungedSum = (filerId) => ({
   type: 'REQUEST_MUNGED_SUM',
@@ -78,6 +98,14 @@ export const fetchCampaigns = (filerId) => (dispatch,getState) => {
         })
     })
     .then(filerId => {
+      dispatch(requestSpending(filerId));
+      return api.fetchSpending(filerId)
+        .then(response => {
+          dispatch(recieveSpending(filerId, response));
+          return filerId
+        })
+    })
+    .then(filerId => {
       dispatch(requestSumByDate(filerId));
       return api.fetchTransactionsForTimeline(filerId)
         .then(response => {
@@ -93,7 +121,17 @@ export const fetchCampaigns = (filerId) => (dispatch,getState) => {
         dispatch(recieveMungedSum(filerId,response));
         return filerId;
       })
-    });
+    })
+    .then(filerId => {
+      const spendingData = getState().entities.expenses
+      dispatch(requestMungedSpending(filerId));
+      return api.mungeSpending(filerId, spendingData)
+      .then(value => {
+        const {filerId,response,cashContribs} = value;
+        dispatch(recieveMungedSpending(filerId,response,cashContribs));
+        return filerId;
+      })
+    })
     // .then(filerId => { TODO: add more dispatch actions here
     //   // dispatch(requestState)
     // })

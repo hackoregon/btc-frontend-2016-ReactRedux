@@ -1,0 +1,41 @@
+.Logo img {
+  width: 4rem;
+  height: 4rem;
+  margin: 4px 8px;
+  padding: 2px;
+  background-color: rgba(255, 255, 255, 0.0);
+}
+.Logo .card-container {
+  cursor: pointer;
+  height: 4rem;
+  perspective: 600;
+  position: relative;
+  width: 6rem;
+}
+
+.Logo .card {
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: all 1.2s ease-in-out;
+  width: 100%;
+}
+.Logo .card:hover {
+  transform: rotateY(180deg);
+}
+.Logo .card .side {
+  backface-visibility: hidden;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+}
+.Logo .card .back {
+  background: transparent;
+  color: #fff;
+  line-height: 1rem;
+  text-align: center;
+  transform: rotateY(180deg);
+  filter: none;
+  /*transform: rotateX(180deg);*/
+}

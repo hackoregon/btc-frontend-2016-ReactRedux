@@ -4,6 +4,8 @@ import SearchResultsForm from '../../containers/SearchResults/SearchResultsForm.
 import NavRouterLink from './NavRouterLink.jsx';
 import {Link} from 'react-router';
 import YearField from '../Select/Year.jsx';
+import Logo from '../Logo/Logo.jsx';
+
 class FlexNav extends React.Component{
   constructor(props){
     super(props)
@@ -14,7 +16,7 @@ class FlexNav extends React.Component{
     makeLinks() {
         let links = this.props.menuItems.map((name, index) => {
             return (
-              <NavRouterLink xs={1} classes={this.props.linkClasses} name={name} params={this.props.params} key={index}/>
+              <NavRouterLink  xs={1} classes={this.props.linkClasses} name={name} params={this.props.params} key={index}/>
           );
 
         })
@@ -23,7 +25,7 @@ class FlexNav extends React.Component{
     render() {
         return (
             <Row {...this.props} center='xs' middle='xs' style={{
-                backgroundColor: '#4D92C2',
+                backgroundColor: '#2653A5',
                 position: 'fixed',
                 top: '0px',
                 left: '0px',
@@ -32,13 +34,7 @@ class FlexNav extends React.Component{
                 margin: '0px'
             }}>
             <Row middle='xs' around='xs' style={{padding:'0.5rem 1rem'}} xs={6} md={6} lg={6} >
-                <NavRouterLink customtyles={{
-                    link:{
-                    fontSize: '2rem'
-                    },
-                    pad:{
-                      padding: '2rem'}
-                    }} xs={1} classes={this.props.linkClasses} name={'BTC'} routeTo={'/'} params={this.props.params} />
+                <Logo />
 
                   {this.makeLinks()}
                 </Row>

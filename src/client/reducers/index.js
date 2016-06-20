@@ -33,10 +33,18 @@ function entities(state = {
      error: 'trigger'
    }
    return nextState;
+  case 'RECIEVE_MUNGED_SPENDING':
+    nextState = {...state,
+      mungedSpending: {...action.response
+      },
+      cashContribs: {...action.cashContribs}
+    }
+    return nextState
   case 'RECIEVE_MUNGED_SUM':
     nextState = {...state,
       mungedSums: {...action.response
       }
+
     }
     return nextState
   case 'SEARCH_SUCCESS':
