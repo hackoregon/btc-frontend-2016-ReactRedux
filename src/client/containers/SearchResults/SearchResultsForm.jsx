@@ -106,7 +106,7 @@ class SearchResultsForm extends Component {
     const {value, suggestions} = this.state;
 
     const inputProps = {
-      placeholder: 'Search for candidates, measures or PAC name',
+      placeholder: 'Search candidates, measures or PACs',
       value,
       className: 'form-control input-group',
       onChange: this.onChange
@@ -126,7 +126,7 @@ class SearchResultsForm extends Component {
 
     if (this.state.value.length > 0) {
       enterMessage = (
-        <i style={iconstyle}>Press Enter/return to search</i>
+        <i style={{...iconstyle,fontSize:'1rem'}}>Press Enter/return to search</i>
       );
     }
 

@@ -196,7 +196,7 @@ class WhenChart extends React.Component {
 
             return (
                 <Grid {...this.props}>
-                    <Row center='xs' xs={6} md={6} lg={6}>
+                    <Row center='xs' around='xs' xs={6} md={6} lg={6}>
                         <Col xs={12} style={{
                             padding: '0.5rem'
                         }}>
@@ -205,9 +205,9 @@ class WhenChart extends React.Component {
                     </Row>
 
                     <ChartistGraph data={this.state.dispData} options={lineChartOptions} type={'Line'}/>
-                    <Col around='xs' center='xs' xs={12}>
-                        <MonthField xs={1} ref={'month'} months={labels} year={this.state.year} onToggleSelect={this.handleSelect}/>
-                    </Col>
+                    <Row xs={6} style={{alignItems:'center',justifyContent:'space-around'}}>
+                        <MonthField style={{alignSelf:'center'}} xs={1} ref={'month'} months={labels} year={this.state.year} onToggleSelect={this.handleSelect}/>
+                    </Row>
                 </Grid>
             );
         }

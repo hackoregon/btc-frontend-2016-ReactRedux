@@ -25,7 +25,7 @@ class CampaignResultPage extends Component {
     return (
       <div {...this.props}>
         <BTCNav />
-        <Grid  style= {{paddingTop:'100px',fontWeight: '200px'}} fluid={ true }>
+        <Grid  style= {{paddingTop:'3rem',fontWeight: '200px'}} fluid={ true }>
         <ResultPage
           campaign={campaign} contributions={{ind:{...indivContributions},biz:{...businessContributions},pac:{...pacContributions}}} stateInfo={stateContributions} filerId={params.filer_id} />
         </Grid>

@@ -8,8 +8,10 @@ a.NavRouterLink:focus {
 }
 a.NavRouterLink:hover {
   color: #000;
+  background-color: #fff;
   text-decoration: none;
 }
 a.NavRouterLink:active {
   color: #000;
+  background-color: #fff;
 }

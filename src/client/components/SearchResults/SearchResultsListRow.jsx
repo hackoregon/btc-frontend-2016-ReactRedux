@@ -20,13 +20,13 @@ class SearchResultsListRow extends Component {
           paddingTop: '1rem'
         }}>
                     <Col>
-                    <h4 style={{
-                        fontSize:'1.75rem',
+                    <h3 style={{
+                        // fontSize:'1.75rem',
                         margin: '1.5rem 0 0'}}>
                       <Link to= {`/recipients/${item.filerId}`} >
                       {item.candidateName}
                       </Link>
-                    </h4>
+                    </h3>
 
                     </Col>
                     <Col>

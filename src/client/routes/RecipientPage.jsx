@@ -146,7 +146,7 @@ class Recipient extends Component {
             <div {...this.props}>
                 <BTCNav ref={'nav'} years={selectKeys} onToggleSelect={this.handleSelect}/>
                 <Grid fluid={ true }
-                      style={ {    marginTop: '100px',    fontWeight: '200px'} }
+                      style={ {    marginTop: '3rem',    fontWeight: '200px'} }
                       params={ this.props.params }>
                   <Col>
                       {spending}

@@ -38,7 +38,7 @@ class NavRouterLink extends Component {
         let linkStyle = customStyles ? customStyles.link : null;
         let route = routeTo || '/' + this.props.name.toLowerCase();
         return (<li {...this.props} style={{...styles.links,...boxStyle}} >
-                    <Link to= {route} activeClass={'active'} className={'NavRouterLink'}>
+                    <Link style={{padding:'1.85rem 1rem'}} to= {route} activeClass={'active'} className={'NavRouterLink'}>
                     <span style={{...linkStyle}}>{this.props.name}</span>
                     </Link>
                     </li>

@@ -15,11 +15,6 @@ class SearchResultsList extends Component {
       noResults: false
     }
   }
-  // 
-  // componentWillMount() {
-  //   const {list,params} = this.props;
-  //
-  // }
 
   render() {
     const {list, error, searchTerm} = this.props;

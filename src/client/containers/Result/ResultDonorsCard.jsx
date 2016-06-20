@@ -11,14 +11,7 @@ import {loadPACinfo,loadBizInfo, loadIndivs} from '../../actions'
 import _ from 'lodash';
 import WhoChart from './WhoChart.jsx';
 
-// function loadData(props) {
-//   const { filer_id } = props.params;
-//   props.loadIndivs(filer_id);
-//   props.loadBizInfo(filer_id);
-//   props.loadPACinfo(filer_id);
-// }
 
-// class ResultDonorsCard extends Component {
 function getWhoChartData(...types) {
   // Wrap sum values in array because WhoChart is expecting array of arrays
   let arr = _.map(types, (donors) => [_.sumBy(donors, 'amount')]);
@@ -145,15 +138,7 @@ function filterTop(arr,num){
     // }
 
     render() {
-      // const {pacContributions,businessContributions, indivContributions } = this.props;
       const {biz,ind,grassroots,pac,party} = this.props.contributions;
-
-
-      // const [ smallDonors, largeDonors ] = _.partition(ind, (contr) => contr.grandTotal <= 250);
-
-      // let individualDonors = _.values(ind);
-      // let businessDonors = _.values(biz);
-      // let pacDonors = _.values(pac);
 
 
 
@@ -168,19 +153,19 @@ function filterTop(arr,num){
       // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       const indTop = ind.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12} md={6}>
+        <Col style={{flex:'1', margin:'.5rem'}} sm={12}>
         <DataTable  title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
         </Col>
       ) : null;
 
       const bizTop = biz.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12} md={6}>
+        <Col style={{flex:'1', margin:'.5rem'}} sm={12} >
         <DataTable title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
         </Col>
       ) : null;
 
       const pacTop = pac.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12} md={6}>
+        <Col style={{flex:'1', margin:'.5rem'}} sm={12} >
           <DataTable title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
         </Col>
        ) :
@@ -192,13 +177,13 @@ function filterTop(arr,num){
                     <WhoChart data={whoChartDonorData} labels={[
                         'Business', 'Big Donors','Grassroots','PAC','Party'
                     ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
-                  <Grid fluid center="xs" middle='xs' around='xs'>
-                    <Row around="md" center="sm" middle="xs" xs={6} style={{display:'flex'}}>
+
+                    <Row around="sm" center="sm" middle="sm" xs={12} style={{display:'flex'}}>
                       {bizTop}
                       {indTop}
                       {pacTop}
                     </Row>
-                    </Grid>
+
                 </StoryCard>
         );
     }
