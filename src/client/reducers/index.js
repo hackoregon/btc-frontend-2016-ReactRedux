@@ -21,7 +21,7 @@ function entities(state = {
   let nextState;
   switch (action.type) {
     // case 'RECIEVE_MONTHS':
-    // debugger;
+    //  ;
     // let nextState = {...state,
     //   concactedMonths: {...action.response
     //   }
@@ -74,7 +74,7 @@ function entities(state = {
     return state
   }
   // if (action.type === ) {
-  //   debugger;
+  //    ;
   // }
   // if (action.type === 'SEARCH_SUCCESS') {
   // }
@@ -87,7 +87,7 @@ function errorMessage(state = {}, action) {
   } = action
   switch (type) {
     case ActionTypes.SEARCH_FAILURE:
-    debugger;
+     ;
       return state = {
         error: 'trigger'
       }
