@@ -25,8 +25,7 @@ let byYear = d3.nest().key(function(d) {
   }).rollup(function(v) {
   return v
 }).map(cleaned);
-let selectKeys = Object.keys(byYear);
-console.log(selectKeys);
+let selectKeys = Object.keys(byYear); 
 
 const Test = () =>{
   const divs = parsed.map((item,i) => {

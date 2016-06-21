@@ -107,65 +107,28 @@ function filterTop(arr,num){
       });
     }
 
-    // renderDonorLists(ind,bus,pac){
-    //    ;
-    //   let args = [].slice.call(arguments);
-    //   let donorTypes = [];
-    //   let fullList = [];
-    //   args.forEach((item) => {
-    //     if(item.length>0){
-    //       donorTypes.push(item);
-    //     }
-    //   });
-    //   for (var i = 0; i < donorTypes.length; i++) {
-    //     fullList.push(<ResultDonorsList key={i} donorType={"Top Donors"} donors={donorTypes[i]}></ResultDonorsList>)
-    //   }
-    //
-    //   if(fullList.length > 2){
-    //     return (
-    //     <ListsCarousel>
-    //       <CarouselItem>
-    //         {[...fullList[0],...fullList[1]]}
-    //       </CarouselItem>
-    //       <CarouselItem>
-    //         {[...fullList[2]]}
-    //       </CarouselItem>
-    //     </ListsCarousel>);
-    //   }
-    //     return (<div>Loading...</div>)
-    //
-    //
-    // }
 
     render() {
       const {biz,ind,grassroots,pac,party} = this.props.contributions;
-
-
 
       // TODO: Empty array is placeholder for party information -- needs to be added
       // Order matters for WhoChart labels
       const whoChartDonorData = getWhoChartData(biz, ind, grassroots, pac, party);
 
-      // const newFundsData = getWhoChartData(businessDonors, largeDonors, smallDonors);
-      // const xferFundsData = getWhoChartData(pacDonors, [{bookType:'party',grandTotal:0}]);
-      // .orderBy('amount','desc');
-      // let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       const indTop = ind.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12}>
+        <Col xs style={{minWidth:'320px'}}>
         <DataTable  title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
         </Col>
       ) : null;
 
       const bizTop = biz.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12} >
+        <Col xs style={{minWidth:'320px'}}>
         <DataTable title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
         </Col>
       ) : null;
 
       const pacTop = pac.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12} >
+        <Col xs style={{minWidth:'320px'}}>
           <DataTable title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
         </Col>
        ) :
@@ -179,7 +142,7 @@ function filterTop(arr,num){
                         'Business', 'Big Donors','Grassroots','PAC','Party'
                     ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
 
-                    <Row around="sm" center="sm" middle="sm" xs={12} style={{display:'flex'}}>
+                    <Row between='xs'>
                       {bizTop}
                       {indTop}
                       {pacTop}

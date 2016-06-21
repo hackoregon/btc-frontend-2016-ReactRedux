@@ -36,7 +36,7 @@ const YearField = React.createClass({
           }
         });
       if(!noUpdate){
-        console.log('yrs',yrs[yrs.length])
+
           this.setState({
               selectValue: yrs[yrs.length-1],
               noUpdate: true
@@ -59,7 +59,7 @@ const YearField = React.createClass({
   },
 
 	updateValue (newValue) {
-		console.log('State changed to ' + newValue);
+
     const {onToggleSelect} = this.props;
 
 		this.setState({

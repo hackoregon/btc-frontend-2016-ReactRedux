@@ -9,26 +9,6 @@ import numeral from 'numeral';
 import d3 from 'd3';
 import {fixNames} from '../../utils';
 
-// function loadData(props) {
-//     const {filer_id} = props.params;
-//     // props.loadSpending(filer_id);
-// }
-
-// function loadData(props) {
-//     const {filer_id} = props.params;
-//     // props.loadSpending(filer_id);
-// }
-
-// const SpendingDonut = React.createClass({
-//   getDefaultProps(){
-//     return{data : [100,10000]}
-//   },
-//   render () {
-//     return(
-//       <DonutChart data = {this.props.data} />)
-//   }
-// })
-//
 const colors = [
     '#8dd3c7',
     '#ffffb3',

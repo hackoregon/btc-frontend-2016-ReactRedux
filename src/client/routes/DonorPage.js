@@ -10,7 +10,8 @@ class DonorsPage extends Component {
             <div>
                 <BTCNav />
                   <Grid  style= {{paddingTop:'3rem',fontWeight: '200px'}} fluid={ true }>
-                  <h2>Donors page to come...</h2>
+                  <DonorPage
+                    params={this.props.params} donor_name={this.props.params.donor_name} />
                   </Grid>
             </div>
             );

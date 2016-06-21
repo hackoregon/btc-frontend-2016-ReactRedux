@@ -17,9 +17,16 @@ function currency(amount) {
 }
 
 const DataTable = React.createClass({
+
   propTypes: {
     data: React.PropTypes.array,
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
+    type: React.PropTypes.string
+  },
+  getDefaultProps(){
+    this.props = {
+      type: 'Default'
+    }
   },
   donorPercent(amount,max,scale) {
     if (amount > 0) {
@@ -44,10 +51,31 @@ const DataTable = React.createClass({
     //
     //   )
     // });
+
     const dataRows = _.map(this.props.data, (datum, idx) => {
-      return (
-        <DonorRowItem key={idx} donors={this.props.data} link={datum.link} payee={datum.name} formattedAmount={currency(datum.value)} amount={datum.value}/>
-      );
+
+      let linkTo = datum.link != null && isNaN(datum.link) ? `/donors/${datum.link}`: `/recipients/${datum.link}`;
+      switch (this.props.type) {
+        case 'trans':
+         while (idx < 6){
+           return (
+            <Row>
+              <Col>
+                <Row>
+                   <div>{datum.name}</div> <div>{currency(datum.value)}</div>
+                </Row>
+                <a href={linkTo}>Check out what this is about</a>
+              </Col>
+            </Row>);
+         }
+          break;
+        default:
+        return (
+          <DonorRowItem key={idx} donors={this.props.data} link={linkTo} payee={datum.name} formattedAmount={currency(datum.value)} amount={datum.value}/>
+        );
+
+      }
+
     });
     return (
       <Panel

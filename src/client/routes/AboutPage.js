@@ -53,7 +53,6 @@ class AboutPage extends Component {
                     <Col xs={3} className="text-center">{name2}</Col>
                 </Row>
             )
-
         }
 
         return (

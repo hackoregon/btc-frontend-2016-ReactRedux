@@ -18,8 +18,7 @@ function formatData(arr) {
         newData.labels.push(item.tran_date);
         newData.series[0].push(raised);
         newData.series[1].push(spent);
-    });
-    console.log(d3.extent(newData.series[0]));
+    }); 
     return newData;
 }
 

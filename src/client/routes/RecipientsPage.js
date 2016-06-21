@@ -7,10 +7,10 @@ import BTCNav from '../components/Navigation/BTCNav.jsx';
 import {loadCampaign} from '../actions'
 
 
-function loadData(props) {
-  const { filer_id } = props;
-  props.loadCampaign(filer_id);
-}
+// function loadData(props) {
+//   const { filer_id } = props;
+//   props.loadCampaign(filer_id);
+// }
 
 class RecipientsPage extends Component {
     // constructor(props){
@@ -20,7 +20,7 @@ class RecipientsPage extends Component {
     //   }
     // }
     componentWillMount() {
-      loadData(this.props);
+      // loadData(this.props);
     }
     render() {
       const {campaign,filer_id} = this.props;
@@ -30,25 +30,26 @@ class RecipientsPage extends Component {
                 <Grid fluid={ true }
                       style={ {    marginTop: '100px',    fontWeight: '200px'} }
                       params={ this.props.params }>
+                      <h2>Recipients page to come</h2>
                 </Grid>
             </div>
             );
     }
 }
 
-function mapStateToProps(state, ownProps) {
-  const { filer_id } = ownProps.params
-  const {
-    entities: { campaigns }
-  } = state;
-  const campaign = campaigns[filer_id]
-  return {
-    filer_id, campaign
-  }
-}
+// function mapStateToProps(state, ownProps) {
+//   const { filer_id } = ownProps.params
+//   const {
+//     entities: { campaigns }
+//   } = state;
+//   const campaign = campaigns[filer_id]
+//   return {
+//     filer_id, campaign
+//   }
+// }
 
 
-export default connect(mapStateToProps, {
-  loadCampaign
-})(RecipientsPage)
-// export default RecipientsPage;
+// export default connect(mapStateToProps, {
+//   loadCampaign
+// })(RecipientsPage)
+export default RecipientsPage;
