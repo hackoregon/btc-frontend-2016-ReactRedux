@@ -196,16 +196,16 @@ class HomePage extends Component {
         return (
             <Col center='xs' around='xs'>
                 <Row styles={{minWidth:'320px',fontSize:'.85rem',fontWeight:'200'}} xs>
-                    <DataTable styles={{...styles.smallest,...styles.reducedSize}} type='trans' title={'Top Latest Transactions'} data={formatData(this.state.feed, 'trans')}/>
+                    <DataTable styles={{...styles.smallest,...styles.reducedSize}} type='trans' title={'Latest Transactions'} data={formatData(this.state.feed, 'trans')}/>
                 </Row>
                 <Col xs>
-                    <DataTable xs type='Top' title={'Top Individual Donors'} data={formatData(this.state.ind)}/>
+                    <DataTable xs type='Top' title={'All-time Top Individual Donors'} data={formatData(this.state.ind)}/>
                     <Row between='xs'>
                         <Col xs style={{minWidth:'320px'}}>
-                            <DataTable xs type='Top' title={'Top Pac Donors'} data={pac}/>
+                            <DataTable xs type='Top' title={'All-time Top Pac Donors'} data={pac}/>
                         </Col>
                         <Col xs style={{minWidth:'320px'}}>
-                            <DataTable styles={{...styles.smallest,...styles.reducedSize}} xs type='Top' title={'Top Business Donors'} data={formatData(this.state.biz)}/>
+                            <DataTable styles={{...styles.smallest,...styles.reducedSize}} xs type='Top' title={'All-time Top Business Donors'} data={formatData(this.state.biz)}/>
                         </Col>
 
                     </Row>

@@ -27,8 +27,6 @@ const DonorRowItem = ({donors, payee, link, amount, formattedAmount, nameOnly}) 
   }
   const withChildStyle = {
 
-    textAlign: 'left'
-
   }
   const childStyle = {
     overflow: 'hidden',
@@ -37,36 +35,28 @@ const DonorRowItem = ({donors, payee, link, amount, formattedAmount, nameOnly}) 
   }
 
   const classNum = {
-  flexGrow: 0,
-  flexShrink: 0
-}
-  const toClass= {
-    display: 'inline-block',
-    width: '100%',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    flexGrow: 0,
+    flexShrink: 0
   }
 
-  let linkOrName = nameOnly ?  (<span style={{...childStyle,textDecoration:'none'}} >{name}</span>) : (<Link  style={toClass} to={link}>{name}</Link>);
+  let linkOrName = nameOnly ?  (<span className={'ellipsify'}>{name}</span>) : (<Link  className={'ellipsify Raleway btc-text-onyx'} to={link}>{name}</Link>);
 
   return (
-    <Row className={'DataRowItem'}style={{flex:'0',margin:'.5rem'}}>
-      <Col  xs={12} sm={9} >
-    <Row className = {'nameRow'} between ='xs' style={parentStyle
-  } >
-        <Col xs={10}  style={withChildStyle}>
+    <Row className={'DataRowItem'} style={{flex:'0',margin:'.5rem'}}>
+        <Col  xs={12} sm={9} >
+        <Row className = {'nameRow'} between ='xs' start='xs'>
+        <Col xs={10}  className={'nameCol'}>
           {linkOrName}
         </Col>
 
-        <Col  xs={2}  style={{fontWeight:'light'}}>{formattedAmount}</Col>
+        <Col  xs={2}  style={{fontWeight:'light',textAlign:'right'}}><span>{formattedAmount}</span></Col>
         </Row>
         </Col>
 
-        <Col  className={'visualRow'} xs={12} sm={3} style={{flex:'1',display:'block'}}>
+        <Col  className={'visualRow'} xs={12} sm={3} style={{height:'1.4rem',flex:'1',display:'block'}}>
 
           <div style={{
-            height: '15px',
+            height: '100%',
             borderRadius: '3px',
             width: '100%',
             backgroundColor: 'RGB(27, 62, 153)',

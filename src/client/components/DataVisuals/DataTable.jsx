@@ -3,100 +3,122 @@ import d3 from 'd3';
 import DataTableBar from './DataTableBar.jsx';
 import DonorRowItem from '../Visuals/DonorRowItem.jsx';
 import {Panel} from 'react-bootstrap'
-import {Row,Col} from 'react-flexbox-grid';
+import {Row, Col} from 'react-flexbox-grid';
+import numeral from 'numeral';
+import Link from 'react-router';
 const colorBlend = d3.interpolateRgb('#C0CFFF', '#1B3E99');
+
 function currency(amount) {
 
-  if (amount > 1000000) {
-    return '$' + ((amount) / 1000000).toFixed(0) + 'm';
-  } else if (amount > 1000) {
-    return '$' + ((amount) / 1000).toFixed(0) + 'k';
-  } else {
-    return '$' + amount.toFixed(0);
-  }
+    if (amount > 1000000) {
+        return '$' + ((amount) / 1000000).toFixed(0) + 'm';
+    } else if (amount > 1000) {
+        return '$' + ((amount) / 1000).toFixed(0) + 'k';
+    } else {
+        return '$' + amount.toFixed(0);
+    }
 }
+
 
 const DataTable = React.createClass({
 
-  propTypes: {
-    data: React.PropTypes.array,
-    title: React.PropTypes.string,
-    type: React.PropTypes.string
-  },
-  getDefaultProps(){
-    this.props = {
-      type: 'Default'
-    }
-  },
-  donorPercent(amount,max,scale) {
-    if (amount > 0) {
-      let donorSize = d3.scale.linear().domain([0, max]).range([0, 1]);
-      return {
-        size: 100 * donorSize(amount) + '%',
-        color: colorBlend(donorSize(amount))
-      };
-    } else
-      return {size: '0%', color: '#FFF'};
-  },
-  render() {
-    const dataMax = d3.max(_.map(this.props.data, 'value'));
-    const scale = d3.scale.linear()
-      .domain([0, dataMax])
-      .range([10, 100]);
+    propTypes: {
+        data: React.PropTypes.array,
+        title: React.PropTypes.string,
+        type: React.PropTypes.string
+    },
+    getDefaultProps() {
+        this.props = {
+            type: 'Default'
+        }
+    },
+    donorPercent(amount, max, scale) {
+        if (amount > 0) {
+            let donorSize = d3.scale.linear().domain([0, max]).range([0, 1]);
+            return {
+                size: 100 * donorSize(amount) + '%',
+                color: colorBlend(donorSize(amount))
+            };
+        } else
+            return {size: '0%', color: '#FFF'};
+    },
+    renderFeedRow(datum){
+      let filer = (datum.filer).split(/\ \(/)[0];
+      let payee = (datum.name).split(/\ \(/)[0];
+      let amount = numeral(datum.value).format('$0,0.00');
+      let msg = (<p>Unsure what happend here but {filer}
+          filed for recieving {amount}</p>);
 
-    // determine width of bar
-    // let allDonors = donors.map((item, index) => {
-    //   let amount = numeral(item.grandTotal).format('0,0');
-    //   return (
-    //
-    //   )
-    // });
+      if(datum.direction == 'in'){
+          msg = (<p className={'OpenSans'}>
+                      <span><Link className={'Raleway'} to={`/recipients/${datum.filerId}`}>{filer}</Link></span>
+                      recieved {amount} from
+                        <span><Link className={'Raleway'} to={`/donors/${datum.name}`}>{payee}</Link></span>
+                      </p>);
+                      console.log(msg);
+        }
+          if(datum.direction == 'out'){
+            msg = (  <p className={'OpenSans'}>
+                        <span><Link className={'Raleway'} to={`/recipients/${datum.filerId}`}>{filer}</Link></span>
+                        gave {amount} to
+                          <span><Link className={'Raleway'} to={`/donors/${datum.name}`}>{payee}</Link></span>
+                        </p>);
+        }
 
-    const dataRows = _.map(this.props.data, (datum, idx) => {
+      return msg;
+    },
+    render() {
+        const dataMax = d3.max(_.map(this.props.data, 'value'));
+        const scale = d3.scale.linear().domain([0, dataMax]).range([10, 100]);
 
-      let linkTo = datum.link != null && isNaN(datum.link) ? `/donors/${datum.link}`: `/recipients/${datum.link}`;
-      switch (this.props.type) {
-        case 'trans':
-         while (idx < 6){
-           return (
-            <Row>
-              <Col>
-                <Row>
-                   <div>{datum.name}</div> <div>{currency(datum.value)}</div>
-                </Row>
-                <a href={linkTo}>Check out what this is about</a>
-              </Col>
-            </Row>);
-         }
-          break;
-        default:
+        const dataRows = _.map(this.props.data, (datum, idx) => {
+
+            let linkTo = datum.link != null && isNaN(datum.link)
+                ? `/donors/${datum.link}`
+                : `/recipients/${datum.link}`;
+                let amount = numeral(datum.value).format('$0,0.00');
+                let direction = datum.direction == 'in' ? ' incoming ' : ' outgoing ';
+                let fromTo = datum.direction == 'in' ? ' from' : ' to';
+
+            switch (this.props.type) {
+                case 'trans':
+                    while (idx < 6) {
+                        return (
+                            <Col start='xs'>
+                                <Row xs className={'DataRowItem nameRow'} style={{
+                                    flex: '1',
+                                    margin: '.5rem'
+                                }}>
+                                <p className ={'Raleway'}>
+                                  <a className={'Raleway'}  href={`/recipients/${datum.filerId}`}> {(datum.filer).split(/\ \(/)[0]} </a>
+                                  filed {direction} {amount} {fromTo}
+                                  <a className={'Raleway'} href={`/donors/${datum.name}`} > {(datum.name).split(/\ \(/)[0]}</a>.
+                                  </p>
+                                </Row>
+                            </Col>
+                        );
+                    }
+                    break;
+                default:
+                    return (<DonorRowItem key={idx} donors={this.props.data} link={linkTo} payee={datum.name} formattedAmount={currency(datum.value)} amount={datum.value}/>);
+
+            }
+
+        });
         return (
-          <DonorRowItem key={idx} donors={this.props.data} link={linkTo} payee={datum.name} formattedAmount={currency(datum.value)} amount={datum.value}/>
+            <Panel header={this.props.title} style={{
+                flex: '1'
+            }}>
+                <Col>
+                    {dataRows}
+                </Col>
+            </Panel>
         );
-
-      }
-
-    });
-    return (
-      <Panel
-        header={this.props.title} style={{flex:'1'}}>
-          <Col>
-            {dataRows}
-          </Col>
-      </Panel>
-    );
-  },
-  renderBar(scale, value, max) {
-    const height = 18;
-    return (
-      <DataTableBar
-        height={height}
-        scale={scale}
-        max={max}
-        value={value}
-        color={colorBlend((scale(value)/100))} />
-    );
-  }
+    },
+    renderBar(scale, value, max) {
+        const height = 18;
+        return (<DataTableBar height={height} scale={scale} max={max} value={value} color={colorBlend((scale(value) / 100))}/>);
+    }
 });
 
 export default DataTable;

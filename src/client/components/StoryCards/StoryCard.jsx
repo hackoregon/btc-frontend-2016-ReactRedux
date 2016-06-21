@@ -12,7 +12,7 @@ const StoryCard = ({question,description,children}) => {
   return (
       <div style = {styles.base}>
           <h2>{question}</h2>
-        <p>{description}</p>
+        <p className={'Raleway'}>{description}</p>
         {children}
   </div>
   )
