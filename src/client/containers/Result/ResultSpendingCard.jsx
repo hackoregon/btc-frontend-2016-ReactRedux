@@ -119,6 +119,10 @@ class ResultSpendingCard extends Component {
                                 values,
                                 labels
                             }} xs={12} md={6}/>
+                            <DonutChart title='Gifts To Other Campaigns' displayValue data={{
+                                cashValues,
+                                labels
+                            }} xs={12} md={6}/>
                           {this.renderCashContribs()}
                         </Row>
                     </StoryCard>
