@@ -1,0 +1,20 @@
+.DataRowItem div.panel-body > div > div> div._1y_mg6OlZKhq9LGfUCMUme.WFP84ybqV_X_gc0zkjJhl > div:nth-child(1) > a {
+
+}
+.DataRowItem .nameRow {
+  display:flex;
+  flex-wrap: nowrap;
+}
+.DataRowItem .nameRow .nameCol {
+  text-align: left;
+}
+.DataRowItem .nameRow .ellipsify {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+.DataRowItem .nameRow a:hover {
+  text-decoration: underline;
+}

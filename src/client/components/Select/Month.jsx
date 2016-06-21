@@ -48,7 +48,6 @@ const MonthField = React.createClass({
     return false;
   },
 	updateValue (newValue) {
-		console.log('State changed to ' + newValue);
     const {onToggleSelect} = this.props;
 
 		this.setState({

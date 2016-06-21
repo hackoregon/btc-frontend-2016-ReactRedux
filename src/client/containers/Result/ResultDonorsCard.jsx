@@ -1,16 +1,11 @@
 // container
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-import { CarouselItem } from 'react-bootstrap';
+import {  Row, Col } from 'react-flexbox-grid';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
-import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
 // import ResultDonorsList from './ResultDonorsList.jsx';
 import DataTable from '../../components/DataVisuals/DataTable.jsx'
-import {loadPACinfo,loadBizInfo, loadIndivs} from '../../actions'
 import _ from 'lodash';
 import WhoChart from './WhoChart.jsx';
-
 
 function getWhoChartData(...types) {
   // Wrap sum values in array because WhoChart is expecting array of arrays
@@ -45,45 +40,6 @@ const makeTop = (trans,num) => {
     .reverse()
     .value();
 }
-function filterTransactions(transactions) {
-
-  if(transactions.length){
-  return _.chain(transactions)
-    .reduce((acc, d) => {
-      if (acc[d.contributorPayee]) {
-        acc[d.contributorPayee] += d.amount;
-      } else {
-        acc[d.contributorPayee] = d.amount;
-      }
-      return acc;
-    }, {})
-    .map((total, receiver) => {
-      return {
-        value: total,
-        name: receiver
-      }
-    })
-    .sortBy('value')
-    .takeRight(5)
-    .reverse()
-    .value();
-  }
-}
-function filterTop(arr,num){
-  if (arr.length < 10) num = 5;
-  let top = [];
-  for (let i = 0; i < num; i++) {
-    top.unshift.apply(top,arr.slice(i,i+1));
-  }
-
-  return top.reverse().map((item) => {
-    return {
-      value: item.total,
-      name: item.contributorPayee
-    }
-  });
-  // return b.reverse();
-}
 
 // const ResultDonorsCard = (props) => {
   class ResultDonorsCard extends Component {
@@ -107,65 +63,28 @@ function filterTop(arr,num){
       });
     }
 
-    // renderDonorLists(ind,bus,pac){
-    //    ;
-    //   let args = [].slice.call(arguments);
-    //   let donorTypes = [];
-    //   let fullList = [];
-    //   args.forEach((item) => {
-    //     if(item.length>0){
-    //       donorTypes.push(item);
-    //     }
-    //   });
-    //   for (var i = 0; i < donorTypes.length; i++) {
-    //     fullList.push(<ResultDonorsList key={i} donorType={"Top Donors"} donors={donorTypes[i]}></ResultDonorsList>)
-    //   }
-    //
-    //   if(fullList.length > 2){
-    //     return (
-    //     <ListsCarousel>
-    //       <CarouselItem>
-    //         {[...fullList[0],...fullList[1]]}
-    //       </CarouselItem>
-    //       <CarouselItem>
-    //         {[...fullList[2]]}
-    //       </CarouselItem>
-    //     </ListsCarousel>);
-    //   }
-    //     return (<div>Loading...</div>)
-    //
-    //
-    // }
 
     render() {
       const {biz,ind,grassroots,pac,party} = this.props.contributions;
-
-
 
       // TODO: Empty array is placeholder for party information -- needs to be added
       // Order matters for WhoChart labels
       const whoChartDonorData = getWhoChartData(biz, ind, grassroots, pac, party);
 
-      // const newFundsData = getWhoChartData(businessDonors, largeDonors, smallDonors);
-      // const xferFundsData = getWhoChartData(pacDonors, [{bookType:'party',grandTotal:0}]);
-      // .orderBy('amount','desc');
-      // let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
       const indTop = ind.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12}>
+        <Col xs style={{minWidth:'320px'}}>
         <DataTable  title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
         </Col>
       ) : null;
 
       const bizTop = biz.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12} >
+        <Col xs style={{minWidth:'320px'}}>
         <DataTable title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
         </Col>
       ) : null;
 
       const pacTop = pac.length ? (
-        <Col style={{flex:'1', margin:'.5rem'}} sm={12} >
+        <Col xs style={{minWidth:'320px'}}>
           <DataTable title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
         </Col>
        ) :
@@ -179,7 +98,7 @@ function filterTop(arr,num){
                         'Business', 'Big Donors','Grassroots','PAC','Party'
                     ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
 
-                    <Row around="sm" center="sm" middle="sm" xs={12} style={{display:'flex'}}>
+                    <Row between='xs'>
                       {bizTop}
                       {indTop}
                       {pacTop}
@@ -194,23 +113,4 @@ ResultDonorsCard.propTypes = {
   contributions:PropTypes.object
 }
 
-// function mapStateToProps(state) {
-//   const {entities:{
-//     indivContributions, businessContributions, pacContributions
-//     }
-//   } = state;
-//
-//   // TODO: These objects are coming in asynchronously (and separately) but we only want to render the chart ...
-//   // ... once all the data is there. So higher up we need to do a Promise.all on requests that fetch these resources
-//   // This is a band-aid solution
-//   if (!indivContributions || !businessContributions || !pacContributions) {
-//     return {indivContributions: {}, pacContributions: {}, businessContributions: {}};
-//   }
-//
-//   return {indivContributions,pacContributions, businessContributions};
-// }
-
 export default ResultDonorsCard;
-// export default connect(mapStateToProps,{
-//   loadPACinfo, loadBizInfo, loadIndivs
-// })(ResultDonorsCard);

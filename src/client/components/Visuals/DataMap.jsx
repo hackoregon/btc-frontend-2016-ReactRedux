@@ -122,10 +122,12 @@ class DataMap extends Component {
             this.datamap.updateChoropleth(data);
         }
     }
-    // componentWillUnmount() {
-    //     d3.select('#datamap-container svg').remove();
+
+    componentWillUnmount() {
+        d3.select('#datamap-container svg').remove();
     //     // window.removeEventListener('resize', this.handleResize);
-    // }
+    }
+    
     render() {
         const {customStyle} = this.props;
         return (<div id="datamap-container" style={{...customStyle,...styles}}/>);

@@ -9,14 +9,12 @@ import loadLocationData from './location';
 import loadTransactions from './transactions';
 import loadSpending from './spending';
 import {loadDonors} from './donors';
+import {fetchOregon} from './oregon';
 import { loadIndivs, loadPACinfo, loadBizInfo } from './donorCategories';
 import loadStateInfo from './state';
 import getMonthsData from './getMonths';
 import {fetchDonor} from './donor_page';
-export { loadSearchData,directLoad, loadCampaign, fetchCampaigns, fetchDonor, loadLocationData, loadTransactions, loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadSpending, getMonthsData };
-
-
-console.log(directLoad)
+export { fetchOregon,loadSearchData,directLoad, loadCampaign, fetchCampaigns, fetchDonor, loadLocationData, loadTransactions, loadDonors, loadIndivs, loadPACinfo, loadBizInfo, loadStateInfo, loadSpending, getMonthsData };
 
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 

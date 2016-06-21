@@ -52,6 +52,24 @@ const transaction = new Schema('transactions', {
 const expense = new Schema('expenses', {
   idAttribute: 'tranId'
 });
+
+// export const fetchOregon = (stateParam) => {
+//   // http://54.213.83.132/hackoregon/http/oregon_committee_contributors/_/
+//   // http://54.213.83.132/hackoregon/http/oregon_business_contributors/_/
+//   // http://54.213.83.132/hackoregon/http/oregon_individual_contributors/_/
+//   // http://54.213.83.132/hackoregon/http/all_oregon_sum/_/
+//     return
+//
+//     fetch(`${API_ROOT}oregon_committee_contributors/${stateParam}/`)
+//
+//
+//     ))
+//   const url =
+//
+//   const schema = arrayOf(transaction);
+//   return promiseToFetch(url, schema);
+// }
+
 export const fetchTransactions = (filerId) => {
   const url = `${API_ROOT}current_candidate_transactions_in/${filerId}/`
   const schema = arrayOf(transaction);
@@ -121,8 +139,7 @@ function formatData(arr) {
     newData.labels.push(item.tran_date);
     newData.series[0].push(raised);
     newData.series[1].push(spent);
-  });
-  console.log(d3.extent(newData.series[0]));
+  }); 
   return newData;
 }
 
@@ -195,8 +212,7 @@ function formatMonth(year, [...months]) {
   let monthData = months.map((item) => {
     return year[item]
   })
-  let newYear = year[months];
-  console.log(newYear);
+  let newYear = year[months]; 
 }
 export const concatMonths = (months, year, data) => {
   return new Promise((resolve, reject) => {

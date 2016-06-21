@@ -65,7 +65,7 @@ const ResultLocationStoryCard = (props) => {
 
     // var stateDataArr = statesData.map((i) => {
     //   if (stateContribs && stateContribs[i.regionName] !== undefined) {
-    //     // console.log(stateContribs[i.regionName]);
+    //     // 
     //     return {
     //       code: i.code,
     //       regionName: i.regionName,
@@ -74,7 +74,7 @@ const ResultLocationStoryCard = (props) => {
     //   }
     //
     // });
-    // console.log(stateDataArr);
+    // 
 
     return (
         <StoryCard style={{

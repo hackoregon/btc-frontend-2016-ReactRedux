@@ -40,7 +40,7 @@
 //             return state;
 //         },
 //         throw(state, action){
-//             console.log('Error is obtained');
+// 
 //             const serverData = Object.assign({}, state.serverData, {
 //                 searchTerm: payload.searchTerm,
 //                 fetching: {

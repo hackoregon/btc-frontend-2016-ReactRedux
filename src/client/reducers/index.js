@@ -33,6 +33,12 @@ function entities(state = {
      error: 'trigger'
    }
    return nextState;
+  case 'RECIEVE_OREGON':
+    nextState = {...state,
+      allOregon: {...action.response
+      }
+    }
+    return nextState
   case 'RECIEVE_MUNGED_SPENDING':
     nextState = {...state,
       mungedSpending: {...action.response
@@ -73,11 +79,7 @@ function entities(state = {
     }
     return state
   }
-  // if (action.type === ) {
-  //    ;
-  // }
-  // if (action.type === 'SEARCH_SUCCESS') {
-  // }
+
 }
 
 function errorMessage(state = {}, action) {

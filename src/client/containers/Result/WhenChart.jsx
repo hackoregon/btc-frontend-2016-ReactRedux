@@ -35,7 +35,6 @@ function formatData(arr) {
             newData.series[0].push(raised);
             newData.series[1].push(spent);
         });
-        console.log(d3.extent(newData.series[0]));
         return newData;
     }
 }
@@ -92,8 +91,7 @@ const barResponsiveOptions = [
     ]
 ];
 
-function loadMonths(months, year, data, props) {
-    console.log(props);
+function loadMonths(months, year, data, props) { 
     const {getMonthsData} = props;
     getMonthsData(months, year, data);
 }
@@ -111,7 +109,7 @@ class WhenChart extends React.Component {
         const {data, year} = nextProps;
         const {monthsData} = nextState;
         if (!_.isEmpty(data)) {
-          debugger;
+           ;
             const today = moment.now();
             const years = Object.keys(data);
             const months = Object.keys(data[years[years.length-1]])
