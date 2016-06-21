@@ -18,7 +18,7 @@ const ResultSummaryCard = ({newTotal, xferTotal}) => {
         value: formatMoney(newTotal)
         },
         {
-          title: 'Transferred Funds',
+          title: 'Gifts From Other Campaigns',
           msg: 'Transfers from party & PACs. This is not new money.',
           value: formatMoney(xferTotal)
         }

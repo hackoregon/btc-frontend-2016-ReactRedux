@@ -62,6 +62,7 @@ class DonutChart extends Component {
             }
             this.setState({
                 total: total,
+                title: title,
                 currLabel: title,
                 values: [...totalVals],
                 labels: [...labelOfVals]
@@ -95,6 +96,7 @@ class DonutChart extends Component {
         }
     }
 
+
     setLabel(v, i) {
         this.setState({currValue: v, currLabel: this.state.labels[i]})
     }
@@ -115,7 +117,8 @@ class DonutChart extends Component {
         let labelPercent = percent
             ? `${percent}%`
             : '%';
-        let title = this.props.title ? (<h4 style={{textAlign:'center'}}>{this.props.title}</h4>) : null;
+        let title = this.state.title ? (
+          <div style={{textAlign:'center'}}><h3>{this.state.title}</h3><h4>{numeral(this.state.total).format('$0,0')}</h4></div>) : null;
         let valueDisp = this.props.displayValue
             ? (
                 <text className="donut-subtitle" textAnchor="middle" x={0} y={0} fontSize={10}>
@@ -134,7 +137,6 @@ class DonutChart extends Component {
                 flexDirection: 'row',
                 justifyContent: 'space-between'
             }}>
-
                 <div xs={10}>
                     <Chart style={{
                         flex: '1'
@@ -155,7 +157,9 @@ class DonutChart extends Component {
                     <div style={{
                         display: 'block'
                     }}>
-                        <Legend labels={this.state.labels} style ={{textAlign:'center'}}colors={COLORS}/>
+                        <Legend onClick={(e, v, i) => {
+                            this.setLabel(v, i);
+                        }} labels={this.state.labels} style ={{textAlign:'center'}}colors={COLORS}/>
                     </div>
                 </Col>
             </div>

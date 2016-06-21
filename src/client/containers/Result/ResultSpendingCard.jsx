@@ -94,16 +94,17 @@ class ResultSpendingCard extends Component {
             const fixedLabels = cashLabels.map((name) => {
               return (name.split(/\ \(/)[0]);
             })
+            const spendingCopy = "Broad patterns in expenditures can tell you a lot about a campaign. Are they in a competitive race?  You might expect to see a large portion of their budget spent on advertising. Are they an incumbent in a safe district?   They might not be spending much money on their own campaign, but will gift funds to other candidates or races they support. Some are not campaigning for votes, and their primary interest is to support other campaigns that are aligned with their mission. Follow the money to see if you can tell what kind of campaign you're looking at."
             debugger;
             return (
                 <div {...this.props}>
-                    <StoryCard question={"What are they spending money on?"} description={"Did you know campaigns self select these categories?"}>
+                    <StoryCard question={"What are they spending money on?"} description={spendingCopy}>
                         <Row center='xs' around='xs' middle='xs'>
-                            <DonutChart title='Expenditures' data={{
+                            <DonutChart title='Spending For Their Own Campaign' data={{
                                 values,
                                 labels
                             }} xs={12} md={6}/>
-                            <DonutChart title='Cash Contributions' displayValue data={{
+                            <DonutChart title='Giving To Other Campaigns' displayValue data={{
                                 values: cashValues,
                                 labels: fixedLabels
                             }} xs={12} md={6}/>
