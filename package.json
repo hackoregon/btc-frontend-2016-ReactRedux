@@ -7,6 +7,7 @@
     "test": "./node_modules/.bin/mocha",
     "clean": "rimraf ./public/resources",
     "start": "NODE_ENV=development npm run clean & node devServer.js",
+    "dev": "NODE_ENV=production npm run clean & node server.js",
     "serve": "npm run clean & npm run build-client & node server.js",
     "build-client": "NODE_ENV=production webpack --config ./build-conf/webpack.config.js --progress --colors"
   },
