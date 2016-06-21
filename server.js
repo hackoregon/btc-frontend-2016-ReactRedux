@@ -29,22 +29,23 @@
 // });
 const path = require('path');
 const express = require('express');
-// const webpack = require('webpack');
-// const config = require('./build-conf/webpack.config');
+const webpack = require('webpack');
+const config = require('./build-conf/webpack.config');
 const app = express();
+const compiler = webpack(config);
 const port = 80; // backup incase
 app.use('/resources', express.static(path.join(__dirname, 'public/resources')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 // app.use(rewrite('/*', '/index.html'));
 app.use('/', express.static(path.join(__dirname, 'public')));
-// const compiler = webpack(config);
+
 //const port = 5000;
 
 
-// app.use(require('webpack-dev-middleware')(compiler, {
-//   noInfo: true,
-//   publicPath: config.output.publicPath
-// }));
+app.use((compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
 
 // app.use(require('webpack-hot-middleware')(compiler));
 
