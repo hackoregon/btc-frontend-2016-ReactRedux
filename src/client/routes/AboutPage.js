@@ -22,7 +22,22 @@ class AboutPage extends Component {
             'Marcus Estes',
             'John Cohoon',
             'John Streater',
-            'Colby Aley'
+            'Colby Aley',
+            'Ryan Miller',
+            'Sam Higgins',
+            'Hobson Lane',
+            'Ken Whaler',
+            'Daniel Miller',
+            'James Ofsink',
+            'Thunder Shiviah',
+            'Allen Grimm',
+            'Cole Howard',
+            'David Garber',
+            'Lewis Notestine',
+            'Riley Rustael',
+            'Dan Wood',
+            'Monty Rhode',
+            'Barrett Paul'
         ];
 
         var returnThis = [];
@@ -52,11 +67,11 @@ class AboutPage extends Component {
             <div>
                 <BTCNav />
                 <Grid fluid={ true }
-                      style={ {    marginTop: '3rem',    fontWeight: '200px'} }
+                      style={ {   marginLeft: '<3em', marginTop: '3rem',    fontWeight: '200px'} }
                       params={ this.props.params }>
                 </Grid>
 
-                <div className="container section ng-scope">
+                <div className="container section ng-scope about-text">
                     <TextContainer>
                         <h1>This Project Was Built by 100% Volunteers</h1>
                     </TextContainer>
@@ -86,22 +101,34 @@ class AboutPage extends Component {
                         <h1 className="text-center grayfont">The Team</h1>
                     </TextContainer>
 
-                    <AboutPortraits />
+                    
 
                     <br/><br/>
 
                     <TextContainer>
-                        <h2 className="text-center grayfont">Team Members Not Pictured</h2>
+                        <h2 className="text-center grayfont">2016 Team Members</h2>
                     </TextContainer>
 
                     <TextContainer divClasses="text-center">
-                        <h4>Ryan Miller — Front End Team</h4>
-                        <h4>Sam Higgins — Data Scientist</h4>
+                        <h4>Cat Nikolovski - Producer</h4>
+                        <h4>James Ofsink - Facilitator</h4>
+                        <h4>David Daniel - Lead Developer</h4>
+                        <h4>Ken Whaler - Front End Team</h4>
                         <h4>Marie Nunez-Mendez — Researcher and Facilitator</h4>
-                        <h4>Riley Rustael — Back End Team</h4>
-                        <h4>Dan Wood — Front End Team</h4>
-                        <h4>Monty Rhode — Front End Team</h4>
-                        <h4>Barrett Paul — Product Design</h4>
+                        <h4>Sanjuro Jogdeo - Developer</h4>
+                        <h4>Veronica Alley — Front End Team</h4>
+                        <h4>Keri Moore — Front End Team</h4>
+                        <h4>Zach Clark — Front End Team</h4>
+                        <h4>Loren Guerriero — Front End Team</h4>
+                        <h4>Austen Valeske — Front End Team</h4>
+                        <h4>Lucas Swick — Front End Team</h4>
+                        <h4>Carter Thaxton — Back End Team</h4>
+                        <h4>Joe Hsu — Front End Team</h4>
+                        <h4>Dan Siegel — Project Management</h4>
+                        
+                        
+                      
+                        
                     </TextContainer>
 
                     <br/><br/>
