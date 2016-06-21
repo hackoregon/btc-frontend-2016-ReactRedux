@@ -17,7 +17,7 @@ class ResultDonorsList extends Component {
   }
   renderTop(){
     const {donors} = this.props;
-    debugger;
+     ;
     let allDonors = donors.map((item, index) => {
       let amount = numeral(item.total).format('0,0');
       return (
