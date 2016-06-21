@@ -111,9 +111,12 @@ class WhenChart extends React.Component {
         const {data, year} = nextProps;
         const {monthsData} = nextState;
         if (!_.isEmpty(data)) {
+          debugger;
             const today = moment.now();
-            const lastMonth = moment(today).subtract(1, 'months').format('MMM');
-            const defaultData = data[year][lastMonth];
+            const years = Object.keys(data);
+            const months = Object.keys(data[years[years.length-1]])
+            // const lastMonth = moment(today).subtract(1, 'months').format('MMM');
+            const defaultData = data[years[years.length-1]][months[months.length-1]];
             let dataSet = formatData(defaultData);
             let high = d3.max(defaultData, (d) => d.totalIn);
             let low = (-d3.max(defaultData, (d) => d.totalOut));

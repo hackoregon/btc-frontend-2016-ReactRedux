@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid } from 'react-flexbox-grid';
-import DonorPage from '../containers/Donor/DonorPage';
-import BTCNav from '../components/Navigation/BTCNav';
+import DonorPage from '../containers/Donor/DonorPage.jsx';
+import BTCNav from '../components/Navigation/BTCNav.jsx';
 
 class DonorsPage extends Component {
 

@@ -39,7 +39,7 @@ class AboutPortraits extends Component {
   }
 
   render() {
-    //debugger
+    // 
     return (<PhotoGrid photos={this.loadData()}/>)
   }
 }

@@ -161,7 +161,7 @@ export const mungeSpending = (filerId, data) => {
             if (short) {
               c = c.split(/\ \(/)[0];
             }
-            debugger;
+             ;
             if (cash) {
               if (item.payee in cashContribs) {
                 cashContribs[item.contributorPayee] += Number((item.amount / codes.length)

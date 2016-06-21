@@ -4,29 +4,58 @@
 
 // serverAPI.setCurrentWorkingDirPath(path.join(__dirname, 'server'));
 
-// app.use('/resources', express.static(path.join(__dirname, 'public/resources')));
-// app.use('/images', express.static(path.join(__dirname, 'public/images')));
-// app.use(rewrite('/*', '/index.html'));
-// app.use('/', express.static(path.join(__dirname, 'public')));
+
 
 // app.listen(app.get('port'), function() {
 //   console.log('Server started: http://localhost:' + app.get('port') + '/');
 // });
 
 /* eslint-disable no-console */
+// const path = require('path');
+// const express = require('express');
+// const app = express();
+// const port = 80;
+//
+// app.get('*', function(req, res) {
+//   res.sendFile(path.join(__dirname, './public/index.html'));
+// });
+//
+// app.listen(port, function(err) {
+//   if (err) {
+//     console.log(err);
+//     return;
+//   }
+//   console.log('Listening at '+port);
+// });
 const path = require('path');
 const express = require('express');
+// const webpack = require('webpack');
+// const config = require('./build-conf/webpack.config');
 const app = express();
-const port = 80;
+// const compiler = webpack(config);
+const port = 80; // backup incase
+app.use('/resources', express.static(path.join(__dirname, 'public/resources')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+// app.use(rewrite('/*', '/index.html'));
+app.use('/', express.static(path.join(__dirname, 'public')));
+
+//const port = 5000;
+
+
+// app.use((compiler, {
+//   noInfo: true
+// }));
+
+// app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.listen(port, function(err) {
+app.listen(port, '', function(err) {
   if (err) {
     console.log(err);
     return;
   }
-  console.log('Listening at '+port);
+  console.log('Listening :'+port);
 });
