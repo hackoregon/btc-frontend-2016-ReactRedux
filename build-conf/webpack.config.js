@@ -9,12 +9,14 @@ module.exports = [{
     main: './src/client/main.js'
   },
   output: {
-    path: './public/resources',
-    filename: 'bundle.js'
+    path: path.join(__dirname, '../public'),
+    filename: 'bundle.js',
+    publicPath: '/resources/'
   },
   resolve: {
     alias: {
-      portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits')
+      portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits'),
+      imgPath:path.resolve(__dirname,'../src/client/assets/img')
     }
   },
   module: {
@@ -30,16 +32,22 @@ module.exports = [{
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader',
-      include: /react-spinkit/
+      include: /react-spinkit/,
     },
     {
       test: /\.css$/,
       exclude: /node_modules/,
-      loader: ExtractTextPlugin.extract('style-loader!css-loader!postcss-loader')
-    }, {
-      test: /\.(eot|woff|woff2|ttf|svg|png|jpg|jpeg|gif)([\?]?.*)$/,
+      loader: 'style-loader!css-loader!postcss-loader'
+    },
+     {
+      test: /\.(eot|woff|woff2|ttf)([\?]?.*)$/,
       exclude: /node_modules/,
-      loader: 'url-loader'
+      loader: 'url-loader?limit=25000'
+    },
+    {
+      test: /\.(svg|png|jpg|jpeg|gif)([\?]?.*)$/,
+      exclude: /node_modules/,
+      loader: 'file-loader'
     }, {
       test: /\.tab$/,
       exclude: /node_modules/,
