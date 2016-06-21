@@ -171,9 +171,10 @@ function filterTop(arr,num){
        ) :
         null;
       // const listItems =  this.renderDonorLists(individualDonors,businessDonors,pacDonors);
+      const subtitleCopy = "There are three main types of donors to campaigns in Oregon: businesses, individuals, and other campaigns.  We've split the individuals category into \"individuals\" giving $200 or more, and \"grassroots\" giving under $200.  Sometimes you might see a campaign has a strong bias from one group, or has many types of stakeholders.  It's normal campaigns to give to other campaigns, but you're curious about a large amount of funding you can click through the hyperlink to follow the trail of money from PAC to PAC.";
         return (<StoryCard
                   question={"Who is giving?"}
-                  description={"This visualization is calculated by total dollars, not total people."}>
+                  description={subtitleCopy}>
                     <WhoChart data={whoChartDonorData} labels={[
                         'Business', 'Big Donors','Grassroots','PAC','Party'
                     ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
