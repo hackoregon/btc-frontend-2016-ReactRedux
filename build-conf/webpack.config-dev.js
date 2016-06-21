@@ -1,19 +1,18 @@
-const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
+const webpack = require('webpack');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
-module.exports = [{
+module.exports = {
   name: 'browser',
-  entry: {
-    main: './src/client/main.js'
-  },
+  entry: ['./src/client/main.js'],
   output: {
     path: path.join(__dirname, '../public'),
     filename: 'bundle.js',
-    publicPath: './public/resources/'
+    publicPath: '/resources/'
   },
   resolve: {
+    extensions: ['', '.jsx', '.js'],
     alias: {
       portraitPath: path.resolve(__dirname, '../src/client/assets/img/portraits'),
       imgPath:path.resolve(__dirname,'../src/client/assets/img')
@@ -24,11 +23,7 @@ module.exports = [{
     loaders: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
-      loader: 'babel',
-      query:
-      {
-        presets:['react']
-      }
+      loader: 'babel'
     }, {
       test: /\.css$/,
       loader: 'style!css?modules',
@@ -68,20 +63,4 @@ module.exports = [{
   postcss: function () {
     return [precss, autoprefixer];
   }
-}];
-// plugins: [
-//   new ExtractTextPlugin('styles.css'),
-//   new webpack.optimize.DedupePlugin(),
-//   new webpack.optimize.OccurenceOrderPlugin(),
-//   new webpack.NoErrorsPlugin(),
-//   new webpack.optimize.UglifyJsPlugin({
-//     compress: {
-//       warnings: false
-//     }
-// //   }),
-//   new webpack.DefinePlugin({
-//     'process.env': {
-//       NODE_ENV: JSON.stringify("production")
-//     }
-//   })
-// ]
+};
