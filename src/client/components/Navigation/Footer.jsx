@@ -12,7 +12,7 @@ render(){
                   <footer {...this.props} params={this.props.params} className="footer" style={{
                       zIndex: '1020',
                       padding: '3rem',
-                      backgroundColor:'#4D92C2'
+                      backgroundColor:'#2653A5'
                   }} >
                   <Row
                   xs={12}
@@ -38,14 +38,6 @@ render(){
                       <NavRouterLink name={'FAQ'} />
                       </Col>
 
-                      
-                      <Col xs={ 2 }
-                           md={ 1 }
-                           sm={ 1 }
-                           lg={ 1 }
-                           params={ this.props.params }>
-                      <a className="footer-link" href="https://secure.sos.state.or.us/orestar/vr/register.do" target="_blank" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
-                      </Col>
                     
                       <Col xs={ 2 }
                            md={ 1 }
