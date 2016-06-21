@@ -99,7 +99,7 @@ class SearchResultsForm extends Component {
     // }
 
     dispatch(loadSearchData(searchTerm));
-    return this.context.router.push(`/search/${searchTerm}`);
+    return this.context.router.push('/search');
   }
 
   render() {

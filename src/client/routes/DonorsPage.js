@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid } from 'react-flexbox-grid';
-import DonorPage from '../containers/Donor/DonorPage';
-import BTCNav from '../components/Navigation/BTCNav';
+import BTCNav from '../components/Navigation/BTCNav.jsx';
 
 class DonorsPage extends Component {
 
@@ -10,8 +9,7 @@ class DonorsPage extends Component {
             <div>
                 <BTCNav />
                   <Grid  style= {{paddingTop:'3rem',fontWeight: '200px'}} fluid={ true }>
-                  <DonorPage
-                    params={this.props.params} donor_name={this.props.params.donor_name} />
+                    hi there
                   </Grid>
             </div>
             );
