@@ -238,7 +238,7 @@ class HomePage extends Component {
                 minHeight: '100vh',
                 flexDirection: 'column'
             }}>
-                <BTCNav ref={'nav'} onToggleSelect={this.handleSelect}/>
+                <BTCNav ref={'nav'} pageType={'home'} onToggleSelect={this.handleSelect}/>
                 <div style={{
                     flex: '1',
                     paddingTop: '2rem'

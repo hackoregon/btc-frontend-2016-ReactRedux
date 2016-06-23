@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Col } from 'react-flexbox-grid';
+import {FlexBody, FlexGrid} from '../components/Layout';
 import {connect} from 'react-redux';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Loading from '../components/Loading/Loading.jsx';
@@ -143,16 +144,15 @@ class Recipient extends Component {
 
         let spending = this.state.display ? (this.renderPage(campaign,this.state.data[this.state.year],mungedSums,stateContributions,filer_id)) : (<Loading name='cube-grid'/>);
         return (
-            <div {...this.props}>
-                <BTCNav ref={'nav'} years={selectKeys} onToggleSelect={this.handleSelect}/>
-                <Grid fluid={ true }
-                      style={ {    marginTop: '3rem',    fontWeight: '200px'} }
-                      params={ this.props.params }>
+            <FlexBody {...this.props} params={ this.props.params }>
+                <BTCNav ref={'nav'} pageType={'singleResult'} years={selectKeys} onToggleSelect={this.handleSelect}/>
+                <FlexGrid>
+
                   <Col>
                       {spending}
                   </Col>
-                </Grid>
-            </div>
+                </FlexGrid>
+            </FlexBody>
             );
     }
 }

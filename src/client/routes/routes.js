@@ -16,9 +16,9 @@ export default function(history) {
         <Router history={history}>
             <Route path="/" component="div">
                 <IndexRoute component={ HomePage } />
-                <Route path="/" component={ HomePage } />
-                <Route path="/search" component={ SearchPage } />
-                <Route path="/recipients" component={ RecipientsPage } />
+                <Route path="/" pageType={'home'} component={ HomePage } />
+                <Route path="/search" pageType ={'search'} component={ SearchPage } />
+                <Route path="/recipients" pageType={'singleResult'} component={ RecipientsPage } />
                 <Route path="/recipients/:filer_id" component={ RecipientPage } />
                 <Route path="/donors" component={ DonorsPage } />
                 <Route path="/donors/:donor_name" component={ DonorPage } />

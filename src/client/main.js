@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 // import './assets/css/stylesheets/bootstrap.css';
 import './assets/css/stylesheets/font-awesome.css';
-import './assets/css/components/autosuggest.css';
+// import './assets/css/components/autosuggest.css';
 // import './assets/css/stylesheets/app.css';
 import './assets/css/stylesheets/globals.css';
 import './assets/css/stylesheets/bootstrapOverride.css';

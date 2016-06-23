@@ -9,13 +9,11 @@ const Logo = React.createClass({
       <div className={"card-container"}>
         <div className={"card"}>
           <div className={"side"}>
-            <Link to={'/'}><img className = {'Logo'} src={require('../../assets/img/behind-the-curtain-icon-inverted.png')} /></Link></div>
+            <img className = {'Logo'} href='/' src={require('../../assets/img/behind-the-curtain-icon-inverted.png')} /></div>
           <Link to={'/'} ><h3 className={"Lato text-bold side back"}>Behind The Curtain</h3></Link>
         </div>
       </div>
       </div>
-
-
     )
   }
 })

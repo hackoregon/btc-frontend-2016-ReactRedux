@@ -21,9 +21,6 @@ const YearField = React.createClass({
 		};
 	},
 
-  // componentWillMount() {
-  //   this.setState({})
-  // }
   componentWillReceiveProps(nextProps,nextState) {
     const {years} = nextProps;
     const {noUpdate} = this.state;
@@ -72,19 +69,7 @@ const YearField = React.createClass({
     }
 	},
 	render () {
-
-    // let yrs;
-    //
-    // if(years && years.length>0){
-    //     yrs = years.map((year) => {
-    //       return {
-    //         value: year,
-    //         label: year
-    //     }
-    //   });
-    // }
-    //
-		var options = this.state.years || YEARS;
+		const options = this.state.years || YEARS;
 
 
 		return (

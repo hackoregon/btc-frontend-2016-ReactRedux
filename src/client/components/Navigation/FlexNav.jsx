@@ -10,13 +10,19 @@ class FlexNav extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      selectOpts: false
+      selectOpts: false,
+    }
+  }
+  componentWillMount() {
+    const {pageType} = this.props;
+    if(pageType && pageType == 'singleResult'){
+      this.setState({selectOpts:true});
     }
   }
     makeLinks() {
         let links = this.props.menuItems.map((name, index) => {
             return (
-              <NavRouterLink  xs={1} classes={this.props.linkClasses} name={name} params={this.props.params} key={index}/>
+              <NavRouterLink  xs={4} sm={3} classes={this.props.linkClasses} name={name} params={this.props.params} key={index}/>
           );
 
         })
@@ -31,23 +37,25 @@ class FlexNav extends React.Component{
                 left: '0px',
                 width: '100%',
                 zIndex: '1020',
-                margin: '0px'
+                margin: '0px',
+                minWidth: '320px'
             }}>
-            <Row middle='xs' around='xs' style={{padding:'0.5rem 1rem'}} xs={6} md={6} lg={6} >
-                <Logo />
 
+            <Row start='xs' around='xs' style={{padding:'0.5rem 1rem'}} xs={6} md={6} lg={6} >
+
+                  <Logo xs={4} sm={3} />
                   {this.makeLinks()}
+                  { this.state.selectOpts ? (
+                      <YearField xs = {12} sm = {3} ref={'year'} years={this.props.years} style={{padding:'0.25rem', width:'3rem'}} onToggleSelect={this.props.onToggleSelect}/>
+                  ):null }
                 </Row>
-                <Row xs={2} md={2} style={{padding:'0.5rem'}}>
-                    <YearField ref={'year'} years={this.props.years} style={{ width:'3rem'}} onToggleSelect={this.props.onToggleSelect}/>
-                </Row>
+
 
                 <SearchResultsForm params={this.props.params} style={{
                     flex: '1',
                     margin: '.5rem',
                     minWidth: '350px'
                 }}/>
-
 
             </Row>
         );

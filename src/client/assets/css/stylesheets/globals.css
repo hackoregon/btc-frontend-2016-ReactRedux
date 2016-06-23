@@ -43,7 +43,11 @@ html {
   font-weight: 800;
 }
 
-.Lato {
+.text-underline {
+  text-decoration: underline;
+}
+
+.Lato, .panel {
   font-family: "Lato", sans-serif;
 }
 .Raleway {
@@ -157,6 +161,7 @@ h6,
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 
