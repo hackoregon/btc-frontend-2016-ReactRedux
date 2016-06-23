@@ -1,6 +1,5 @@
 .Year {
   width: auto;
-  padding: 8px 0 0;
 }
 
 /*.Year {
@@ -14,6 +13,6 @@
   }
 
   .Year .Select-menu-outer {
-    margin-top: -12px;
+    /*margin-top: -12px;*/
   }
 }

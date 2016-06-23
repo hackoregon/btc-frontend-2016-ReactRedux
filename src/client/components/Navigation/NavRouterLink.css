@@ -2,7 +2,8 @@ a.NavRouterLink {
   color: #fff;
   font-family: 'Lato','OpenSans', sans-serif;
   text-decoration: none;
-
+  padding: 2rem;
+  line-height: 2rem;
 }
 a.NavRouterLink:focus {
   color: #000;

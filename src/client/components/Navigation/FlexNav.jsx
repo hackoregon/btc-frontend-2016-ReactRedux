@@ -22,7 +22,7 @@ class FlexNav extends React.Component{
     makeLinks() {
         let links = this.props.menuItems.map((name, index) => {
             return (
-              <NavRouterLink  xs={4} sm={3} classes={this.props.linkClasses} name={name} params={this.props.params} key={index}/>
+              <NavRouterLink classes={this.props.linkClasses} name={name} params={this.props.params} key={index}/>
           );
 
         })
@@ -41,15 +41,15 @@ class FlexNav extends React.Component{
                 minWidth: '320px'
             }}>
 
-            <Row start='xs' around='xs' style={{padding:'0.5rem 1rem'}} xs={6} md={6} lg={6} >
+            <Row start='xs' style={{flexWrap:'nowrap',padding:'0.5rem 1rem'}} xs={6} sm={3}>
 
-                  <Logo xs={4} sm={3} />
+                  <Logo />
                   {this.makeLinks()}
-                  { this.state.selectOpts ? (
-                      <YearField xs = {12} sm = {3} ref={'year'} years={this.props.years} style={{padding:'0.25rem', width:'3rem'}} onToggleSelect={this.props.onToggleSelect}/>
-                  ):null }
-                </Row>
 
+                </Row>
+                { this.state.selectOpts ? (
+                    <YearField xs = {12} sm = {3} ref={'year'} years={this.props.years} style={{padding:'0.25rem', width:'3rem'}} onToggleSelect={this.props.onToggleSelect}/>
+                ):null }
 
                 <SearchResultsForm params={this.props.params} style={{
                     flex: '1',
