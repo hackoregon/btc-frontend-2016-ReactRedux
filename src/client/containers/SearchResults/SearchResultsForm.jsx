@@ -5,6 +5,7 @@ import {Grid, Row, Col}  from 'react-flexbox-grid';
 import {loadSearchData,directLoad} from '../../actions/index.js';
 import Autosuggest from 'react-autosuggest';
 import fetchSuggestions from '../../utils/fetchSuggestions.js';
+import './autosuggest.css'
 import './SearchForm.css'
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -41,7 +42,7 @@ class SearchResultsForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this);
     this.handleFetch = this.handleFetch.bind(this);
-    // this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
     this.setRef = this.setRef.bind(this);
   }
 
@@ -65,12 +66,18 @@ class SearchResultsForm extends Component {
     this.setState({value: newValue});
   }
 
-  // onSuggestionSelected(e, {suggestionValue}) {
-  //   // this.setState({searchTerm: suggestionValue})
-  //   const {dispatch} = this.props;
-  //   dispatch(loadSearchData(suggestionValue));
-  //   this.context.router.push(`/search`);
-  // }
+  onSuggestionSelected(e, {suggestionValue}) {
+      e.preventDefault();
+      e.stopPropagation();
+    // this.setState({searchTerm: suggestionValue})
+    const {dispatch} = this.props;
+    const searchTerm = this.searchTermRef;
+    if (!searchTerm.trim()) {
+      return
+    }
+    dispatch(loadSearchData(suggestionValue));
+    this.context.router.push(`/search`);
+  }
 
   onSuggestionsUpdateRequested({value}) {
     this.loadSuggestions(value);
@@ -84,9 +91,6 @@ class SearchResultsForm extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    const {dispatch} = this.props;
-    const {suggestions} = this.state;
-    // const searchTerm = this.searchTermRef;
     const searchTerm = this.searchTermRef;
     if (!searchTerm.trim()) {
       return
@@ -97,9 +101,8 @@ class SearchResultsForm extends Component {
     //   dispatch(directLoad(searchTerm,filerId))
     //   return this.context.router.push(`/recipients/${filerId}`);
     // }
+    return this.onSuggestionSelected(e,{suggestionValue:searchTerm})
 
-    dispatch(loadSearchData(searchTerm));
-    return this.context.router.push('/search');
   }
 
   render() {
@@ -131,11 +134,12 @@ class SearchResultsForm extends Component {
     }
 
     return (
+
       <form {...this.props} onSubmit={this.handleFetch}>
         <Grid fluid>
           <Row>
             <Col style={{position:'relative'}} xs={12} md={12} sm={12} lg={12}>
-              <Autosuggest ref={() => this.setRef(this.state.value)} suggestions={suggestions} onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested} onSuggestionSelected={this.handleFetch} getSuggestionValue={getSuggestionValue} renderSuggestion={renderSuggestion} inputProps={inputProps}/>
+              <Autosuggest ref={() => this.setRef(this.state.value)} suggestions={suggestions} onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested} onSuggestionSelected={this.onSuggestionSelected} getSuggestionValue={getSuggestionValue} renderSuggestion={renderSuggestion} inputProps={inputProps}/>
               {enterMessage}
             </Col>
           </Row>

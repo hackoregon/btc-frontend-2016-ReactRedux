@@ -51,7 +51,7 @@ const DataTable = React.createClass({
 
       if(datum.direction == 'in'){
           msg = (<p className={'OpenSans'}>
-                      <span><Link className={'Raleway'} to={`/recipients/${datum.filerId}`}>{filer}</Link></span>
+                      <span><Link className={'Raleway text-underline'} to={`/recipients/${datum.filerId}`}>{filer}</Link></span>
                       recieved {amount} from
                         <span><Link className={'Raleway'} to={`/donors/${datum.name}`}>{payee}</Link></span>
                       </p>);
@@ -59,7 +59,7 @@ const DataTable = React.createClass({
         }
           if(datum.direction == 'out'){
             msg = (  <p className={'OpenSans'}>
-                        <span><Link className={'Raleway'} to={`/recipients/${datum.filerId}`}>{filer}</Link></span>
+                        <span><Link className={'Raleway text-underline'} to={`/recipients/${datum.filerId}`}>{filer}</Link></span>
                         gave {amount} to
                           <span><Link className={'Raleway'} to={`/donors/${datum.name}`}>{payee}</Link></span>
                         </p>);
@@ -77,8 +77,8 @@ const DataTable = React.createClass({
                 ? `/donors/${datum.link}`
                 : `/recipients/${datum.link}`;
                 let amount = numeral(datum.value).format('$0,0.00');
-                let direction = datum.direction == 'in' ? ' incoming ' : ' outgoing ';
-                let fromTo = datum.direction == 'in' ? ' from' : ' to';
+                let direction = datum.direction == 'in' ? ' recieved ' : ' gave ';
+                let fromTo = datum.direction == 'in' ? ' from ' : ' to ';
 
             switch (this.props.type) {
                 case 'trans':
@@ -90,9 +90,9 @@ const DataTable = React.createClass({
                                     margin: '.5rem'
                                 }}>
                                 <p className ={'Raleway'}>
-                                  <a className={'Raleway'}  href={`/recipients/${datum.filerId}`}> {(datum.filer).split(/\ \(/)[0]} </a>
-                                  filed {direction} {amount} {fromTo}
-                                  <a className={'Raleway'} href={`/donors/${datum.name}`} > {(datum.name).split(/\ \(/)[0]}</a>.
+                                  <a className={'Raleway text-underline btc-text-onyx'}  href={`/recipients/${datum.filerId}`}> {(datum.filer).split(/\ \(/)[0]} </a>
+                                  <span style={{margin:'0 5px'}}> {direction} {amount} {fromTo} </span>
+                                  <a className={'Raleway text-underline btc-text-onyx'} href={`/donors/${datum.name}`} > {(datum.name).split(/\ \(/)[0]}</a>.
                                   </p>
                                 </Row>
                             </Col>

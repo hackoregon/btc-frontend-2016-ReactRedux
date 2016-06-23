@@ -16,8 +16,7 @@ const styles = {
   links: {
     color: '#fff',
     padding: '1rem  ',
-    listStyle: 'none',
-
+    margin: '2px',
     ':focus': {
       color: '#FFF'
     },
@@ -37,11 +36,11 @@ class NavRouterLink extends Component {
         let boxStyle = customStyles ? customStyles.box : null;
         let linkStyle = customStyles ? customStyles.link : null;
         let route = routeTo || '/' + this.props.name.toLowerCase();
-        return (<li {...this.props} style={{...styles.links,...boxStyle}} >
-                    <Link style={{padding:'1.85rem 1rem'}} to= {route} activeClass={'active'} className={'NavRouterLink'}>
+        return (<div {...this.props} style={{...styles.links,...boxStyle}} >
+                    <Link style={{padding:'2.1rem 1rem'}} to= {route} activeClass={'active'} className={'NavRouterLink'}>
                     <span style={{...linkStyle}}>{this.props.name}</span>
                     </Link>
-                    </li>
+                  </div>
             );
     }
 }
@@ -49,6 +48,7 @@ class NavRouterLink extends Component {
 NavRouterLink.propTypes = {
   name: PropTypes.string,
   route: PropTypes.string,
+  routeTo: PropTypes.string,
   classes: PropTypes.string
 }
 

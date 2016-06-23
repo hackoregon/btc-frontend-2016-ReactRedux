@@ -4,19 +4,21 @@ import FlexNav from './FlexNav.jsx';
 import './BTCNav.css';
 class BTCNav extends Component {
     render() {
-        const menuItemList = ['About', 'FAQ']
+        // const menuItemList = ['About', 'FAQ']
         const subMenuItems = ['Recipients', 'Donors']
         return (
             <div {...this.props} className={'BTCNav'}>
 
-                <FlexNav ref={'subnav'} years={this.props.years} menuItems={subMenuItems} onToggleSelect={this.props.onToggleSelect}/>
+                <FlexNav ref={'subnav'} pageType={this.props.pageType} years={this.props.years} menuItems={subMenuItems} onToggleSelect={this.props.onToggleSelect}/>
             </div>
         )
     }
 }
 
 BTCNav.propTypes = {
-    params: PropTypes.string
+    params: PropTypes.string,
+    years: PropTypes.array,
+    pageType: PropTypes.string
 };
 
 export default BTCNav;
