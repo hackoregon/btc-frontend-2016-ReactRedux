@@ -16,7 +16,7 @@ class AboutPortraits extends Component {
         return false;
       }
       if (line.split('\t').length != 3) {
-        console.log("Skipping \"" + line + "\" .  Tab separated column count not equal to 3")
+        // console.log("Skipping \"" + line + "\" .  Tab separated column count not equal to 3")
         return false;
       }
 
@@ -39,7 +39,7 @@ class AboutPortraits extends Component {
   }
 
   render() {
-    // 
+    //
     return (<PhotoGrid photos={this.loadData()}/>)
   }
 }

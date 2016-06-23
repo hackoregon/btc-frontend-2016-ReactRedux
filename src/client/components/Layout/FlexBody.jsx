@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 
 class FlexBody extends React.Component {
   render () {
-    debugger;
     return (
       <div {...this.props} style={{
           display: 'flex',
@@ -15,5 +14,6 @@ class FlexBody extends React.Component {
     )
   }
 }
+
 
 export default FlexBody;

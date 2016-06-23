@@ -101,11 +101,19 @@ class DataMap extends Component {
             const currentScreenWidth = this.currentScreenWidth();
             const mapContainerWidth = mapContainer.style('width');
             if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
-                d3.select('#datamap-container svg').remove();
+              if(d3.select('#datamap-container svg')[0][0]){
+              d3.select('#datamap-container svg').remove();
+              }
                 mapContainer.style({width: this.props.size.width, height: this.props.size.height});
+                // debugger;
                 this.datamap = this.renderMap();
-            } else if (this.props.size.width <= 600) {
+            } else if (this.props.size.width <= 600 && mapContainerWidth !== '600px') {
+                // console.log('before',d3.select('#datamap-container svg'))
+                if(d3.select('#datamap-container svg')[0][0]){
                 d3.select('#datamap-container svg').remove();
+                }
+
+                // console.log('after',d3.select('#datamap-container svg'))
                 mapContainer.style({
                     width: (currentScreenWidth * 0.9) + 'px',
                     height: (currentScreenWidth * 0.5625) + 'px'
@@ -127,7 +135,7 @@ class DataMap extends Component {
         d3.select('#datamap-container svg').remove();
     //     // window.removeEventListener('resize', this.handleResize);
     }
-    
+
     render() {
         const {customStyle} = this.props;
         return (<div id="datamap-container" style={{...customStyle,...styles}}/>);

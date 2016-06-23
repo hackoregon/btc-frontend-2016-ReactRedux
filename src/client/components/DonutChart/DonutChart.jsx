@@ -157,9 +157,7 @@ class DonutChart extends Component {
                     <div style={{
                         display: 'block'
                     }}>
-                        <Legend onClick={(e, v, i) => {
-                            this.setLabel(v, i);
-                        }} labels={this.state.labels} style ={{textAlign:'center'}}colors={COLORS}/>
+                        <Legend labels={this.state.labels} style ={{textAlign:'center'}}colors={COLORS}/>
                     </div>
                 </Col>
             </div>

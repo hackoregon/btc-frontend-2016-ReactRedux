@@ -19,10 +19,7 @@ import moment from 'moment';
 // http://54.213.83.132/hackoregon/http/oregon_individual_contributors/_/
 // http://54.213.83.132/hackoregon/http/all_oregon_sum/_/
 function loadData(props) {
-    console.log('loading')
-    // const {filer_id} = props;
     props.fetchOregon();
-    // props.loadStateInfo(filer_id);
 }
 
 const makeTop = (trans, num) => {

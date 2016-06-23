@@ -55,7 +55,6 @@ const DataTable = React.createClass({
                       recieved {amount} from
                         <span><Link className={'Raleway'} to={`/donors/${datum.name}`}>{payee}</Link></span>
                       </p>);
-                      console.log(msg);
         }
           if(datum.direction == 'out'){
             msg = (  <p className={'OpenSans'}>
