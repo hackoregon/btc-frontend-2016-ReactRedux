@@ -18,7 +18,7 @@ function loadData(props){
 
 function cleanData(array) {
   for (var i = 0; i < array.length; i++) {
-    if (array[i]['filedDate'] == undefined) {
+    if (array[i]['tranDate'] == undefined) {
       array.splice(i)
     }
   }
@@ -61,24 +61,27 @@ class Recipient extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      const {transactions} = nextProps;
-      if(!_.isEmpty(transactions)){
+      const {transactions,mungedSpending} = nextProps;
+      if(!_.isEmpty(transactions) && !_.isEmpty(mungedSpending)){
         let trans = _.values(transactions);
         const cleaned = cleanData(trans);
         const byYear = d3.nest()
         .key(function(d) {
-          if(d.filedDate){
-            return moment(d.filedDate).format('YYYY');
+          if(d.tranDate){
+            return moment(d.tranDate).format('YYYY');
               // return d.filedDate.split("-")[1];
           }
           }).rollup(function(v) {
           return v
         }).map(cleaned);
         const selectKeys = Object.keys(byYear);
+        const selectSpending = Object.keys(mungedSpending);
         this.setState({
-          data: byYear,
-          year: selectKeys[selectKeys.length-1],
           display: true,
+          data: byYear,
+          spending: mungedSpending,
+          spendData: mungedSpending[selectSpending[selectSpending.length-1]],
+          year: selectKeys[selectKeys.length-1],
           dispData: byYear[selectKeys[selectKeys.length-1]]
         });
       }
@@ -88,29 +91,33 @@ class Recipient extends Component {
       const {transactions} = nextProps;
       let trans = _.values(transactions);
       if(transactions && trans.length > 0){
+
         return true;
       }
       return false;
     }
 
     handleSelect(year) {
+      const {data,spending} = this.state;
       this.setState({
         year: year,
-        dispData: this.state.data[year]
+        dispData: data[year],
+        spendData: spending[year]
+
+        // dispSpending: this.state.spendData[year]
       });
     }
 
-    renderSpend(){
-      let spend = JSON.stringify(splitCodes(this.state.dispData));
-      return(
-        <div>
-            {spend}
-        </div>
-      )
-    }
+    // renderSpend(){
+    //   let spend = JSON.stringify(splitCodes(this.state.dispData));
+    //   return(
+    //     <div>
+    //         {spend}
+    //     </div>
+    //   )
+    // }
 
-    renderPage(campaign,transactions,mungedSums,stateInfo, filerId){
-      const data = this.state.data[this.state.year];
+    renderPage(campaign,data,spendData,mungedSums,stateInfo, filerId){
       if(data){
         const contribs = {
           ind : data.filter(datum => {return datum.bookType === 'Individual' && datum.contributorPayeeClass != 'grassroots_contributor' }),
@@ -119,15 +126,16 @@ class Recipient extends Component {
           pac : data.filter(datum => {return datum.contributorPayeeCommitteeId != null && datum.bookType !== ('Political Party Committee')}),
           party: data.filter((datum) => {return datum.bookType === 'Political Party Committee'})
         }
+
         return (
           <ResultPage year={this.state.year}
-            campaign={campaign} contributions={contribs} sums={mungedSums} stateInfo={stateInfo} filerId={filerId} />
+            campaign={campaign} contributions={contribs} spendData={spendData} sums={mungedSums} stateInfo={stateInfo} filerId={filerId} />
         )
       }
     }
 
     render() {
-      const {campaign, filer_id, transactions, stateContributions,mungedSums} = this.props;
+      const {campaign, filer_id, transactions, stateContributions,mungedSums, mungedSpending} = this.props;
       let trans = _.values(transactions);
       const cleaned = cleanData(trans);
       const byYear = d3.nest()
@@ -140,30 +148,32 @@ class Recipient extends Component {
       }).map(cleaned);
       const selectKeys = Object.keys(byYear);
 
+      if(!_.isEmpty(transactions) && !_.isEmpty(mungedSpending)){
 
-
-        let spending = this.state.display ? (this.renderPage(campaign,this.state.data[this.state.year],mungedSums,stateContributions,filer_id)) : (<Loading name='cube-grid'/>);
+        let spending = this.state.display ? (this.renderPage(campaign,this.state.dispData,this.state.spendData,mungedSums,stateContributions,filer_id)) : null;
         return (
             <FlexBody {...this.props} params={ this.props.params }>
                 <BTCNav ref={'nav'} pageType={'singleResult'} years={selectKeys} onToggleSelect={this.handleSelect}/>
                 <FlexGrid>
-
                   <Col>
                       {spending}
                   </Col>
                 </FlexGrid>
             </FlexBody>
             );
+      } else {
+          return (<Loading name='cube-grid'/>);
+      }
     }
 }
 function mapStateToProps(state, ownProps) {
   const { filer_id } = ownProps.params
   const {
-    entities: { transactions, campaigns, stateContributions, mungedSums }
+    entities: { transactions, campaigns, stateContributions, mungedSums, mungedSpending }
   } = state;
   const campaign = campaigns[filer_id]
   return {
-    filer_id, campaign, transactions, stateContributions, mungedSums
+    filer_id, campaign, transactions, stateContributions, mungedSums, mungedSpending
   }
 }
 

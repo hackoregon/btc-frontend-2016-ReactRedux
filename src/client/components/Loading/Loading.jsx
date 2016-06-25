@@ -11,8 +11,8 @@ const Loading = ({name}) => {
 
   return (
     <Grid >
-      <Col xs={12}  >
-      <Row around='xs' middle='xs' style={{height: '40vh'}}>
+      <Col center='xs' middle='xs' xs={12}  >
+      <Row around='xs' middle='xs' style={{height: '100vh'}}>
         <Col xs={2}>
         <Spinner xs={1} className={`Loading-${name}`} spinnerName={name}/>
         </Col>

@@ -14,7 +14,7 @@ import Loading from '../../components/Loading/Loading.jsx';
 //   props.loadCampaign(filer_id);
 // }
 
-const ResultPage = ({year, campaign, filerId, contributions, sums, stateInfo}) => {
+const ResultPage = ({year, campaign, filerId, contributions, spendData, sums, stateInfo}) => {
     if (!campaign) {
         // needs loading icon here
         return (<Loading name='cube-grid' />);
@@ -22,14 +22,14 @@ const ResultPage = ({year, campaign, filerId, contributions, sums, stateInfo}) =
 
     const newMoney = _.sumBy([...contributions.ind,...contributions.grassroots,...contributions.biz], 'amount');
     const xferMoney = _.sumBy([...contributions.pac,...contributions.party],'amount');
-
     // const allMoneyOut = _.
+    console.log(spendData);
     return (
         <div>
             <ResultHeader candidate={campaign.candidateName} key={campaign.filerId} race={campaign.race}/>
             <ResultSummaryCard year={year} newTotal={newMoney} xferTotal={xferMoney} />
             <ResultDonorsCard year={year} contributions={contributions}/>
-            <ResultSpendingCard year={year} params={filerId}/>
+            <ResultSpendingCard year={year} data={spendData}/>
             <ResultWhen year={year} sums={sums} />
             <ResultLocationStoryCard year={year} stateContributions={stateInfo}/>
         </div>

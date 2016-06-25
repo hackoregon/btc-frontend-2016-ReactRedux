@@ -91,7 +91,7 @@ const barResponsiveOptions = [
     ]
 ];
 
-function loadMonths(months, year, data, props) { 
+function loadMonths(months, year, data, props) {
     const {getMonthsData} = props;
     getMonthsData(months, year, data);
 }
@@ -104,13 +104,29 @@ class WhenChart extends React.Component {
         }
         this.handleSelect = this.handleSelect.bind(this);
     }
-
+    componentWillMount() {
+      const {data, year} = this.props;
+      if (!_.isEmpty(data)) {
+          const years = Object.keys(data);
+          const months = Object.keys(data[years[years.length-1]])
+          const defaultData = data[years[years.length-1]][months[months.length-1]];
+          let dataSet = formatData(defaultData);
+          let high = d3.max(defaultData, (d) => d.totalIn);
+          let low = (-d3.max(defaultData, (d) => d.totalOut));
+          // if (!_.isEmpty(monthsData)) {
+          //     dataSet = formatData(monthsData)
+          //     high = d3.max(defaultData, (d) => d.totalIn);
+          //     low = (-d3.max(defaultData, (d) => d.totalOut));
+          // }
+          this.setState({year: year, data: data, dispData: dataSet, high, low});
+      }
+    }
     componentWillReceiveProps(nextProps, nextState) {
         const {data, year} = nextProps;
         const {monthsData} = nextState;
         if (!_.isEmpty(data)) {
-           ;
-            const today = moment.now();
+
+            // const today = moment.now();
             const years = Object.keys(data);
             const months = Object.keys(data[years[years.length-1]])
             // const lastMonth = moment(today).subtract(1, 'months').format('MMM');
@@ -156,11 +172,10 @@ class WhenChart extends React.Component {
     render() {
         const {data, year} = this.props;
 
-        if (_.isEmpty(data)) {
+        if (_.isEmpty(this.state.dispData)) {
             return (<Loading name='rotating-plane'/>)
         } else {
-
-            const labels = Object.keys(this.state.data[this.state.year]);
+            const labels = Object.keys(data[year]);
             const lineChartOptions = {
                 showArea: true,
                 showLine: true,

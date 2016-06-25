@@ -191,7 +191,7 @@ BarChart.propTypes = {
     horizontal: PropTypes.bool,
     horizontalLabels: PropTypes.array,
     seriesLabels: PropTypes.array,
-    itemLabels: PropTypes.array,
+    itemLabels: PropTypes.bool,
     opaque: PropTypes.bool,
     thick: PropTypes.bool,
     customStyle: PropTypes.object,
