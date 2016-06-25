@@ -1,7 +1,3 @@
-// import {
-  // CALL_API,
-  // Schemas
-// } from '../api/serverApi.js';
 import * as api from '../api/api.js'
 import {capitalize, fixNames } from '../utils'
 // const types = ['DONOR_REQUEST', 'DONOR_SUCCESS', 'DONOR_FAILURE'];
@@ -31,8 +27,8 @@ const requestDonor = (name) => ({
   type: 'DONOR_REQUEST',
   name
 });
-const requestTransactions = (name) => ({
-  type: 'TRANSACTION_REQUEST',
+const requestDonations = (name) => ({
+  type: 'DONATIONS_REQUEST',
   name
 });
 const recieveDonor = (name, response) => ({
@@ -40,10 +36,10 @@ const recieveDonor = (name, response) => ({
   name,
   response
 });
-const recieveTransactions = (name, response) => ({
-  type: 'RECIEVE_TRANSACTIONS',
+const recieveDonations = (name, donationData) => ({
+  type: 'RECIEVE_DONATIONS',
   name,
-  response
+  donationData
 });
 
 export const fetchDonor = (name) => (dispatch) => {
@@ -55,11 +51,12 @@ export const fetchDonor = (name) => (dispatch) => {
       return searchTerm;
     })
     .then(searchTerm => {
-      dispatch(requestTransactions(searchTerm));
+      dispatch(requestDonations(searchTerm));
       return api.fetchDonorTransactions(searchTerm)
         .then(response => {
-          dispatch(recieveTransactions(searchTerm, response));
-          return searchTerm;
+          const {name,donationData} = response;
+          dispatch(recieveDonations(name,donationData));
+          // return searchTerm;
         })
     })
     // .then(filerId => { TODO: add more dispatch actions here

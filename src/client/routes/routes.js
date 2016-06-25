@@ -21,7 +21,7 @@ export default function(history) {
                 <Route path="/recipients" pageType={'singleResult'} component={ RecipientsPage } />
                 <Route path="/recipients/:filer_id" component={ RecipientPage } />
                 <Route path="/donors" component={ DonorsPage } />
-                <Route path="/donors/:donor_name" component={ DonorPage } />
+                <Route path="/donors/:donor_name" pageType={'singleResult'} component={ DonorsPage } />
                 <Route path="/faq" component={ FaqPage } />
                 <Route path="/about" component={ AboutPage } />
             </Route>

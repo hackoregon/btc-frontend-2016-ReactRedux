@@ -59,21 +59,21 @@ function filterTransactions(transactions, filterFunction) {
 
 
 
-function loadData(props) {
-  const { donor_name } = props;
-  props.fetchDonor(donor_name);
-}
+// function loadData(props) {
+//   const { donor_name } = props;
+//   props.fetchDonor(donor_name);
+// }
 
 class DonorPage extends Component {
   constructor(props){
     super(props)
   }
   componentWillMount() {
-    loadData(this.props);
+    // loadData(this.props);
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.donor_name !== this.props.donor_name){
-      loadData(nextProps)
+      // loadData(nextProps)
     }
   }
 
@@ -220,19 +220,20 @@ DonorPage.propTypes = {
   donor_name: PropTypes.string.isRequired
 }
 
-function mapStateToProps(state, ownProps) {
-  const { donor_name } = ownProps.params
-  const {
-    entities: { donors, transactions }
-  } = state;
-  // const donors = donors[donor_name]
-  return {
-    donor_name,
-    donors,
-    transactions
-  }
-}
+// function mapStateToProps(state, ownProps) {
+//   const { donor_name } = ownProps.params
+//   const {
+//     entities: { donors, transactions }
+//   } = state;
+//   // const donors = donors[donor_name]
+//   return {
+//     donor_name,
+//     donors,
+//     transactions
+//   }
+// }
 
-export default connect(mapStateToProps, {
-  fetchDonor
-})(DonorPage)
+export default DonorPage;
+// export default connect(mapStateToProps, {
+  // fetchDonor
+// })(DonorPage)

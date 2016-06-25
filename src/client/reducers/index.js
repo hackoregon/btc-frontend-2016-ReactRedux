@@ -33,6 +33,18 @@ function entities(state = {
      error: 'trigger'
    }
    return nextState;
+  case 'RECIEVE_DONOR':
+    nextState = {...state,
+      donors: {...action.response
+      }
+    }
+    return nextState
+  case 'RECIEVE_DONATIONS':
+    nextState = {...state,
+      donationsData: {...action.donationData
+      }
+    }
+    return nextState
   case 'RECIEVE_OREGON':
     nextState = {...state,
       allOregon: {...action.response
@@ -88,7 +100,6 @@ function errorMessage(state = {}, action) {
   } = action
   switch (type) {
     case ActionTypes.SEARCH_FAILURE:
-     ;
       return state = {
         error: 'trigger'
       }
