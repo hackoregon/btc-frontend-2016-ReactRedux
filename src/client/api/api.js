@@ -52,7 +52,6 @@ const transaction = new Schema('transactions', {
 const expense = new Schema('expenses', {
   idAttribute: 'tranId'
 });
-
 // export const fetchOregon = (stateParam) => {
 //   // http://54.213.83.132/hackoregon/http/oregon_committee_contributors/_/
 //   // http://54.213.83.132/hackoregon/http/oregon_business_contributors/_/
@@ -69,7 +68,6 @@ const expense = new Schema('expenses', {
 //   const schema = arrayOf(transaction);
 //   return promiseToFetch(url, schema);
 // }
-
 export const fetchTransactions = (filerId) => {
   const url = `${API_ROOT}current_candidate_transactions_in/${filerId}/`
   const schema = arrayOf(transaction);
@@ -103,7 +101,7 @@ export const fetchTransactionsForTimeline = (filerId) => {
   return promiseToFetch(url, schema);
 }
 export const mungeByYear = (data) => {
-  const sumData = d3.values(data);
+  const dataToMunge = d3.values(data);
   return new Promise((resolve, reject) => {
     try {
       const munged = d3.nest()
@@ -120,8 +118,34 @@ export const mungeByYear = (data) => {
         .rollup(function (v) {
           return v
         })
-        .map(sumData);
+        .map(dataToMunge);
       resolve(munged);
+    } catch (e) {
+      reject(e)
+    }
+  });
+}
+export const mungeSpendByYear = (data) => {
+  const dataToMunge = d3.values(data);
+  return new Promise((resolve, reject) => {
+    try {
+      const munged = d3.nest()
+        .key(function (d) {
+          if (d.tranDate) {
+            return moment(d.tranDate)
+              .format('YYYY');
+          }
+        })
+        .rollup(function (v) {
+          return v
+        })
+        .map(dataToMunge);
+
+        const years = Object.keys(munged)
+        let spendingByYear = {};
+        years.forEach(year => spendingByYear[year]=mungeYear(munged[year]))
+
+      resolve(spendingByYear);
     } catch (e) {
       reject(e)
     }
@@ -139,8 +163,46 @@ function formatData(arr) {
     newData.labels.push(item.tran_date);
     newData.series[0].push(raised);
     newData.series[1].push(spent);
-  }); 
+  });
   return newData;
+}
+function mungeYear(arr){
+  let spending = {};
+  let cashContribs = {};
+  // let trans = d3.values(y);
+  arr.forEach((item) => {
+    if (item.purposeCodes) {
+      let codes = item['purposeCodes'].split(';');
+      codes.map((code) => {
+        let c = code.trim()
+        let short = /\ \(/.test(c);
+        // let cash = /[C|c]ash/.test(c);
+        let cash = item.purposeCodes == 'Cash Contribution'
+        if (short) {
+          c = c.split(/\ \(/)[0];
+        }
+        if (cash) {
+          if (item.payee in cashContribs) {
+            cashContribs[item.contributorPayee] += Number((item.amount / codes.length)
+              .toFixed(2));
+          } else {
+            cashContribs[item.contributorPayee] = Number(item.amount.toFixed(2)) || 0;
+          }
+        } else {
+          if (c in spending) {
+            spending[c] += Number((item.amount / codes.length)
+              .toFixed(2));
+          } else {
+            spending[c] = Number(item.amount.toFixed(2)) || 0;
+          }
+        }
+      })
+    }
+  })
+  return {
+    spending,
+    cashContribs
+  };
 }
 
 function splitCodes(trans) {
@@ -160,59 +222,27 @@ function splitCodes(trans) {
   })
   return obj
 }
-export const mungeSpending = (filerId, data) => {
-  return new Promise((resolve, reject) => {
-    try {
-      let response = {};
-      let cashContribs = {};
-      let trans = d3.values(data);
-      trans.forEach((item) => {
-        if (item.purposeCodes) {
-
-          let codes = item['purposeCodes'].split(';');
-          codes.map((code) => {
-            let c = code.trim()
-            let short = /\ \(/.test(c);
-            // let cash = /[C|c]ash/.test(c);
-            let cash = item.purposeCodes == 'Cash Contribution'
-            if (short) {
-              c = c.split(/\ \(/)[0];
-            }
-             ;
-            if (cash) {
-              if (item.payee in cashContribs) {
-                cashContribs[item.contributorPayee] += Number((item.amount / codes.length)
-                  .toFixed(2));
-              } else {
-                cashContribs[item.contributorPayee] = Number(item.amount.toFixed(2)) || 0;
-              }
-            } else {
-            if (c in response) {
-              response[c] += Number((item.amount / codes.length)
-                .toFixed(2));
-            } else {
-              response[c] = Number(item.amount.toFixed(2)) || 0;
-              }
-            }
-          })
-        }
-      })
-      resolve({
-        filerId,
-        response,
-        cashContribs
-      })
-    } catch (e) {
-      reject(e)
-    } finally {}
-  });
-}
+// export const mungeSpending = (filerId, data) => {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       const allYears = data.map(y => {
+//         return mungeYear(y);
+//       })
+//       resolve({
+//         filerId,
+//         allYears
+//       })
+//     } catch (e) {
+//       reject(e)
+//     }
+//   });
+// }
 
 function formatMonth(year, [...months]) {
   let monthData = months.map((item) => {
     return year[item]
   })
-  let newYear = year[months]; 
+  let newYear = year[months];
 }
 export const concatMonths = (months, year, data) => {
   return new Promise((resolve, reject) => {

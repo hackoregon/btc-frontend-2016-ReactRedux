@@ -67,11 +67,10 @@ const requestMungedSpending = (filerId) => ({
   type: 'REQUEST_MUNGED_SPENDING',
   filerId
 });
-const recieveMungedSpending = (filerId,response,cashContribs) => ({
+const recieveMungedSpending = (filerId,spendingByYear) => ({
   type: 'RECIEVE_MUNGED_SPENDING',
   filerId,
-  response,
-  cashContribs
+  spendingByYear
 });
 const requestMungedSum = (filerId) => ({
   type: 'REQUEST_MUNGED_SUM',
@@ -125,11 +124,15 @@ export const fetchCampaigns = (filerId) => (dispatch,getState) => {
     .then(filerId => {
       const spendingData = getState().entities.expenses
       dispatch(requestMungedSpending(filerId));
-      return api.mungeSpending(filerId, spendingData)
-      .then(value => {
-        const {filerId,response,cashContribs} = value;
-        dispatch(recieveMungedSpending(filerId,response,cashContribs));
+      return api.mungeSpendByYear(spendingData)
+      .then(response => {
+        dispatch(recieveMungedSpending(filerId,response));
         return filerId;
+        // return api.mungeSpending(filerId, response)
+        // .then(value => {
+          // debugger;
+          // const {filerId,allYears} = value;
+        // })
       })
     })
     // .then(filerId => { TODO: add more dispatch actions here

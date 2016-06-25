@@ -83,8 +83,8 @@ const DataTable = React.createClass({
                 case 'trans':
                     while (idx < 6) {
                         return (
-                            <Col start='xs'>
-                                <Row xs className={'DataRowItem nameRow'} style={{
+
+                                <Row key={idx} xs className={'DataRowItem nameRow'} style={{
                                     flex: '1',
                                     margin: '.5rem'
                                 }}>
@@ -94,7 +94,7 @@ const DataTable = React.createClass({
                                   <a className={'Raleway text-underline btc-text-onyx'} href={`/donors/${datum.name}`} > {(datum.name).split(/\ \(/)[0]}</a>.
                                   </p>
                                 </Row>
-                            </Col>
+
                         );
                     }
                     break;

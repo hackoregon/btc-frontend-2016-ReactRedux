@@ -4,6 +4,7 @@ import Legend from '../Legend/Legend.jsx';
 import {Row, Col} from 'react-flexbox-grid';
 import _ from 'lodash';
 import numeral from 'numeral';
+import d3 from 'd3';
 
 const width = 240;
 const height = 240;
@@ -71,21 +72,26 @@ class DonutChart extends Component {
         }
 
     }
-    // componentWillReceiveProps(nextProps) {
-    //
-    //   const {data,title} = nextProps;
-    //   if(!_isEmpty(data)){
-    //   let total = d3.sum(nextProps.data.values)
-    //   let totalVals = nextProps.data.values;
-    //   let labelOfVals = nextProps.data.labels;
-    //   this.setState({
-    //       total: total,
-    //       currLabel: title,
-    //       values: [...totalVals],
-    //       labels: [...labelOfVals]
-    //     });
-    //   }
-    // }
+    componentWillReceiveProps(nextProps) {
+
+      const {data,title} = nextProps;
+      if(!_.isEmpty(data)){
+      let total = d3.sum(nextProps.data.values)
+      let totalVals = nextProps.data.values;
+      let labelOfVals = nextProps.data.labels;
+      debugger;
+      this.setState({
+          total: total,
+          currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))],
+          values: [...totalVals],
+          labels: [...labelOfVals]
+        });
+      }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      return true;
+    }
 
     getColors(d, i) {
 

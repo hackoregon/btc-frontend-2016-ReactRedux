@@ -41,9 +41,8 @@ function entities(state = {
     return nextState
   case 'RECIEVE_MUNGED_SPENDING':
     nextState = {...state,
-      mungedSpending: {...action.response
-      },
-      cashContribs: {...action.cashContribs}
+      mungedSpending: {...action.spendingByYear
+      }
     }
     return nextState
   case 'RECIEVE_MUNGED_SUM':

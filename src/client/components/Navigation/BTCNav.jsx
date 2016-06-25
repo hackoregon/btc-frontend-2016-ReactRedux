@@ -8,7 +8,6 @@ class BTCNav extends Component {
         const subMenuItems = ['Recipients', 'Donors']
         return (
             <div {...this.props} className={'BTCNav'}>
-
                 <FlexNav ref={'subnav'} pageType={this.props.pageType} years={this.props.years} menuItems={subMenuItems} onToggleSelect={this.props.onToggleSelect}/>
             </div>
         )

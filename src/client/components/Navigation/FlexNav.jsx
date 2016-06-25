@@ -51,7 +51,7 @@ class FlexNav extends React.Component{
                     <YearField xs = {12} sm = {3} ref={'year'} years={this.props.years} style={{padding:'0.25rem', width:'3rem'}} onToggleSelect={this.props.onToggleSelect}/>
                 ):null }
 
-                <SearchResultsForm params={this.props.params} style={{
+                <SearchResultsForm xs={12} sm={3} params={this.props.params} style={{
                     flex: '1',
                     margin: '.5rem',
                     minWidth: '350px'

@@ -101,17 +101,17 @@ class DataMap extends Component {
             const currentScreenWidth = this.currentScreenWidth();
             const mapContainerWidth = mapContainer.style('width');
             if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
-              if(d3.select('#datamap-container svg')[0][0]){
+              // if(d3.select('#datamap-container svg')[0][0]){
               d3.select('#datamap-container svg').remove();
-              }
+              // }
                 mapContainer.style({width: this.props.size.width, height: this.props.size.height});
                 // debugger;
                 this.datamap = this.renderMap();
             } else if (this.props.size.width <= 600 && mapContainerWidth !== '600px') {
                 // console.log('before',d3.select('#datamap-container svg'))
-                if(d3.select('#datamap-container svg')[0][0]){
+                // if(d3.select('#datamap-container svg')[0][0]){
                 d3.select('#datamap-container svg').remove();
-                }
+                // }
 
                 // console.log('after',d3.select('#datamap-container svg'))
                 mapContainer.style({

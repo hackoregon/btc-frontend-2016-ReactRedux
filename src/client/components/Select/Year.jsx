@@ -14,14 +14,31 @@ const YEARS = [{ value: '2010', label: '2010' },
 const YearField = React.createClass({
 	getInitialState () {
 		return {
-      disabled: true,
 			year: YEARS[YEARS.length-1],
       years: YEARS,
       selectValue: YEARS[YEARS.length-1]
 		};
 	},
 
-  componentWillReceiveProps(nextProps,nextState) {
+  componentWillMount() {
+    const {years} = this.props;
+    if(years != undefined && years.length>0){
+        let yrs = years.map((year) => {
+          return {
+            value: year,
+            label: year
+          }
+        });
+
+        this.setState({
+            selectValue: yrs[yrs.length-1],
+            years: yrs,
+            noUpdate: true
+        });
+      }
+  },
+
+  componentWillReceiveProps (nextProps,nextState) {
     const {years} = nextProps;
     const {noUpdate} = this.state;
 
@@ -32,13 +49,14 @@ const YearField = React.createClass({
             label: year
           }
         });
-      if(!noUpdate){
-
-          this.setState({
-              selectValue: yrs[yrs.length-1],
-              noUpdate: true
-          });
-      }
+      // if(!noUpdate){
+      //
+          // this.setState({
+          //     selectValue: yrs[yrs.length-1],
+          //     years: yrs,
+          //     noUpdate: true
+          // });
+      // }
       this.setState({
         disabled: false,
         years: yrs
@@ -48,7 +66,6 @@ const YearField = React.createClass({
   },
   shouldComponentUpdate(nextProps, nextState) {
     const {years} = nextProps;
-
     if(years != undefined && years.length > 0) {
       return true;
     }
@@ -60,7 +77,7 @@ const YearField = React.createClass({
     const {onToggleSelect} = this.props;
 
 		this.setState({
-      noUpdate: true,
+      // noUpdate: true,
 			selectValue: newValue
 		});
 
