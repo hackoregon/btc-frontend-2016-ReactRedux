@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Grid, Col } from 'react-flexbox-grid';
+import React, { Component, PropTypes } from 'react';
+import { Col } from 'react-flexbox-grid';
 import {FlexBody, FlexGrid} from '../components/Layout';
 import {connect} from 'react-redux';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
@@ -24,27 +24,6 @@ function cleanData(array) {
   }
   return array
 }
-
-function splitCodes (trans) {
-  if(trans){
-    let obj = {}
-    trans.forEach((item) => {
-      if(item.direction=='out' && item.purposeCodes){
-      let codes = item['purposeCodes'].split(';');
-      codes.map((code) => {
-        let c = code.trim()
-        if(c in obj){
-          obj[c] += item.amount / codes.length; // NOTE - splitting based on length of codes in trans
-        } else {
-          obj[c] = 0;
-        }
-      })
-    }
-    })
-    return obj
-  }
-}
-
 
 class Recipient extends Component {
     constructor(){
@@ -141,7 +120,7 @@ class Recipient extends Component {
       const byYear = d3.nest()
       .key(function(d) {
         if(d.filedDate){
-            return d.filedDate.split("-")[0];
+            return d.filedDate.split('-')[0];
         }
         }).rollup(function(v) {
         return v
@@ -166,6 +145,17 @@ class Recipient extends Component {
       }
     }
 }
+
+Recipient.propTypes = {
+  campaign: PropTypes.object,
+  filer_id: PropTypes.string,
+  transactions: PropTypes.array,
+  stateContributions: PropTypes.object,
+  mungedSums: PropTypes.object,
+  mungedSpending: PropTypes.object,
+  params: PropTypes.object
+}
+
 function mapStateToProps(state, ownProps) {
   const { filer_id } = ownProps.params
   const {

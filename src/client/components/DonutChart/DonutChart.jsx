@@ -79,7 +79,7 @@ class DonutChart extends Component {
       let total = d3.sum(nextProps.data.values)
       let totalVals = nextProps.data.values;
       let labelOfVals = nextProps.data.labels;
-      debugger;
+
       this.setState({
           total: total,
           currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))],

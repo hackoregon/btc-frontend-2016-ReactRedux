@@ -1297,6 +1297,7 @@ function splitCodes(trans) {
   })
   return obj
 }
+
 // export const mungeSpending = (filerId, data) => {
 //   return new Promise((resolve, reject) => {
 //     try {
