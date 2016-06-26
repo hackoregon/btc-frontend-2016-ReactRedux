@@ -105,7 +105,6 @@ class DataMap extends Component {
               d3.select('#datamap-container svg').remove();
               // }
                 mapContainer.style({width: this.props.size.width, height: this.props.size.height});
-                // debugger;
                 this.datamap = this.renderMap();
             } else if (this.props.size.width <= 600 && mapContainerWidth !== '600px') {
                 // console.log('before',d3.select('#datamap-container svg'))

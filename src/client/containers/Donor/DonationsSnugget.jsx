@@ -1,9 +1,10 @@
-import React, {Component,PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import DonutChart from '../../components/DonutChart/DonutChart.jsx'
-import {Row} from 'react-flexbox-grid';
+import {Row,Col} from 'react-flexbox-grid';
 import _ from 'lodash';
 import d3 from 'd3';
+import DataTable from '../../components/DataVisuals/DataTable.jsx'
 // import numeral from 'numeral';
 // import d3 from 'd3';
 // import {fixNames} from '../../utils';
@@ -29,6 +30,40 @@ const colors = [
 //   loadSpending(params,spending);
 // }
 
+function getByFilerAmounts(trans) {
+    let obj = {};
+    trans.forEach((item) => {
+        if (item.filer) {
+            let filer = item['filer'].split(';');
+            if (filer in obj) {
+                obj[filer] += item.amount;
+            } else {
+                obj[filer] = item.amount;
+            }
+        }
+    });
+    return obj;
+}
+
+function formatForTable(arr) {
+    return arr.map((item) => {
+        return {name: item.filer, link: item.filerId, value: item.amount}
+    })
+}
+function filterTransactions(transactions, filterFunction) {
+
+    return _.chain(transactions).filter(filterFunction).reduce((acc, d) => {
+        if (acc[d.filer]) {
+            acc[d.filer] += d.amount;
+        } else {
+            acc[d.filer] = d.amount;
+        }
+        return acc;
+    }, {}).map((total, receiver) => {
+        return {value: total, name: receiver}
+    }).sortBy('value').takeRight(10).reverse().value();
+}
+
 class DonationsSnugget extends Component {
 
     constructor(props, content) {
@@ -41,74 +76,67 @@ class DonationsSnugget extends Component {
     componentWillMount() {
 
         const {data} = this.props;
-        debugger;
-        const {spending, cashContribs} = data;
-        if (!_.isEmpty(spending)) {
-            const spendValues = d3.values(spending);
-            const spendLabels = Object.keys(spending);
-            if (!_.isEmpty(cashContribs)) {
-                const cashValues = d3.values(cashContribs)
-                const toFixLabels = Object.keys(cashContribs)
-                const cashLabels = toFixLabels.map((name) => {
-                    return (name.split(/\ \(/)[0]);
-                });
-                this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
-            } else{
-                this.setState({spendValues, spendLabels, displaySpending: true});
-            }
+
+        if (!_.isEmpty(data)) {
+            const byFiler = getByFilerAmounts(data);
+            const spendValues = d3.values(byFiler);
+            const spendLabels = Object.keys(byFiler);
+            // if (!_.isEmpty(cashContribs)) {
+            //     const cashValues = d3.values(cashContribs)
+            //     const toFixLabels = Object.keys(cashContribs)
+            //     const cashLabels = toFixLabels.map((name) => {
+            //         return (name.split(/\ \(/)[0]);
+            //     });
+            //     this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
+            // } else{
+            this.setState({spendValues, spendLabels, displaySpending: true});
+            // }
         }
         // this.setState({year,spending,cashContribs});
     }
 
     componentWillReceiveProps(nextProps) {
-      const {data} = nextProps;
-      //     // const {dispatch} = this.props;
-      const {spending, cashContribs} = data;
-      if (!_.isEmpty(spending)) {
-          const spendValues = d3.values(spending);
-          const spendLabels = Object.keys(spending);
+        const {data} = nextProps;
+        //     // const {dispatch} = this.props;
 
-          if (!_.isEmpty(cashContribs)) {
-              const cashValues = d3.values(cashContribs)
-              const toFixLabels = Object.keys(cashContribs)
-              const cashLabels = toFixLabels.map((name) => {
-                  return (name.split(/\ \(/)[0]);
-              });
-              console.log(cashLabels)
-              this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
-          } else{
-              this.setState({spendValues, spendLabels, displaySpending: true, displayCash: false});
-          }
-      }
+        if (!_.isEmpty(data)) {
+            console.log(data);
+            const byFiler = getByFilerAmounts(data);
+            const spendValues = d3.values(byFiler);
+            const spendLabels = Object.keys(byFiler);
+            this.setState({spendValues, spendLabels, displaySpending: true});
+        }
+
     }
 
     shouldComponentUpdate(nextProps) {
-      const {year} = nextProps;
-      if(year != this.props.year) {
+        const {data} = nextProps;
+        if (this.props.data == data) {
+            return false
+        }
         return true
-      }
-      return false
     }
 
     render() {
-        const spendingCopy = "Total donations this year and split by months on right"
+      const {data} = this.props;
+      const spendingCopy = "Total donations by year and filtered by months"
         // const spendChart = this.state.displaySpending
         //     ?
         // const cashChart = this.state.displayCash
         //     ?
         return (
             <div {...this.props}>
-                <StoryCard question={"What are they spending money on?"} description={spendingCopy}>
+                <StoryCard question={"Who are they donating to?"} description={spendingCopy}>
                     <Row center='xs' around='xs' middle='xs'>
-                        <DonutChart title='All donations this year' data={{
+                        <DonutChart fontSize={12} wrapRow width={319} height={320} inner={85} outer={125} x={160} displayValue title='Donations this year' data={{
                             values: this.state.spendValues,
                             labels: this.state.spendLabels
                         }} xs={12} md={6}/>
-                      {this.state.displayCash ? (<DonutChart title='Giving To Other Campaigns' displayValue data={{
-                            values: this.state.cashValues,
-                            labels: this.state.cashLabels
-                        }} xs={12} md={6}/>):null}
+
                     </Row>
+                    <Col xs>
+                        <DataTable xs type='Top' title={'Recipients'} data={filterTransactions(data)}/>
+                    </Col>
                 </StoryCard>
             </div>
         );
@@ -117,8 +145,8 @@ class DonationsSnugget extends Component {
 }
 
 DonationsSnugget.propTypes = {
-  data: PropTypes.object,
-  year: PropTypes.string
+    data: PropTypes.array,
+    year: PropTypes.string
 }
 // function mapStateToProps(state, ownProps) {
 //     const {year} = ownProps;

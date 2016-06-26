@@ -6,8 +6,8 @@ import _ from 'lodash';
 import numeral from 'numeral';
 import d3 from 'd3';
 
-const width = 240;
-const height = 240;
+// const width = 240;
+// const height = 240;
 const COLORS = [
     '#a6cee3',
     '#1f78b4',
@@ -64,7 +64,8 @@ class DonutChart extends Component {
             this.setState({
                 total: total,
                 title: title,
-                currLabel: title,
+                currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))],
+                currValue: d3.max(totalVals),
                 values: [...totalVals],
                 labels: [...labelOfVals]
             });
@@ -75,6 +76,7 @@ class DonutChart extends Component {
     componentWillReceiveProps(nextProps) {
 
       const {data,title} = nextProps;
+      debugger;
       if(!_.isEmpty(data)){
       let total = d3.sum(nextProps.data.values)
       let totalVals = nextProps.data.values;
@@ -83,6 +85,7 @@ class DonutChart extends Component {
       this.setState({
           total: total,
           currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))],
+          currValue: d3.max(totalVals),
           values: [...totalVals],
           labels: [...labelOfVals]
         });
@@ -104,6 +107,7 @@ class DonutChart extends Component {
 
 
     setLabel(v, i) {
+      debugger;
         this.setState({currValue: v, currLabel: this.state.labels[i]})
     }
 
@@ -124,52 +128,49 @@ class DonutChart extends Component {
             ? `${percent}%`
             : '%';
         let title = this.state.title ? (
-          <div style={{textAlign:'center'}}><h3>{this.state.title}</h3><h4>{numeral(this.state.total).format('$0,0')}</h4></div>) : null;
+          <Col xs={12} style={{textAlign:'center', selfAlign:'middle'}}><h3>{this.state.title}</h3><h4>{numeral(this.state.total).format('$0,0')}</h4></Col>) : null;
         let valueDisp = this.props.displayValue
             ? (
-                <text className="donut-subtitle" textAnchor="middle" x={0} y={0} fontSize={10}>
+                <text className="donut-subtitle" textAnchor="middle" x={0} y={0} fontSize={this.props.fontSize||10}>
                     {numeral(this.state.currValue).format('$0,0')}
                 </text>
             )
             : (
-                <text className="donut-subtitle" textAnchor="middle" x={0} y={0} fontSize={10}>
+                <text className="donut-subtitle" textAnchor="middle" x={0} y={0} fontSize={this.props.fontSize||10}>
                     {`${labelPercent}`}
                 </text>
             );
-        return (<div>
+
+        return (<Col {...this.props}>
             {title}
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between'
-            }}>
-                <div xs={10}>
-                    <Chart style={{
+                <Row  xs = {12} center='xs' around='xs' >
+                    <Chart xs={12} sm={6} style={{
                         flex: '1'
-                    }} width={width} height={height}>
+                    }} width={this.props.width||240} height={this.props.height||240}>
                         <DataSeries data={this.state.values}>
-                            <text className="donut-title" textAnchor="middle" x={100} y={25} fontSize={9}>
+                            <text className="donut-title" textAnchor="middle" x={this.props.x||100} y={this.props.y||25} fontSize={this.props.fontSize||9}>
                                 {this.state.currLabel}
                             </text>
-                            <Pie innerRadius={35} outerRadius={85} onClick={(e, v, i) => {
+                            <Pie innerRadius={this.props.inner || 35} outerRadius={this.props.outer || 85} onClick={(e, v, i) => {
+
                                 this.setLabel(v, i);
                             }} style={(d, i) => ({fill: this.getColors(i)})}>
                                 {valueDisp}
                             </Pie>
                         </DataSeries>
                     </Chart>
-                </div>
-                <Col>
-                    <div style={{
+                    <div xs={12} sm={6} style={{
                         display: 'block'
                     }}>
-                        <Legend labels={this.state.labels} style ={{textAlign:'center'}}colors={COLORS}/>
+                        <Legend wrapRow={this.props.wrapRow || false} labels={this.state.labels} style ={{textAlign:'center'}} colors={COLORS}/>
                     </div>
-                </Col>
-            </div>
-            </div>
+                </Row>
+          </Col>
         );
     }
 }
 
 export default DonutChart;
+
+
+// <Pie innerRadius={100} outerRadius={185} onClick={(e, v, i) => {

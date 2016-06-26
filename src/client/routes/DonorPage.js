@@ -79,6 +79,7 @@ class Donor extends Component {
     handleSelect(year) {
       const {data} = this.state;
       // const {data,spending} = this.state;
+
       this.setState({
         year: year,
         dispData: data[year]
@@ -88,7 +89,7 @@ class Donor extends Component {
       });
     }
 
-    renderPage(donor,data,allTransactions,donorName){
+    renderPage(year,donor,data,allTransactions,donorName){
       // if(data){
       //   const contribs = {
       //     ind : data.filter(datum => {return datum.bookType === 'Individual' && datum.contributorPayeeClass != 'grassroots_contributor' }),
@@ -99,8 +100,8 @@ class Donor extends Component {
       //   }
 
         return (
-          <DonorPage year={this.state.year}
-            donor={donor} spendData={data} transactions={allTransactions} donorName={donorName} />
+          <DonorPage year={year}
+            donor={donor} spendData={this.state.dispData} transactions={allTransactions} donorName={donorName} />
         )
       // }
     }
@@ -112,7 +113,7 @@ class Donor extends Component {
         const {transactions,mungedDonations,filerIds} = donationsData;
 
         const selectKeys = Object.keys(mungedDonations);
-        let donations = this.state.display ? (this.renderPage(donor,this.state.dispData,transactions,donorName)) : null;
+        let donations = this.state.display ? (this.renderPage(this.state.year,donor,this.state.dispData,transactions,donorName)) : null;
         return (
             <FlexBody {...this.props} params={ this.props.params }>
                 <BTCNav ref={'nav'} pageType={'singleResult'} years={selectKeys} onToggleSelect={this.handleSelect}/>

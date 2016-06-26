@@ -11,10 +11,10 @@ import {
 } from 'humps'
 import assign from 'lodash/assign';
 import 'isomorphic-fetch';
-// const API_ROOT = 'http://54.213.83.132/hackoregon/http/';
+const API_ROOT = 'http://54.213.83.132/hackoregon/http/';
 
 // local
-const API_ROOT = 'http://localhost:8080/hackoregon/http/';
+// const API_ROOT = 'http://localhost:8080/hackoregon/http/';
 
 function callApi(endpoint, schema) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
