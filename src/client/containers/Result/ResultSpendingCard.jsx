@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import Loading from '../../components/Loading/Loading.jsx';
 import DonutChart from '../../components/DonutChart/DonutChart.jsx'
-import {Row} from 'react-flexbox-grid';
+import {Row,Col,Grid} from 'react-flexbox-grid';
 import _ from 'lodash';
 
 // import numeral from 'numeral';
@@ -100,15 +100,15 @@ class ResultSpendingCard extends Component {
         return (
             <div {...this.props}>
                 <StoryCard question={"What are they spending money on?"} description={spendingCopy}>
-                    <Row center='xs' around='xs' middle='xs'>
-                        <DonutChart title='Spending For Their Own Campaign' data={{
+                    <Row center='sm' around='sm' middle='sm'>
+                        <DonutChart xs={12} sm={6} wrapRow title='Spending For Their Own Campaign' data={{
                             values: this.state.spendValues,
                             labels: this.state.spendLabels
-                        }} xs={12} md={6}/>
-                      {this.state.displayCash ? (<DonutChart title='Giving To Other Campaigns' displayValue data={{
+                        }} md={6}/>
+                      {this.state.displayCash ? (<DonutChart xs={12} sm={6} wrapRow title='Giving To Other Campaigns' displayValue data={{
                             values: this.state.cashValues,
                             labels: this.state.cashLabels
-                        }} xs={12} md={6}/>):null}
+                        }} md={6}/>):null}
                     </Row>
                 </StoryCard>
             </div>

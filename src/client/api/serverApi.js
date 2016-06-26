@@ -58,14 +58,14 @@ const list = {
 //   let expenditures = {};
 //   data.forEach((val) => {
 //     let key = val['purposeCodes'];
-// 
+//
 //     if (!_(expenditures)
 //       .has(key)) {
 //       expenditures[key] = 0;
 //     }
 //     expenditures[key] += val.total;
 //   });
-// 
+//
 //   return expenditures;
 // }
 // var self = {};
@@ -176,7 +176,7 @@ const list = {
 //   _(transactions)
 //     .chain()
 //     .each(function (row) {
-// 
+//
 //       var subType = row['subType'];
 //       switch (subType) {
 //       case 'Cash Expenditure':
