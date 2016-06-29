@@ -42,8 +42,8 @@ const recieveDonations = (name, donationData) => ({
   donationData
 });
 
-export const fetchDonor = (name) => (dispatch) => {
-  const searchTerm = fixNames(name.toLowerCase().capitalize());
+export const fetchDonor = (searchTerm) => (dispatch) => {
+  // const searchTerm = fixNames(name.toLowerCase().capitalize()); // currently changing the name results in error pages due to backend
   dispatch(requestDonor(searchTerm));
   return api.fetchDonor(searchTerm)
     .then(response => {

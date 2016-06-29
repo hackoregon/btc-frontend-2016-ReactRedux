@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component,PropTypes} from 'react';
 // import {connect} from 'react-redux';
 // import {loadSpending} from '../../actions'
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
-import Loading from '../../components/Loading/Loading.jsx';
+// import Loading from '../../components/Loading/Loading.jsx';
 import DonutChart from '../../components/DonutChart/DonutChart.jsx'
-import {Row,Col,Grid} from 'react-flexbox-grid';
+import {Row} from 'react-flexbox-grid';
+// import {filterNamesForLinks} from '../../utils'
 import _ from 'lodash';
+import d3 from 'd3';
 
 // import numeral from 'numeral';
 // import d3 from 'd3';
@@ -48,10 +50,26 @@ class ResultSpendingCard extends Component {
             const spendLabels = Object.keys(spending);
             if (!_.isEmpty(cashContribs)) {
                 const cashValues = d3.values(cashContribs)
-                const toFixLabels = Object.keys(cashContribs)
-                const cashLabels = toFixLabels.map((name) => {
-                    return (name.split(/\ \(/)[0]);
-                });
+                // TODO: create label linksOrLabels
+                // const toFixLabels = Object.keys(cashContribs)
+                const cashLabels = Object.keys(cashContribs)
+                // TODO : label linksOrLabels
+                // const cashLabels = toFixLabels.map((name) => {
+                //   let mutateName = name;
+                //     return ({
+                //         linkTo: `/donors/${filterNamesForLinks(name)}`,
+                //         name:mutateName.split(/\ \(/)[0]
+                //         })
+                // });
+                // const cashLabels = toFixLabels.map((name) => {
+                //   let mutateName = name;
+                //     return ({
+                //         linkTo: `/donors/${filterNamesForLinks(name)}`,
+                //         name:mutateName.split(/\ \(/)[0]
+                //         })
+                // });
+
+                console.log(cashLabels);
                 this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
             } else{
                 this.setState({spendValues, spendLabels, displaySpending: true});
@@ -65,6 +83,7 @@ class ResultSpendingCard extends Component {
       //     // const {dispatch} = this.props;
       const {spending, cashContribs} = data;
       if (!_.isEmpty(spending)) {
+
           const spendValues = d3.values(spending);
           const spendLabels = Object.keys(spending);
 
@@ -72,9 +91,11 @@ class ResultSpendingCard extends Component {
               const cashValues = d3.values(cashContribs)
               const toFixLabels = Object.keys(cashContribs)
               const cashLabels = toFixLabels.map((name) => {
-                  return (name.split(/\ \(/)[0]);
+                  return ({
+                      name:name.split(/\ \(/)[0],
+                      linkTo: `/donors/${name}`})
               });
-              console.log(cashLabels)
+
               this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
           } else{
               this.setState({spendValues, spendLabels, displaySpending: true, displayCash: false});
@@ -115,6 +136,9 @@ class ResultSpendingCard extends Component {
         );
 
     }
+}
+ResultSpendingCard.propTypes = {
+  data: PropTypes.object
 }
 // function mapStateToProps(state, ownProps) {
 //     const {year} = ownProps;

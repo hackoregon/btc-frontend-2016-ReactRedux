@@ -101,6 +101,7 @@ class DonorPage extends Component {
 
     componentWillMount() {
         const {donorName, donor, transactions, spendData, year} = this.props;
+
         if (!_.isEmpty(spendData)) {
             const yearData = makeYearData(spendData);
             this.setState({
@@ -275,6 +276,7 @@ class DonorPage extends Component {
                 </Col>
             )
             : null;
+            console.log(transactions,spendData)
         return (
             <Grid {...this.props} fluid={false} params={this.props.params}>
                 <DonorCard donor={donorMeta}/> {patronageIcons}
