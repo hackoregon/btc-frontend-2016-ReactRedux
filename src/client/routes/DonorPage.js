@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-import { Grid, Col } from 'react-flexbox-grid';
+import { Col } from 'react-flexbox-grid';
 import {FlexBody, FlexGrid} from '../components/Layout';
 import {connect} from 'react-redux';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Loading from '../components/Loading/Loading.jsx';
 import {fetchDonor} from '../actions';
-import d3 from 'd3';
+// import d3 from 'd3';
 import _ from 'lodash'
 import DonorPage from '../containers/Donor/DonorPage.jsx';
-import moment from 'moment';
+// import moment from 'moment';
 
 function loadData(props){
   const {donorName} = props;
  props.fetchDonor(donorName);
 }
 
-function cleanData(array) {
-  for (var i = 0; i < array.length; i++) {
-    if (array[i]['tranDate'] == undefined) {
-      array.splice(i)
-    }
-  }
-  return array
-}
+// function cleanData(array) {
+//   for (var i = 0; i < array.length; i++) {
+//     if (array[i]['tranDate'] == undefined) {
+//       array.splice(i)
+//     }
+//   }
+//   return array
+// }
 
 class Donor extends Component {
     constructor(){

@@ -101,23 +101,25 @@ class DataMap extends Component {
             const currentScreenWidth = this.currentScreenWidth();
             const mapContainerWidth = mapContainer.style('width');
             if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
-              // if(d3.select('#datamap-container svg')[0][0]){
+              if(d3.select('#datamap-container svg')[0][0]){
               d3.select('#datamap-container svg').remove();
-              // }
-                mapContainer.style({width: this.props.size.width, height: this.props.size.height});
-                this.datamap = this.renderMap();
+              mapContainer.style({width: this.props.size.width, height: this.props.size.height});
+              this.datamap = this.renderMap();
+              }
+
             } else if (this.props.size.width <= 600 && mapContainerWidth !== '600px') {
                 // console.log('before',d3.select('#datamap-container svg'))
-                // if(d3.select('#datamap-container svg')[0][0]){
+                if(d3.select('#datamap-container svg')[0][0]){
                 d3.select('#datamap-container svg').remove();
-                // }
-
                 // console.log('after',d3.select('#datamap-container svg'))
                 mapContainer.style({
                     width: (currentScreenWidth * 0.9) + 'px',
                     height: (currentScreenWidth * 0.5625) + 'px'
                 });
                 this.datamap = this.renderMap();
+                }
+
+
             }
         });
     }
@@ -130,10 +132,11 @@ class DataMap extends Component {
         }
     }
 
-    componentWillUnmount() {
-        d3.select('#datamap-container svg').remove();
-    //     // window.removeEventListener('resize', this.handleResize);
-    }
+    // componentWillUnmount() {
+    //     d3.select('#datamap-container svg').remove();
+    //     // this.renderMap = null;
+    //     // window.removeEventListener('resize');
+    // }
 
     render() {
         const {customStyle} = this.props;

@@ -53,10 +53,10 @@ class DonutChart extends Component {
 
     componentWillMount() {
         const {data,title,offset} = this.props;
-        if (!_.isEmpty(data)) {
-            let total = d3.sum(this.props.data.values)
-            let totalVals = this.props.data.values;
-            let labelOfVals = this.props.data.labels;
+        if (!_.isEmpty(data) && data.values) {
+            let total = d3.sum(data.values)
+            let totalVals = data.values;
+            let labelOfVals = data.labels;
             let offSet = 0;
             if(offset){
                 offSet = offset
@@ -162,7 +162,7 @@ class DonutChart extends Component {
                     <div xs={12} sm={6} style={{
                         display: 'block'
                     }}>
-                        <Legend wrapRow={this.props.wrapRow || false} labels={this.state.labels} style ={{textAlign:'center'}} colors={COLORS}/>
+                        <Legend labelLinks={this.props.labelLinks || false} wrapRow={this.props.wrapRow || false} labels={this.state.labels} style ={{textAlign:'center'}} colors={COLORS}/>
                     </div>
                 </Row>
           </Col>
