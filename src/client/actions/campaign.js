@@ -114,6 +114,8 @@ export const fetchCampaigns = (filerId) => (dispatch,getState) => {
     })
     .then(filerId => {
       const dataToMunge = getState().entities.sums
+
+      // console.log(JSON.stringify(dataToMunge));
       dispatch(requestMungedSum(filerId));
       return api.mungeByYear(dataToMunge)
       .then(response => {

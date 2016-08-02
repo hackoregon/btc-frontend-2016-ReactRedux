@@ -76,7 +76,7 @@ class DonutChart extends Component {
     componentWillReceiveProps(nextProps) {
 
       const {data,title} = nextProps;
-      debugger;
+
       if(!_.isEmpty(data)){
       let total = d3.sum(nextProps.data.values)
       let totalVals = nextProps.data.values;
@@ -92,12 +92,11 @@ class DonutChart extends Component {
       }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate() {
       return true;
     }
 
     getColors(d, i) {
-
         if (arguments.length === 2) {
             return COLORS[i];
         } else {
@@ -105,9 +104,7 @@ class DonutChart extends Component {
         }
     }
 
-
     setLabel(v, i) {
-      debugger;
         this.setState({currValue: v, currLabel: this.state.labels[i]})
     }
 

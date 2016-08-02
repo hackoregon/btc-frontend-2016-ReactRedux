@@ -33,15 +33,11 @@ const DataTable = React.createClass({
             return {size: '0%', color: '#FFF'};
     },
     render() {
-      // const {data} = this.props;
-        // const dataMax = d3.max(_.map(this.props.data, 'value'));
-        // const scale = d3.scale.linear().domain([0, dataMax]).range([10, 100]);
-
         const dataRows = _.map(this.props.data, (datum, idx) => {
             let linkTo = datum && datum.link && !isNaN(datum.link)
                 ? `/recipients/${datum.link}`
                 : `/donors/${datum.link}`;
-                console.log(datum, datum.link, !isNaN(datum.link))
+
                 let amount = numeral(datum.value).format('$0,0.00');
                 let direction = datum.direction == 'in' ? ' recieved ' : ' gave ';
                 let fromTo = datum.direction == 'in' ? ' from ' : ' to ';
@@ -64,11 +60,11 @@ const DataTable = React.createClass({
                     }
                     break;
                 default:
-                console.log(linkTo);
+
                   if(!datum.filerId){
                     linkTo = filterNamesForLinks(linkTo);
                   }
-                  console.log(linkTo);
+
                     return (<DonorRowItem key={idx} donors={this.props.data} link={linkTo} payee={datum.name} formattedAmount={numeral(datum.value).format('$0a')} amount={datum.value}/>);
             }
 

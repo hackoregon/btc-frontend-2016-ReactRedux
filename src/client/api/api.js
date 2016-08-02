@@ -1,8 +1,8 @@
 import {
   Schema,
   arrayOf,
-  unionOf,
-  valuesOf,
+  // unionOf,
+  // valuesOf,
   normalize
 }
 from 'normalizr';
@@ -64,9 +64,9 @@ export const fetchSpending = (filerId) => {
     return promiseToFetch(url, schema);
   }
   // donor info
-const donor = new Schema('donors', {
-  idAttribute: 'id'
-});
+// const donor = new Schema('donors', {
+//   idAttribute: 'id'
+// });
 export const fetchDonor = (name) => {
   const url = `${API_ROOT}donor_meta/${name}/`
     // const schema = arrayOf(donor);

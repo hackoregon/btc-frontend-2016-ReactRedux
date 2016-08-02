@@ -1,11 +1,7 @@
 import 'babel-polyfill';
-// import './assets/css/stylesheets/bootstrap.css';
 import './assets/css/stylesheets/font-awesome.css';
-// import './assets/css/components/autosuggest.css';
-// import './assets/css/stylesheets/app.css';
 import './assets/css/stylesheets/globals.css';
 import './assets/css/stylesheets/bootstrapOverride.css';
-// import Moment from 'moment'; TODO - needed?
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -21,8 +17,6 @@ const history = syncHistoryWithStore(browserHistory, store)
 const routes = getRoutes(history);
 
 const mainStyles = {
-  // fontFamily: 'Lato',
-  // fontWeight: '300'
   display: 'flex',
   minHeight: '100vh',
   flexDirection: 'column'
@@ -49,8 +43,8 @@ function renderApp() {
 
 renderApp();
 
-if (module.hot) {
-    module.hot.accept(() => {
-        renderApp();
-    });
+if(module.hot) {
+  module.hot.accept(() => {
+    renderApp();
+  });
 }

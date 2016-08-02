@@ -1,9 +1,7 @@
 /* eslint-disable no-console */
-// var fs = require('fs-extra');
+
 const path = require('path');
 const express = require('express');
-// const rewrite = require('express-urlrewrite');
-// const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const config = require('./build-conf/webpack.config-dev');
 const app = express();
@@ -21,7 +19,7 @@ app.get('*', function(req, res) {
 });
 
 app.listen(port, function(err) {
-  if (err) { 
-    return;
-  } 
+  if (err) {
+    console.log(err);
+  }
 });

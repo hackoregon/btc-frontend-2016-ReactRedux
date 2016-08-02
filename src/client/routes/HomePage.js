@@ -7,34 +7,38 @@ import DataTable from '../components/DataVisuals/DataTable.jsx'
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Footer from '../components/Navigation/Footer.jsx';
 import Loading from '../components/Loading/Loading.jsx';
-import ResultPage from '../containers/Result/ResultPage.jsx';
+// import ResultPage from '../containers/Result/ResultPage.jsx';
 
 import {fetchOregon} from '../actions';
 
-import d3 from 'd3';
+// import d3 from 'd3';
 import _ from 'lodash'
-import moment from 'moment';
+// import moment from 'moment';
+
+const { object } = PropTypes;
 // http://54.213.83.132/hackoregon/http/oregon_committee_contributors/_/
 // http://54.213.83.132/hackoregon/http/oregon_business_contributors/_/
 // http://54.213.83.132/hackoregon/http/oregon_individual_contributors/_/
 // http://54.213.83.132/hackoregon/http/all_oregon_sum/_/
+
+
 function loadData(props) {
     props.fetchOregon();
 }
 
-const makeTop = (trans, num) => {
+// const makeTop = (trans, num) => {
 
-    return _.chain(trans).reduce((acc, d) => {
-        if (acc[d.contributorPayee]) {
-            acc[d.contributorPayee] += d.amount;
-        } else {
-            acc[d.contributorPayee] = d.amount;
-        }
-        return acc;
-    }, {}).map((total, payee) => {
-        return {value: total, name: formatName(payee), link: payee}
-    }).sortBy('value').takeRight(num).reverse().value();
-}
+//     return _.chain(trans).reduce((acc, d) => {
+//         if (acc[d.contributorPayee]) {
+//             acc[d.contributorPayee] += d.amount;
+//         } else {
+//             acc[d.contributorPayee] = d.amount;
+//         }
+//         return acc;
+//     }, {}).map((total, payee) => {
+//         return {value: total, name: formatName(payee), link: payee}
+//     }).sortBy('value').takeRight(num).reverse().value();
+// }
 
 function formatData(arr, dataType) {
 
@@ -72,36 +76,39 @@ function formatData(arr, dataType) {
 
 }
 
-function cleanData(array) {
-    for (var i = 0; i < array.length; i++) {
-        if (array[i]['filedDate'] == undefined) {
-            array.splice(i)
-        }
-    }
-    return array
-}
-
-function splitCodes(trans) {
-    if (trans) {
-        let obj = {}
-        trans.forEach((item) => {
-            if (item.direction == 'out' && item.purposeCodes) {
-                let codes = item['purposeCodes'].split(';');
-                codes.map((code) => {
-                    let c = code.trim()
-                    if (c in obj) {
-                        obj[c] += item.amount / codes.length; // NOTE - splitting based on length of codes in trans
-                    } else {
-                        obj[c] = 0;
-                    }
-                })
-            }
-        })
-        return obj
-    }
-}
+// function cleanData(array) {
+//     for (var i = 0; i < array.length; i++) {
+//         if (array[i]['filedDate'] == undefined) {
+//             array.splice(i)
+//         }
+//     }
+//     return array
+// }
+// function splitCodes(trans) {
+//     if (trans) {
+//         let obj = {}
+//         trans.forEach((item) => {
+//             if (item.direction == 'out' && item.purposeCodes) {
+//                 let codes = item['purposeCodes'].split(';');
+//                 codes.map((code) => {
+//                     let c = code.trim()
+//                     if (c in obj) {
+//                         obj[c] += item.amount / codes.length; // NOTE - splitting based on length of codes in trans
+//                     } else {
+//                         obj[c] = 0;
+//                     }
+//                 })
+//             }
+//         })
+//         return obj
+//     }
+// }
 
 class HomePage extends Component {
+  static propTypes = {
+    params: object,
+    allOregon: object
+  }
     constructor() {
         super()
         this.state = {
@@ -182,27 +189,41 @@ class HomePage extends Component {
     renderPage() {
         let pac = formatData(this.state.pac)
         const styles = {
-          smallest: {
-            minWidth:'320px'
-          },
-          reducedSize: {
-            fontSize: '.85rem',
-            fontWeight: '200'
-          }
+            smallest: {
+                minWidth: '320px'
+            },
+            reducedSize: {
+                fontSize: '.85rem',
+                fontWeight: '200'
+            }
         }
         return (
             <Col center='xs' around='xs'>
-                <Row styles={{minWidth:'320px',fontSize:'.85rem',fontWeight:'200'}} xs>
-                    <DataTable styles={{...styles.smallest,...styles.reducedSize}} type='trans' title={'Latest Transactions'} data={formatData(this.state.feed, 'trans')}/>
+                <Row styles={{
+                    minWidth: '320px',
+                    fontSize: '.85rem',
+                    fontWeight: '200'
+                }} xs>
+                    <DataTable styles={{
+                        ...styles.smallest,
+                        ...styles.reducedSize
+                    }} type='trans' title={'Latest Transactions'} data={formatData(this.state.feed, 'trans')}/>
                 </Row>
                 <Col xs>
                     <DataTable xs type='Top' title={'All-time Top Individual Donors'} data={formatData(this.state.ind)}/>
                     <Row between='xs'>
-                        <Col xs style={{minWidth:'320px'}}>
+                        <Col xs style={{
+                            minWidth: '320px'
+                        }}>
                             <DataTable xs type='Top' title={'All-time Top Pac Donors'} data={pac}/>
                         </Col>
-                        <Col xs style={{minWidth:'320px'}}>
-                            <DataTable styles={{...styles.smallest,...styles.reducedSize}} xs type='Top' title={'All-time Top Business Donors'} data={formatData(this.state.biz)}/>
+                        <Col xs style={{
+                            minWidth: '320px'
+                        }}>
+                            <DataTable styles={{
+                                ...styles.smallest,
+                                ...styles.reducedSize
+                            }} xs type='Top' title={'All-time Top Business Donors'} data={formatData(this.state.biz)}/>
                         </Col>
 
                     </Row>
@@ -212,7 +233,7 @@ class HomePage extends Component {
     }
 
     render() {
-        const {allOregon} = this.props;
+        // const {allOregon} = this.props;
         // let trans = _.values(transactions);
         // const cleaned = cleanData(trans);
         // const byYear = d3.nest()
@@ -244,11 +265,11 @@ class HomePage extends Component {
                     <Grid fluid={true} params={this.props.params}>
                         <DataBoxGroup boxes={[
                             {
-                                title: "New Funds",
-                                value: "$313,412,231"
+                                title: 'New Funds',
+                                value: '$313,412,231'
                             }, {
-                                title: "Transferred Funds",
-                                value: "$307,489,692"
+                                title: 'Transferred Funds',
+                                value: '$307,489,692'
                             }
                         ]}/> {spending}
                     </Grid>
@@ -260,8 +281,8 @@ class HomePage extends Component {
         );
     }
 }
-function mapStateToProps(state, ownProps) {
-    const {filer_id} = ownProps.params
+
+function mapStateToProps(state) {
     const {entities: {
             allOregon
         }} = state;
