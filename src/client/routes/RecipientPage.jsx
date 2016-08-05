@@ -31,7 +31,7 @@ class Recipient extends Component {
     static propTypes = {
         campaign: object,
         filer_id: string,
-        transactions: array,
+        transactions: object,
         stateContributions: object,
         mungedSums: object,
         mungedSpending: object,

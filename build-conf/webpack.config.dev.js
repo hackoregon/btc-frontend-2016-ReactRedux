@@ -5,7 +5,7 @@ const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 module.exports = {
   name: 'browser',
-  devtool: '#source-map',
+  devtool: '#eval',
   entry: ['webpack-hot-middleware/client', './src/client/main.js'],
   output: {
     path: path.join(__dirname, '../public'),

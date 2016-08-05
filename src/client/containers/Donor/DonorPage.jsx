@@ -100,6 +100,7 @@ class DonorPage extends Component {
     }
 
     componentWillMount() {
+      debugger;
         const {donorName, donor, transactions, spendData, year} = this.props;
 
         if (!_.isEmpty(spendData)) {
@@ -155,11 +156,11 @@ class DonorPage extends Component {
     render() {
         const {year, donor, donorName, spendData, transactions} = this.props
         const {dispData} = this.state;
-        const {patronageCategories} = donor;
-
+        // const {patronageCategories} = donor;
+        debugger;
         let donorMeta;
-        let tData = null;
-        console.log(dispData);
+        // let tData = null;
+        // console.log(dispData);
         if (_.isEmpty(donor) && _.isEmpty(transactions)) {
             // needs loading icon here
             return (<Loading name='rotating-plane'/>)
@@ -257,29 +258,31 @@ class DonorPage extends Component {
         // });
 
         const labels = _.keys(spendData);
-        const patronageIcons = patronageCategories && patronageCategories.length
-            ? (
-                <Col center='xs' around={'xs'} middle={'xs'} xs={12} style={{
-                    height: 'auto',
-                    display: 'flex',
-                    justifyContent: 'space-around'
-                }}>
-                    <Row xs={6} center={'xs'} middle={'xs'}>
-                        {(patronageCategories.map((item) => {
-                            return <Col xs style={{
-                                padding: '1rem'
-                            }}>
-                                <h5>{item}</h5>
-                            </Col>
-                        }))}
-                    </Row>
-                </Col>
-            )
-            : null;
-            console.log(transactions,spendData)
+        // const patronageIcons = patronageCategories && patronageCategories.length
+        //     ? (
+        //         <Col center='xs' around={'xs'} middle={'xs'} xs={12} style={{
+        //             height: 'auto',
+        //             display: 'flex',
+        //             justifyContent: 'space-around'
+        //         }}>
+        //             <Row xs={6} center={'xs'} middle={'xs'}>
+        //                 {(patronageCategories.map((item) => {
+        //                     return <Col xs style={{
+        //                         padding: '1rem'
+        //                     }}>
+        //                         <h5>{item}</h5>
+        //                     </Col>
+        //                 }))}
+        //             </Row>
+        //         </Col>
+        //     )
+        //     : null;
+        //     console.log(transactions,spendData)
+
+        // <DonorCard donor={donorMeta}/> {patronageIcons}
         return (
             <Grid {...this.props} fluid={false} params={this.props.params}>
-                <DonorCard donor={donorMeta}/> {patronageIcons}
+                <DonorCard donor={donorMeta}/>
                 <Col>
 
                     <Row xs={6} style={{

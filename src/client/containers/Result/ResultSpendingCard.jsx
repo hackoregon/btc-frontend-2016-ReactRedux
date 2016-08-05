@@ -81,9 +81,10 @@ class ResultSpendingCard extends Component {
               const cashValues = d3.values(cashContribs)
               const toFixLabels = Object.keys(cashContribs)
               const cashLabels = toFixLabels.map((name) => {
+                const splitName = name.split(/\ \(/)[0];
                   return ({
-                      name:name.split(/\ \(/)[0],
-                      linkTo: `/donors/${name}`})
+                      name: splitName,
+                      linkTo: `/donors/${name}` })
               });
 
               this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
@@ -115,7 +116,9 @@ class ResultSpendingCard extends Component {
                             values: this.state.spendValues,
                             labels: this.state.spendLabels
                         }} md={6}/>
-                      {this.state.displayCash ? (<DonutChart xs={12} sm={6} wrapRow title='Giving To Other Campaigns' displayValue data={{
+                      {this.state.displayCash ? (<DonutChart
+                        labelLinks
+                        xs={12} sm={6} wrapRow title='Giving To Other Campaigns' displayValue data={{
                             values: this.state.cashValues,
                             labels: this.state.cashLabels
                         }} md={6}/>):null}

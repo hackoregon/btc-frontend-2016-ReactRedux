@@ -81,14 +81,28 @@ class DonutChart extends Component {
       let total = d3.sum(nextProps.data.values)
       let totalVals = nextProps.data.values;
       let labelOfVals = nextProps.data.labels;
+      console.log('labels going into donut', labelOfVals);
 
+      if(labelOfVals && typeof labelOfVals[0] === 'object'){
+        debugger;
+        this.setState({
+            total: total,
+            currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))].name,
+            currValue: d3.max(totalVals),
+            values: [...totalVals],
+            labels: [...labelOfVals]
+            });
+      }
+
+      if(labelOfVals && typeof labelOfVals[0] === 'string'){
       this.setState({
           total: total,
           currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))],
           currValue: d3.max(totalVals),
           values: [...totalVals],
           labels: [...labelOfVals]
-        });
+          });
+        }
       }
     }
 
