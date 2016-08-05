@@ -70,33 +70,37 @@ class ResultSpendingCard extends Component {
 
     componentWillReceiveProps(nextProps) {
       const {data} = nextProps;
+      debugger;
       //     // const {dispatch} = this.props;
-      const {spending, cashContribs} = data;
-      if (!_.isEmpty(spending)) {
+      if(!_.isEmpty(data)){
+        const {spending, cashContribs} = data;
+        if (!_.isEmpty(spending)) {
 
-          const spendValues = d3.values(spending);
-          const spendLabels = Object.keys(spending);
+            const spendValues = d3.values(spending);
+            const spendLabels = Object.keys(spending);
 
-          if (!_.isEmpty(cashContribs)) {
-              const cashValues = d3.values(cashContribs)
-              const toFixLabels = Object.keys(cashContribs)
-              const cashLabels = toFixLabels.map((name) => {
-                const splitName = name.split(/\ \(/)[0];
-                  return ({
-                      name: splitName,
-                      linkTo: `/donors/${name}` })
-              });
+            if (!_.isEmpty(cashContribs)) {
+                const cashValues = d3.values(cashContribs)
+                const toFixLabels = Object.keys(cashContribs)
+                const cashLabels = toFixLabels.map((name) => {
+                  const splitName = name.split(/\ \(/)[0];
+                    return ({
+                        name: splitName,
+                        linkTo: `/donors/${name}` })
+                });
 
-              this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
-          } else{
-              this.setState({spendValues, spendLabels, displaySpending: true, displayCash: false});
-          }
+                this.setState({spendValues, spendLabels, displaySpending:true, cashValues, cashLabels, displayCash: true});
+            } else{
+                this.setState({spendValues, spendLabels, displaySpending: true, displayCash: false});
+            }
+        }
       }
+
     }
 
     shouldComponentUpdate(nextProps) {
-      const { year } = nextProps;
-      if(year != this.props.year) {
+      const { year, data } = nextProps;
+      if(year != this.props.year && !_.isEmpty(data)) {
         return true;
       }
       return false;

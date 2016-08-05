@@ -61,6 +61,19 @@ class DonutChart extends Component {
             if(offset){
                 offSet = offset
             }
+            if(labelOfVals && typeof labelOfVals[0] === 'object'){
+              debugger;
+              this.setState({
+                  total: total,
+                  title: title,
+                  currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))].name,
+                  currValue: d3.max(totalVals),
+                  values: [...totalVals],
+                  labels: [...labelOfVals]
+                  });
+            }
+
+            if(labelOfVals && typeof labelOfVals[0] === 'string'){
             this.setState({
                 total: total,
                 title: title,
@@ -68,11 +81,10 @@ class DonutChart extends Component {
                 currValue: d3.max(totalVals),
                 values: [...totalVals],
                 labels: [...labelOfVals]
-            });
-
+                });
+              }
+            }
         }
-
-    }
     componentWillReceiveProps(nextProps) {
 
       const {data,title} = nextProps;
@@ -85,6 +97,7 @@ class DonutChart extends Component {
 
       if(labelOfVals && typeof labelOfVals[0] === 'object'){
         debugger;
+
         this.setState({
             total: total,
             currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))].name,
@@ -119,7 +132,12 @@ class DonutChart extends Component {
     }
 
     setLabel(v, i) {
+        const { name } = this.state.labels[i];  
+       if(name) {
+        this.setState({currValue: v, currLabel: this.state.labels[i].name});
+      } else {
         this.setState({currValue: v, currLabel: this.state.labels[i]})
+      }
     }
 
     animateLabel(i, _this) {
