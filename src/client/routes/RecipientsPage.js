@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Grid } from 'react-bootstrap';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 
 class RecipientsPage extends Component {
+   static propTypes = {
+     params: PropTypes.string
+   }
     render() {
         return (
-            <div>
+            <div {...this.props} >
                 <BTCNav />
                 <Grid fluid={ true }
                       style={ {    marginTop: '100px',    fontWeight: '200px'} }

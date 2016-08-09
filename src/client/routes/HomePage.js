@@ -7,13 +7,10 @@ import DataTable from '../components/DataVisuals/DataTable.jsx'
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Footer from '../components/Navigation/Footer.jsx';
 import Loading from '../components/Loading/Loading.jsx';
-// import ResultPage from '../containers/Result/ResultPage.jsx';
 
 import {fetchOregon} from '../actions';
-
-// import d3 from 'd3';
 import _ from 'lodash'
-// import moment from 'moment';
+
 
 const { object } = PropTypes;
 // http://54.213.83.132/hackoregon/http/oregon_committee_contributors/_/
@@ -25,20 +22,6 @@ const { object } = PropTypes;
 function loadData(props) {
     props.fetchOregon();
 }
-
-// const makeTop = (trans, num) => {
-
-//     return _.chain(trans).reduce((acc, d) => {
-//         if (acc[d.contributorPayee]) {
-//             acc[d.contributorPayee] += d.amount;
-//         } else {
-//             acc[d.contributorPayee] = d.amount;
-//         }
-//         return acc;
-//     }, {}).map((total, payee) => {
-//         return {value: total, name: formatName(payee), link: payee}
-//     }).sortBy('value').takeRight(num).reverse().value();
-// }
 
 function formatData(arr, dataType) {
 
@@ -76,33 +59,7 @@ function formatData(arr, dataType) {
 
 }
 
-// function cleanData(array) {
-//     for (var i = 0; i < array.length; i++) {
-//         if (array[i]['filedDate'] == undefined) {
-//             array.splice(i)
-//         }
-//     }
-//     return array
-// }
-// function splitCodes(trans) {
-//     if (trans) {
-//         let obj = {}
-//         trans.forEach((item) => {
-//             if (item.direction == 'out' && item.purposeCodes) {
-//                 let codes = item['purposeCodes'].split(';');
-//                 codes.map((code) => {
-//                     let c = code.trim()
-//                     if (c in obj) {
-//                         obj[c] += item.amount / codes.length; // NOTE - splitting based on length of codes in trans
-//                     } else {
-//                         obj[c] = 0;
-//                     }
-//                 })
-//             }
-//         })
-//         return obj
-//     }
-// }
+
 
 class HomePage extends Component {
   static propTypes = {
@@ -125,24 +82,7 @@ class HomePage extends Component {
     componentWillReceiveProps(nextProps) {
         const {allOregon} = nextProps;
         if (!_.isEmpty(allOregon)) {
-            // let trans = _.values(transactions);
-            // const cleaned = cleanData(trans);
-            // const byYear = d3.nest()
-            // .key(function(d) {
-            //   if(d.filedDate){
-            //     return moment(d.filedDate).format('YYYY');
-            //       // return d.filedDate.split("-")[1];
-            //   }
-            //   }).rollup(function(v) {
-            //   return v
-            // }).map(cleaned);
-            // const selectKeys = Object.keys(byYear);
-            // this.setState({
-            //   data: byYear,
-            //   year: selectKeys[selectKeys.length-1],
-            //   display: true,
-            //   dispData: byYear[selectKeys[selectKeys.length-1]]
-            // });
+
             const {feed, sum, biz, pac, ind} = allOregon;
 
             this.setState({
@@ -170,22 +110,6 @@ class HomePage extends Component {
         this.setState({year: year, dispData: this.state.data[year]});
     }
 
-    // renderPage(allOregon){
-    //   const data = this.state.data[this.state.year];
-    //   if(data){
-    //     const contribs = {
-    //       ind : data.filter(datum => {return datum.bookType === 'Individual' && datum.contributorPayeeClass != 'grassroots_contributor' }),
-    //       grassroots: data.filter(datum => datum.contributorPayeeClass === 'grassroots_contributor'),
-    //       biz : data.filter(datum => {return datum.bookType === ('Business Entity')}),
-    //       pac : data.filter(datum => {return datum.contributorPayeeCommitteeId != null && datum.bookType !== ('Political Party Committee')}),
-    //       party: data.filter((datum) => {return datum.bookType === 'Political Party Committee'})
-    //     }
-    //     return (
-    //       <ResultPage year={this.state.year}
-    //         campaign={campaign} contributions={contribs} sums={mungedSums} stateInfo={stateInfo} filerId={filerId} />
-    //     )
-    //   }
-    // }
     renderPage() {
         let pac = formatData(this.state.pac)
         const styles = {
@@ -233,23 +157,10 @@ class HomePage extends Component {
     }
 
     render() {
-        // const {allOregon} = this.props;
-        // let trans = _.values(transactions);
-        // const cleaned = cleanData(trans);
-        // const byYear = d3.nest()
-        // .key(function(d) {
-        //   if(d.filedDate){
-        //       return d.filedDate.split("-")[0];
-        //   }
-        //   }).rollup(function(v) {
-        //   return v
-        // }).map(cleaned);
-        // const selectKeys = Object.keys(byYear);
 
         let spending = this.state.display
             ? this.renderPage()
             : (<Loading name='cube-grid'/>);
-        // (this.renderPage(this.state.data[this.state.year])) : (<Loading name='cube-grid'/>);
         return (
             <div {...this.props} style={{
                 display: 'flex',

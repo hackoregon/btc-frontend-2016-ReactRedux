@@ -91,19 +91,8 @@ class Recipient extends Component {
         const {data, spending} = this.state;
         this.setState({
             year: year, dispData: data[year], spendData: spending[year]
-
-            // dispSpending: this.state.spendData[year]
         });
     }
-
-    // renderSpend(){
-    //   let spend = JSON.stringify(splitCodes(this.state.dispData));
-    //   return(
-    //     <div>
-    //         {spend}
-    //     </div>
-    //   )
-    // }
 
     renderPage(campaign, data, spendData, mungedSums, stateInfo, filerId) {
         if (data) {
