@@ -18,7 +18,6 @@ function donorPercent(amount,donors) {
     };
   } else
     return {size: '0%', color: '#FFF'};
-
 }
 
 const DonorRowItem = React.createClass({

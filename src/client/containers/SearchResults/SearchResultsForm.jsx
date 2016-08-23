@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-// import {Grid, Row, Col} from 'react-bootstrap';
 import {Grid, Row, Col}  from 'react-flexbox-grid';
-import {loadSearchData,directLoad} from '../../actions/index.js';
 import Autosuggest from 'react-autosuggest';
+
+import {loadSearchData} from '../../actions/index.js';
 import fetchSuggestions from '../../utils/fetchSuggestions.js';
+
 import './autosuggest.css'
 import './SearchForm.css'
+
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -107,7 +109,7 @@ class SearchResultsForm extends Component {
 
   render() {
     const {value, suggestions} = this.state;
-
+    const { searchData, searchTerm, dispatch, ...rest} = this.props;
     const inputProps = {
       placeholder: 'Search candidates, measures or PACs',
       value,
@@ -135,7 +137,7 @@ class SearchResultsForm extends Component {
 
     return (
 
-      <form {...this.props} onSubmit={this.handleFetch}>
+      <form {...rest} onSubmit={this.handleFetch}>
         <Grid fluid>
           <Row>
             <Col style={{position:'relative'}} xs={12} md={12} sm={12} lg={12}>

@@ -21,7 +21,6 @@ class DataMap extends Component {
             domainRange: []
         }
         this.datamap = null;
-        // this.handleResize = this.handleResize.bind(this);
         this.currentScreenWidth = this.currentScreenWidth.bind(this);
         this.reducedData = this.reducedData.bind(this);
     }

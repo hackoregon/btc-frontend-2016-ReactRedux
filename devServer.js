@@ -20,7 +20,7 @@ app.get('*', function(req, res) {
 });
 
 app.listen(port, 'localhost', function(err) {
-  if (err) { 
-    return;
-  } 
+  if (err) {
+    console.log(err);
+  }
 });

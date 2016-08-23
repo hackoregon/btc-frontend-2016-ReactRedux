@@ -10,41 +10,46 @@ function sortNums(a, b) {
 }
 
 class BarChart extends Component {
-    constructor(props) {
-        super(props);
+
+    static propTypes = {
+      data: PropTypes.array.isRequired,
+      labels: PropTypes.array.isRequired,
+      colors: PropTypes.array.isRequired,
+      grouping: PropTypes.string,
+      horizontal: PropTypes.bool,
+      horizontalLabels: PropTypes.array,
+      seriesLabels: PropTypes.array,
+      itemLabels: PropTypes.bool,
+      opaque: PropTypes.bool,
+      thick: PropTypes.bool,
+      customStyle: PropTypes.object,
+      height: PropTypes.number,
+      splitAt: PropTypes.number
+    }
+
+    constructor() {
+        super();
         this.mapSeries = this.mapSeries.bind(this);
     }
-    componentWillMount() {
-      let layered = this.props.grouping === 'layered'
-          ? true
-          : false,
-      stacked = this.props.grouping === 'stacked'
-          ? true
-          : false,
-      opaque = this.props.opaque,
-      thick = this.props.thick;
 
-  this.setState({layered: layered, stacked: stacked, opaque: opaque, thick:thick});
+    componentWillMount() {
+        let layered = this.props.grouping === 'layered'
+                ? true
+                : false,
+            stacked = this.props.grouping === 'stacked'
+                ? true
+                : false,
+            opaque = this.props.opaque,
+            thick = this.props.thick;
+
+        this.setState({layered: layered, stacked: stacked, opaque: opaque, thick: thick});
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //   let data = nextProps.data,
-    //       layered = nextProps.grouping === 'layered'
-    //           ? true
-    //           : false,
-    //       stacked = nextProps.grouping === 'stacked'
-    //           ? true
-    //           : false,
-    //       opaque = nextProps.opaque;
-    //
-    //   this.setState({layered: layered, stacked: stacked, opaque: opaque});
-    // }
-
     shouldComponentUpdate(nextProps) {
-      if(nextProps.data.length){
-        return true
-      }
-      return false
+        if (nextProps.data.length) {
+            return true
+        }
+        return false
     }
 
     mapSeries(self, series, seriesIndex, sum, max) {
@@ -79,11 +84,11 @@ class BarChart extends Component {
                 style['width'] = (size * 0.85) + '%';
                 return (
                     <div className={'horizontalLabels-container'}>
-                        <div className = {'horizontalLabels-labels-container'}>
+                        <div className={'horizontalLabels-labels-container'}>
                             <label className={'horizontalLabels'} key={seriesIndex}>{self.props.labels[seriesIndex]}
                             </label>
                         </div>
-                        <div className = {'horizontalLabels-item-container'}>
+                        <div className={'horizontalLabels-item-container'}>
                             <div className={'BarChart--item ' + (self.props.grouping)} style={{
                                 ...style
                             }} key={itemIndex}>
@@ -137,11 +142,13 @@ class BarChart extends Component {
                             : 0;
 
                         let fullSeries = this.mapSeries(this, series, seriesIndex, sum, max);
-                        let titles = this.props.titles ? (
-                          <h4 className={'titles `${series}`'} key={seriesIndex}>
-                            {this.props.titles[seriesIndex]}
-                          </h4>
-                        ) : null;
+                        let titles = this.props.titles
+                            ? (
+                                <h4 className={'titles `${series}`'} key={seriesIndex}>
+                                    {this.props.titles[seriesIndex]}
+                                </h4>
+                            )
+                            : null;
 
                         let seriesLabels = this.props.seriesLabels
                             ? (
@@ -150,16 +157,21 @@ class BarChart extends Component {
                             )
                             : null;
 
-                        let itemLabels = this.props.itemLabels ? (
-                          <label key={seriesIndex}>{this.props.labels[seriesIndex]}
-                          </label>
-                        ) : null;
+                        let itemLabels = this.props.itemLabels
+                            ? (
+                                <label key={seriesIndex}>{this.props.labels[seriesIndex]}
+                                </label>
+                            )
+                            : null;
 
                         let height = this.props.height
                             ? this.props.height
                             : '0px'
-                        let marginSplitLeft = split && this.props.splitAt == seriesIndex ? ' marginSplitLeft ': '';
-                        let classNames = 'BarChart--series ' + (this.props.thick ? ' thick '
+                        let marginSplitLeft = split && this.props.splitAt == seriesIndex
+                            ? ' marginSplitLeft '
+                            : '';
+                        let classNames = 'BarChart--series ' + (this.props.thick
+                            ? ' thick '
                             : '') + (this.props.grouping) + (marginSplitLeft);
 
                         return (
@@ -176,27 +188,9 @@ class BarChart extends Component {
                 </div>
             );
         } else {
-            return (
-                <Spinner spinnerName='cube-grid'/>
-            )
+            return (<Spinner spinnerName='cube-grid'/>)
         }
     }
-}
-
-BarChart.propTypes = {
-    data: PropTypes.array.isRequired,
-    labels: PropTypes.array.isRequired,
-    colors: PropTypes.array.isRequired,
-    grouping: PropTypes.string,
-    horizontal: PropTypes.bool,
-    horizontalLabels: PropTypes.array,
-    seriesLabels: PropTypes.array,
-    itemLabels: PropTypes.bool,
-    opaque: PropTypes.bool,
-    thick: PropTypes.bool,
-    customStyle: PropTypes.object,
-    height: PropTypes.number,
-    splitAt : PropTypes.number
 }
 
 export default BarChart

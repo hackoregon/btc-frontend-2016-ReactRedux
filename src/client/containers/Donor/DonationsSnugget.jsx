@@ -5,9 +5,6 @@ import {Row, Col} from 'react-flexbox-grid';
 import _ from 'lodash';
 import d3 from 'd3';
 import DataTable from '../../components/DataVisuals/DataTable.jsx'
-// import numeral from 'numeral';
-// import d3 from 'd3';
-// import {fixNames} from '../../utils';
 
 const colors = [
     '#8dd3c7',
@@ -24,11 +21,6 @@ const colors = [
     '#ffed6f',
     '#E91E63'
 ];
-
-// function loadData(props){
-//   const {loadSpending,params,spending} = props;
-//   loadSpending(params,spending);
-// }
 
 function getByFilerAmounts(trans) {
     let obj = {};
@@ -158,15 +150,5 @@ DonationsSnugget.propTypes = {
     data: PropTypes.array,
     year: PropTypes.string
 }
-// function mapStateToProps(state, ownProps) {
-//     const {year} = ownProps;
-//     const {
-//         entities: {
-//             mungedSpending
-//         }
-//     } = state;
-//     const {spending,cashContribs} = mungedSpending[year];
-//     return {spending,cashContribs};
-// }
+
 export default DonationsSnugget;
-// export default connect(mapStateToProps, {loadSpending})(DonationsSnugget);

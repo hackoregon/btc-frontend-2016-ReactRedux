@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes } from 'react';
 import {Chart, DataSeries, Pie} from 'diffract';
 import Legend from '../Legend/Legend.jsx';
 import {Row, Col} from 'react-flexbox-grid';
@@ -6,6 +6,7 @@ import _ from 'lodash';
 import numeral from 'numeral';
 import d3 from 'd3';
 
+const { object, string, number, bool } = PropTypes;
 // const width = 240;
 // const height = 240;
 const COLORS = [
@@ -35,6 +36,23 @@ const COLORS = [
     '#ffffb3'
 ]
 class DonutChart extends Component {
+
+    static propTypes = {
+      data: object,
+      title: string,
+      offset: number,
+      displayValue: bool,
+      fontSize: number,
+      width: number,
+      height: number,
+      x: number,
+      y: number,
+      inner: bool,
+      outer: bool,
+      labelLinks: bool,
+      wrapRow: bool
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -52,15 +70,27 @@ class DonutChart extends Component {
     }
 
     componentWillMount() {
-        const {data,title,offset} = this.props;
+        const {data,title} = this.props;
         if (!_.isEmpty(data) && data.values) {
             let total = d3.sum(data.values)
             let totalVals = data.values;
             let labelOfVals = data.labels;
-            let offSet = 0;
-            if(offset){
-                offSet = offset
+            // let offSet = 0;
+            // if(offset){
+            //     // offSet = offset
+            // }
+            if(labelOfVals && typeof labelOfVals[0] === 'object'){
+              this.setState({
+                  total: total,
+                  title: title,
+                  currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))].name,
+                  currValue: d3.max(totalVals),
+                  values: [...totalVals],
+                  labels: [...labelOfVals]
+                  });
             }
+
+            if(labelOfVals && typeof labelOfVals[0] === 'string'){
             this.setState({
                 total: total,
                 title: title,
@@ -68,36 +98,48 @@ class DonutChart extends Component {
                 currValue: d3.max(totalVals),
                 values: [...totalVals],
                 labels: [...labelOfVals]
-            });
-
+                });
+              }
+            }
         }
-
-    }
     componentWillReceiveProps(nextProps) {
 
-      const {data,title} = nextProps;
-      debugger;
+      const {data} = nextProps;
+
       if(!_.isEmpty(data)){
       let total = d3.sum(nextProps.data.values)
       let totalVals = nextProps.data.values;
       let labelOfVals = nextProps.data.labels;
+      console.log('labels going into donut', labelOfVals);
 
+      if(labelOfVals && typeof labelOfVals[0] === 'object'){
+
+        this.setState({
+            total: total,
+            currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))].name,
+            currValue: d3.max(totalVals),
+            values: [...totalVals],
+            labels: [...labelOfVals]
+            });
+      }
+
+      if(labelOfVals && typeof labelOfVals[0] === 'string'){
       this.setState({
           total: total,
           currLabel: labelOfVals[totalVals.indexOf(d3.max(totalVals))],
           currValue: d3.max(totalVals),
           values: [...totalVals],
           labels: [...labelOfVals]
-        });
+          });
+        }
       }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate() {
       return true;
     }
 
     getColors(d, i) {
-
         if (arguments.length === 2) {
             return COLORS[i];
         } else {
@@ -105,10 +147,13 @@ class DonutChart extends Component {
         }
     }
 
-
     setLabel(v, i) {
-      debugger;
+        const { name } = this.state.labels[i];
+       if(name) {
+        this.setState({currValue: v, currLabel: this.state.labels[i].name});
+      } else {
         this.setState({currValue: v, currLabel: this.state.labels[i]})
+      }
     }
 
     animateLabel(i, _this) {
@@ -141,7 +186,7 @@ class DonutChart extends Component {
                 </text>
             );
 
-        return (<Col {...this.props}>
+        return (<Col>
             {title}
                 <Row  xs = {12} center='xs' around='xs' >
                     <Chart xs={12} sm={6} style={{
