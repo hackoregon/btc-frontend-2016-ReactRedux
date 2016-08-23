@@ -100,7 +100,6 @@ class DonorPage extends Component {
     }
 
     componentWillMount() {
-      debugger;
         const {donorName, donor, transactions, spendData, year} = this.props;
 
         if (!_.isEmpty(spendData)) {
@@ -157,7 +156,6 @@ class DonorPage extends Component {
         const {year, donor, donorName, spendData, transactions} = this.props
         const {dispData} = this.state;
         // const {patronageCategories} = donor;
-        debugger;
         let donorMeta;
         // let tData = null;
         // console.log(dispData);

@@ -132,7 +132,6 @@ export const fetchCampaigns = (filerId) => (dispatch,getState) => {
         return filerId;
         // return api.mungeSpending(filerId, response)
         // .then(value => {
-          // debugger;
           // const {filerId,allYears} = value;
         // })
       })

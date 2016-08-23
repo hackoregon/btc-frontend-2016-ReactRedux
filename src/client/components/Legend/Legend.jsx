@@ -17,7 +17,6 @@ class Legend extends React.Component {
 
       return labels.map((label, idx) => {
           if (typeof label === 'object') {
-              debugger;
               const {linkTo, name} = label;
               console.log(typeof linkTo, typeof name);
               return (

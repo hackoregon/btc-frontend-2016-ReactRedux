@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react';
-// import {connect} from 'react-redux';
 import ChartistGraph from 'react-chartist';
-// import SizeMe from 'react-sizeme';
 import moment from 'moment';
 import numeral from 'numeral';
 import {Grid, Col, Row} from 'react-flexbox-grid';
@@ -10,13 +8,12 @@ import Loading from '../../components/Loading/Loading.jsx';
 import _ from 'lodash';
 import d3 from 'd3';
 import MonthField from '../../components/Select/Month.jsx'
-// import {getMonthsData} from '../../actions';
 import Chartist from 'chartist';
 
 import './Select.css';
 import './Line.css';
 
-const { object, string } = PropTypes;
+const {object, string} = PropTypes;
 function formatData(arr) {
 
     let newData = {
@@ -42,10 +39,11 @@ function formatData(arr) {
 }
 
 class WhenChart extends React.Component {
-  static propTypes = {
-    data: object,
-    year: string
-  }
+    static propTypes = {
+        data: object,
+        year: string
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -55,21 +53,21 @@ class WhenChart extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
     }
     componentWillMount() {
-      const {data, year} = this.props;
-      if (!_.isEmpty(data)) {
-          const years = Object.keys(data);
-          const months = Object.keys(data[years[years.length-1]])
-          const defaultData = data[years[years.length-1]][months[months.length-1]];
-          let dataSet = formatData(defaultData);
-          let high = d3.max(defaultData, (d) => d.totalIn);
-          let low = (-d3.max(defaultData, (d) => d.totalOut));
-          // if (!_.isEmpty(monthsData)) {
-          //     dataSet = formatData(monthsData)
-          //     high = d3.max(defaultData, (d) => d.totalIn);
-          //     low = (-d3.max(defaultData, (d) => d.totalOut));
-          // }
-          this.setState({year: year, data: data, dispData: dataSet, high, low});
-      }
+        const {data, year} = this.props;
+        if (!_.isEmpty(data)) {
+            const years = Object.keys(data);
+            const months = Object.keys(data[years[years.length - 1]])
+            const defaultData = data[years[years.length - 1]][months[months.length - 1]];
+            let dataSet = formatData(defaultData);
+            let high = d3.max(defaultData, (d) => d.totalIn);
+            let low = (-d3.max(defaultData, (d) => d.totalOut));
+            // if (!_.isEmpty(monthsData)) {
+            //     dataSet = formatData(monthsData)
+            //     high = d3.max(defaultData, (d) => d.totalIn);
+            //     low = (-d3.max(defaultData, (d) => d.totalOut));
+            // }
+            this.setState({year: year, data: data, dispData: dataSet, high, low});
+        }
     }
     componentWillReceiveProps(nextProps, nextState) {
         const {data, year} = nextProps;
@@ -78,9 +76,9 @@ class WhenChart extends React.Component {
 
             // const today = moment.now();
             const years = Object.keys(data);
-            const months = Object.keys(data[years[years.length-1]])
+            const months = Object.keys(data[years[years.length - 1]])
             // const lastMonth = moment(today).subtract(1, 'months').format('MMM');
-            const defaultData = data[years[years.length-1]][months[months.length-1]];
+            const defaultData = data[years[years.length - 1]][months[months.length - 1]];
             let dataSet = formatData(defaultData);
             let high = d3.max(defaultData, (d) => d.totalIn);
             let low = (-d3.max(defaultData, (d) => d.totalOut));
@@ -171,8 +169,13 @@ class WhenChart extends React.Component {
                     </Row>
 
                     <ChartistGraph data={this.state.dispData} options={lineChartOptions} type={'Line'}/>
-                    <Row xs={6} style={{alignItems:'center',justifyContent:'space-around'}}>
-                        <MonthField style={{alignSelf:'center'}} xs={1} ref={'month'} months={labels} year={this.state.year} onToggleSelect={this.handleSelect}/>
+                    <Row xs={6} style={{
+                        alignItems: 'center',
+                        justifyContent: 'space-around'
+                    }}>
+                        <MonthField style={{
+                            alignSelf: 'center'
+                        }} xs={1} ref={'month'} months={labels} year={this.state.year} onToggleSelect={this.handleSelect}/>
                     </Row>
                 </Grid>
             );

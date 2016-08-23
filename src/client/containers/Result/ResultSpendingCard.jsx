@@ -70,7 +70,6 @@ class ResultSpendingCard extends Component {
 
     componentWillReceiveProps(nextProps) {
       const {data} = nextProps;
-      debugger;
       //     // const {dispatch} = this.props;
       if(!_.isEmpty(data)){
         const {spending, cashContribs} = data;

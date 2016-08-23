@@ -80,7 +80,6 @@ class DonutChart extends Component {
             //     // offSet = offset
             // }
             if(labelOfVals && typeof labelOfVals[0] === 'object'){
-              debugger;
               this.setState({
                   total: total,
                   title: title,
@@ -114,7 +113,6 @@ class DonutChart extends Component {
       console.log('labels going into donut', labelOfVals);
 
       if(labelOfVals && typeof labelOfVals[0] === 'object'){
-        debugger;
 
         this.setState({
             total: total,
