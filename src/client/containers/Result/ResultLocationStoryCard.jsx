@@ -7,23 +7,9 @@ import Legend from '../../components/Legend/Legend.jsx';
 import {loadStateInfo} from '../../actions'
 import SizeMe from 'react-sizeme';
 import numeral from 'numeral';
-// function loadData(props) {
-//   const {filer_id} = props.params;
-//   props.loadStateInfo(filer_id);
-// }
+
 const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 16});
 
-// const colors = [
-//     '#EEFBFB',
-//     '#CDF3F2',
-//     '#89C2C0',
-//     '#84BEBB',
-//     '#71B0AE',
-//     '#6CACAA',
-//     '#5A9E9B',
-//     '#1F8481',
-//     '#165F5C'
-// ]; // old colors
 const colors = ['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b']
 const domainRange = [
     100,
@@ -35,26 +21,13 @@ const domainRange = [
 ];
 
 function formatMoney(num) {
-    // let minNum = num == 100 ? 1 : (num/10)+1;
     return numeral(num).format('$0,0');
 }
 const ResultLocationStoryCard = (props) => {
     const {stateContributions} = props;
-    // class ResultLocationStoryCard extends Component {
 
-    // constructor(props, content) {
-    //   super(props, content);
-    // }
-
-    // componentWillMount() {
-    //   loadData(this.props);
-    // }
-
-    // render() {
-    // let stateContribs;
-    // const {stateContributions} = this.props;
     let stateContribs = stateContributions;
-    // let stateArray = _.values(stateContributions)
+
     let stateArr = [];
     statesData.forEach((item) => {
         if (stateContribs && stateContribs[item.regionName]) {
@@ -62,19 +35,6 @@ const ResultLocationStoryCard = (props) => {
             stateArr.push(item);
         }
     })
-
-    // var stateDataArr = statesData.map((i) => {
-    //   if (stateContribs && stateContribs[i.regionName] !== undefined) {
-    //     // 
-    //     return {
-    //       code: i.code,
-    //       regionName: i.regionName,
-    //       value: stateContribs[i.regionName].value
-    //     }
-    //   }
-    //
-    // });
-    // 
 
     return (
         <StoryCard style={{
@@ -102,12 +62,5 @@ ResultLocationStoryCard.propTypes = {
     stateContributions: PropTypes.object
 }
 
-// function mapStateToProps(state) {
-// const {entities: {
-//     stateContributions
-//   }} = state;
-// return {stateContributions};
-// }
 
 export default ResultLocationStoryCard;
-// export default connect(mapStateToProps, {loadStateInfo})(SizeMeHOC(ResultLocationStoryCard));

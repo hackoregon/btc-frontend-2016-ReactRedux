@@ -7,6 +7,10 @@ String.prototype.capitalize = (lower) => {
   });
 }
 
+export function getExample(filer) {
+  return axios.get(`http://54.213.83.132/hackoregon/http/current_candidate_transactions/${filer}/`);
+}
+
 function getCompetitorFromName(searchTerm) {
   const searchFor = fixNames(searchTerm.capitalize());
   return axios.get(`http://54.213.83.132/hackoregon/http/competitors_from_name/${searchFor}/`);

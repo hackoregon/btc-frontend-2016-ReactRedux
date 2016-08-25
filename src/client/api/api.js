@@ -36,6 +36,7 @@ function promiseToFetch(url, schema) {
       return normalize(camelizedJson, schema);
     })
 }
+
 // campaign basic info
 const campaign = new Schema('campaigns', {
   idAttribute: 'filerId'

@@ -10,7 +10,7 @@ import Donor from './DonorPage.js';
 import RecipientPage from './RecipientPage.jsx';
 import FaqPage from './FaqPage.js';
 import AboutPage from './AboutPage.js';
-
+import Dev from './Dev';
 export default function(history) {
     return (
         <Router history={history}>
@@ -24,6 +24,7 @@ export default function(history) {
                 <Route path="/donors/:donorName" pageType={'singleResult'} component={ Donor } />
                 <Route path="/faq" component={ FaqPage } />
                 <Route path="/about" component={ AboutPage } />
+                <Route path="/dev" component={ Dev } />
             </Route>
         </Router>
         );

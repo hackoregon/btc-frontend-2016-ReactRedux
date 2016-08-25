@@ -27,7 +27,7 @@ const Root = () => {
       <Provider store={store} >
         <div style={mainStyles}>
         {routes}
-        {module.hot ? (<DevTools />) : null}
+        { module.hot ? (<DevTools />) : null }
         </div>
       </Provider>
     );
