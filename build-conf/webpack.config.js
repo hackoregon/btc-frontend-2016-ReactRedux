@@ -5,6 +5,7 @@ const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 module.exports = [{
   name: 'browser',
+  devtool: '#cheap-module-eval-source-map',
   entry: {
     main: './src/client/main.js'
   },

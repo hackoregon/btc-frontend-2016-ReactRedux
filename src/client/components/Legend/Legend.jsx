@@ -1,10 +1,5 @@
 import React, {PropTypes} from 'react'
-// import {filterNamesForLinks} from '../../utils';
 import './Legend.css';
-
-// const Labels = ({labels, colors}) => {
-//
-// }
 
 class Legend extends React.Component {
 

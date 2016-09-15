@@ -162,7 +162,7 @@ class HomePage extends Component {
             ? this.renderPage()
             : (<Loading name='cube-grid'/>);
         return (
-            <div {...this.props} style={{
+            <div style={{
                 display: 'flex',
                 minHeight: '100vh',
                 flexDirection: 'column'

@@ -14,13 +14,13 @@ class WhoChart extends Component {
         super(props);
         this.state = {
             series: ['New Funds','Transferred Funds'],
-            labels: ["Business", "Big Donors", "Grassroots", "PAC", "Party"],
+            labels: ['Business', 'Big Donors', 'Grassroots', 'PAC', 'Party'],
             height: 0
         }
     }
 
     componentWillMount() {
-     const {height} = this.props.size;
+     const { height } = this.props.size;
      this.setState({
          height: height
      });
@@ -43,11 +43,9 @@ class WhoChart extends Component {
     }
 
     renderChart(){
-      // const spinner = ( <Spinner spinnerName='cube-grid' /> );
-      //
       return (
         <Col>
-        <Row centered='xs'>
+        <Row center='xs'>
           <Col xs={6}>
             <h5>New Funds</h5>
           </Col >
@@ -71,8 +69,7 @@ class WhoChart extends Component {
     </Col>
 );
     }
-// height={height*0.65}
-// {this.renderChart(height)}
+
     render() {
 
       if (_.isArray(this.state.data) && this.state.data.length > 1) {
@@ -95,10 +92,3 @@ class WhoChart extends Component {
 }
 
 export default SizeMeHOC(WhoChart);
-
-// <div
-//   style={{ display: 'flex',
-//     flex: '1',
-//     flexFlow: 'row nowrap',
-//     alignItems: 'center',
-//   justifyContent: 'center'}}>

@@ -1,13 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import Radium from 'radium';
+
 import './NavRouterLink.css';
-// <li {...this.props}
-//             className={this.props.classes}>
-//             <Link to= {route} activeClass={"active"} style={styles.links}>
-//             <span>{this.props.name}</span>
-//             </Link>
-//         </li>
+
 const styles = {
   ':hover': {
     fontFamily: 'OpenSansBold'
@@ -32,12 +27,12 @@ const styles = {
 class NavRouterLink extends Component {
 
     render() {
-        const {routeTo, customStyles} = this.props;
+        const {routeTo, customStyles } = this.props;
         let boxStyle = customStyles ? customStyles.box : null;
         let linkStyle = customStyles ? customStyles.link : null;
         let route = routeTo || '/' + this.props.name.toLowerCase();
-        return (<div {...this.props} style={{...styles.links,...boxStyle}} >
-                    <Link to= {route} activeClass={'active'} className={'NavRouterLink'}>
+        return (<div style={{...styles.links,...boxStyle}} >
+                    <Link to= {route} className={'NavRouterLink'}>
                     <span style={{...linkStyle}}>{this.props.name}</span>
                     </Link>
                   </div>
@@ -49,7 +44,8 @@ NavRouterLink.propTypes = {
   name: PropTypes.string,
   route: PropTypes.string,
   routeTo: PropTypes.string,
-  classes: PropTypes.string
+  classes: PropTypes.string,
+  customStyles: PropTypes.object
 }
 
 export default NavRouterLink;

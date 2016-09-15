@@ -1,12 +1,10 @@
 import d3 from 'd3';
-// import topojson from 'topojson';
 import Datamap from 'datamaps/dist/datamaps.usa.min'
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import statesDefaults from '../../data/states-defaults';
 import assign from 'lodash/assign';
 import numeral from 'numeral';
-// import colorbrewer from 'colorbrewer';
 import SizeMe from 'react-sizeme';
 const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 24});
 const styles = {
@@ -107,10 +105,10 @@ class DataMap extends Component {
               }
 
             } else if (this.props.size.width <= 600 && mapContainerWidth !== '600px') {
-                // console.log('before',d3.select('#datamap-container svg'))
+
                 if(d3.select('#datamap-container svg')[0][0]){
                 d3.select('#datamap-container svg').remove();
-                // console.log('after',d3.select('#datamap-container svg'))
+
                 mapContainer.style({
                     width: (currentScreenWidth * 0.9) + 'px',
                     height: (currentScreenWidth * 0.5625) + 'px'
@@ -122,7 +120,7 @@ class DataMap extends Component {
             }
         });
     }
-    // handleResize()
+
 
     componentDidUpdate() {
         let data = this.reducedData();

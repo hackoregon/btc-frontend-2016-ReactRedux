@@ -5,7 +5,7 @@ const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 module.exports = {
   name: 'browser',
-  devtool: '#eval',
+  devtool: '#cheap-module-eval-source-map',
   entry: ['webpack-hot-middleware/client', './src/client/main.js'],
   output: {
     path: path.join(__dirname, '../public'),
@@ -35,7 +35,7 @@ module.exports = {
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader',
-      include: /react-spinkit/,
+      include: /react-spinkit/
     },
     {
       test: /\.css$/,

@@ -1,5 +1,4 @@
 import * as api from '../api/api.js'
-// import {capitalize, fixNames } from '../utils'
 
 const requestDonor = (name) => ({
   type: 'DONOR_REQUEST',

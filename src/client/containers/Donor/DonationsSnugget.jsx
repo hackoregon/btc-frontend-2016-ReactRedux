@@ -127,7 +127,7 @@ class DonationsSnugget extends Component {
         //     ?
         console.log('filtered:', filterTransactions(data))
         return (
-            <div {...this.props}>
+            <div  >
                 <StoryCard question={"Who are they donating to?"} description={spendingCopy}>
                     <Row center='xs' around='xs' middle='xs'>
                         <DonutChart fontSize={12} wrapRow width={319} height={320} inner={85} outer={125} x={160} displayValue title='Donations this year' data={{

@@ -5,24 +5,13 @@ import {connect} from 'react-redux';
 import BTCNav from '../components/Navigation/BTCNav.jsx';
 import Loading from '../components/Loading/Loading.jsx';
 import {fetchDonor} from '../actions';
-// import d3 from 'd3';
 import _ from 'lodash'
 import DonorPage from '../containers/Donor/DonorPage.jsx';
-// import moment from 'moment';
 
 function loadData(props){
   const {donorName} = props;
  props.fetchDonor(donorName);
 }
-
-// function cleanData(array) {
-//   for (var i = 0; i < array.length; i++) {
-//     if (array[i]['tranDate'] == undefined) {
-//       array.splice(i)
-//     }
-//   }
-//   return array
-// }
 
 class Donor extends Component {
     constructor(){
@@ -40,22 +29,9 @@ class Donor extends Component {
 
     componentWillReceiveProps(nextProps) {
       const {donationsData} = nextProps;
-
-      // if(!_.isEmpty(donationsData) && !_.isEmpty(mungedSpending)){
       if(!_.isEmpty(donationsData)){
         const {transactions,mungedDonations,filerIds} = donationsData;
-        // const cleaned = cleanData(trans);
-        // const byYear = d3.nest()
-        // .key(function(d) {
-        //   if(d.tranDate){
-        //     return moment(d.tranDate).format('YYYY');
-        //       return d.tranDate.split("-")[1];
-        //   }
-        //   }).rollup(function(v) {
-        //   return v
-        // }).map(cleaned);
         const selectKeys = Object.keys(mungedDonations);
-      //   const selectSpending = Object.keys(mungedSpending);
         this.setState({
           display: true,
           data: mungedDonations,
@@ -78,32 +54,19 @@ class Donor extends Component {
 
     handleSelect(year) {
       const {data} = this.state;
-      // const {data,spending} = this.state;
 
       this.setState({
         year: year,
         dispData: data[year]
-        // spendData: spending[year]
-
-        // dispSpending: this.state.spendData[year]
       });
     }
 
     renderPage(year,donor,data,allTransactions,donorName){
-      // if(data){
-      //   const contribs = {
-      //     ind : data.filter(datum => {return datum.bookType === 'Individual' && datum.contributorPayeeClass != 'grassroots_contributor' }),
-      //     grassroots: data.filter(datum => datum.contributorPayeeClass === 'grassroots_contributor'),
-      //     biz : data.filter(datum => {return datum.bookType === ('Business Entity')}),
-      //     pac : data.filter(datum => {return datum.contributorPayeeCommitteeId != null && datum.bookType !== ('Political Party Committee')}),
-      //     party: data.filter((datum) => {return datum.bookType === 'Political Party Committee'})
-      //   }
 
         return (
           <DonorPage year={year}
             donor={donor} spendData={this.state.dispData} transactions={allTransactions} donorName={donorName} />
-        )
-      // }
+        );
     }
 
     render() {
@@ -115,7 +78,7 @@ class Donor extends Component {
         const selectKeys = Object.keys(mungedDonations);
         let donations = this.state.display ? (this.renderPage(this.state.year,donor,this.state.dispData,transactions,donorName)) : null;
         return (
-            <FlexBody {...this.props} params={ this.props.params }>
+            <FlexBody params={ this.props.params }>
                 <BTCNav ref={'nav'} pageType={'singleResult'} years={selectKeys} onToggleSelect={this.handleSelect}/>
                 <FlexGrid>
                   <Col>

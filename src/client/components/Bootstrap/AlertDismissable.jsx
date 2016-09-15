@@ -26,7 +26,7 @@ class AlertDismissable extends Component {
         let content = null;
         if(this.state.alertVisible){
             content = (
-                <Alert className={'Alert'} {...this.props} onDismiss={this.handleDismiss}>
+                <Alert className={'Alert'} onDismiss={this.handleDismiss}>
                     {this.props.children}
                 </Alert>
             );

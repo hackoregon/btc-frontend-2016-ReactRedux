@@ -39,21 +39,21 @@ class SearchResultsList extends Component {
         );
       });
        (
-        <Col className={'SearchResultsList-item'} {...this.props}>
+        <Col className={'SearchResultsList-item'}  >
           <SearchResultsHeader/>
           {listItems}
         </Col>
       );
     } else if (list && list.length == 0) {
       return (
-        <Col className={'SearchResultsList-item'} {...this.props}>
+        <Col className={'SearchResultsList-item'}  >
           <SearchResultsHeader/>
           <SearchResultsAlert/>
         </Col>
       );
     } else {
       return (
-        <Col className={'SearchResultsList-item'} {...this.props}>
+        <Col className={'SearchResultsList-item'}  >
           <SearchResultsHeader/>
           {errorMsg}
         </Col>

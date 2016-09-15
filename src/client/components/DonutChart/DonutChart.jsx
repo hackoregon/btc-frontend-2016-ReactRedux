@@ -47,8 +47,8 @@ class DonutChart extends Component {
       height: number,
       x: number,
       y: number,
-      inner: bool,
-      outer: bool,
+      inner: number,
+      outer: number,
       labelLinks: bool,
       wrapRow: bool
     }
@@ -186,10 +186,10 @@ class DonutChart extends Component {
                 </text>
             );
 
-        return (<Col>
+        return (<Col  >
             {title}
-                <Row  xs = {12} center='xs' around='xs' >
-                    <Chart xs={12} sm={6} style={{
+                <Row center='xs' around='xs' >
+                    <Chart style={{
                         flex: '1'
                     }} width={this.props.width||240} height={this.props.height||240}>
                         <DataSeries data={this.state.values}>
@@ -204,7 +204,7 @@ class DonutChart extends Component {
                             </Pie>
                         </DataSeries>
                     </Chart>
-                    <div xs={12} sm={6} style={{
+                    <div style={{
                         display: 'block'
                     }}>
                         <Legend labelLinks={this.props.labelLinks || false} wrapRow={this.props.wrapRow || false} labels={this.state.labels} style ={{textAlign:'center'}} colors={COLORS}/>

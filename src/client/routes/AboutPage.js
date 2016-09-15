@@ -65,7 +65,7 @@ class AboutPage extends Component {
 
     render() {
         return (
-            <div {...this.props} style={{
+            <div style={{
                 display: 'flex',
                 minHeight: '100vh',
                 flexDirection: 'column'
@@ -76,8 +76,7 @@ class AboutPage extends Component {
                     paddingTop: '2rem'
                 }}>
 
-                    <Grid center='xs' fluid={true} params={this.props.params}>
-
+                    <Grid center='xs' fluid>
                         <div className="container section ng-scope">
                             <TextContainer>
                                 <h1>This Project Was Built by 100% Volunteers</h1>

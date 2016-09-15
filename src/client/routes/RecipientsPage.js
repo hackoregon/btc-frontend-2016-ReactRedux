@@ -8,7 +8,7 @@ class RecipientsPage extends Component {
    }
     render() {
         return (
-            <div {...this.props} >
+            <div >
                 <BTCNav />
                 <Grid fluid={ true }
                       style={ {    marginTop: '100px',    fontWeight: '200px'} }

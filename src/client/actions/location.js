@@ -8,7 +8,7 @@ const types = ['LOCATION_REQUEST', 'LOCATION_SUCCESS', 'LOCATION_FAILURE'];
 function fetchLocationData(filerId) {
   return {
     [CALL_API]: {
-      types: [LOCATION_REQUEST, LOCATION_SUCCESS, LOCATION_FAILURE],
+      types: types,
       endpoint: `candidate_in_by_state_by_id/${filerId}/`,
       schema: Schemas.LOCATION_ARRAY
     }

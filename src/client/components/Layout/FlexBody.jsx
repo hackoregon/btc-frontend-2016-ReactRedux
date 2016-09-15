@@ -1,15 +1,14 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 
-class FlexBody extends React.Component {
+class FlexBody extends Component {
   render () {
     return (
-      <div {...this.props} style={{
+      <div style={{
           display: 'flex',
           minHeight: '100vh',
           flexDirection: 'column'
       }}>
       {this.props.children}
-
     </div>
     )
   }
