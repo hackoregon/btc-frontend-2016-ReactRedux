@@ -17,12 +17,7 @@ function fetchStateInfo(filerId) {
 }
 
 export default function loadStateInfo(filerId, requiredFields = []) {
-  return (dispatch, getState) => {
-      // const contribution = getState().entities.stateContributions[filerId]
-      // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
-      //   return null
-      // }
-
+  return dispatch => {
     return dispatch(fetchStateInfo(filerId))
   }
 }

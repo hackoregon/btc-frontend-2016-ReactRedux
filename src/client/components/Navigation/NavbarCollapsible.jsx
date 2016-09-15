@@ -2,26 +2,20 @@ import React, {Component, PropTypes} from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import NavRouterLink from './NavRouterLink.jsx';
 import {IndexLink} from 'react-router';
-import Radium from 'radium';
 import './Navbar.css'
 const styles = {
   ':hover': {
     fontFamily: 'OpenSansBold'
   },
-
   base: {
     backgroundColor: '#4D92C2',
     borderColor: 'rgba(0,0,0,0.1)',
     fontSize: '1em',
     height: 'auto'
   },
-
   logo: {
     color: '#FFF',
-    // position: 'absolute',
-    fontSize: '2rem',
-    // top: '50%',
-    // transform: 'translateY(-50%)'
+    fontSize: '2rem'
   },
   slogan: {
     color: '#fff',
@@ -29,7 +23,6 @@ const styles = {
   }
 }
 
-@Radium
 class NavbarCollapsible extends Component {
   makeLinks() {
     let links = this.props.menuItems.map((name, index) => {
@@ -41,7 +34,7 @@ class NavbarCollapsible extends Component {
   render() {
     const {brandName} = this.props;
     return (
-      <Navbar {...this.props} style={styles.base}>
+      <Navbar style={styles.base}>
         <Navbar.Header>
           <Navbar.Brand>
             <IndexLink to="/">

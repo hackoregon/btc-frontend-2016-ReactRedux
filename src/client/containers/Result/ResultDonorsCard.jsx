@@ -1,8 +1,7 @@
-// container
 import React, { Component, PropTypes } from 'react';
 import {  Row, Col } from 'react-flexbox-grid';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
-// import ResultDonorsList from './ResultDonorsList.jsx';
+
 import DataTable from '../../components/DataVisuals/DataTable.jsx'
 import _ from 'lodash';
 import WhoChart from './WhoChart.jsx';
@@ -53,7 +52,6 @@ const makeTop = (trans,num) => {
         }
     }
 
-    //
     componentWillReceiveProps(nextProps) {
       const {ind,biz,pac} = nextProps.contributions;
       this.setState({
@@ -93,7 +91,7 @@ const makeTop = (trans,num) => {
       // const listItems =  this.renderDonorLists(individualDonors,businessDonors,pacDonors);
       const subtitleCopy = "There are three main types of donors to campaigns in Oregon: businesses, individuals, and other campaigns.  We've split the individuals category into \"individuals\" giving $200 or more, and \"grassroots\" giving under $200.  Sometimes you might see a campaign has a strong bias from one group, or has many types of stakeholders.  It's normal campaigns to give to other campaigns, but you're curious about a large amount of funding you can click through the hyperlink to follow the trail of money from PAC to PAC.";
         return (<StoryCard
-                  question={"Who is giving?"}
+                  question= 'Who is giving?'
                   description={subtitleCopy}>
                     <WhoChart data={whoChartDonorData} labels={[
                         'Business', 'Big Donors','Grassroots','PAC','Party'

@@ -1,8 +1,6 @@
 import {
   Schema,
   arrayOf,
-  // unionOf,
-  // valuesOf,
   normalize
 }
 from 'normalizr';
@@ -13,6 +11,7 @@ import moment from 'moment';
 import d3 from 'd3';
 import 'isomorphic-fetch';
 const API_ROOT = 'http://54.213.83.132/hackoregon/http/';
+
 // local below
 // const API_ROOT = 'http://localhost:8080/hackoregon/http/';
 // promise wrapper for fetching endpoints
@@ -64,14 +63,10 @@ export const fetchSpending = (filerId) => {
     const schema = arrayOf(expense);
     return promiseToFetch(url, schema);
   }
-  // donor info
-// const donor = new Schema('donors', {
-//   idAttribute: 'id'
-// });
+
 export const fetchDonor = (name) => {
   const url = `${API_ROOT}donor_meta/${name}/`
-    // const schema = arrayOf(donor);
-    // online
+
   return fetch(url)
     .then(response => {
       return response.json()
@@ -102,8 +97,6 @@ export const fetchDonor = (name) => {
 }
 export const fetchDonorTransactions = (name) => {
   const url = `${API_ROOT}transactions_by_alias/${name}/`
-    // const schema = arrayOf(transaction);
-    // online
   return fetch(url)
     .then(response => {
       return response.json()
@@ -225,36 +218,16 @@ export const mungeSpendByYear = (data) => {
   });
 }
 
-function formatData(arr) {
-  let newData = {
-    labels: [],
-    series: []
-  };
-  arr.forEach((item) => {
-    let raised = item.total_in == null ? 0 : item.total_in;
-    let spent = item.total_out == null ? 0 : (item.total_out);
-    newData.labels.push(item.tran_date);
-    newData.series[0].push(raised);
-    newData.series[1].push(spent);
-  });
-  return newData;
-}
-
 function mungeYear(arr) {
   let spending = {};
   let cashContribs = {};
-  // let trans = d3.values(y);
+
   arr.forEach((item) => {
     if (item.purposeCodes) {
       let codes = item['purposeCodes'].split(';');
       codes.map((code) => {
         let c = code.trim()
-        // let short = /\ \(/.test(c);
-        // let cash = /[C|c]ash/.test(c);
         let cash = item.purposeCodes == 'Cash Contribution'
-        // if (short) {
-        //   c = c.split(/\ \(/)[0];
-        // }
         if (cash) {
           if (item.payee in cashContribs) {
             cashContribs[item.contributorPayee] += Number((item.amount / codes.length)
@@ -279,64 +252,3 @@ function mungeYear(arr) {
   };
 }
 
-function getByFilerAmounts(trans) {
-  let obj = {};
-  trans.forEach((item) => {
-    if (item.filer) {
-      let filer = item['filer'].split(';');
-      if (filer in obj) {
-        obj[filer] += item.amount;
-      } else {
-        obj[filer] = item.amount;
-      }
-    }
-  });
-  return Promise.resolve(obj);
-}
-
-function splitCodes(trans) {
-  var obj = {}
-  trans.forEach((item) => {
-    if (item.purposeCodes) {
-      let codes = item['purposeCodes'].split(';');
-      codes.map((code) => {
-        c = code.trim()
-        if (c in obj) {
-          obj[c] += item.amount / codes.length;
-        } else {
-          obj[c] = 0;
-        }
-      })
-    }
-  })
-  return obj
-}
-
-function formatMonth(year, [...months]) {
-  let monthData = months.map((item) => {
-    return year[item]
-  })
-  let newYear = year[months];
-}
-export const concatMonths = (months, year, data) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const monthData = months.map(m => {
-        return {
-          [m]: data[year][m]
-        }
-      })
-      const newData = {
-        [year]: {...monthData
-        }
-      }
-      resolve({
-        months,
-        year,
-        newData
-      });
-    } catch (e) {
-      reject(e)
-    }
-  });
-}

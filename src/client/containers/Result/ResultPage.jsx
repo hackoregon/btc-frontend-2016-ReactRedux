@@ -1,29 +1,23 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
-// import {loadCampaign} from '../../actions'
+import React, { PropTypes, Component } from 'react'
 import ResultHeader from './ResultHeader.jsx'
 import ResultDonorsCard from './ResultDonorsCard.jsx'
-import ResultDonut from './ResultDonut.jsx'
 import ResultSummaryCard from './ResultSummaryCard.jsx'
 import ResultLocationStoryCard from './ResultLocationStoryCard.jsx'
 import ResultSpendingCard from './ResultSpendingCard.jsx'
 import ResultWhen from './ResultWhen.jsx';
 import Loading from '../../components/Loading/Loading.jsx';
-// function loadData(props) {
-//   const { filer_id } = props;
-//   props.loadCampaign(filer_id);
-// }
+import _ from 'lodash';
 
-const ResultPage = ({year, campaign, filerId, contributions, spendData, sums, stateInfo}) => {
-    if (!campaign) {
-        // needs loading icon here
+class ResultPage extends Component {
+    render() {
+      const {year, campaign, contributions, spendData, sums, stateInfo} = this.props;
+      if (!campaign) {
         return (<Loading name='cube-grid' />);
     }
 
     const newMoney = _.sumBy([...contributions.ind,...contributions.grassroots,...contributions.biz], 'amount');
     const xferMoney = _.sumBy([...contributions.pac,...contributions.party],'amount');
-    // const allMoneyOut = _.
-    console.log(spendData);
+
     return (
         <div>
             <ResultHeader candidate={campaign.candidateName} key={campaign.filerId} race={campaign.race}/>
@@ -33,27 +27,17 @@ const ResultPage = ({year, campaign, filerId, contributions, spendData, sums, st
             <ResultWhen year={year} sums={sums} />
             <ResultLocationStoryCard year={year} stateContributions={stateInfo}/>
         </div>
-    )
-};
+    )}
+}
 
-// ResultPage.propTypes = {
-//   campaign: PropTypes.object,
-//   // searchTerm: PropTypes.string.isRequired,
-//   filerId: PropTypes.string.isRequired
-// }
+ResultPage.propTypes = {
+  campaign: PropTypes.object,
+  year: PropTypes.string.isRequired,
+  contributions: PropTypes.object.isRequired,
+  spendData: PropTypes.object.isRequired,
+  stateInfo: PropTypes.object.isRequired,
+  sums: PropTypes.object.isRequired
+}
 
-// function mapStateToProps(state, ownProps) {
-//   const { filer_id } = ownProps.params
-//   const {
-//     entities: { campaigns }
-//   } = state;
-//   const campaign = campaigns[filer_id]
-//   return {
-//     filer_id, campaign
-//   }
-// }
 
 export default ResultPage;
-// export default connect(mapStateToProps, {
-//   loadCampaign
-// })(ResultPage)

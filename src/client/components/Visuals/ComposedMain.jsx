@@ -3,10 +3,6 @@ import { ComposedChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid, Area, Bar,
 
 class Example extends Component {
 
-  componentWillReceiveProps(nextProps,nextState) {
-    // debugger;
-  }
-
   render() {
   return (
       	<ComposedChart width={800} height={400} data={this.props.data}
@@ -22,6 +18,6 @@ class Example extends Component {
          </ComposedChart>
       );
     }
-};
+}
 
 export default Example;

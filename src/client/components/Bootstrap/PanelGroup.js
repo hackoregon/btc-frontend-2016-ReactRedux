@@ -12,7 +12,7 @@ class PanelGroup extends Component {
 
     render(){
         return (
-            <ReactBootstrap.PanelGroup {...this.props}>
+            <ReactBootstrap.PanelGroup>
                 {this.renderChildren()}
             </ReactBootstrap.PanelGroup>
         );

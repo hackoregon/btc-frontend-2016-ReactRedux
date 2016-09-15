@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import HomePage from './HomePage.js';
@@ -11,6 +9,7 @@ import RecipientPage from './RecipientPage.jsx';
 import FaqPage from './FaqPage.js';
 import AboutPage from './AboutPage.js';
 import Dev from './Dev';
+
 export default function(history) {
     return (
         <Router history={history}>

@@ -3,7 +3,6 @@ import {
   Schemas
 } from '../api/serverApi.js';
 
-
 const types = ['DONOR_REQUEST', 'DONOR_SUCCESS', 'DONOR_FAILURE']
 
 function fetchDonors(filerId) {

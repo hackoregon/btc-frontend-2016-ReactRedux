@@ -1,14 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes } from 'react';
 import DataMap from '../../components/Visuals/DataMap.jsx';
 import statesData from '../../data/statesData';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
 import Legend from '../../components/Legend/Legend.jsx';
-import {loadStateInfo} from '../../actions'
-import SizeMe from 'react-sizeme';
 import numeral from 'numeral';
-
-const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 16});
 
 const colors = ['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b']
 const domainRange = [
@@ -55,7 +50,6 @@ const ResultLocationStoryCard = (props) => {
             </div>
         </StoryCard>
     );
-    // }
 }
 
 ResultLocationStoryCard.propTypes = {

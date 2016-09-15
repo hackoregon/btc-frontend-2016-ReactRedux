@@ -1,4 +1,2 @@
-import FlexBody from './FlexBody.jsx';
-import FlexGrid from './FlexGrid.jsx';
-
-export {FlexBody, FlexGrid}
+export FlexBody from './FlexBody.jsx';
+export FlexGrid from './FlexGrid.jsx';

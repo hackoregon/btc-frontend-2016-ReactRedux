@@ -9,7 +9,7 @@ class Footer extends Component {
 render(){
         let linkStyle = {fontWeight: '200px'}
         return (
-                  <footer {...this.props} params={this.props.params} className="footer" style={{
+                  <footer   params={this.props.params} className="footer" style={{
                       zIndex: '1020',
                       padding: '3rem',
                       backgroundColor:'#2653A5'

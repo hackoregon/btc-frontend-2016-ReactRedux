@@ -18,7 +18,7 @@ class SearchResultsHeader extends Component {
 
     render() {
       const {statusText} = this.props;
-        return (<div colSpan="12" {...this.props}>
+        return (<div colSpan="12"  >
                     <h6>
                       <span>{this.state.statusText}</span>
                     </h6>

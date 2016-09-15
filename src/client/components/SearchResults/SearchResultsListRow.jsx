@@ -15,7 +15,7 @@ class SearchResultsListRow extends Component {
 
     render() {
         const {item} = this.props;
-        return (<Col {...this.props} style={{
+        return (<Col   style={{
           borderBottom: 'solid #eee 1px',
           paddingTop: '1rem'
         }}>

@@ -279,7 +279,7 @@ class DonorPage extends Component {
 
         // <DonorCard donor={donorMeta}/> {patronageIcons}
         return (
-            <Grid {...this.props} fluid={false} params={this.props.params}>
+            <Grid   fluid={false} params={this.props.params}>
                 <DonorCard donor={donorMeta}/>
                 <Col>
 

@@ -2,7 +2,6 @@ import {
   CALL_API,
   Schemas
 } from '../api/serverApi.js';
-// import * as api from '../api/api.js'
 
 const types = ['CAMPAIGN_REQUEST', 'CAMPAIGN_SUCCESS', 'CAMPAIGN_FAILURE'];
 

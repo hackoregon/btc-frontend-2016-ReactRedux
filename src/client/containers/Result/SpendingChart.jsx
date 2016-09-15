@@ -97,7 +97,7 @@ class SpendingChart extends React.Component {
   render() {
     // if (_.isArray(this.props.data) && this.props.data.length === 5) {
       return (
-        <div {...this.props}
+        <div  
           style={{ display: 'flex',
             flexFlow: 'row nowrap',
             alignItems: 'center'}}>

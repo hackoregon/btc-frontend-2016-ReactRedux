@@ -33,7 +33,7 @@ class SubNav extends React.Component {
   }
 
   render () {
-    return (<Navbar params={ this.props.params } {...this.props}
+    return (<Navbar params={ this.props.params }  
      style={styles.base}>
      <Navbar.Collapse>
        <Nav pullLeft={ true } params={ this.props.params }>

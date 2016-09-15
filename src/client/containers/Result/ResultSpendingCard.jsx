@@ -21,7 +21,7 @@ const colors = [
     '#E91E63'
 ];
 
-class ResultSpendingCard extends Component {
+export default class ResultSpendingCard extends Component {
     static propTypes = {
       data: PropTypes.object,
       year: PropTypes.string
@@ -65,12 +65,10 @@ class ResultSpendingCard extends Component {
                 this.setState({spendValues, spendLabels, displaySpending: true});
             }
         }
-        // this.setState({year,spending,cashContribs});
     }
 
     componentWillReceiveProps(nextProps) {
       const {data} = nextProps;
-      //     // const {dispatch} = this.props;
       if(!_.isEmpty(data)){
         const {spending, cashContribs} = data;
         if (!_.isEmpty(spending)) {
@@ -107,10 +105,7 @@ class ResultSpendingCard extends Component {
 
     render() {
         const spendingCopy = "Broad patterns in expenditures can tell you a lot about a campaign. Are they in a competitive race?  You might expect to see a large portion of their budget spent on advertising. Are they an incumbent in a safe district?   They might not be spending much money on their own campaign, but will gift funds to other candidates or races they support. Some are not campaigning for votes, and their primary interest is to support other campaigns that are aligned with their mission. Follow the money to see if you can tell what kind of campaign you're looking at." // eslint-disable-line quotes
-        // const spendChart = this.state.displaySpending
-        //     ?
-        // const cashChart = this.state.displayCash
-        //     ?
+
         return (
             <div>
                 <StoryCard question={"What are they spending money on?"} description={spendingCopy}>
@@ -132,5 +127,3 @@ class ResultSpendingCard extends Component {
 
     }
 }
-
-export default ResultSpendingCard;

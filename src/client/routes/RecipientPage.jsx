@@ -10,7 +10,7 @@ import _ from 'lodash'
 import ResultPage from '../containers/Result/ResultPage.jsx';
 import moment from 'moment';
 
-const {string, object, array} = PropTypes;
+const {string, object} = PropTypes;
 
 function loadData(props) {
     const {filer_id} = props;
@@ -21,10 +21,10 @@ function loadData(props) {
 function cleanData(array) {
     for (var i = 0; i < array.length; i++) {
         if (array[i]['tranDate'] == undefined) {
-            array.splice(i)
+            array.splice(i);
         }
     }
-    return array
+    return array;
 }
 
 class Recipient extends Component {
@@ -47,7 +47,7 @@ class Recipient extends Component {
         }
         this.handleSelect = this.handleSelect.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         loadData(this.props);
     }
 
@@ -142,7 +142,7 @@ class Recipient extends Component {
                 ? (this.renderPage(campaign, this.state.dispData, this.state.spendData, mungedSums, stateContributions, filer_id))
                 : null;
             return (
-                <FlexBody {...this.props} params={this.props.params}>
+                <FlexBody params={this.props.params}>
                     <BTCNav ref={'nav'} pageType={'singleResult'} years={selectKeys} onToggleSelect={this.handleSelect}/>
                     <FlexGrid>
                         <Col>
