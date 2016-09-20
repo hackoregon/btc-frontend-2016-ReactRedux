@@ -8,11 +8,12 @@ const app = express();
 const compiler = webpack(config);
 const port = process.env.NODE_ENV === 'production' ? 80 : 3000;
 
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+
 if(process.env.NODE_ENV === 'development') {
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }));
   app.use(require('webpack-hot-middleware')(compiler));
 }
 

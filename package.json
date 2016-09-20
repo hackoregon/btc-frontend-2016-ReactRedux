@@ -10,8 +10,9 @@
     "clean": "rimraf ./public/resources",
     "start": "npm run clean && node live-dev-server.js",
     "dev": "npm run clean && node live-dev-server.js",
-    "serve": "npm run clean && npm run build-client && npm run launch:prod",
-    "launch:prod": "NODE_ENV=production node live-dev-server.js",
+    "serve": "npm run clean && npm run build-client && node live-dev-server.js",
+    "serve:prod": "npm run clean && npm run build-client && npm run launch:prod",
+    "launch:prod": "NODE_ENV=production nohup node live-dev-server.js",
     "build-client": "NODE_ENV=production webpack --config ./build-conf/webpack.config.prod.js --progress --colors"
   },
   "dependencies": {
