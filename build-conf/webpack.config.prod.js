@@ -1,8 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
+const WebpackStripLoader = require('strip-loader');
+
 module.exports = {
   name: 'browser',
   entry: ['./src/client/main.js'],
@@ -19,7 +21,20 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new ExtractTextPlugin('styles.css'),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    })
   ],
   module: {
     include: path.join(__dirname, '../src/client'),
@@ -27,6 +42,10 @@ module.exports = {
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       loader: 'babel'
+    }, {
+     test: [/\.js$/, /\.es6$/],
+     exclude: /node_modules/,
+     loader: WebpackStripLoader.loader('console.log')
     }, {
       test: /\.css$/,
       loader: 'style!css?modules',
@@ -39,7 +58,7 @@ module.exports = {
     {
       test: /\.css$/,
       exclude: /node_modules/,
-      loader: 'style-loader!css-loader!postcss-loader'
+      loader: ExtractTextPlugin.extract('style', 'css!postcss')
     },
      {
       test: /\.(eot|woff|woff2|ttf)([\?]?.*)$/,

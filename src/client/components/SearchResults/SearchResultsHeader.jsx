@@ -10,14 +10,12 @@ class SearchResultsHeader extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      // console.log(nextProps)
       this.setState({
         statusText: nextProps.status
       })
     }
 
     render() {
-      const {statusText} = this.props;
         return (<div colSpan="12"  >
                     <h6>
                       <span>{this.state.statusText}</span>

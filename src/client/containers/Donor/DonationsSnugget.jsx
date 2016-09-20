@@ -101,7 +101,6 @@ class DonationsSnugget extends Component {
         //     // const {dispatch} = this.props;
 
         if (!_.isEmpty(data)) {
-            console.log(data);
             const byFiler = getByFilerAmounts(data);
             const spendValues = d3.values(byFiler);
             const spendLabels = Object.keys(byFiler);
@@ -125,7 +124,6 @@ class DonationsSnugget extends Component {
         //     ?
         // const cashChart = this.state.displayCash
         //     ?
-        console.log('filtered:', filterTransactions(data))
         return (
             <div  >
                 <StoryCard question={"Who are they donating to?"} description={spendingCopy}>
