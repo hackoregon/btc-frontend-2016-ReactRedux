@@ -6,15 +6,13 @@ const webpack = require('webpack');
 const config = process.env.NODE_ENV === 'production' ? require('./build-conf/webpack.config.prod') : require('./build-conf/webpack.config-dev');
 const app = express();
 const compiler = webpack(config);
-const port = 3000;
-// const port = 80; // backup incase
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
+const port = process.env.NODE_ENV === 'production' ? 80 : 3000;
 
 if(process.env.NODE_ENV === 'development') {
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }));
   app.use(require('webpack-hot-middleware')(compiler));
 }
 
@@ -23,7 +21,7 @@ app.get('*', function(req, res) {
 });
 
 app.listen(port, function(err) {
-  console.log(process.env.NODE_ENV,' active');
+  console.log(process.env.NODE_ENV,' build active on port:', port);
   if (err) {
     console.log(err);
   }
