@@ -9,11 +9,12 @@ const compiler = webpack(config);
 // const port = 3000;
 const port = 80; // backup incase
 
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+
 if(process.env.NODE_ENV === 'development') {
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }));
   app.use(require('webpack-hot-middleware')(compiler));
 }
 
