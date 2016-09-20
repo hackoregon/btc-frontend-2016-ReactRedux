@@ -8,8 +8,8 @@
     "clean-pkgs": "rimraf ./node_modules",
     "clean-install": "npm run clean-pkgs && npm i",
     "clean": "rimraf ./public/resources",
-    "start": "NODE_ENV=development npm run clean && node devServer.js",
-    "dev": "NODE_ENV=production npm run clean && node live-dev-server.js",
+    "start": "npm run clean && node live-dev-server.js",
+    "dev": "npm run clean && NODE_ENV=production node live-dev-server.js",
     "serve": "npm run clean && npm run build-client && node live-dev-server.js",
     "build-client": "NODE_ENV=production webpack --config ./build-conf/webpack.config-dev.js --progress --colors"
   },
