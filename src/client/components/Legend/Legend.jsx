@@ -13,7 +13,6 @@ class Legend extends React.Component {
       return labels.map((label, idx) => {
           if (typeof label === 'object') {
               const {linkTo, name} = label;
-              console.log(typeof linkTo, typeof name);
               return (
                   <div key={idx}>
                       <span className="Legend--color" style={{

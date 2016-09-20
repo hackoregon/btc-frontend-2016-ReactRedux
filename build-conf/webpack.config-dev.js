@@ -7,7 +7,7 @@ module.exports = {
   name: 'browser',
   entry: ['./src/client/main.js'],
   output: {
-    path: path.join(__dirname, '../public'),
+    path: path.join(__dirname, '../public/resources'),
     filename: 'bundle.js',
     publicPath: '/resources/'
   },
@@ -18,6 +18,9 @@ module.exports = {
       imgPath:path.resolve(__dirname,'../src/client/assets/img')
     }
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ],
   module: {
     include: path.join(__dirname, '../src/client'),
     loaders: [{

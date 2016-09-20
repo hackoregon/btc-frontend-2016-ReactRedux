@@ -71,14 +71,13 @@ class SearchResultsForm extends Component {
   onSuggestionSelected(e, {suggestionValue}) {
       e.preventDefault();
       e.stopPropagation();
-    // this.setState({searchTerm: suggestionValue})
     const {dispatch} = this.props;
     const searchTerm = this.searchTermRef;
     if (!searchTerm.trim()) {
       return
     }
     dispatch(loadSearchData(suggestionValue));
-    this.context.router.push(`/search`);
+    this.context.router.push('/search');
   }
 
   onSuggestionsUpdateRequested({value}) {
