@@ -7,7 +7,7 @@ module.exports = {
   name: 'browser',
   entry: ['./src/client/main.js'],
   output: {
-    path: path.join(__dirname, '../public'),
+    path: path.join(__dirname, '../public/resources'),
     filename: 'bundle.js',
     publicPath: '/resources/'
   },
