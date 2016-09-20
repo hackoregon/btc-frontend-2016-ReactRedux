@@ -2,32 +2,33 @@ import React, { PropTypes } from 'react';
 import numeral from 'numeral';
 import DataBoxGroup from '../../components/DataBoxes/DataBoxGroup.jsx';
 
-const ResultSummaryCard = ({total, totalSpent, grassroots, instate}) => {
+const formatMoney = (num) => numeral(num).format('($ 0.00 a)');
+const ResultSummaryCard = ({newTotal, xferTotal}) => {
 
-  total = numeral(total).format('($ 0.00 a)')
-  totalSpent = numeral(totalSpent).format('($ 0.00 a)')
-  grassroots = numeral(grassroots).format('0.0%')
-  instate = numeral(instate).format('0.0%')
+  // newTotal = numeral(total).format('($ 0.00 a)')
+  // totalSpent = numeral(totalSpent).format('($ 0.00 a)')
+  // grassroots = numeral(grassroots).format('0.0%')
+  // instate = numeral(instate).format('0.0%')
   return (
     <DataBoxGroup
       boxes={[
         {
-        name: 'Raised',
-        value: total},
-        {
-          name: 'Spent',
-          value: totalSpent
+        title: 'New Funds',
+        msg: 'Donations from individuals & businesses',
+        value: formatMoney(newTotal)
         },
         {
-          name: 'Grassroots',
-          value: grassroots
-        },
-        {
-          name: 'In state',
-          value: instate
+          title: 'Gifts From Other Campaigns',
+          msg: 'Transfers from party & PACs. This is not new money.',
+          value: formatMoney(xferTotal)
         }
       ]}/>
   )
 }
+
+ResultSummaryCard.propTypes = {
+  newTotal: PropTypes.number,
+  xferTotal: PropTypes.number
+};
 
 export default ResultSummaryCard

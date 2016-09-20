@@ -1,12 +1,10 @@
 import d3 from 'd3';
-// import topojson from 'topojson';
 import Datamap from 'datamaps/dist/datamaps.usa.min'
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import statesDefaults from '../../data/states-defaults';
 import assign from 'lodash/assign';
 import numeral from 'numeral';
-// import colorbrewer from 'colorbrewer';
 import SizeMe from 'react-sizeme';
 const SizeMeHOC = SizeMe({monitorWidth: true, monitorHeight: true, refreshRate: 24});
 const styles = {
@@ -21,7 +19,6 @@ class DataMap extends Component {
             domainRange: []
         }
         this.datamap = null;
-        // this.handleResize = this.handleResize.bind(this);
         this.currentScreenWidth = this.currentScreenWidth.bind(this);
         this.reducedData = this.reducedData.bind(this);
     }
@@ -101,20 +98,29 @@ class DataMap extends Component {
             const currentScreenWidth = this.currentScreenWidth();
             const mapContainerWidth = mapContainer.style('width');
             if (this.props.size.width > 600 && mapContainerWidth !== '600px') {
-                d3.select('svg').remove();
-                mapContainer.style({width: this.props.size.width, height: this.props.size.height});
-                this.datamap = this.renderMap();
-            } else if (this.props.size.width <= 600) {
-                d3.select('svg').remove();
+              if(d3.select('#datamap-container svg')[0][0]){
+              d3.select('#datamap-container svg').remove();
+              mapContainer.style({width: this.props.size.width, height: this.props.size.height});
+              this.datamap = this.renderMap();
+              }
+
+            } else if (this.props.size.width <= 600 && mapContainerWidth !== '600px') {
+
+                if(d3.select('#datamap-container svg')[0][0]){
+                d3.select('#datamap-container svg').remove();
+
                 mapContainer.style({
                     width: (currentScreenWidth * 0.9) + 'px',
                     height: (currentScreenWidth * 0.5625) + 'px'
                 });
                 this.datamap = this.renderMap();
+                }
+
+
             }
         });
     }
-    // handleResize()
+
 
     componentDidUpdate() {
         let data = this.reducedData();
@@ -122,10 +128,13 @@ class DataMap extends Component {
             this.datamap.updateChoropleth(data);
         }
     }
-    componentWillUnmount() {
-        d3.select('svg').remove();
-        // window.removeEventListener('resize', this.handleResize);
-    }
+
+    // componentWillUnmount() {
+    //     d3.select('#datamap-container svg').remove();
+    //     // this.renderMap = null;
+    //     // window.removeEventListener('resize');
+    // }
+
     render() {
         const {customStyle} = this.props;
         return (<div id="datamap-container" style={{...customStyle,...styles}}/>);

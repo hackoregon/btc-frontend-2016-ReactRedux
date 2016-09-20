@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import { Alert } from 'react-bootstrap';
-
+import './AlertDismissable.css';
 class AlertDismissable extends Component {
 
     constructor(props, content) {
@@ -26,7 +26,7 @@ class AlertDismissable extends Component {
         let content = null;
         if(this.state.alertVisible){
             content = (
-                <Alert {...this.props} onDismiss={this.handleDismiss}>
+                <Alert className={'Alert'} onDismiss={this.handleDismiss}>
                     {this.props.children}
                 </Alert>
             );

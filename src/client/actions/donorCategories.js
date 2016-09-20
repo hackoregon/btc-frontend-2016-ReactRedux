@@ -17,13 +17,14 @@ function fetchIndivs(filerId) {
 }
 
 export function loadIndivs(filerId, requiredFields = []) {
-  return (dispatch, getState) => {
+  return dispatch => {
+    // // NOTE: idea was if data is in state to not fetch again
     // const contribution = getState().entities.indivContributions[filerId]
     // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
     //   return null
     // }
   return dispatch(fetchIndivs(filerId));
-}
+  }
 }
 
 
@@ -40,12 +41,7 @@ function fetchPACinfo(filerId) {
 }
 
 export function loadPACinfo(filerId, requiredFields = []) {
-  return (dispatch, getState) => {
-    // const contribution = getState().entities.pacContributions[filerId]
-    // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
-    //   return null
-    // }
-
+  return dispatch => {
     return dispatch(fetchPACinfo(filerId))
   }
 }
@@ -64,12 +60,7 @@ function fetchBizInfo(filerId) {
 }
 
 export function loadBizInfo(filerId, requiredFields = []) {
-  return (dispatch, getState) => {
-    // const contribution = getState().entities.businessContributions[filerId]
-    // if (contribution && requiredFields.every(key => contribution.hasOwnProperty(key))) {
-    //   return null
-    // }
-
+  return dispatch => {
     return dispatch(fetchBizInfo(filerId))
   }
 }

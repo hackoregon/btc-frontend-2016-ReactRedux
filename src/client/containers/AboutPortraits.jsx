@@ -1,11 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, {Component} from 'react';
 
 import PhotoGrid from '../components/Bootstrap/PhotoGrid.jsx';
-import path from 'path';
 
 class AboutPortraits extends Component {
-
   loadData() {
     const dataFile = require('portraitPath/PHOTO_DATA.tab').split('\n');
     const filteredData = dataFile.filter(function(line, index) {
@@ -16,7 +13,7 @@ class AboutPortraits extends Component {
         return false;
       }
       if (line.split('\t').length != 3) {
-        console.log("Skipping \"" + line + "\" .  Tab separated column count not equal to 3")
+        // console.log("Skipping \"" + line + "\" .  Tab separated column count not equal to 3")
         return false;
       }
 
@@ -24,14 +21,12 @@ class AboutPortraits extends Component {
 
     });
 
-    const mappedData = filteredData.map(function(line, index) {
-      const [file,
-        name,
-        role] = line.split('\t');
-      const caption = name + " - " + role;
+    const mappedData = filteredData.map((line, index) => {
+      const [file, name, role] = line.split('\t');
+      const caption = `${name} - ${role}`;
       const photo = require('portraitPath/' + file);
 
-      return ({photo: photo, caption: caption, alt: name, imgClasses: "img-responsive img-thumbnail", imgDivClasses: "hacker-portrait col-md-3"});
+      return ({photo: photo, caption: caption, alt: name, imgClasses: 'img-responsive img-thumbnail', imgDivClasses: 'hacker-portrait col-md-3'});
     });
 
     return mappedData;
@@ -39,7 +34,6 @@ class AboutPortraits extends Component {
   }
 
   render() {
-    //debugger
     return (<PhotoGrid photos={this.loadData()}/>)
   }
 }

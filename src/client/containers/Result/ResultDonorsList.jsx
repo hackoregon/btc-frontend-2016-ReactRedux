@@ -1,17 +1,15 @@
-// component
 import React, {Component, PropTypes} from 'react';
-// import {connect} from 'react-redux';
 import {Panel, PanelGroup, Col, Table} from 'react-bootstrap';
 import DonorRowItem from '../../components/Visuals/DonorRowItem.jsx';
 import numeral from 'numeral';
+import './DonorList.css'
 
-function makeTop(a,b){
-  for (let i = 0; i < 5; i++) {
-    b.unshift.apply(b, a.slice(i,i+1));
-  }
-
-}
+const { object, string } = PropTypes;
 class ResultDonorsList extends Component {
+  static propTypes = {
+    donors: object,
+    donorType: string
+  }
   constructor(props){
     super(props)
     this.state = {
@@ -23,14 +21,13 @@ class ResultDonorsList extends Component {
   renderTop(){
     const {donors} = this.props;
     let allDonors = donors.map((item, index) => {
-      let amount = numeral(item.grandTotal).format('0,0');
+      let amount = numeral(item.total).format('0,0');
       return (
-          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.grandTotal}/>
+          <DonorRowItem key={index} donors={donors} payee={item.contributorPayee} formattedAmount={amount} amount={item.total}/>
       )
     });
     if(allDonors.length > 5) {
       let topDonors = allDonors.slice(0,5);
-      // let allDonors = donorRows;
       return { topDonors, allDonors }
     }
     return allDonors;
@@ -48,7 +45,7 @@ class ResultDonorsList extends Component {
       <Col  xs={12} md={6} sm={6} style={{
         'marginRight': '-4px'
       }} >
-      <PanelGroup {...this.props} accordion activeKey={this.state.activeKey} onSelect= {this.renderMore} >
+      <PanelGroup accordion activeKey={this.state.activeKey} onSelect= {this.renderMore} >
         <Panel defaultExpanded header = {this.props.donorType} eventKey='1' >
           <Col xs={12} sm={12} style={{
             'display': 'inline-block',
@@ -76,7 +73,6 @@ class ResultDonorsList extends Component {
           </tbody>
         </Table>
       </Col>
-
     </Panel>
     </PanelGroup>
       </Col>

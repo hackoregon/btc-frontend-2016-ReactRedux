@@ -12,8 +12,10 @@
 }
 
 .Legend--label {
+    flex: 1;
     display: inline-block;
     vertical-align: middle;
+    text-align: left;
     font-family: Helvetica, sans-serif;
     font-size: 10px;
     margin: 0 6px 0 3px;
@@ -35,7 +37,12 @@
   justify-content: center;
 }
 
-
+.Legend.inRow {
+  display: flex;
+  flex-flow: wrap;
+  align-content: center;
+  justify-content: center;
+}
 
 /* tablet range */
 @media only screen and (max-width: 788px) {

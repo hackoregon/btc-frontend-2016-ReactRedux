@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
-
+import './Panels.css'
 class PanelGroup extends Component {
 
     renderChildren(){
@@ -12,7 +12,7 @@ class PanelGroup extends Component {
 
     render(){
         return (
-            <ReactBootstrap.PanelGroup {...this.props}>
+            <ReactBootstrap.PanelGroup>
                 {this.renderChildren()}
             </ReactBootstrap.PanelGroup>
         );

@@ -1,0 +1,18 @@
+.Year {
+  width: auto;
+}
+
+/*.Year {
+
+}*/
+
+@media only screen and (min-width: 430px) {
+  .Year {
+    width: 6rem;
+    text-align: center;
+  }
+
+  .Year .Select-menu-outer {
+    /*margin-top: -12px;*/
+  }
+}

@@ -1,95 +1,115 @@
-// container
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { CarouselItem } from 'react-bootstrap';
+import {  Row, Col } from 'react-flexbox-grid';
 import StoryCard from '../../components/StoryCards/StoryCard.jsx';
-import ListsCarousel from '../../components/ResultsPage/ListsCarousel.jsx';
-import ResultDonorsList from './ResultDonorsList.jsx';
-import {loadPACinfo,loadBizInfo, loadIndivs} from '../../actions'
+
+import DataTable from '../../components/DataVisuals/DataTable.jsx'
 import _ from 'lodash';
 import WhoChart from './WhoChart.jsx';
 
-function loadData(props) {
-  const { filer_id } = props.params;
-  props.loadIndivs(filer_id);
-  props.loadBizInfo(filer_id);
-  props.loadPACinfo(filer_id);
+function getWhoChartData(...types) {
+  // Wrap sum values in array because WhoChart is expecting array of arrays
+  let arr = _.map(types, (donors) => [_.sumBy(donors, 'amount')]);
+  // let newArr = [[...arr[0],...arr[1],...arr[2]],[...arr[3],...arr[4]]]; // modified for new adjustments requested in data visual grouping
+  // return newArr;
+  return arr;
+}
+const formatName = (payee) => {
+  return /\ \(/.test(payee) ? payee.split(/\ \(/)[0] : payee;
+}
+const makeTop = (trans,num) => {
+
+  return _.chain(trans)
+    .reduce((acc, d) => {
+      if (acc[d.contributorPayee]) {
+        acc[d.contributorPayee] += d.amount;
+      } else {
+        acc[d.contributorPayee] = d.amount;
+      }
+      return acc;
+    }, {})
+    .map((total, payee) => {
+      return {
+        value: total,
+        name: formatName(payee),
+        link: payee
+      }
+    })
+    .sortBy('value')
+    .takeRight(num)
+    .reverse()
+    .value();
 }
 
-class ResultDonorsCard extends Component {
+// const ResultDonorsCard = (props) => {
+  class ResultDonorsCard extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+          ind: {},
+          biz: {},
+          pac: {}
+        }
     }
 
-    componentWillMount() {
-      loadData(this.props);
+    componentWillReceiveProps(nextProps) {
+      const {ind,biz,pac} = nextProps.contributions;
+      this.setState({
+        ind: ind,
+        biz: biz,
+        pac: pac
+      });
     }
 
-    getWhoChartData(...bookTypes) {
-      // Wrap sum values in array because WhoChart is expecting array of arrays
-      return _.map(bookTypes, (donors) => [_.sumBy(donors, 'grandTotal')]);
-    }
 
     render() {
-      const {pacContributions,businessContributions, indivContributions } = this.props;
-      const [ smallDonors, largeDonors ] = _.partition(indivContributions, (contr) => contr.grandTotal <= 250);
-
-      let individualDonors = _.values(indivContributions);
-      let businessDonors = _.values(businessContributions);
-      let pacDonors = _.values(pacContributions);
+      const {biz,ind,grassroots,pac,party} = this.props.contributions;
 
       // TODO: Empty array is placeholder for party information -- needs to be added
       // Order matters for WhoChart labels
-      const whoChartDonorData = this.getWhoChartData(pacDonors, businessDonors, largeDonors, smallDonors, []);
+      const whoChartDonorData = getWhoChartData(biz, ind, grassroots, pac, party);
 
-      // .orderBy('amount','desc');
-      // let indivsTotal = individualDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      // let businessTotal = businessDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
-      // let pacTotal = pacDonors.map(d => d.grandTotal).reduce((a,b)=> {return a+b},0)
+      const indTop = ind.length ? (
+        <Col xs style={{minWidth:'320px'}}>
+        <DataTable  title={"Top Individual Donors"} data={makeTop(ind,5)}></DataTable>
+        </Col>
+      ) : null;
 
-        return (<div {...this.props}>
-                <StoryCard
-                  question={"Who is giving?"}
-                  description={"This visualization is calculated by total dollars, not total people."}>
-                  <WhoChart data={whoChartDonorData} />
-                  <ListsCarousel>
-                    <CarouselItem >
-                    <ResultDonorsList donorType={"Top Individual Donors"} donors={individualDonors}></ResultDonorsList>
-                    <ResultDonorsList donorType={"Top Business Donors"} donors={businessDonors}></ResultDonorsList>
-                    </CarouselItem>
-                    <CarouselItem>
-                    <ResultDonorsList donorType={"Top PAC Donors"} donors={pacDonors}></ResultDonorsList>
-                    </CarouselItem>
-                  </ListsCarousel>
+      const bizTop = biz.length ? (
+        <Col xs style={{minWidth:'320px'}}>
+        <DataTable title={"Top Business Donors"} data={makeTop(biz,5)}></DataTable>
+        </Col>
+      ) : null;
+
+      const pacTop = pac.length ? (
+        <Col xs style={{minWidth:'320px'}}>
+          <DataTable title={"Top PAC Donors"} data={makeTop(pac,5)}></DataTable>
+        </Col>
+       ) :
+        null;
+        console.log(makeTop(pac,5))
+      // const listItems =  this.renderDonorLists(individualDonors,businessDonors,pacDonors);
+      const subtitleCopy = "There are three main types of donors to campaigns in Oregon: businesses, individuals, and other campaigns.  We've split the individuals category into \"individuals\" giving $200 or more, and \"grassroots\" giving under $200.  Sometimes you might see a campaign has a strong bias from one group, or has many types of stakeholders.  It's normal campaigns to give to other campaigns, but you're curious about a large amount of funding you can click through the hyperlink to follow the trail of money from PAC to PAC.";
+        return (<StoryCard
+                  question= 'Who is giving?'
+                  description={subtitleCopy}>
+                    <WhoChart data={whoChartDonorData} labels={[
+                        'Business', 'Big Donors','Grassroots','PAC','Party'
+                    ]} colors={['#bebada', '#fb8072', '#8dd3c7','#b3de69','#80b1d3']}/>
+
+                    <Row between='xs'>
+                      {bizTop}
+                      {indTop}
+                      {pacTop}
+                    </Row>
+
                 </StoryCard>
-                </div>
         );
     }
 }
 
 ResultDonorsCard.propTypes = {
-  indivContributions: PropTypes.object,
-  businessContributions: PropTypes.object,
-  pacContributions: PropTypes.object
+  contributions:PropTypes.object
 }
 
-function mapStateToProps(state) {
-  const {entities:{
-    indivContributions, businessContributions, pacContributions
-    }
-  } = state;
-
-  // TODO: These objects are coming in asynchronously (and separately) but we only want to render the chart ...
-  // ... once all the data is there. So higher up we need to do a Promise.all on requests that fetch these resources
-  // This is a band-aid solution
-  if (!indivContributions || !businessContributions || !pacContributions) {
-    return {indivContributions: {}, pacContributions: {}, businessContributions: {}};
-  }
-
-  return {indivContributions,pacContributions, businessContributions};
-}
-
-export default connect(mapStateToProps,{
-  loadPACinfo, loadBizInfo, loadIndivs
-})(ResultDonorsCard);
+export default ResultDonorsCard;

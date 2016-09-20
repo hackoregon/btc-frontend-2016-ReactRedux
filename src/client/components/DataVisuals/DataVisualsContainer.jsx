@@ -12,8 +12,8 @@ class DataVisualsContainer extends Component {
 
     render(){
         return (
-            <div style={{marginTop: '10px'}} {...this.props}>
-                <ReactBootstrap.Panel {...this.props}>
+            <div   style={{marginTop: '10px'}} >
+                <ReactBootstrap.Panel  >
                     {this.renderChildren()}
                 </ReactBootstrap.Panel>
             </div>

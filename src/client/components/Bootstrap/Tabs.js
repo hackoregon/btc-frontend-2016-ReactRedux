@@ -12,8 +12,8 @@ class Tabs extends Component {
 
     render(){
         return (
-            <div style={{marginTop: '10px'}} {...this.props}>
-                <ReactBootstrap.Tabs {...this.props}>
+            <div style={{marginTop: '10px'}}  >
+                <ReactBootstrap.Tabs  >
                     {this.renderChildren()}
                 </ReactBootstrap.Tabs>
             </div>

@@ -1,0 +1,19 @@
+a.NavRouterLink {
+  color: #fff;
+  font-family: 'Lato','OpenSans', sans-serif;
+  text-decoration: none;
+  padding: 2rem;
+  line-height: 2rem;
+}
+a.NavRouterLink:focus {
+  color: #000;
+}
+a.NavRouterLink:hover {
+  color: #000;
+  background-color: #fff;
+  text-decoration: none;
+}
+a.NavRouterLink:active {
+  color: #000;
+  background-color: #fff;
+}

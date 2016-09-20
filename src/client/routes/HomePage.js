@@ -1,141 +1,204 @@
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 
-import React, { Component, PropTypes } from 'react';
-
-import { Grid } from 'react-bootstrap';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { Panel } from 'react-bootstrap';
-import { Input } from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-flexbox-grid';
 import DataBoxGroup from '../components/DataBoxes/DataBoxGroup.jsx';
+import DataTable from '../components/DataVisuals/DataTable.jsx'
 import BTCNav from '../components/Navigation/BTCNav.jsx';
+import Footer from '../components/Navigation/Footer.jsx';
+import Loading from '../components/Loading/Loading.jsx';
+
+import {fetchOregon} from '../actions';
+import _ from 'lodash'
+
+
+const { object } = PropTypes;
+// http://54.213.83.132/hackoregon/http/oregon_committee_contributors/_/
+// http://54.213.83.132/hackoregon/http/oregon_business_contributors/_/
+// http://54.213.83.132/hackoregon/http/oregon_individual_contributors/_/
+// http://54.213.83.132/hackoregon/http/all_oregon_sum/_/
+
+
+function loadData(props) {
+    props.fetchOregon();
+}
+
+function formatData(arr, dataType) {
+
+    switch (dataType) {
+        case 'trans':
+            return arr.map((item) => {
+                const {
+                    bookType,
+                    direction,
+                    filer,
+                    filerId,
+                    contributorPayee,
+                    amount
+                } = item;
+                return {
+                    type: 'feed',
+                    bookType,
+                    direction,
+                    name: contributorPayee,
+                    filer,
+                    filerId,
+                    value: amount
+                }
+            })
+        default:
+            return arr.map((item) => {
+                return {
+                    type: 'top',
+                    name: item.contributorPayee || item.candidateName || item.filer,
+                    link: item.filerId || item.contributorPayeeCommitteeId || item.candidateName || item.contributorPayee,
+                    value: item.sum || item.grandTotal || item.amount
+                }
+            })
+    }
+
+}
+
 
 
 class HomePage extends Component {
+  static propTypes = {
+    params: object,
+    allOregon: object
+  }
+    constructor() {
+        super()
+        this.state = {
+            year: 'Search..',
+            display: false,
+            dispData: null
+        }
+        this.handleSelect = this.handleSelect.bind(this);
+    }
+    componentWillMount() {
+        loadData(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {allOregon} = nextProps;
+        if (!_.isEmpty(allOregon)) {
+
+            const {feed, sum, biz, pac, ind} = allOregon;
+
+            this.setState({
+                display: true,
+                feed,
+                sum,
+                biz,
+                pac,
+                ind
+            });
+
+        }
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const {allOregon} = nextProps;
+        let oregon = _.values(allOregon);
+        if (oregon && oregon.length > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    handleSelect(year) {
+        this.setState({year: year, dispData: this.state.data[year]});
+    }
+
+    renderPage() {
+        let pac = formatData(this.state.pac)
+        const styles = {
+            smallest: {
+                minWidth: '320px'
+            },
+            reducedSize: {
+                fontSize: '.85rem',
+                fontWeight: '200'
+            }
+        }
+        return (
+            <Col center='xs' around='xs'>
+                <Row styles={{
+                    minWidth: '320px',
+                    fontSize: '.85rem',
+                    fontWeight: '200'
+                }} xs>
+                    <DataTable styles={{
+                        ...styles.smallest,
+                        ...styles.reducedSize
+                    }} type='trans' title={'Latest Transactions'} data={formatData(this.state.feed, 'trans')}/>
+                </Row>
+                <Col xs>
+                    <DataTable xs type='Top' title={'All-time Top Individual Donors'} data={formatData(this.state.ind)}/>
+                    <Row between='xs'>
+                        <Col xs style={{
+                            minWidth: '320px'
+                        }}>
+                            <DataTable xs type='Top' title={'All-time Top Pac Donors'} data={pac}/>
+                        </Col>
+                        <Col xs style={{
+                            minWidth: '320px'
+                        }}>
+                            <DataTable styles={{
+                                ...styles.smallest,
+                                ...styles.reducedSize
+                            }} xs type='Top' title={'All-time Top Business Donors'} data={formatData(this.state.biz)}/>
+                        </Col>
+
+                    </Row>
+                </Col>
+            </Col>
+        )
+    }
 
     render() {
-        return (
-            <div>
-                <BTCNav />
-                <Grid fluid={ true }
-                      style={ {    marginTop: '100px',    fontWeight: '200px'} }
-                      params={ this.props.params }>
-                      <DataBoxGroup boxes={[
-                        {name:"Expenditures", value:"$313,412,231"},
-                        {name:"Contributions", value:"$307,489,692"},
-                        {name:"Average Cost per Ballot", value:"$48"}
-                      ]} />
 
-                    <Row params={ this.props.params }>
-                        <Col xs={ 12 }
-                             md={ 12 }
-                             sm={ 12 }
-                             lg={ 12 }
-                             params={ this.props.params }>
-                        <form params={ this.props.params }>
-                            <Input type="text"
-                                   placeholder="Enter value"
-                                   buttonAfter={ <Button bsStyle="default"
-                                                         type="submit"
-                                                         params={ this.props.params }>
-                                                     <i className="fa fa-search" params={ this.props.params }></i>
-                                                 </Button> }
-                                   params={ this.props.params }></Input>
-                        </form>
-                        </Col>
-                    </Row>
-                    <Col xs={ 12 }
-                         md={ 12 }
-                         sm={ 12 }
-                         lg={ 12 }
-                         params={ this.props.params }>
-                    <Panel header="How does the money flow?"
-                           className="text-center"
-                           style={ {    fontWeight: 200} }
-                           params={ this.props.params }>
-                        <p params={ this.props.params }>
-                            <span params={ this.props.params }>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
-                        </p>
-                        <Panel bsSize="md" params={ this.props.params }></Panel>
-                    </Panel>
-                    <Panel header="How does the money flow?"
-                           className="text-center"
-                           style={ {    fontWeight: 200} }
-                           params={ this.props.params }>
-                        <p params={ this.props.params }>
-                            <span params={ this.props.params }>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
-                        </p>
-                        <Panel bsSize="md" params={ this.props.params }></Panel>
-                    </Panel>
-                    <Panel header="How does the money flow?"
-                           className="text-center"
-                           style={ {    fontWeight: 200} }
-                           params={ this.props.params }>
-                        <p params={ this.props.params }>
-                            <span params={ this.props.params }>The diagram below shows the major categories of donors and their contributions to candidates are ultimately expended. The thickness of each line represents the relative size of each category of funds.</span>
-                        </p>
-                        <Panel bsSize="md" params={ this.props.params }></Panel>
-                    </Panel>
-                    </Col>
-                    <div className="footer container-fluid" params={ this.props.params }>
-                        <div className="container-fluid" params={ this.props.params }>
-                            <Col xs={ 12 }
-                                 md={ 3 }
-                                 sm={ 3 }
-                                 lg={ 3 }
-                                 params={ this.props.params }>
-                            <h4 className="underlined text-center"
-                                style={ {    fontWeight: '200'} }
-                                params={ this.props.params }><span params={ this.props.params }>About</span></h4>
-                            <div className="text-center nav-item" params={ this.props.params }>
-                                <a href="#" params={ this.props.params }><span params={ this.props.params }>2016 Team</span></a>
-                            </div>
-                            </Col>
-                            <Col xs={ 12 }
-                                 md={ 3 }
-                                 sm={ 3 }
-                                 lg={ 3 }
-                                 params={ this.props.params }>
-                            <h4 className="underlined text-center"
-                                style={ {    fontWeight: 200} }
-                                params={ this.props.params }><span params={ this.props.params }>Take action</span></h4>
-                            <div className="text-center nav-item" params={ this.props.params }>
-                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Register to vote</span></a>
-                            </div>
-                            </Col>
-                            <Col xs={ 12 }
-                                 md={ 3 }
-                                 sm={ 3 }
-                                 lg={ 3 }
-                                 params={ this.props.params }>
-                            <h4 className="underlined text-center"
-                                style={ {    fontWeight: 200} }
-                                params={ this.props.params }><span params={ this.props.params }>Contact</span></h4>
-                            <div className="text-center nav-item" params={ this.props.params }>
-                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Twitter</span></a>
-                            </div>
-                            <div className="text-center nav-item" params={ this.props.params }>
-                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Email</span></a>
-                            </div>
-                            </Col>
-                            <Col xs={ 12 }
-                                 md={ 3 }
-                                 sm={ 3 }
-                                 lg={ 3 }
-                                 params={ this.props.params }>
-                            <h4 className="underlined text-center"
-                                style={ {    fontWeight: 200} }
-                                params={ this.props.params }><span params={ this.props.params }>Explore</span></h4>
-                            <div className="text-center nav-item" params={ this.props.params }>
-                                <a href="#" params={ this.props.params }><span params={ this.props.params }>Search campaigns</span></a>
-                            </div>
-                            </Col>
-                        </div>
-                    </div>
-                </Grid>
+        let spending = this.state.display
+            ? this.renderPage()
+            : (<Loading name='cube-grid'/>);
+        return (
+            <div style={{
+                display: 'flex',
+                minHeight: '100vh',
+                flexDirection: 'column'
+            }}>
+                <BTCNav ref={'nav'} pageType={'home'} onToggleSelect={this.handleSelect}/>
+                <div style={{
+                    flex: '1',
+                    paddingTop: '2rem'
+                }}>
+
+                    <Grid fluid={true} params={this.props.params}>
+                        <DataBoxGroup boxes={[
+                            {
+                                title: 'New Funds',
+                                value: '$313,412,231'
+                            }, {
+                                title: 'Transferred Funds',
+                                value: '$307,489,692'
+                            }
+                        ]}/> {spending}
+                    </Grid>
+                </div>
+                <Footer style={{
+                    flex: '1'
+                }}/>
             </div>
-            );
+        );
     }
 }
 
-export default HomePage;
+function mapStateToProps(state) {
+    const {entities: {
+            allOregon
+        }} = state;
+    return {allOregon}
+}
+
+export default connect(mapStateToProps, {fetchOregon})(HomePage)
+// export default HomePage;

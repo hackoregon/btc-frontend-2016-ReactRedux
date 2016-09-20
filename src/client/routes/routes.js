@@ -1,34 +1,29 @@
-'use strict';
-
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import HomePage from './HomePage.js';
 import SearchPage from './SearchPage.js';
-import CampaignsPage from './CampaignsPage.js';
-import ResultsPage from './ResultsPage.js';
+import RecipientsPage from './RecipientsPage.js';
 import DonorsPage from './DonorsPage.js';
-import CandidatesPage from './CandidatesPage.js';
-import OregonPage from './OregonPage.js';
+import Donor from './DonorPage.js';
+import RecipientPage from './RecipientPage.jsx';
 import FaqPage from './FaqPage.js';
 import AboutPage from './AboutPage.js';
-import CampaignResultPage from './CampaignResultPage.js';
+import Dev from './Dev';
 
 export default function(history) {
     return (
         <Router history={history}>
             <Route path="/" component="div">
                 <IndexRoute component={ HomePage } />
-                <Route path="/" component={ HomePage } />
-                <Route path="/search" component={ SearchPage } />
-                <Route path="/campaigns" component={ CampaignsPage } />
-                <Route path="/results/:searchTerm" component={ ResultsPage } />
+                <Route path="/" pageType={'home'} component={ HomePage } />
+                <Route path="/search" pageType ={'search'} component={ SearchPage } />
+                <Route path="/recipients" pageType={'singleResult'} component={ RecipientsPage } />
+                <Route path="/recipients/:filer_id" component={ RecipientPage } />
                 <Route path="/donors" component={ DonorsPage } />
-                <Route path="/donors/:donor_name" component={ DonorsPage } />
-                <Route path="/candidates" component={ CandidatesPage } />
-                <Route path="/oregon" component={ OregonPage } />
+                <Route path="/donors/:donorName" pageType={'singleResult'} component={ Donor } />
                 <Route path="/faq" component={ FaqPage } />
                 <Route path="/about" component={ AboutPage } />
-                <Route path="/campaign/:filer_id" component={ CampaignResultPage } />
+                <Route path="/dev" component={ Dev } />
             </Route>
         </Router>
         );
